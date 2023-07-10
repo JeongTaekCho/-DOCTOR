@@ -1,0 +1,12 @@
+{
+  "name": "4team_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://kdt-gitlab.elice.io/ai_track/class_07/ai_project/team04/4team_project",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^8.44.0",
+    "prettier": "^3.0.0"
+  }
+}
