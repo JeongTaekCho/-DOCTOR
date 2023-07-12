@@ -1,7 +1,12 @@
 import React from 'react';
+import MainPage from './pages/main';
 
 function App() {
-  return <>메인</>;
+  return (
+    <>
+      <MainPage />
+    </>
+  );
 }
 
 export default App;
