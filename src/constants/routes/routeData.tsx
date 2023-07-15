@@ -23,7 +23,7 @@ export const ROUTE: { [key: string]: Route } = {
     element: <RegisterPage />,
     exact: true,
   },
-  Login: {
+  LOGIN: {
     path: '/login',
     link: '/login',
     element: <LoginPage />,

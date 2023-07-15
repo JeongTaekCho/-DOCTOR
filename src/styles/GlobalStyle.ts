@@ -4,6 +4,9 @@ import reset from 'styled-reset';
 const GlobalStyle = createGlobalStyle` 
   ${reset} 
 
+    html,body {
+      font-size: 10px;
+    }
     a{
         text-decoration: none;
         color: inherit;
