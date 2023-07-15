@@ -17,12 +17,22 @@ const LoginPage = () => {
         <S.Form>
           <S.InputBox>
             <S.InputLabel>Email</S.InputLabel>
-            <Input type="text" />
+            <S.InputContainer>
+              <Input type="text" />
+              <S.PositionBtn type="button">
+                <img src="/images/commons/cancel.png" alt="" />
+              </S.PositionBtn>
+            </S.InputContainer>
             <S.InputError>* 이메일 형식으로 입력해주세요.</S.InputError>
           </S.InputBox>
           <S.InputBox>
             <S.InputLabel>Password</S.InputLabel>
-            <Input type="password" />
+            <S.InputContainer>
+              <Input type="password" />
+              <S.PositionBtn type="button">
+                <img src="/images/commons/hide.png" alt="" />
+              </S.PositionBtn>
+            </S.InputContainer>
             <S.InputError>
               * 비밀번호는 영문 숫자 특수문자 포함 10자리 이상이어야 합니다.
             </S.InputError>
