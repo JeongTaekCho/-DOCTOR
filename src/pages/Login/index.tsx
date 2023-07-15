@@ -6,6 +6,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
+import { ROUTE } from '../../constants/routes/routeData';
 
 const LoginPage = () => {
   const onClickLogin = () => {};
@@ -46,7 +47,14 @@ const LoginPage = () => {
           <S.ButtonBox>
             <FormButton type="submit" text="로그인" onClick={onClickLogin} disabled={false} />
           </S.ButtonBox>
+          <S.SocialLoginBtn type="button">
+            <img src="/images/commons/google.png" alt="구글 아이콘" />
+            <span>Sign in with Google</span>
+          </S.SocialLoginBtn>
         </S.Form>
+        <S.LinkMent>
+          아이디가 없으시다구요? <Link to={ROUTE.REGISTER.link}>회원가입 하러 가기</Link>
+        </S.LinkMent>
       </S.Container>
     </S.Wrap>
   );

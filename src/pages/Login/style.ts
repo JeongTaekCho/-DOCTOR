@@ -81,3 +81,40 @@ export const RememberBox = styled.div`
     color: #344054;
   }
 `;
+
+export const LinkMent = styled.p`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #344054;
+  margin: 1.8rem auto 0;
+  text-align: center;
+
+  a {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #5429ff;
+  }
+`;
+
+export const SocialLoginBtn = styled.button`
+  width: 100%;
+  padding: 0.9rem 0;
+  background-color: #fff;
+  border: 1px solid #d0d5dd;
+  border-radius: 0.8rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.6rem;
+
+  span {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #344054;
+  }
+
+  img {
+    width: 24px;
+  }
+`;
