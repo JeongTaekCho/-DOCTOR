@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 export const Wrap = styled.div`
   width: 100%;
   padding: 3rem 0;
+  position: fixed;
 `;
 
 export const container = styled.header`
