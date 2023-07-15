@@ -1,7 +1,7 @@
 import React from 'react';
-import MainPage from '../../pages/main';
-import RegisterPage from '../../pages/register';
-import LoginPage from '../../pages/login';
+import MainPage from '../../pages/Main';
+import RegisterPage from '../../pages/Register';
+import LoginPage from '../../pages/Login';
 
 interface Route {
   path: string;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
-import { ROUTE } from '../../constants/routes/routeData';
+// import { ROUTE } from '../../constants/routes/routeData';
 
 const MENU = [
   {
@@ -40,7 +40,7 @@ const PROFILE_MENU = [
 const Header = () => {
   const [isProfileMenu, setIsProfileMenu] = useState(false);
 
-  const [userToken] = useState(false);
+  const [userToken] = useState(true);
 
   const onClickProfileBox = () => {
     setIsProfileMenu(prev => !prev);
@@ -92,14 +92,14 @@ const Header = () => {
                 )}
               </S.ProfileWrap>
             )}
-            <S.SubBox>
+            {/* <S.SubBox>
               <S.LoginBtn>
                 <Link to={ROUTE.LOGIN.link}>로그인</Link>
               </S.LoginBtn>
               <S.RegisterBtn>
                 <Link to={ROUTE.REGISTER.link}>회원가입</Link>
               </S.RegisterBtn>
-            </S.SubBox>
+            </S.SubBox> */}
           </S.MenuBox>
         </S.Navigation>
       </S.container>
