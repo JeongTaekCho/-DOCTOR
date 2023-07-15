@@ -29,6 +29,22 @@ export const InputBox = styled.div`
   }
 `;
 
+export const InputContainer = styled.div`
+  position: relative;
+`;
+
+export const PositionBtn = styled.button`
+  position: absolute;
+  width: 2rem;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+
+  img {
+    width: 100%;
+  }
+`;
+
 export const InputLabel = styled.label`
   font-size: 1.8rem;
   font-weight: 500;
