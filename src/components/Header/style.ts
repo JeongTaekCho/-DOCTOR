@@ -2,8 +2,11 @@ import { styled } from 'styled-components';
 
 export const Wrap = styled.div`
   width: 100%;
-  padding: 3rem 0;
+  padding: 1.5rem 0;
   position: fixed;
+  backdrop-filter: blur(3px);
+  /* background-color: #fff; */
+  z-index: 9999;
 `;
 
 export const container = styled.header`

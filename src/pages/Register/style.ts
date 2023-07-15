@@ -29,6 +29,47 @@ export const InputBox = styled.div`
   }
 `;
 
+export const InputContainer = styled.div`
+  position: relative;
+`;
+
+export const PositionBtn = styled.button`
+  position: absolute;
+  width: 2rem;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+
+  img {
+    width: 100%;
+  }
+
+  span {
+    display: block;
+    width: 5.5rem;
+    padding: 0.7rem 0;
+    background-color: #5429ff;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+  }
+`;
+
+export const AuthBtn = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  width: 5.5rem;
+  padding: 0.7rem 0;
+  background-color: #5429ff;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+`;
+
 export const InputLabel = styled.label`
   font-size: 1.8rem;
   font-weight: 500;
@@ -44,4 +85,18 @@ export const InputError = styled.p`
 export const ButtonBox = styled.div`
   width: 100%;
   margin-top: 3.2rem;
+`;
+
+export const LinkMent = styled.p`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #344054;
+  margin: 1.8rem auto 0;
+  text-align: center;
+
+  a {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #5429ff;
+  }
 `;
