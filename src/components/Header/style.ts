@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { STYLE } from '../../styles/commonStyle';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -41,7 +42,7 @@ export const MenuList = styled.ul`
     a {
       font-size: 2rem;
       font-weight: 400;
-      color: #667085;
+      color: ${STYLE.subFontColor};
     }
   }
 `;
@@ -97,7 +98,7 @@ export const ProfileDetailBox = styled.div`
   height: 100vh;
   background: linear-gradient(
     180deg,
-    #344054 6.77%,
+    ${STYLE.mainFontColor} 6.77%,
     rgba(52, 64, 84, 0.00520833) 99.99%,
     rgba(52, 64, 84, 0) 100%
   );
@@ -135,7 +136,7 @@ export const SubBox = styled.div`
 
 export const LoginBtn = styled.div`
   width: 145px;
-  background-color: #5429ff;
+  background-color: ${STYLE.mainColor};
   border-radius: 30px;
   a {
     display: block;
@@ -150,7 +151,7 @@ export const LoginBtn = styled.div`
 
 export const RegisterBtn = styled.div`
   width: 145px;
-  border: 1px solid #5429ff;
+  border: 1px solid ${STYLE.mainColor};
   border-radius: 30px;
   a {
     display: block;
@@ -158,7 +159,7 @@ export const RegisterBtn = styled.div`
     padding: 1.6rem 0;
     font-size: 1.8rem;
     font-weight: 500;
-    color: #5429ff;
+    color: ${STYLE.mainColor};
     text-align: center;
   }
 `;

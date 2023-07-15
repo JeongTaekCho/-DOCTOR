@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { STYLE } from '../../styles/commonStyle';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -12,7 +13,7 @@ export const Container = styled.div`
 export const Title = styled.h2`
   font-size: 4rem;
   font-weight: 600;
-  color: #344054;
+  color: ${STYLE.mainFontColor};
   margin-bottom: 6rem;
 `;
 
@@ -48,7 +49,7 @@ export const PositionBtn = styled.button`
 export const InputLabel = styled.label`
   font-size: 1.8rem;
   font-weight: 500;
-  color: #344054;
+  color: ${STYLE.mainFontColor};
 `;
 
 export const InputError = styled.p`
@@ -72,27 +73,27 @@ export const RememberBox = styled.div`
   a {
     font-size: 1.4rem;
     font-weight: 500;
-    color: #5429ff;
+    color: ${STYLE.mainColor};
   }
 
   .css-ahj2mt-MuiTypography-root {
     font-size: 1.4rem !important;
     font-weight: 400;
-    color: #344054;
+    color: ${STYLE.mainFontColor};
   }
 `;
 
 export const LinkMent = styled.p`
   font-size: 1.4rem;
   font-weight: 400;
-  color: #344054;
+  color: ${STYLE.mainFontColor};
   margin: 1.8rem auto 0;
   text-align: center;
 
   a {
     font-size: 1.4rem;
     font-weight: 500;
-    color: #5429ff;
+    color: ${STYLE.mainColor};
   }
 `;
 
@@ -111,7 +112,7 @@ export const SocialLoginBtn = styled.button`
   span {
     font-size: 1.6rem;
     font-weight: 500;
-    color: #344054;
+    color: ${STYLE.mainFontColor};
   }
 
   img {

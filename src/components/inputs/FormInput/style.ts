@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { STYLE } from '../../../styles/commonStyle';
 
 export const Input = styled.input`
   width: 100%;
@@ -7,9 +8,9 @@ export const Input = styled.input`
   border: 1px solid #d0d5dd;
   font-size: 1.6rem;
   font-weight: 400;
-  color: #667085;
+  color: ${STYLE.subFontColor};
 
   &:focus {
-    outline: 1px solid #5429ff;
+    outline: 1px solid ${STYLE.mainColor};
   }
 `;
