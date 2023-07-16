@@ -9,6 +9,7 @@ export const Input = styled.input`
   font-size: 1.6rem;
   font-weight: 400;
   color: ${STYLE.subFontColor};
+  background-color: #fff;
 
   &:focus {
     outline: 1px solid ${STYLE.mainColor};
