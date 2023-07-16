@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
-// import { ROUTE } from '../../constants/routes/routeData';
+import { ROUTE } from '../../constants/routes/routeData';
 
 const MENU = [
   {
@@ -18,7 +18,7 @@ const MENU = [
   },
   {
     name: '실시간 상담',
-    link: '/',
+    link: ROUTE.CHATLIST.link,
   },
   {
     name: '커뮤니티',
@@ -61,6 +61,14 @@ const Header = () => {
                 </li>
               ))}
             </S.MenuList>
+            <S.SubBox>
+              <S.LoginBtn>
+                <Link to={ROUTE.LOGIN.link}>로그인</Link>
+              </S.LoginBtn>
+              <S.RegisterBtn>
+                <Link to={ROUTE.REGISTER.link}>회원가입</Link>
+              </S.RegisterBtn>
+            </S.SubBox>
             {userToken && (
               <S.ProfileWrap>
                 <S.ProfileBox onClick={onClickProfileBox}>
@@ -92,14 +100,6 @@ const Header = () => {
                 )}
               </S.ProfileWrap>
             )}
-            {/* <S.SubBox>
-              <S.LoginBtn>
-                <Link to={ROUTE.LOGIN.link}>로그인</Link>
-              </S.LoginBtn>
-              <S.RegisterBtn>
-                <Link to={ROUTE.REGISTER.link}>회원가입</Link>
-              </S.RegisterBtn>
-            </S.SubBox> */}
           </S.MenuBox>
         </S.Navigation>
       </S.container>

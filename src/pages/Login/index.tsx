@@ -40,7 +40,7 @@ const LoginPage = () => {
           </S.InputBox>
           <S.RememberBox>
             <FormGroup>
-              <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me" />
+              <FormControlLabel control={<Checkbox />} label="Remember me" />
             </FormGroup>
             <Link to="/">Forgot Password?</Link>
           </S.RememberBox>
