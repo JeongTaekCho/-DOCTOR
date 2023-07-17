@@ -2,9 +2,13 @@ import React, { MouseEvent, useState } from 'react';
 import * as S from './style';
 import ChatBox from '../../components/chats/ChatBox';
 import ProfileImg from '../../components/commons/ProfileImg';
+import ChatExitModal from '../../components/chats/ChatExitModal';
+import ReviewModal from '../../components/chats/ReviewModal';
 
 const ChatDetail = () => {
   const [isNav, setIsNav] = useState('상담 목록');
+  const [isExitModal, setIsExitModal] = useState(false);
+  const [isReviewModal, setIsReviewModal] = useState(false);
 
   const onClickNav = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -12,6 +16,26 @@ const ChatDetail = () => {
 
     console.log(name);
     setIsNav(name || '');
+  };
+
+  const onClickCancelModal = (e: MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    const { name } = target.dataset;
+
+    if (name === 'exit') {
+      setIsExitModal(false);
+    } else if (name === 'review') {
+      setIsReviewModal(false);
+    }
+  };
+
+  const onClickChatExitBtn = () => {
+    setIsExitModal(true);
+  };
+
+  const onClickChatExitBtnReview = () => {
+    setIsExitModal(false);
+    setIsReviewModal(true);
   };
 
   return (
@@ -45,7 +69,7 @@ const ChatDetail = () => {
               <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
               <S.HeadProfileName>깜장이 수의사 [깜장 동물병원]</S.HeadProfileName>
             </S.ProfileBox>
-            <S.ExitBtn type="button">
+            <S.ExitBtn type="button" onClick={onClickChatExitBtn}>
               <img src="/images/chats/exit.png" alt="채팅방 나가기 아이콘" />
             </S.ExitBtn>
           </S.ChatHead>
@@ -87,6 +111,13 @@ const ChatDetail = () => {
           </S.ChatForm>
         </S.CharRightBox>
       </S.Container>
+      {isExitModal && (
+        <ChatExitModal
+          onClickCancelModal={onClickCancelModal}
+          onClickChatExitBtnReview={onClickChatExitBtnReview}
+        />
+      )}
+      {isReviewModal && <ReviewModal onClickCancelModal={onClickCancelModal} />}
     </S.Wrap>
   );
 };
