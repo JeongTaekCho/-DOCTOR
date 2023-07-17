@@ -33,7 +33,7 @@ const PROFILE_MENU = [
   },
   {
     name: '채팅',
-    link: '/',
+    link: `${ROUTE.CHATDETAIL.link}/:유저아이디`,
   },
 ];
 

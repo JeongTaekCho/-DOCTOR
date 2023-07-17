@@ -4,7 +4,7 @@ import ProfileImg from '../../commons/ProfileImg';
 import { Rating } from '@mui/material';
 
 const ChatList = () => {
-  const [consult, setConsult] = useState('견종: \n몸무게: \n상세내용:');
+  const [consult, setConsult] = useState('견종: \n몸무게: \n상세내용: ');
   const [isConsultModal, setIsConsultModal] = useState(false);
 
   const onClickToggleConsultModal = () => {
