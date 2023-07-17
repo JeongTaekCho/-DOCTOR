@@ -54,7 +54,7 @@ export const ProfileWrap = styled.div`
 export const ProfileBox = styled.button`
   width: 215px;
   padding: 6px 0;
-  background-color: #ae9aff;
+  background-color: #344054;
   border-radius: 52px;
   display: flex;
   justify-content: center;
@@ -98,7 +98,7 @@ export const ProfileDetailBox = styled.div`
   height: 100vh;
   background: linear-gradient(
     180deg,
-    ${STYLE.mainFontColor} 6.77%,
+    #ae9aff 6.77%,
     rgba(52, 64, 84, 0.00520833) 99.99%,
     rgba(52, 64, 84, 0) 100%
   );

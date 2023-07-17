@@ -55,6 +55,10 @@ const ChatsPage = () => {
         <S.ChatListContainer>
           <S.ChatLists>
             <ChatList />
+            <ChatList />
+            <ChatList />
+            <ChatList />
+            <ChatList />
           </S.ChatLists>
         </S.ChatListContainer>
         <Loading />
