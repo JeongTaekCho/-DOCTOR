@@ -7,8 +7,15 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
+import useInput from '../../hooks/useInput';
 
 const LoginPage = () => {
+  const [email, onChangeEmail] = useInput('');
+  const [password, onChangePassword] = useInput('');
+
+  console.log(email);
+  console.log(password);
+
   const onClickLogin = () => {};
 
   return (
@@ -19,7 +26,7 @@ const LoginPage = () => {
           <S.InputBox>
             <S.InputLabel>Email</S.InputLabel>
             <S.InputContainer>
-              <Input type="text" />
+              <Input type="text" onChange={onChangeEmail} />
               <S.PositionBtn type="button">
                 <img src="/images/commons/cancel.png" alt="" />
               </S.PositionBtn>
@@ -29,7 +36,7 @@ const LoginPage = () => {
           <S.InputBox>
             <S.InputLabel>Password</S.InputLabel>
             <S.InputContainer>
-              <Input type="password" />
+              <Input type="password" onChange={onChangePassword} />
               <S.PositionBtn type="button">
                 <img src="/images/commons/hide.png" alt="" />
               </S.PositionBtn>
