@@ -3,6 +3,7 @@ import MainPage from '../../pages/Main';
 import RegisterPage from '../../pages/Register';
 import LoginPage from '../../pages/Login';
 import ChatsPage from '../../pages/Chats';
+import AiPage from '../../pages/Ai';
 
 interface Route {
   path: string;
@@ -34,6 +35,12 @@ export const ROUTE: { [key: string]: Route } = {
     path: '/chats',
     link: '/chats',
     element: <ChatsPage />,
+    exact: true,
+  },
+  AI: {
+    path: '/ai',
+    link: '/ai',
+    element: <AiPage />,
     exact: true,
   },
 };

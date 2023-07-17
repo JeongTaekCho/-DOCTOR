@@ -10,7 +10,7 @@ const MENU = [
   },
   {
     name: 'AI 자가진단',
-    link: '/',
+    link: '/ai',
   },
   {
     name: '동물병원 찾기',
