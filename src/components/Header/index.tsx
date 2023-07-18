@@ -138,16 +138,16 @@ const Header = () => {
                 {MENU.map(({ name, link }, index) => (
                   <li key={index}>
                     <Link to={link} onClick={onClickMobileMenuBtn}>
-                      {name}
+                      <span>{name}</span>
+                      <span>&gt;</span>
                     </Link>
-                    <span>&gt;</span>
                   </li>
                 ))}
                 <li>
                   <Link to={`${ROUTE.CHATDETAIL.link}/:유저아이디`} onClick={onClickMobileMenuBtn}>
-                    채팅
+                    <span>채팅</span>
+                    <span>&gt;</span>
                   </Link>
-                  <span>&gt;</span>
                 </li>
               </ul>
             </S.MobileNavigation>
