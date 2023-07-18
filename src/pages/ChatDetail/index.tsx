@@ -9,6 +9,7 @@ const ChatDetail = () => {
   const [isNav, setIsNav] = useState('상담 목록');
   const [isExitModal, setIsExitModal] = useState(false);
   const [isReviewModal, setIsReviewModal] = useState(false);
+  const [isChatActive, setIsChatActive] = useState(false);
 
   const onClickNav = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -38,10 +39,14 @@ const ChatDetail = () => {
     setIsReviewModal(true);
   };
 
+  const toggleChat = () => {
+    setIsChatActive(prev => !prev);
+  };
+
   return (
     <S.Wrap>
       <S.Container>
-        <S.ChatLeftBox>
+        <S.ChatLeftBox className={isChatActive ? 'active' : ''}>
           <S.ChatListNav>
             <li className={isNav === '상담 목록' ? 'selected' : ''}>
               <button type="button" data-name="상담 목록" onClick={onClickNav}>
@@ -56,22 +61,66 @@ const ChatDetail = () => {
           </S.ChatListNav>
           <S.ChatListBox>
             <li>
-              <ChatBox />
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
             </li>
             <li>
-              <ChatBox />
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={toggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
             </li>
           </S.ChatListBox>
         </S.ChatLeftBox>
-        <S.CharRightBox>
+        <S.CharRightBox className={isChatActive ? 'active' : ''}>
           <S.ChatHead>
             <S.ProfileBox>
               <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
               <S.HeadProfileName>깜장이 수의사 [깜장 동물병원]</S.HeadProfileName>
             </S.ProfileBox>
-            <S.ExitBtn type="button" onClick={onClickChatExitBtn}>
-              <img src="/images/chats/exit.png" alt="채팅방 나가기 아이콘" />
-            </S.ExitBtn>
+            <S.HeadBtnBox>
+              <S.BackBtn type="button" onClick={toggleChat}>
+                목록
+              </S.BackBtn>
+              <S.ExitBtn type="button" onClick={onClickChatExitBtn}>
+                <img src="/images/chats/exit.png" alt="채팅방 나가기 아이콘" />
+              </S.ExitBtn>
+            </S.HeadBtnBox>
           </S.ChatHead>
           <S.ChatDetailBox>
             <S.UserChatBox>
@@ -103,7 +152,7 @@ const ChatDetail = () => {
               <S.FileLabel htmlFor="file">
                 <img src="/images/chats/file.png" alt="" />
               </S.FileLabel>
-              <S.Textarea />
+              <S.Textarea placeholder="내용을 입력해주세요." />
             </S.FileTextarea>
             <S.SendBtn type="button">
               <img src="/images/chats/send.png" alt="보내기 아이콘" />

@@ -17,11 +17,21 @@ export const ChatContentsBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media (max-width: 920px) {
+    width: 55%;
+    align-items: flex-start;
+
+    p {
+      text-align: start;
+    }
+  }
 `;
 
 export const NameBox = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
 `;
 
 export const Name = styled.p`
@@ -32,6 +42,7 @@ export const Name = styled.p`
   font-size: 1.3rem;
   font-weight: 400;
   color: #000;
+  text-align: start;
 `;
 
 export const ChatContent = styled.p`
@@ -44,10 +55,17 @@ export const ChatContent = styled.p`
   color: #696969;
 `;
 
+export const ProfileBox = styled.div`
+  position: relative;
+`;
+
 export const Status = styled.div`
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 50%;
+  position: absolute;
+  bottom: 0.4rem;
+  right: -0.3rem;
 `;
 
 export const ChatNum = styled.div`
