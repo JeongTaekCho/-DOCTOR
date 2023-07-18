@@ -3,10 +3,8 @@ import { STYLE } from '../../styles/commonStyle';
 
 export const Wrap = styled.div`
   width: 100%;
-  padding: 1.5rem 0;
   position: fixed;
-  backdrop-filter: blur(3px);
-  /* background-color: #fff; */
+  background-color: #fff;
   z-index: 9999;
 `;
 
