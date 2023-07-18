@@ -18,38 +18,38 @@ export const ROUTE: { [key: string]: Route } = {
     path: '/',
     link: '/',
     element: <MainPage />,
-    exact: true,
+    exact: true
   },
   REGISTER: {
     path: '/register',
     link: '/register',
     element: <RegisterPage />,
-    exact: true,
+    exact: true
   },
   LOGIN: {
     path: '/login',
     link: '/login',
     element: <LoginPage />,
-    exact: true,
+    exact: true
   },
   CHATLIST: {
     path: '/chats',
     link: '/chats',
     element: <ChatsPage />,
-    exact: true,
+    exact: true
   },
   CHATDETAIL: {
     path: '/chats/:userId',
     link: '/chats',
     element: <ChatDetail />,
-    exact: true,
+    exact: true
   },
   AI: {
     path: '/ai',
     link: '/ai',
     element: <AiPage />,
-    exact: true,
-  },
+    exact: true
+  }
 };
 
 export const ROUTE_ARR = Object.values(ROUTE);
