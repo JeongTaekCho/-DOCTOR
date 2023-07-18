@@ -272,22 +272,19 @@ export const MobileNavigation = styled.nav`
     padding: 2rem 0;
     li {
       width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
 
       a {
-        display: block;
-        padding: 1.2rem 0;
-        font-size: 2.4rem;
-        font-weight: 500;
-        color: ${STYLE.mainFontColor};
-      }
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 1.5rem 0;
 
-      span {
-        font-size: 2.2rem;
-        font-weight: 500;
-        color: ${STYLE.mainFontColor};
+        span {
+          font-size: 2.4rem;
+          font-weight: 500;
+          color: ${STYLE.mainFontColor};
+        }
       }
     }
   }
