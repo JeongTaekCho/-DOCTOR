@@ -11,6 +11,9 @@ const GlobalStyle = createGlobalStyle`
       @media ${RESPONSIVE.tablet} {
         font-size: 8px;
       }
+      @media ${RESPONSIVE.mobile} {
+        font-size: 6px;
+      }
     }
     a{
         text-decoration: none;

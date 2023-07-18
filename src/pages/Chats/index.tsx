@@ -17,7 +17,7 @@ const AREA = [
   '충청도',
   '전라도',
   '경상도',
-  '제주도',
+  '제주도'
 ];
 
 const ChatsPage = () => {
@@ -32,18 +32,20 @@ const ChatsPage = () => {
   return (
     <S.Wrap>
       <S.Container>
-        <S.AreaList>
-          {AREA.map((area, index) => (
-            <li
-              key={index}
-              data-name={area}
-              className={isArea === area ? 'selected' : ''}
-              onClick={onClickArea}
-            >
-              {area}
-            </li>
-          ))}
-        </S.AreaList>
+        <S.AreaBox>
+          <S.AreaList>
+            {AREA.map((area, index) => (
+              <li
+                key={index}
+                data-name={area}
+                className={isArea === area ? 'selected' : ''}
+                onClick={onClickArea}
+              >
+                {area}
+              </li>
+            ))}
+          </S.AreaList>
+        </S.AreaBox>
         <S.SearchBox>
           <S.SearchForm>
             <S.SearchInput placeholder="수의사명 또는 병원명을 입력해주세요." />
