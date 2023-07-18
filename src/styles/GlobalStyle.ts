@@ -35,6 +35,12 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
       cursor: pointer;
     }
+
+    h2{
+      &#swal2-title{
+        line-height: 1.4;
+      }
+    }
 `;
 
 export default GlobalStyle;

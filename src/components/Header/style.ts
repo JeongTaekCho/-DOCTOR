@@ -143,31 +143,16 @@ export const SubBox = styled.div`
 `;
 
 export const LoginBtn = styled.div`
-  width: 145px;
-  background-color: ${STYLE.mainColor};
-  border-radius: 30px;
+  width: 215px;
+  background-color: #344054;
+  border-radius: 52px;
   a {
     display: block;
     width: 100%;
-    padding: 1.6rem 0;
+    padding: 1.8rem 0;
     font-size: 1.8rem;
     font-weight: 500;
     color: #fff;
-    text-align: center;
-  }
-`;
-
-export const RegisterBtn = styled.div`
-  width: 145px;
-  border: 1px solid ${STYLE.mainColor};
-  border-radius: 30px;
-  a {
-    display: block;
-    width: 100%;
-    padding: 1.6rem 0;
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: ${STYLE.mainColor};
     text-align: center;
   }
 `;
