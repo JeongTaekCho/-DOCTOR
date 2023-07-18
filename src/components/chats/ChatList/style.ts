@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../../styles/commonStyle';
+import { RESPONSIVE } from '../../../styles/responsive';
 
 export const ChatList = styled.li`
   padding: 2rem;
@@ -51,6 +52,11 @@ export const NameRateBox = styled.div`
     font-weight: 400;
     color: ${STYLE.mainFontColor};
   }
+
+  @media ${RESPONSIVE.mobile} {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
 `;
 
 export const ListDetail = styled.p`
@@ -64,6 +70,12 @@ export const ListDetail = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   line-height: 1.4;
+
+  @media ${RESPONSIVE.mobile} {
+    width: auto;
+    max-width: 320px;
+    -webkit-line-clamp: 1;
+  }
 `;
 
 export const ChatFormBg = styled.div`
@@ -83,7 +95,7 @@ export const ChatForm = styled.form`
   padding: 2.5rem 3.5rem;
   background-color: #fff;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 0.6rem;

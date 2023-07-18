@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
+import { RESPONSIVE } from '../../styles/responsive';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -8,12 +9,20 @@ export const Wrap = styled.div`
 export const Container = styled.div`
   width: 1200px;
   margin: 0 auto;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 90%;
+  }
+`;
+
+export const AreaBox = styled.div`
+  overflow-x: auto;
 `;
 
 export const AreaList = styled.ul`
   width: 100%;
   display: flex;
-  gap: 3.5rem;
+  gap: 0 3.5rem;
   justify-content: center;
   align-items: center;
   border-top: 1px solid #000;
@@ -42,6 +51,10 @@ export const AreaList = styled.ul`
       }
     }
   }
+
+  @media ${RESPONSIVE.tablet} {
+    flex-wrap: wrap;
+  }
 `;
 
 export const SearchBox = styled.div`
@@ -56,6 +69,10 @@ export const SearchForm = styled.form`
   display: flex;
   gap: 0.7rem;
   align-items: center;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 100%;
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -70,10 +87,18 @@ export const SearchInput = styled.input`
   &:focus {
     outline: 1px solid ${STYLE.mainColor};
   }
+
+  @media ${RESPONSIVE.mobile} {
+    width: 100%;
+  }
 `;
 
 export const SearchImgBtn = styled.button`
-  width: 2rem;
+  width: 3rem;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 4rem;
+  }
 
   img {
     width: 100%;
@@ -83,6 +108,10 @@ export const SearchImgBtn = styled.button`
 export const ChatListContainer = styled.div`
   width: 800px;
   margin: 0 auto 2.5rem;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 100%;
+  }
 `;
 
 export const ChatLists = styled.ul`
