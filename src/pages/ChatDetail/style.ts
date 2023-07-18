@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
+import { RESPONSIVE } from '../../styles/responsive';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -11,6 +12,14 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 920px) {
+    width: 600px;
+  }
+
+  @media ${RESPONSIVE.mobile} {
+    width: 90%;
+  }
 `;
 
 export const ChatLeftBox = styled.div`
@@ -18,6 +27,14 @@ export const ChatLeftBox = styled.div`
   height: 600px;
   border-radius: 0.6rem;
   background-color: ${STYLE.mainColor};
+
+  @media (max-width: 920px) {
+    width: 100%;
+
+    &.active {
+      display: none;
+    }
+  }
 `;
 
 export const CharRightBox = styled.div`
@@ -25,6 +42,14 @@ export const CharRightBox = styled.div`
   height: 600px;
   border-radius: 0.6rem;
   background-color: #fff;
+
+  @media (max-width: 920px) {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
 `;
 
 export const ChatListNav = styled.ul`
@@ -63,11 +88,31 @@ export const ChatListNav = styled.ul`
 
 export const ChatListBox = styled.ul`
   width: 100%;
+  height: 89%;
   padding: 2rem 1.2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  li {
+    width: 100%;
+
+    button {
+      display: block;
+      width: 100%;
+    }
+  }
 `;
+
+export const ChatBtn = styled.button``;
 
 export const ChatHead = styled.div`
   width: 100%;
@@ -125,7 +170,7 @@ export const UserChat = styled.div`
     font-weight: 400;
     color: #fff;
     white-space: pre-wrap;
-    line-height: 1.8rem;
+    line-height: 1.4;
     word-break: break-all;
   }
 `;
@@ -182,7 +227,7 @@ export const ChatForm = styled.form`
 `;
 
 export const Textarea = styled.textarea`
-  width: 40rem;
+  width: 100%;
   resize: none;
   border: 1px solid #000;
   border-radius: 0.6rem;
@@ -193,6 +238,7 @@ export const FileTextarea = styled.div`
   display: flex;
   gap: 1.5rem;
   align-items: center;
+  width: 90%;
 `;
 
 export const FileInput = styled.input`
@@ -200,7 +246,7 @@ export const FileInput = styled.input`
 `;
 
 export const FileLabel = styled.label`
-  width: 2.4rem;
+  width: 3.2rem;
   cursor: pointer;
 
   img {
@@ -213,5 +259,21 @@ export const SendBtn = styled.button`
 
   img {
     width: 100%;
+  }
+`;
+
+export const HeadBtnBox = styled.div`
+  @media (max-width: 920px) {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+`;
+
+export const BackBtn = styled.button`
+  display: none;
+
+  @media (max-width: 920px) {
+    display: block;
   }
 `;

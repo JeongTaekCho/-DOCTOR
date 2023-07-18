@@ -44,6 +44,10 @@ const GlobalStyle = createGlobalStyle`
         line-height: 1.4;
       }
     }
+
+    .swal2-container{
+      z-index: 9999;
+    }
 `;
 
 export default GlobalStyle;
