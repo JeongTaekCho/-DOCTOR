@@ -12,19 +12,19 @@ export const Title = styled.div`
 
 export const Header = styled.h4`
   font-weight: bolder;
-  font-size: 32px;
+  font-size: 3.2rem;
 `;
 
 export const P = styled.p`
   margin-top: 2%;
-  font-size: 25px;
+  font-size: 2.5rem;
 `;
 
 export const Upload = styled.div`
   width: 100%;
-  height: 439px;
+  height: 43.9rem;
   text-align: center;
-  padding-top: 20px;
+  padding-top: 2rem;
 `;
 
 export const Label = styled.label`
@@ -39,29 +39,29 @@ export const Label = styled.label`
   border-bottom-color: #e2e2e2;
   border-radius: 1em;
   cursor: pointer;
-  width: 435px;
-  height: 435px;
+  width: 43.5rem;
+  height: 43.5rem;
 `;
 
 export const FileInput = styled.input`
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.1rem;
+  height: 0.1rem;
   padding: 0;
-  margin: -1px;
+  margin: -0.1rem;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
 `;
 
 export const LabelHeader = styled.h4`
-  padding-top: 70px;
+  padding-top: 7rem;
 `;
 
 export const LabelText = styled.p`
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: bolder;
-  margin-top: 50px;
+  margin-top: 5rem;
 `;
 
 export const Example = styled.div`
@@ -73,10 +73,10 @@ export const Example = styled.div`
 export const Button = styled.button`
   background-color: #ae9aff;
   color: white;
-  height: 98px;
-  width: 360px;
-  font-size: 32px;
-  border-radius: 10px;
+  height: 9.8rem;
+  width: 36rem;
+  font-size: 3.2rem;
+  border-radius: 1rem;
   font-weight: bolder;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
@@ -96,8 +96,11 @@ export const Button = styled.button`
 `;
 
 export const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
@@ -106,7 +109,7 @@ export const Modal = styled.div`
 export const Card = styled.div`
   width: 649px;
   height: 609px;
-  z-index: 999;
+  z-index: 999999;
   position: absolute;
   top: 55%;
   left: 50%;
@@ -117,30 +120,30 @@ export const Card = styled.div`
 
 export const Close = styled.div`
   cursor: pointer;
-  height: 30px;
-  padding: 10px;
+  height: 3rem;
+  padding: 1rem;
   text-align: right;
 `;
 
 export const Correct = styled.div`
   text-align: center;
-  padding-top: 30px;
+  padding-top: 3rem;
 `;
 
 export const CoExample = styled.h4`
-  font-size: 25px;
+  font-size: 2.5rem;
   font-weight: bolder;
 `;
 
 export const CoExplain = styled.p`
-  font-size: 20px;
-  padding-top: 10px;
+  font-size: 2rem;
+  padding-top: 1rem;
 `;
 
 export const CoImage = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 10px;
+  padding-top: 1rem;
 `;
 
 export const ImagePreview = styled.div`
@@ -148,16 +151,16 @@ export const ImagePreview = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 300px;
+  height: 30rem;
 `;
 
 export const CorrectImg = styled.img`
   width: 25%;
-  margin-right: 10px;
+  margin-right: 1rem;
 `;
 
 export const WrongImg = styled.img`
   width: 25%;
-  height: 150px;
-  margin-right: 10px;
+  height: 15rem;
+  margin-right: 1rem;
 `;

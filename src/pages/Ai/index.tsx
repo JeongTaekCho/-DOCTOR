@@ -21,7 +21,7 @@ const AiPage = () => {
         <S.P>우리 아이 피부질환 AI 자가진단 해보기</S.P>
       </S.Title>
       <S.Upload>
-        <S.Label for="ex_file">
+        <S.Label htmlFor="ex_file">
           <S.LabelHeader>
             <GrUpload size="130" />
           </S.LabelHeader>
