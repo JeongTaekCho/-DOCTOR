@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
 import { Input } from '../../components/inputs/FormInput/style';
 import FormButton from '../../components/buttons/FormButton';
@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
 
 const RegisterPage = () => {
+  const [isCode] = useState(true);
+
   const onClickLogin = () => {};
 
   return (
@@ -21,6 +23,14 @@ const RegisterPage = () => {
             </S.InputContainer>
             <S.InputError>* 이메일 형식으로 입력해주세요.</S.InputError>
           </S.InputBox>
+          {isCode && (
+            <S.InputBox>
+              <S.InputContainer>
+                <Input type="text" placeholder="인증코드를 입력해주세요." />
+                <S.AuthBtn type="button">확인</S.AuthBtn>
+              </S.InputContainer>
+            </S.InputBox>
+          )}
           <S.InputBox>
             <S.InputLabel>비밀번호</S.InputLabel>
             <S.InputContainer>

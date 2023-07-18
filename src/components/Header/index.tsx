@@ -70,11 +70,8 @@ const Header = () => {
             </S.MenuList>
             {/* <S.SubBox>
               <S.LoginBtn>
-                <Link to={ROUTE.LOGIN.link}>로그인</Link>
+                <Link to={ROUTE.LOGIN.link}>로그인 / 회원가입</Link>
               </S.LoginBtn>
-              <S.RegisterBtn>
-                <Link to={ROUTE.REGISTER.link}>회원가입</Link>
-              </S.RegisterBtn>
             </S.SubBox> */}
             {userToken && (
               <S.ProfileWrap>
