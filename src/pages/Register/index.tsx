@@ -4,11 +4,16 @@ import { Input } from '../../components/inputs/FormInput/style';
 import FormButton from '../../components/buttons/FormButton';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
+import Swal from 'sweetalert2';
 
 const RegisterPage = () => {
   const [isCode] = useState(true);
 
   const onClickLogin = () => {};
+
+  const onClickEmailAuthBtn = () => {
+    Swal.fire('입력하신 이메일로 인증코드가 \n 전송 되었습니다.');
+  };
 
   return (
     <S.Wrap>
@@ -19,7 +24,9 @@ const RegisterPage = () => {
             <S.InputLabel>이메일</S.InputLabel>
             <S.InputContainer>
               <Input type="text" />
-              <S.AuthBtn type="button">인증</S.AuthBtn>
+              <S.AuthBtn type="button" onClick={onClickEmailAuthBtn}>
+                인증
+              </S.AuthBtn>
             </S.InputContainer>
             <S.InputError>* 이메일 형식으로 입력해주세요.</S.InputError>
           </S.InputBox>
