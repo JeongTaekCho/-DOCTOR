@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
+import { RESPONSIVE } from '../../styles/responsive';
+import { Link } from 'react-router-dom';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -9,11 +11,15 @@ export const Wrap = styled.div`
 `;
 
 export const container = styled.header`
-  width: 1360px;
+  width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 90%;
+  }
 `;
 
 export const LogoBox = styled.div`
@@ -23,7 +29,11 @@ export const LogoBox = styled.div`
   }
 `;
 
-export const Navigation = styled.nav``;
+export const Navigation = styled.nav`
+  @media ${RESPONSIVE.tablet} {
+    display: none;
+  }
+`;
 
 export const MenuBox = styled.div`
   display: flex;
@@ -133,13 +143,13 @@ export const SubBox = styled.div`
 `;
 
 export const LoginBtn = styled.div`
-  width: 145px;
-  background-color: ${STYLE.mainColor};
-  border-radius: 30px;
+  width: 215px;
+  background-color: #344054;
+  border-radius: 52px;
   a {
     display: block;
     width: 100%;
-    padding: 1.6rem 0;
+    padding: 1.8rem 0;
     font-size: 1.8rem;
     font-weight: 500;
     color: #fff;
@@ -147,17 +157,142 @@ export const LoginBtn = styled.div`
   }
 `;
 
-export const RegisterBtn = styled.div`
-  width: 145px;
-  border: 1px solid ${STYLE.mainColor};
-  border-radius: 30px;
-  a {
-    display: block;
+export const MobileMenuBtn = styled.button`
+  @media ${RESPONSIVE.pc} {
+    display: none;
+  }
+
+  svg {
+    font-size: 3.2rem;
+  }
+`;
+
+export const MobileMenu = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 100%;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  transition: ease-in-out 0.2s;
+  opacity: 0;
+
+  &.active {
+    left: 0;
+    opacity: 1;
+  }
+`;
+
+export const MobileMenuContainer = styled.div`
+  @media ${RESPONSIVE.tablet} {
+    width: 60%;
+    padding: 1.8rem 0;
+    margin: 0 auto;
+  }
+
+  @media ${RESPONSIVE.mobile} {
+    width: 90%;
+  }
+`;
+
+export const MobileMenuHead = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const MobileLogoBox = styled.div`
+  @media ${RESPONSIVE.tablet} {
+    width: 10rem;
+  }
+  @media ${RESPONSIVE.mobile} {
+    width: 21.875%;
+  }
+
+  img {
     width: 100%;
-    padding: 1.6rem 0;
+  }
+`;
+
+export const MobileMenuCloseBtn = styled.button`
+  @media ${RESPONSIVE.tablet} {
+    width: 5rem;
+  }
+  @media ${RESPONSIVE.mobile} {
+    width: 10%;
+  }
+
+  img {
+    width: 100%;
+  }
+`;
+
+export const LoginMent = styled.p`
+  font-size: 2rem;
+  font-weight: 500;
+  color: ${STYLE.mainFontColor};
+  margin: 3rem 0 1rem;
+`;
+
+export const LoginMenuBtn = styled(Link)`
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: ${STYLE.subFontColor};
+  text-decoration: underline;
+`;
+
+export const MobileNavigation = styled.nav`
+  width: 100%;
+  margin-top: 3rem;
+  border-top: 1px solid #333;
+
+  ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    li {
+      width: 100%;
+
+      a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 1.5rem 0;
+
+        span {
+          font-size: 2.4rem;
+          font-weight: 500;
+          color: ${STYLE.mainFontColor};
+        }
+      }
+    }
+  }
+`;
+
+export const MobileLoginBox = styled.div``;
+
+export const MobileProfileBox = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 3rem;
+
+  p {
     font-size: 1.8rem;
     font-weight: 500;
-    color: ${STYLE.mainColor};
-    text-align: center;
+    color: ${STYLE.mainFontColor};
+  }
+
+  button {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: ${STYLE.subFontColor};
+    margin-left: 0.5rem;
   }
 `;

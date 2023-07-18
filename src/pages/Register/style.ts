@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
+import { RESPONSIVE } from '../../styles/responsive';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -8,6 +9,10 @@ export const Wrap = styled.div`
 export const Container = styled.div`
   width: 360px;
   margin: 8rem auto 0;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 90%;
+  }
 `;
 
 export const Title = styled.h2`

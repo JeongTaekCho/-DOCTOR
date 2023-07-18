@@ -1,11 +1,19 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import { RESPONSIVE } from './responsive';
 
 const GlobalStyle = createGlobalStyle` 
   ${reset} 
 
     html,body {
       font-size: 10px;
+
+      @media ${RESPONSIVE.tablet} {
+        font-size: 8px;
+      }
+      @media ${RESPONSIVE.mobile} {
+        font-size: 6px;
+      }
     }
     a{
         text-decoration: none;
@@ -29,6 +37,12 @@ const GlobalStyle = createGlobalStyle`
       background: none;
       padding: 0;
       cursor: pointer;
+    }
+
+    h2{
+      &#swal2-title{
+        line-height: 1.4;
+      }
     }
 `;
 
