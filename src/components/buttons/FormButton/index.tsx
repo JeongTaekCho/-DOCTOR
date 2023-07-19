@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { Button } from './style';
 
 interface buttonProps {
   type: 'button' | 'submit' | 'reset' | undefined;
   text: string;
   disabled?: boolean;
-  onClick: () => void;
+  onClick: (_e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const FormButton = ({ type, text, disabled, onClick }: buttonProps) => {

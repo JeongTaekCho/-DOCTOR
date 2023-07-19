@@ -7,7 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
-import useInput from '../../hooks/useInput';
+import useInput from '../../hooks/util/useInput';
 
 const LoginPage = () => {
   const [email, onChangeEmail] = useInput('');
