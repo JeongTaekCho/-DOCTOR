@@ -31,7 +31,7 @@ const MENU = [
 const PROFILE_MENU = [
   {
     name: '마이페이지',
-    link: '/'
+    link: `${ROUTE.MYPAGE.link}/:유저아이디`
   },
   {
     name: '채팅',

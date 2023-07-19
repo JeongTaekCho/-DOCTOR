@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './style';
-import { BiSend } from 'react-icons/bi';
+import { BiMessageSquareCheck } from 'react-icons/bi';
+
 const MainPage = () => {
   return (
     <S.Wrap>
@@ -14,7 +15,16 @@ const MainPage = () => {
           서비스
         </S.Header>
       </S.Container>
-      <S.AiDiv>
+      <S.AiDiv
+        data-aos="fade-in"
+        data-aos-offset="200"
+        data-aos-delay="3"
+        data-aos-duration="600"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="false"
+        data-aos-anchor-placement="top-center"
+      >
         <S.AiIntro>
           <S.IntroHeader>
             무심코 지나치게 되는 아이의 피부질환,
@@ -29,7 +39,16 @@ const MainPage = () => {
           <S.Pic src="/images/commons/maintest2.png"></S.Pic>
         </S.AiPic>
       </S.AiDiv>
-      <S.SubDiv>
+      <S.SubDiv
+        data-aos="fade-down"
+        data-aos-offset="200"
+        data-aos-delay="1"
+        data-aos-duration="500"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="false"
+        data-aos-anchor-placement="top-center"
+      >
         <S.SubHeader>
           전문의와의 상담과 정보공유까지
           <br />
@@ -63,20 +82,20 @@ const MainPage = () => {
       <S.EffectDiv>
         <S.EffectHeader>DOCTOR가 제공하는 기대효과 및 활용 방안</S.EffectHeader>
         <S.EffectP>
-          <BiSend color="#AE9AFF" size="20" />
-          피부과 비전공 수의사 진단 보조로 활용
+          <BiMessageSquareCheck color="#AE9AFF" size="20" />
+          <S.EffectSpan>피부과 비전공 수의사 진단 보조로 활용</S.EffectSpan>
         </S.EffectP>
         <S.EffectP>
-          <BiSend color="#AE9AFF" size="20" />
-          병원 진료 후 처방에 대한 차도 확인 보조로 활용
+          <BiMessageSquareCheck color="#AE9AFF" size="20" />
+          <S.EffectSpan>병원 진료 후 처방에 대한 차도 확인 보조로 활용</S.EffectSpan>
         </S.EffectP>
         <S.EffectP>
-          <BiSend color="#AE9AFF" size="20" />
-          건강 상태를 주기적으로 확인하여 질병 예방에 기여
+          <BiMessageSquareCheck color="#AE9AFF" size="20" />
+          <S.EffectSpan>건강 상태를 주기적으로 확인하여 질병 예방에 기여</S.EffectSpan>
         </S.EffectP>
         <S.EffectP>
-          <BiSend color="#AE9AFF" size="20" />
-          질환 초기 발견으로 조기 병원 내원 유도
+          <BiMessageSquareCheck color="#AE9AFF" size="20" />
+          <S.EffectSpan>질환 초기 발견으로 조기 병원 내원 유도</S.EffectSpan>
         </S.EffectP>
       </S.EffectDiv>
     </S.Wrap>
