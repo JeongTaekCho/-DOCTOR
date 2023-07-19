@@ -74,6 +74,11 @@ export const AuthBtn = styled.button`
   font-size: 1.4rem;
   font-weight: 600;
   color: #fff;
+
+  &:disabled {
+    background-color: #999;
+    cursor: default;
+  }
 `;
 
 export const InputLabel = styled.label`
