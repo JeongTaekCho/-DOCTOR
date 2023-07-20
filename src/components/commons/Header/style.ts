@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
-import { STYLE } from '../../styles/commonStyle';
-import { RESPONSIVE } from '../../styles/responsive';
 import { Link } from 'react-router-dom';
+import { RESPONSIVE } from '../../../styles/responsive';
+import { STYLE } from '../../../styles/commonStyle';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -124,7 +124,8 @@ export const ProfileBoxMenu = styled.ul`
   flex-direction: column;
   li {
     width: 100%;
-    a {
+    a,
+    button {
       display: block;
       width: 100%;
       padding: 10px 0;

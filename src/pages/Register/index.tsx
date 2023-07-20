@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import * as S from './style';
 import { Input } from '../../components/inputs/FormInput/style';
 import FormButton from '../../components/buttons/FormButton';
@@ -11,6 +11,8 @@ import { useEmailCheckMutation } from '../../hooks/query/useEmailCheckMutation';
 import { useRegisterMutation } from '../../hooks/query/useRegisterMutation';
 import LoadingBg from '../../components/commons/LoadingBg';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../commons/validate';
+import { tokenAtom } from '../../atoms/atoms';
+import { useAtom } from 'jotai';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -32,7 +34,15 @@ const RegisterPage = () => {
     authCode: true
   });
 
+  const [userToken] = useAtom(tokenAtom);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userToken) {
+      navigate(ROUTE.HOME.link);
+    }
+  }, [userToken]);
 
   const validateComplete =
     !!email &&

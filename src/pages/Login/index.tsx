@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import * as S from './style';
 import { Input } from '../../components/inputs/FormInput/style';
 import FormButton from '../../components/buttons/FormButton';
@@ -10,6 +10,8 @@ import { ROUTE } from '../../constants/routes/routeData';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../commons/validate';
 import { useLoginMutation } from '../../hooks/query/useLoginMutation';
 import Swal from 'sweetalert2';
+import { useAtom } from 'jotai';
+import { tokenAtom } from '../../atoms/atoms';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -19,9 +21,17 @@ const LoginPage = () => {
     password: false
   });
 
-  const { mutate: loginMutate }: any = useLoginMutation();
+  const [userToken, setUserToken] = useAtom(tokenAtom);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userToken) {
+      navigate(ROUTE.HOME.link);
+    }
+  }, [userToken]);
+
+  const { mutate: loginMutate }: any = useLoginMutation();
 
   const validateComplete =
     !!email && !!password && validate.email === false && validate.password === false;
@@ -65,6 +75,7 @@ const LoginPage = () => {
       {
         onSuccess: (loginData: any) => {
           sessionStorage.setItem('token', loginData.data.user.token);
+          setUserToken(sessionStorage.getItem('token'));
           Swal.fire('로그인 성공');
           navigate(ROUTE.HOME.link);
         }
