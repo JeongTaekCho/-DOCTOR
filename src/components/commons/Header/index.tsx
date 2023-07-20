@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
-import { ROUTE } from '../../constants/routes/routeData';
 import { HiMenu } from 'react-icons/hi';
-import ProfileImg from '../commons/ProfileImg';
+import ProfileImg from '../ProfileImg';
+import { ROUTE } from '../../../constants/routes/routeData';
+import { useAtom } from 'jotai';
+import { tokenAtom } from '../../../atoms/atoms';
 
 const MENU = [
   {
@@ -43,7 +45,11 @@ const Header = () => {
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
 
-  const [userToken] = useState(true);
+  const [userToken, setUserToken] = useAtom(tokenAtom);
+
+  useEffect(() => {
+    setUserToken(sessionStorage.getItem('token'));
+  }, []);
 
   const onClickProfileBox = () => {
     setIsProfileMenu(prev => !prev);
@@ -51,6 +57,11 @@ const Header = () => {
 
   const onClickMobileMenuBtn = () => {
     setIsMobileMenu(prev => !prev);
+  };
+
+  const onClickLogout = () => {
+    sessionStorage.removeItem('token');
+    window.location.reload();
   };
 
   return (
@@ -68,12 +79,7 @@ const Header = () => {
                 </li>
               ))}
             </S.MenuList>
-            {/* <S.SubBox>
-              <S.LoginBtn>
-                <Link to={ROUTE.LOGIN.link}>로그인 / 회원가입</Link>
-              </S.LoginBtn>
-            </S.SubBox> */}
-            {userToken && (
+            {userToken ? (
               <S.ProfileWrap>
                 <S.ProfileBox onClick={onClickProfileBox}>
                   <S.ProfileContainer>
@@ -97,12 +103,18 @@ const Header = () => {
                         </li>
                       ))}
                       <li>
-                        <Link to="/">로그아웃</Link>
+                        <button onClick={onClickLogout}>로그아웃</button>
                       </li>
                     </S.ProfileBoxMenu>
                   </S.ProfileDetailBox>
                 )}
               </S.ProfileWrap>
+            ) : (
+              <S.SubBox>
+                <S.LoginBtn>
+                  <Link to={ROUTE.LOGIN.link}>로그인 / 회원가입</Link>
+                </S.LoginBtn>
+              </S.SubBox>
             )}
           </S.MenuBox>
         </S.Navigation>
@@ -119,17 +131,23 @@ const Header = () => {
                 <img src="/images/commons/close.png" alt="" />
               </S.MobileMenuCloseBtn>
             </S.MobileMenuHead>
-            {/* <S.MobileLoginBox>
-              <S.LoginMent>로그인 후 이용해 주세요.</S.LoginMent>
-              <S.LoginMenuBtn to={ROUTE.LOGIN.link} onClick={onClickMobileMenuBtn}>
-                로그인 하러가기 &gt;
-              </S.LoginMenuBtn>
-            </S.MobileLoginBox> */}
-            <S.MobileProfileBox>
-              <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-              <p>깜장이 수의사 님</p>
-              <button type="button">로그아웃</button>
-            </S.MobileProfileBox>
+            {userToken ? (
+              <S.MobileProfileBox>
+                <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                <p>깜장이 수의사 님</p>
+                <button type="button" onClick={onClickLogout}>
+                  로그아웃
+                </button>
+              </S.MobileProfileBox>
+            ) : (
+              <S.MobileLoginBox>
+                <S.LoginMent>로그인 후 이용해 주세요.</S.LoginMent>
+                <S.LoginMenuBtn to={ROUTE.LOGIN.link} onClick={onClickMobileMenuBtn}>
+                  로그인 하러가기 &gt;
+                </S.LoginMenuBtn>
+              </S.MobileLoginBox>
+            )}
+
             <S.MobileNavigation>
               <ul>
                 {MENU.map(({ name, link }, index) => (
