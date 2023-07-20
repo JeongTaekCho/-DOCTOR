@@ -18,7 +18,7 @@ const ChatDetail = () => {
 
   useEffect(() => {
     // 백엔드 서버 주소로 소켓 연결
-    const socket = io('http://localhost:5000');
+    const socket = io('http://localhost:8080/chat');
     setSocket(socket);
 
     // 연결될 때 이벤트 처리
@@ -116,47 +116,47 @@ const ChatDetail = () => {
           </S.ChatListNav>
           <S.ChatListBox>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
             <li>
-              <S.ChatBtn type="button" onClick={toggleChat}>
+              <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>

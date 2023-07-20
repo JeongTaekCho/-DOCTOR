@@ -112,7 +112,7 @@ export const ChatListBox = styled.ul`
   }
 `;
 
-export const ChatBtn = styled.button``;
+export const ChatBtn = styled.div``;
 
 export const ChatHead = styled.div`
   width: 100%;
