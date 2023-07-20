@@ -7,6 +7,7 @@ export const Wrap = styled.div`
   width: 100%;
   position: fixed;
   background-color: #fff;
+  padding: 1.2rem 0;
   z-index: 9999;
 `;
 
@@ -23,9 +24,11 @@ export const container = styled.header`
 `;
 
 export const LogoBox = styled.div`
-  width: 10rem;
-  img {
-    width: 100%;
+  width: 14rem;
+  a {
+    img {
+      width: 100%;
+    }
   }
 `;
 
