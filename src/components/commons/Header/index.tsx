@@ -68,7 +68,9 @@ const Header = () => {
     <S.Wrap>
       <S.container>
         <S.LogoBox>
-          <img src="/images/commons/logo.png" alt="" />
+          <Link to={ROUTE.HOME.link}>
+            <img src="/images/commons/logo.png" alt="독터 로고" />
+          </Link>
         </S.LogoBox>
         <S.Navigation>
           <S.MenuBox>
