@@ -10,9 +10,7 @@ import { useEmailAuthMutation } from '../../hooks/query/useEmailAuthMutation';
 import { useEmailCheckMutation } from '../../hooks/query/useEmailCheckMutation';
 import { useRegisterMutation } from '../../hooks/query/useRegisterMutation';
 import LoadingBg from '../../components/commons/LoadingBg';
-
-const PASSOWRDREGEX = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
-const EMAILREGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { EMAILREGEX, PASSOWRDREGEX } from '../../commons/validate';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
