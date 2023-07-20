@@ -26,7 +26,7 @@ export const Profile = styled.div`
 
 export const Detail = styled.div`
   width: 70rem;
-  height: 80rem;
+  height: 90rem;
   background-color: white;
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -76,13 +76,37 @@ export const MyDetail = styled.div`
 `;
 
 export const TabItem = styled.p<TabItemProps>`
+  position: relative;
   color: white;
   cursor: pointer;
   font-weight: bolder;
+  transition: 0.1s;
+
+  &::before {
+    content: ' ';
+    display: inline-block;
+    width: 4px;
+  }
+
+  &:hover {
+    color: #5429ff;
+  }
 
   ${({ active }) =>
     active &&
     css`
       color: #5429ff;
+      position: relative;
+      text-decoration: none;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -90%;
+        width: 108%;
+        height: 3px;
+        background-color: #5429ff;
+      }
     `}
 `;
