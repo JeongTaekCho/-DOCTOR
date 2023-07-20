@@ -18,6 +18,12 @@ const LoginPage = () => {
 
   const onClickLogin = () => {};
 
+  const onClickGoogleLogin = () => {
+    window.location
+      .assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GMAIL_OAUTH_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:5173&scope=https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email
+    `);
+  };
+
   return (
     <S.Wrap>
       <S.Container>
@@ -54,7 +60,7 @@ const LoginPage = () => {
           <S.ButtonBox>
             <FormButton type="submit" text="로그인" onClick={onClickLogin} disabled={false} />
           </S.ButtonBox>
-          <S.SocialLoginBtn type="button">
+          <S.SocialLoginBtn type="button" onClick={onClickGoogleLogin}>
             <img src="/images/commons/google.png" alt="구글 아이콘" />
             <span>Sign in with Google</span>
           </S.SocialLoginBtn>
