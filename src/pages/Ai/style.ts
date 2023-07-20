@@ -164,3 +164,46 @@ export const WrongImg = styled.img`
   height: 15rem;
   margin-right: 1rem;
 `;
+export const Label2 = styled.label``;
+
+export const Input = styled.input`
+  display: none;
+`;
+
+export const Skin = styled.h4`
+  font-size: 4rem;
+  font-weight: bolder;
+  margin-top: 2rem;
+`;
+
+export const SkinSpan = styled.span`
+  color: red;
+`;
+
+export const SkinButton = styled.button`
+  background-color: #ae9aff;
+  color: white;
+  height: 6rem;
+  width: 18rem;
+  font-size: 2.5rem;
+  border-radius: 1rem;
+  font-weight: bolder;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+
+  &:hover {
+    background-color: ${STYLE.subColor};
+    box-shadow: #ae9aff;
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
