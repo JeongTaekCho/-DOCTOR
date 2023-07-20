@@ -1,15 +1,64 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import * as S from './style';
 import ChatBox from '../../components/chats/ChatBox';
 import ProfileImg from '../../components/commons/ProfileImg';
 import ChatExitModal from '../../components/chats/ChatExitModal';
 import ReviewModal from '../../components/chats/ReviewModal';
+import io, { Socket } from 'socket.io-client';
 
 const ChatDetail = () => {
   const [isNav, setIsNav] = useState('상담 목록');
   const [isExitModal, setIsExitModal] = useState(false);
   const [isReviewModal, setIsReviewModal] = useState(false);
   const [isChatActive, setIsChatActive] = useState(false);
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [chatId, setChatId] = useState<string>('');
+  const [messages, setMessages] = useState<string[]>([]);
+  const [message, setMessage] = useState<string>('');
+
+  useEffect(() => {
+    // 백엔드 서버 주소로 소켓 연결
+    const socket = io('http://localhost:5000');
+    setSocket(socket);
+
+    // 연결될 때 이벤트 처리
+    socket.on('connect', () => {
+      console.log('소켓 연결됨');
+    });
+
+    // 연결 종료 시 이벤트 처리
+    socket.on('disconnect', () => {
+      console.log('소켓 연결 종료');
+    });
+
+    // 메시지 수신 이벤트 처리
+    socket.on('msgReceive', ({ email, content }: { email: string; content: string }) => {
+      setMessages(prevMessages => [...prevMessages, `${email}: ${content}`]);
+    });
+
+    return () => {
+      // 컴포넌트가 언마운트될 때 소켓 연결 종료
+      socket.disconnect();
+    };
+  }, []);
+
+  const onClickJoinChat = () => {
+    // chatId에 입장 요청 보내기
+    socket?.emit('join', chatId);
+  };
+
+  const onClickMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(event.target.value);
+  };
+
+  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (message.trim() === '' || !chatId) return;
+    // 서버에 메시지 전송
+    socket?.emit('msgSend', { email: '사용자 이메일', chatId, content: message });
+    setMessages(prevMessages => [...prevMessages, `나: ${message}`]);
+    setMessage('');
+  };
 
   const onClickNav = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -42,6 +91,12 @@ const ChatDetail = () => {
   const toggleChat = () => {
     setIsChatActive(prev => !prev);
   };
+
+  console.log(setChatId);
+  console.log(messages);
+  console.log(onClickJoinChat);
+  console.log(setChatId);
+  console.log(setChatId);
 
   return (
     <S.Wrap>
@@ -152,9 +207,9 @@ const ChatDetail = () => {
               <S.FileLabel htmlFor="file">
                 <img src="/images/chats/file.png" alt="" />
               </S.FileLabel>
-              <S.Textarea placeholder="내용을 입력해주세요." />
+              <S.Textarea placeholder="내용을 입력해주세요." onChange={onClickMessageChange} />
             </S.FileTextarea>
-            <S.SendBtn type="button">
+            <S.SendBtn type="button" onClick={onClickSubmit}>
               <img src="/images/chats/send.png" alt="보내기 아이콘" />
             </S.SendBtn>
           </S.ChatForm>
