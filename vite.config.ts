@@ -5,6 +5,10 @@ import react from '@vitejs/plugin-react';
 import eslintPlugin from 'vite-plugin-eslint';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import PrettierPlugin from 'vite-plugin-prettier';
+import replace from '@rollup/plugin-replace';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // https://vitejs.dev/config/
 
@@ -34,7 +38,11 @@ export default defineConfig({
         logLevel: 'warn',
         editorconfig: false
       } as any
-    )
+    ),
+    replace({
+      'process.env.GMAIL_OAUTH_CLIENT_ID': JSON.stringify(process.env.GMAIL_OAUTH_CLIENT_ID),
+      'process.env.GAMIL_OAUTH_CLIENT_SECRET': JSON.stringify(process.env.GAMIL_OAUTH_CLIENT_SECRET)
+    })
   ],
   server: {
     fs: {

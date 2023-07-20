@@ -1,12 +1,13 @@
 import { styled } from 'styled-components';
-import { STYLE } from '../../styles/commonStyle';
-import { RESPONSIVE } from '../../styles/responsive';
 import { Link } from 'react-router-dom';
+import { RESPONSIVE } from '../../../styles/responsive';
+import { STYLE } from '../../../styles/commonStyle';
 
 export const Wrap = styled.div`
   width: 100%;
   position: fixed;
   background-color: #fff;
+  padding: 1.2rem 0;
   z-index: 9999;
 `;
 
@@ -23,9 +24,11 @@ export const container = styled.header`
 `;
 
 export const LogoBox = styled.div`
-  width: 10rem;
-  img {
-    width: 100%;
+  width: 14rem;
+  a {
+    img {
+      width: 100%;
+    }
   }
 `;
 
@@ -124,7 +127,8 @@ export const ProfileBoxMenu = styled.ul`
   flex-direction: column;
   li {
     width: 100%;
-    a {
+    a,
+    button {
       display: block;
       width: 100%;
       padding: 10px 0;

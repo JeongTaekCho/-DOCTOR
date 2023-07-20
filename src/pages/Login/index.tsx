@@ -1,22 +1,93 @@
-import React from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import * as S from './style';
 import { Input } from '../../components/inputs/FormInput/style';
 import FormButton from '../../components/buttons/FormButton';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
-import useInput from '../../hooks/useInput';
+import { EMAILREGEX, PASSOWRDREGEX } from '../../commons/validate';
+import { useLoginMutation } from '../../hooks/query/useLoginMutation';
+import Swal from 'sweetalert2';
+import { useAtom } from 'jotai';
+import { tokenAtom } from '../../atoms/atoms';
 
 const LoginPage = () => {
-  const [email, onChangeEmail] = useInput('');
-  const [password, onChangePassword] = useInput('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [validate, setValidate] = useState({
+    email: false,
+    password: false
+  });
 
-  console.log(email);
-  console.log(password);
+  const [userToken, setUserToken] = useAtom(tokenAtom);
 
-  const onClickLogin = () => {};
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userToken) {
+      navigate(ROUTE.HOME.link);
+    }
+  }, [userToken]);
+
+  const { mutate: loginMutate }: any = useLoginMutation();
+
+  const validateComplete =
+    !!email && !!password && validate.email === false && validate.password === false;
+
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (name === 'email') {
+      setEmail(value);
+
+      if (EMAILREGEX.test(value)) {
+        setValidate({ ...validate, email: false });
+      } else {
+        setValidate({ ...validate, email: true });
+      }
+    }
+
+    if (name === 'password') {
+      setPassword(value);
+
+      if (PASSOWRDREGEX.test(value)) {
+        setValidate(prevError => ({ ...prevError, password: false }));
+      } else {
+        setValidate(prevError => ({ ...prevError, password: true }));
+      }
+    }
+  };
+
+  const onClickEmailClean = () => {
+    setEmail('');
+  };
+
+  const onClickLogin = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    loginMutate(
+      {
+        email,
+        password
+      },
+      {
+        onSuccess: (loginData: any) => {
+          sessionStorage.setItem('token', loginData.data.user.token);
+          setUserToken(sessionStorage.getItem('token'));
+          Swal.fire('로그인 성공');
+          navigate(ROUTE.HOME.link);
+        }
+      }
+    );
+  };
+
+  const onClickGoogleLogin = () => {
+    window.location
+      .assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GMAIL_OAUTH_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:5173&scope=https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email
+    `);
+  };
 
   return (
     <S.Wrap>
@@ -26,24 +97,40 @@ const LoginPage = () => {
           <S.InputBox>
             <S.InputLabel>Email</S.InputLabel>
             <S.InputContainer>
-              <Input type="text" onChange={onChangeEmail} />
-              <S.PositionBtn type="button">
+              <Input
+                type="text"
+                name="email"
+                value={email}
+                onChange={onChangeInput}
+                autoComplete="username"
+              />
+              <S.PositionBtn type="button" onClick={onClickEmailClean}>
                 <img src="/images/commons/cancel.png" alt="" />
               </S.PositionBtn>
             </S.InputContainer>
-            <S.InputError>* 이메일 형식으로 입력해주세요.</S.InputError>
+            {validate.email === true && (
+              <S.InputError>* 이메일 형식으로 입력해주세요.</S.InputError>
+            )}
           </S.InputBox>
           <S.InputBox>
             <S.InputLabel>Password</S.InputLabel>
             <S.InputContainer>
-              <Input type="password" onChange={onChangePassword} />
-              <S.PositionBtn type="button">
+              <Input
+                type="password"
+                autoComplete="current-password"
+                name="password"
+                value={password}
+                onChange={onChangeInput}
+              />
+              {/* <S.PositionBtn type="button">
                 <img src="/images/commons/hide.png" alt="" />
-              </S.PositionBtn>
+              </S.PositionBtn> */}
             </S.InputContainer>
-            <S.InputError>
-              * 비밀번호는 영문 숫자 특수문자 포함 10자리 이상이어야 합니다.
-            </S.InputError>
+            {validate.password === true && (
+              <S.InputError>
+                * 비밀번호는 영문 숫자 특수문자 포함 10자리 이상이어야 합니다.
+              </S.InputError>
+            )}
           </S.InputBox>
           <S.RememberBox>
             <FormGroup>
@@ -52,9 +139,14 @@ const LoginPage = () => {
             <Link to="/">Forgot Password?</Link>
           </S.RememberBox>
           <S.ButtonBox>
-            <FormButton type="submit" text="로그인" onClick={onClickLogin} disabled={false} />
+            <FormButton
+              type="submit"
+              text="로그인"
+              onClick={onClickLogin}
+              disabled={validateComplete === true ? false : true}
+            />
           </S.ButtonBox>
-          <S.SocialLoginBtn type="button">
+          <S.SocialLoginBtn type="button" onClick={onClickGoogleLogin}>
             <img src="/images/commons/google.png" alt="구글 아이콘" />
             <span>Sign in with Google</span>
           </S.SocialLoginBtn>
