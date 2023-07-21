@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import Avatar from '@mui/material/Avatar';
-import { useRef } from 'react';
 import MyManage from '../../components/mypage/Manage';
 import List from '../../components/mypage/List';
+import { BiPencil } from 'react-icons/bi';
 
 const MyPage = () => {
   const [image, setImage] = useState<string | undefined>(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
-  const fileInput = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<'manage' | 'list'>('manage');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,19 +34,27 @@ const MyPage = () => {
     <S.Wrap>
       <S.Container>
         <S.Profile>
-          <S.Label htmlFor="profile-img-input">
+          <S.AvatarDiv>
             <Avatar
               src={image}
-              sx={{ width: 150, height: 150, margin: 'auto', marginTop: '2rem', cursor: 'pointer' }}
+              sx={{ width: 150, height: 150, margin: 'auto', marginTop: '2rem' }}
             />
+            <S.ChangeDiv>
+              <BiPencil
+                size="48"
+                color="gray"
+                onClick={() => document.getElementById('profile-img-input')?.click()}
+              />
+            </S.ChangeDiv>
+          </S.AvatarDiv>
+          <S.Label htmlFor="profile-img-input">
             <S.Input
               id="profile-img-input"
               type="file"
               accept="image/jpg,image/png,image/jpeg"
               name="profile_img"
               onChange={onChange}
-              ref={fileInput}
-            ></S.Input>
+            />
             <S.Name>유승제</S.Name>
             <S.State>
               계정상태: <S.StateSpan>정상</S.StateSpan>

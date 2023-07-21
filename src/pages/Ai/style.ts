@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
+import { RESPONSIVE } from '../../styles/responsive';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -25,6 +26,10 @@ export const Upload = styled.div`
   height: 43.9rem;
   text-align: center;
   padding-top: 2rem;
+
+  @media ${RESPONSIVE.mobile} {
+    height: 30rem;
+  }
 `;
 
 export const Label = styled.label`
@@ -68,6 +73,10 @@ export const Example = styled.div`
   width: 100%;
   text-align: center;
   padding-top: 5%;
+
+  @media ${RESPONSIVE.mobile} {
+    margin-top: 40%;
+  }
 `;
 
 export const Button = styled.button`
