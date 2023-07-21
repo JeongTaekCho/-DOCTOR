@@ -116,8 +116,8 @@ export const Modal = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 649px;
-  height: 609px;
+  width: 64.9rem;
+  height: 60.9rem;
   z-index: 999999;
   position: absolute;
   top: 55%;
@@ -125,6 +125,10 @@ export const Card = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 8px;
+
+  @media ${RESPONSIVE.mobile} {
+    top: 40%;
+  }
 `;
 
 export const Close = styled.div`
