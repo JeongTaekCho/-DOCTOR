@@ -12,15 +12,11 @@ export const Wrap = styled.div`
 `;
 
 export const container = styled.header`
-  width: 1200px;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  @media ${RESPONSIVE.tablet} {
-    width: 90%;
-  }
 `;
 
 export const LogoBox = styled.div`
