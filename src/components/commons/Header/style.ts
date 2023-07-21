@@ -12,15 +12,11 @@ export const Wrap = styled.div`
 `;
 
 export const container = styled.header`
-  width: 1200px;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  @media ${RESPONSIVE.tablet} {
-    width: 90%;
-  }
 `;
 
 export const LogoBox = styled.div`
@@ -147,7 +143,7 @@ export const SubBox = styled.div`
 `;
 
 export const LoginBtn = styled.div`
-  width: 215px;
+  width: 150px;
   background-color: #344054;
   border-radius: 52px;
   a {

@@ -114,7 +114,7 @@ const Header = () => {
             ) : (
               <S.SubBox>
                 <S.LoginBtn>
-                  <Link to={ROUTE.LOGIN.link}>로그인 / 회원가입</Link>
+                  <Link to={ROUTE.LOGIN.link}>로그인</Link>
                 </S.LoginBtn>
               </S.SubBox>
             )}
