@@ -74,7 +74,7 @@ const LoginPage = () => {
       },
       {
         onSuccess: (loginData: any) => {
-          sessionStorage.setItem('token', loginData.data.user.token);
+          sessionStorage.setItem('token', loginData.data);
           setUserToken(sessionStorage.getItem('token'));
           Swal.fire('로그인 성공');
           navigate(ROUTE.HOME.link);
