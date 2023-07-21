@@ -18,7 +18,6 @@ const MainPage = () => {
       <S.AiDiv
         data-aos="fade-in"
         data-aos-offset="200"
-        data-aos-delay="3"
         data-aos-duration="600"
         data-aos-easing="ease-in-out"
         data-aos-mirror="true"
@@ -73,7 +72,6 @@ const MainPage = () => {
       <S.EffectDiv
         data-aos="fade-up"
         data-aos-offset="200"
-        data-aos-delay="3"
         data-aos-duration="600"
         data-aos-easing="ease-in-out"
         data-aos-mirror="true"
