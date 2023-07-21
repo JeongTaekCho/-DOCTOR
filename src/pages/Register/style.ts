@@ -7,7 +7,7 @@ export const Wrap = styled.div`
 `;
 
 export const Container = styled.div`
-  width: 360px;
+  width: 400px;
   margin: 8rem auto 0;
 
   @media ${RESPONSIVE.mobile} {

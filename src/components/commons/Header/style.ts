@@ -143,7 +143,7 @@ export const SubBox = styled.div`
 `;
 
 export const LoginBtn = styled.div`
-  width: 215px;
+  width: 150px;
   background-color: #344054;
   border-radius: 52px;
   a {
