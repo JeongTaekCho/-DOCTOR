@@ -1,17 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import * as S from './style';
 import { BsPen } from 'react-icons/bs';
 
 const MyManage = () => {
   const [isBasic, setIsBasic] = useState(false);
   const [isVet, setIsVet] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [validate, setValidate] = useState({
+    password: false,
+    passwordConfirm: false
+  });
+
+  const PASSOWRDREGEX = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 
   const handleEditBasic = () => {
     setIsBasic(prev => !prev);
+    setValidate({
+      password: false,
+      passwordConfirm: false
+    });
+    setPassword('');
+    setPasswordConfirm('');
   };
 
   const handleEditVet = () => {
     setIsVet(prev => !prev);
+  };
+
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (name === 'password') {
+      setPassword(value);
+
+      if (PASSOWRDREGEX.test(value)) {
+        setValidate(prevError => ({ ...prevError, password: false }));
+      } else {
+        setValidate(prevError => ({ ...prevError, password: true }));
+      }
+
+      if (passwordConfirm && passwordConfirm !== value) {
+        setValidate(prevError => ({ ...prevError, passwordConfirm: true }));
+      } else {
+        setValidate(prevError => ({ ...prevError, passwordConfirm: false }));
+      }
+    }
+
+    if (name === 'passwordConfirm') {
+      setPasswordConfirm(value);
+
+      if (password && password !== value) {
+        setValidate(prevError => ({ ...prevError, passwordConfirm: true }));
+      } else {
+        setValidate(prevError => ({ ...prevError, passwordConfirm: false }));
+      }
+    }
   };
 
   return (
@@ -43,9 +87,45 @@ const MyManage = () => {
           <S.CenteredText>비밀번호</S.CenteredText>
         </S.LeftText>
         <S.InputDiv>
-          {isBasic ? <S.RightInput placeholder="123456" /> : <S.RightText>*******</S.RightText>}
+          {isBasic ? (
+            <S.RightInput
+              type="password"
+              name="password"
+              value={password}
+              onChange={onChangeInput}
+            />
+          ) : (
+            <S.RightText>*******</S.RightText>
+          )}
         </S.InputDiv>
+        {validate.password && isBasic && (
+          <S.ConfirmDiv style={{ display: 'flex', alignItems: 'center' }}>
+            <S.ConfirmSpan>
+              비밀번호는 영문 숫자 특수문자 포함 10자리 이상이어야 합니다.
+            </S.ConfirmSpan>
+          </S.ConfirmDiv>
+        )}
       </S.MainBox2>
+      {isBasic && (
+        <S.MainBox2>
+          <S.LeftText>
+            <S.CenteredText>비밀번호 확인</S.CenteredText>
+          </S.LeftText>
+          <S.InputDiv>
+            <S.RightInput
+              type="password"
+              name="passwordConfirm"
+              value={passwordConfirm}
+              onChange={onChangeInput}
+            />
+          </S.InputDiv>
+          {validate.passwordConfirm && passwordConfirm && (
+            <S.ConfirmDiv style={{ display: 'flex', alignItems: 'center' }}>
+              <S.ConfirmSpan>비밀번호가 일치하지 않습니다.</S.ConfirmSpan>
+            </S.ConfirmDiv>
+          )}
+        </S.MainBox2>
+      )}
       {isBasic && (
         <S.ButtonDiv>
           <S.BlueButton>확인</S.BlueButton>
@@ -60,10 +140,14 @@ const MyManage = () => {
       </S.Pen>
       <S.MainBox>
         <S.LeftText>
-          <S.CenteredText>인증상태</S.CenteredText>
+          {isVet ? (
+            <S.CenteredText>면허증 첨부</S.CenteredText>
+          ) : (
+            <S.CenteredText>인증상태</S.CenteredText>
+          )}
         </S.LeftText>
         <S.InputDiv>
-          {isVet ? <S.FileInput type="file" /> : <S.RightText2>유승제</S.RightText2>}
+          {isVet ? <S.FileInput type="file" /> : <S.RightText2>인증됨</S.RightText2>}
         </S.InputDiv>
       </S.MainBox>
       <S.MainBox2>

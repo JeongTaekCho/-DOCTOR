@@ -148,3 +148,12 @@ export const FileInput = styled.input`
   height: 70%;
   margin-left: 1rem;
 `;
+
+export const ConfirmDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const ConfirmSpan = styled.span`
+  color: red;
+`;
