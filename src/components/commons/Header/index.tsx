@@ -18,7 +18,7 @@ const MENU = [
   },
   {
     name: '동물병원 찾기',
-    link: '/'
+    link: '/hospital'
   },
   {
     name: '실시간 상담',

@@ -6,6 +6,8 @@ import ChatsPage from '../../pages/Chats';
 import ChatDetail from '../../pages/ChatDetail';
 import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
+import HospitalPage from '../../pages/Hospital';
+import AdminPage from '../../pages/Admin';
 
 interface Route {
   path: string;
@@ -55,6 +57,18 @@ export const ROUTE: { [key: string]: Route } = {
     path: '/mypage/:userId',
     link: '/mypage',
     element: <MyPage />,
+    exact: true
+  },
+  HOSPITAL: {
+    path: '/hospital',
+    link: '/hospital',
+    element: <HospitalPage />,
+    exact: true
+  },
+  ADMIN: {
+    path: '/admin',
+    link: '/admin',
+    element: <AdminPage />,
     exact: true
   }
 };
