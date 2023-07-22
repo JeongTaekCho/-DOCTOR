@@ -2,11 +2,11 @@ import React, { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import Header from '../commons/Header';
 
-interface layoutProps {
+interface LayoutProps {
   children: ReactNode;
 }
 
-const LayoutComponents = ({ children }: layoutProps) => {
+const LayoutComponents = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />

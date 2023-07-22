@@ -6,40 +6,8 @@ import ProfileImg from '../ProfileImg';
 import { ROUTE } from '../../../constants/routes/routeData';
 import { useAtom } from 'jotai';
 import { tokenAtom } from '../../../atoms/atoms';
-
-const MENU = [
-  {
-    name: '서비스 소개',
-    link: '/'
-  },
-  {
-    name: 'AI 자가진단',
-    link: '/ai'
-  },
-  {
-    name: '동물병원 찾기',
-    link: '/'
-  },
-  {
-    name: '실시간 상담',
-    link: ROUTE.CHATLIST.link
-  },
-  {
-    name: '커뮤니티',
-    link: '/'
-  }
-];
-
-const PROFILE_MENU = [
-  {
-    name: '마이페이지',
-    link: `${ROUTE.MYPAGE.link}/:유저아이디`
-  },
-  {
-    name: '채팅',
-    link: `${ROUTE.CHATDETAIL.link}/:유저아이디`
-  }
-];
+import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
+import uuid from 'react-uuid';
 
 const Header = () => {
   const [isProfileMenu, setIsProfileMenu] = useState(false);
@@ -51,15 +19,15 @@ const Header = () => {
     setUserToken(sessionStorage.getItem('token'));
   }, []);
 
-  const onClickProfileBox = () => {
+  const handleProfileBox = () => {
     setIsProfileMenu(prev => !prev);
   };
 
-  const onClickMobileMenuBtn = () => {
+  const handleMobileMenuBtn = () => {
     setIsMobileMenu(prev => !prev);
   };
 
-  const onClickLogout = () => {
+  const handleLogout = () => {
     sessionStorage.removeItem('token');
     window.location.reload();
   };
@@ -75,15 +43,15 @@ const Header = () => {
         <S.Navigation>
           <S.MenuBox>
             <S.MenuList>
-              {MENU.map(({ name, link }, index) => (
-                <li key={index}>
+              {MENU.map(({ name, link }) => (
+                <li key={uuid()}>
                   <Link to={link}>{name}</Link>
                 </li>
               ))}
             </S.MenuList>
             {userToken ? (
               <S.ProfileWrap>
-                <S.ProfileBox onClick={onClickProfileBox}>
+                <S.ProfileBox onClick={handleProfileBox}>
                   <S.ProfileContainer>
                     <p>깜장이 님</p>
                     <S.ProfileImgBox>
@@ -97,15 +65,15 @@ const Header = () => {
                 {isProfileMenu && (
                   <S.ProfileDetailBox>
                     <S.ProfileBoxMenu>
-                      {PROFILE_MENU.map(({ name, link }, index) => (
-                        <li key={index}>
-                          <Link to={link} onClick={onClickProfileBox}>
+                      {PROFILE_MENU.map(({ name, link }) => (
+                        <li key={uuid()}>
+                          <Link to={link} onClick={handleProfileBox}>
                             {name}
                           </Link>
                         </li>
                       ))}
                       <li>
-                        <button onClick={onClickLogout}>로그아웃</button>
+                        <button onClick={handleLogout}>로그아웃</button>
                       </li>
                     </S.ProfileBoxMenu>
                   </S.ProfileDetailBox>
@@ -120,7 +88,7 @@ const Header = () => {
             )}
           </S.MenuBox>
         </S.Navigation>
-        <S.MobileMenuBtn type="button" onClick={onClickMobileMenuBtn}>
+        <S.MobileMenuBtn type="button" onClick={handleMobileMenuBtn}>
           <HiMenu />
         </S.MobileMenuBtn>
         <S.MobileMenu className={isMobileMenu ? 'active' : ''}>
@@ -129,7 +97,7 @@ const Header = () => {
               <S.MobileLogoBox>
                 <img src="/images/commons/logo.png" alt="" />
               </S.MobileLogoBox>
-              <S.MobileMenuCloseBtn type="button" onClick={onClickMobileMenuBtn}>
+              <S.MobileMenuCloseBtn type="button" onClick={handleMobileMenuBtn}>
                 <img src="/images/commons/close.png" alt="" />
               </S.MobileMenuCloseBtn>
             </S.MobileMenuHead>
@@ -137,14 +105,14 @@ const Header = () => {
               <S.MobileProfileBox>
                 <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
                 <p>깜장이 수의사 님</p>
-                <button type="button" onClick={onClickLogout}>
+                <button type="button" onClick={handleLogout}>
                   로그아웃
                 </button>
               </S.MobileProfileBox>
             ) : (
               <S.MobileLoginBox>
                 <S.LoginMent>로그인 후 이용해 주세요.</S.LoginMent>
-                <S.LoginMenuBtn to={ROUTE.LOGIN.link} onClick={onClickMobileMenuBtn}>
+                <S.LoginMenuBtn to={ROUTE.LOGIN.link} onClick={handleMobileMenuBtn}>
                   로그인 하러가기 &gt;
                 </S.LoginMenuBtn>
               </S.MobileLoginBox>
@@ -152,16 +120,16 @@ const Header = () => {
 
             <S.MobileNavigation>
               <ul>
-                {MENU.map(({ name, link }, index) => (
-                  <li key={index}>
-                    <Link to={link} onClick={onClickMobileMenuBtn}>
+                {MENU.map(({ name, link }) => (
+                  <li key={uuid()}>
+                    <Link to={link} onClick={handleMobileMenuBtn}>
                       <span>{name}</span>
                       <span>&gt;</span>
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <Link to={`${ROUTE.CHATDETAIL.link}/:유저아이디`} onClick={onClickMobileMenuBtn}>
+                  <Link to={`${ROUTE.CHATDETAIL.link}/:유저아이디`} onClick={handleMobileMenuBtn}>
                     <span>채팅</span>
                     <span>&gt;</span>
                   </Link>
