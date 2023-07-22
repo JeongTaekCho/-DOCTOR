@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import * as S from './style';
 import { BsPen } from 'react-icons/bs';
-
+import { PASSOWRDREGEX } from '../../../commons/validate';
 const MyManage = () => {
   const [isBasic, setIsBasic] = useState(false);
   const [isVet, setIsVet] = useState(false);
@@ -11,8 +11,6 @@ const MyManage = () => {
     password: false,
     passwordConfirm: false
   });
-
-  const PASSOWRDREGEX = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 
   const handleEditBasic = () => {
     setIsBasic(prev => !prev);
