@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import * as API from '../../api/index';
 
 interface RegisterData {
   email: string;
@@ -7,8 +7,12 @@ interface RegisterData {
   nickname: string;
 }
 
+interface RegisterReturn {
+  message: string;
+}
+
 const register = (data: RegisterData) => {
-  return axios.post('http://localhost:8080/register', data);
+  return API.post<RegisterReturn, RegisterData>('/register', data);
 };
 
 export const useRegisterMutation = () => {

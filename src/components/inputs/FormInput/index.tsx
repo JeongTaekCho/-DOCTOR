@@ -1,14 +1,12 @@
 import React from 'react';
 import { Input } from './style';
 
-interface inputProps {
-  type: string;
-  onChange: () => void;
-  autoComplete?: string;
-}
+interface inputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const FormInput = ({ type, onChange, autoComplete }: inputProps) => {
-  return <Input type={type} autoComplete={autoComplete} onChange={onChange} />;
+const FormInput = ({ type, onChange, autoComplete, placeholder }: inputProps) => {
+  return (
+    <Input type={type} autoComplete={autoComplete} onChange={onChange} placeholder={placeholder} />
+  );
 };
 
 export default FormInput;
