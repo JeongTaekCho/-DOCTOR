@@ -6,6 +6,7 @@ import ChatsPage from '../../pages/Chats';
 import ChatDetail from '../../pages/ChatDetail';
 import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
+import Community from '../../pages/Community';
 
 interface Route {
   path: string;
@@ -55,6 +56,12 @@ export const ROUTE: { [key: string]: Route } = {
     path: '/mypage/:userId',
     link: '/mypage',
     element: <MyPage />,
+    exact: true
+  },
+  COMMUNITY: {
+    path: '/community',
+    link: '/community',
+    element: <Community />,
     exact: true
   }
 };
