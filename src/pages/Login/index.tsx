@@ -7,11 +7,11 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
-import { EMAILREGEX, PASSOWRDREGEX } from '../../commons/validate';
 import { useLoginMutation } from '../../hooks/query/useLoginMutation';
 import Swal from 'sweetalert2';
 import { useAtom } from 'jotai';
 import { tokenAtom } from '../../atoms/atoms';
+import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -36,7 +36,7 @@ const LoginPage = () => {
   const validateComplete =
     !!email && !!password && validate.email === false && validate.password === false;
 
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === 'email') {
@@ -60,11 +60,11 @@ const LoginPage = () => {
     }
   };
 
-  const onClickEmailClean = () => {
+  const handleEmailClean = () => {
     setEmail('');
   };
 
-  const onClickLogin = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleLogin = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     loginMutate(
@@ -83,7 +83,7 @@ const LoginPage = () => {
     );
   };
 
-  const onClickGoogleLogin = () => {
+  const handleGoogleLogin = () => {
     window.location
       .assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GMAIL_OAUTH_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:5173&scope=https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email
     `);
@@ -101,10 +101,10 @@ const LoginPage = () => {
                 type="text"
                 name="email"
                 value={email}
-                onChange={onChangeInput}
+                onChange={handleChangeInput}
                 autoComplete="username"
               />
-              <S.PositionBtn type="button" onClick={onClickEmailClean}>
+              <S.PositionBtn type="button" onClick={handleEmailClean}>
                 <img src="/images/commons/cancel.png" alt="" />
               </S.PositionBtn>
             </S.InputContainer>
@@ -120,7 +120,7 @@ const LoginPage = () => {
                 autoComplete="current-password"
                 name="password"
                 value={password}
-                onChange={onChangeInput}
+                onChange={handleChangeInput}
               />
               {/* <S.PositionBtn type="button">
                 <img src="/images/commons/hide.png" alt="" />
@@ -142,11 +142,11 @@ const LoginPage = () => {
             <FormButton
               type="submit"
               text="로그인"
-              onClick={onClickLogin}
+              onClick={handleLogin}
               disabled={validateComplete === true ? false : true}
             />
           </S.ButtonBox>
-          <S.SocialLoginBtn type="button" onClick={onClickGoogleLogin}>
+          <S.SocialLoginBtn type="button" onClick={handleGoogleLogin}>
             <img src="/images/commons/google.png" alt="구글 아이콘" />
             <span>Sign in with Google</span>
           </S.SocialLoginBtn>

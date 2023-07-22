@@ -7,7 +7,7 @@ const ChatBox = () => {
     <S.ChatListBox>
       <S.ProfileBox>
         <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-        <S.Status style={{ backgroundColor: '#34A853' }} />
+        <S.Status backgroundcolor="#34A853" />
       </S.ProfileBox>
       <S.ChatContentsBox>
         <S.NameBox>

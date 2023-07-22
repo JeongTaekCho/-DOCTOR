@@ -59,13 +59,14 @@ export const ProfileBox = styled.div`
   position: relative;
 `;
 
-export const Status = styled.div`
+export const Status = styled.div<{ backgroundcolor: string }>`
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 50%;
   position: absolute;
   bottom: 0.4rem;
   right: -0.3rem;
+  background-color: ${({ backgroundcolor }) => backgroundcolor};
 `;
 
 export const ChatNum = styled.div`

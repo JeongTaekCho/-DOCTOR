@@ -1,13 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import * as API from '../../api/index';
 
 interface EmailCheckData {
   email: string;
   code: string;
 }
 
+interface EmailCheckReturn {
+  message: string;
+}
+
 const emailCheck = (data: EmailCheckData) => {
-  return axios.post('http://localhost:8080/verifyEmail', data);
+  return API.post<EmailCheckReturn, EmailCheckData>('/verifyEmail', data);
 };
 
 export const useEmailCheckMutation = () => {
