@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import * as S from './style';
 import { BsPen } from 'react-icons/bs';
-import { PASSOWRDREGEX } from '../../../commons/validate';
+import { PASSOWRDREGEX } from '../../../constants/commons/validaties';
 const MyManage = () => {
   const [isBasic, setIsBasic] = useState(false);
   const [isVet, setIsVet] = useState(false);

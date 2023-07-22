@@ -17,7 +17,7 @@ export const MENU = [
   },
   {
     name: '커뮤니티',
-    link: '/'
+    link: '/community'
   }
 ];
 
