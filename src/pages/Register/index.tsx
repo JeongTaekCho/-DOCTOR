@@ -98,10 +98,10 @@ const RegisterPage = () => {
     if (name === 'nickname') {
       setNickname(value);
 
-      if (value) {
-        setValidate({ ...validate, nickname: false });
-      } else {
+      if (value.length < 2 || value.length > 10) {
         setValidate({ ...validate, nickname: true });
+      } else {
+        setValidate({ ...validate, nickname: false });
       }
     }
   };
@@ -238,7 +238,10 @@ const RegisterPage = () => {
             <S.InputContainer>
               <Input type="text" name="nickname" value={nickname} onChange={handleChangeInput} />
             </S.InputContainer>
-            <S.InputError> {validate.nickname && '닉네임을 입력해주세요.'}</S.InputError>
+            <S.InputError>
+              {' '}
+              {validate.nickname && '닉네임은 2글자 이상 10글자 이하로 입력해주세요.'}
+            </S.InputError>
           </S.InputBox>
           <S.ButtonBox>
             <FormButton
