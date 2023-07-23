@@ -4,7 +4,7 @@ import ChatBox from '../../components/chats/ChatBox';
 import ProfileImg from '../../components/commons/ProfileImg';
 import ChatExitModal from '../../components/chats/ChatExitModal';
 import ReviewModal from '../../components/chats/ReviewModal';
-import io, { Socket } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 
 const ChatDetail = () => {
   const [isNav, setIsNav] = useState('상담 목록');
@@ -13,12 +13,14 @@ const ChatDetail = () => {
   const [isChatActive, setIsChatActive] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [chatId, setChatId] = useState<string>('');
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<object[]>([]);
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     // 백엔드 서버 주소로 소켓 연결
-    const socket = io('http://localhost:8080/chat');
+    const socket = io('http://localhost:8080', {
+      transports: ['websocket']
+    });
     setSocket(socket);
 
     // 연결될 때 이벤트 처리
@@ -32,8 +34,14 @@ const ChatDetail = () => {
     });
 
     // 메시지 수신 이벤트 처리
-    socket.on('msgReceive', ({ email, content }: { email: string; content: string }) => {
-      setMessages(prevMessages => [...prevMessages, `${email}: ${content}`]);
+    socket.on('msgReceive', ({ email, content }) => {
+      setMessages(prevMessages => [
+        ...prevMessages,
+        {
+          email: email,
+          message: content
+        }
+      ]);
     });
 
     return () => {
@@ -53,10 +61,17 @@ const ChatDetail = () => {
 
   const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if (message.trim() === '' || !chatId) return;
+
+    // if (message.trim() === '' || !chatId) return;
     // 서버에 메시지 전송
-    socket?.emit('msgSend', { email: '사용자 이메일', chatId, content: message });
-    setMessages(prevMessages => [...prevMessages, `나: ${message}`]);
+    socket?.emit('msgSend', { email: 'cjt3591@gmail.com', chatId, content: message });
+    setMessages(prevMessages => [
+      ...prevMessages,
+      {
+        message,
+        유저정보: '내 유저정보 객체'
+      }
+    ]);
     setMessage('');
   };
 
@@ -95,8 +110,6 @@ const ChatDetail = () => {
   console.log(setChatId);
   console.log(messages);
   console.log(onClickJoinChat);
-  console.log(setChatId);
-  console.log(setChatId);
 
   return (
     <S.Wrap>
