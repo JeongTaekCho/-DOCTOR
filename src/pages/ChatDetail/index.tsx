@@ -5,6 +5,8 @@ import ProfileImg from '../../components/commons/ProfileImg';
 import ChatExitModal from '../../components/chats/ChatExitModal';
 import ReviewModal from '../../components/chats/ReviewModal';
 import { io, Socket } from 'socket.io-client';
+import UserChat from '../../components/chats/UserChat';
+import DoctorChat from '../../components/chats/DoctorChat';
 
 const ChatDetail = () => {
   const [isNav, setIsNav] = useState('상담 목록');
@@ -14,7 +16,7 @@ const ChatDetail = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [chatId, setChatId] = useState<string>('');
   const [messages, setMessages] = useState<object[]>([]);
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     // 백엔드 서버 주소로 소켓 연결
@@ -50,16 +52,16 @@ const ChatDetail = () => {
     };
   }, []);
 
-  const onClickJoinChat = () => {
+  const handleJoinChat = () => {
     // chatId에 입장 요청 보내기
     socket?.emit('join', chatId);
   };
 
-  const onClickMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(event.target.value);
   };
 
-  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     // if (message.trim() === '' || !chatId) return;
@@ -75,7 +77,7 @@ const ChatDetail = () => {
     setMessage('');
   };
 
-  const onClickNav = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleNavClick = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     const { name } = target.dataset;
 
@@ -83,7 +85,7 @@ const ChatDetail = () => {
     setIsNav(name || '');
   };
 
-  const onClickCancelModal = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleCancelModalClick = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     const { name } = target.dataset;
 
@@ -94,11 +96,11 @@ const ChatDetail = () => {
     }
   };
 
-  const onClickChatExitBtn = () => {
+  const handleChatExitBtnClick = () => {
     setIsExitModal(true);
   };
 
-  const onClickChatExitBtnReview = () => {
+  const handleChatExitReviewBtnClick = () => {
     setIsExitModal(false);
     setIsReviewModal(true);
   };
@@ -109,7 +111,7 @@ const ChatDetail = () => {
 
   console.log(setChatId);
   console.log(messages);
-  console.log(onClickJoinChat);
+  console.log(handleJoinChat);
 
   return (
     <S.Wrap>
@@ -117,57 +119,17 @@ const ChatDetail = () => {
         <S.ChatLeftBox className={isChatActive ? 'active' : ''}>
           <S.ChatListNav>
             <li className={isNav === '상담 목록' ? 'selected' : ''}>
-              <button type="button" data-name="상담 목록" onClick={onClickNav}>
+              <button type="button" data-name="상담 목록" onClick={handleNavClick}>
                 상담 목록
               </button>
             </li>
             <li className={isNav === '신청 대기' ? 'selected' : ''}>
-              <button type="button" data-name="신청 대기" onClick={onClickNav}>
+              <button type="button" data-name="신청 대기" onClick={handleNavClick}>
                 신청 대기
               </button>
             </li>
           </S.ChatListNav>
           <S.ChatListBox>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
-            <li>
-              <S.ChatBtn onClick={toggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
             <li>
               <S.ChatBtn onClick={toggleChat}>
                 <ChatBox />
@@ -185,34 +147,18 @@ const ChatDetail = () => {
               <S.BackBtn type="button" onClick={toggleChat}>
                 목록
               </S.BackBtn>
-              <S.ExitBtn type="button" onClick={onClickChatExitBtn}>
+              <S.ExitBtn type="button" onClick={handleChatExitBtnClick}>
                 <img src="/images/chats/exit.png" alt="채팅방 나가기 아이콘" />
               </S.ExitBtn>
             </S.HeadBtnBox>
           </S.ChatHead>
           <S.ChatDetailBox>
-            <S.UserChatBox>
-              <S.UserChat>
-                <pre>
-                  견종: 포메라니안 몸무게: 10kg 상세내용: 상담 부탁드립니다! 우리아이가 아파요
-                  살려주세요
-                </pre>
-                <S.UserTriangle />
-              </S.UserChat>
-            </S.UserChatBox>
-            <S.DoctorChatProfileBox>
-              <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-              <p>닥터 깜장이</p>
-              <S.DoctorChatBox>
-                <S.DoctorChat>
-                  <pre>
-                    네 무엇을 도와드릴까요? 네 무엇을 도와드릴까요?네 무엇을 도와드릴까요?네 무엇을
-                    도와드릴까요?네 무엇을 도와드릴까요?
-                  </pre>
-                  <S.DoctorTriangle />
-                </S.DoctorChat>
-              </S.DoctorChatBox>
-            </S.DoctorChatProfileBox>
+            <UserChat content="견종: 포메라니안 몸무게: 10kg 상세내용: 상담 부탁드립니다! 우리아이가 아파요 살려주세요" />
+            <DoctorChat
+              name="깜장이 수의사"
+              content="채팅이 입력되는 부분"
+              profileImg="/images/commons/kkam.png"
+            />
           </S.ChatDetailBox>
           <S.ChatForm>
             <S.FileTextarea>
@@ -220,9 +166,13 @@ const ChatDetail = () => {
               <S.FileLabel htmlFor="file">
                 <img src="/images/chats/file.png" alt="" />
               </S.FileLabel>
-              <S.Textarea placeholder="내용을 입력해주세요." onChange={onClickMessageChange} />
+              <S.Textarea
+                placeholder="내용을 입력해주세요."
+                onChange={handleChangeMessage}
+                value={message}
+              />
             </S.FileTextarea>
-            <S.SendBtn type="button" onClick={onClickSubmit}>
+            <S.SendBtn type="button" onClick={handleSubmit}>
               <img src="/images/chats/send.png" alt="보내기 아이콘" />
             </S.SendBtn>
           </S.ChatForm>
@@ -230,11 +180,11 @@ const ChatDetail = () => {
       </S.Container>
       {isExitModal && (
         <ChatExitModal
-          onClickCancelModal={onClickCancelModal}
-          onClickChatExitBtnReview={onClickChatExitBtnReview}
+          handleCancelModalClick={handleCancelModalClick}
+          handleChatExitReviewBtnClick={handleChatExitReviewBtnClick}
         />
       )}
-      {isReviewModal && <ReviewModal onClickCancelModal={onClickCancelModal} />}
+      {isReviewModal && <ReviewModal handleCancelModalClick={handleCancelModalClick} />}
     </S.Wrap>
   );
 };

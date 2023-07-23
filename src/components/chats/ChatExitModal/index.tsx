@@ -2,11 +2,11 @@ import React, { MouseEvent } from 'react';
 import * as S from './style';
 
 interface Props {
-  onClickCancelModal: (_e: MouseEvent<HTMLButtonElement>) => void;
-  onClickChatExitBtnReview: (_e: MouseEvent<HTMLButtonElement>) => void;
+  handleCancelModalClick: (_e: MouseEvent<HTMLButtonElement>) => void;
+  handleChatExitReviewBtnClick: (_e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ChatExitModal = ({ onClickCancelModal, onClickChatExitBtnReview }: Props) => {
+const ChatExitModal = ({ handleCancelModalClick, handleChatExitReviewBtnClick }: Props) => {
   return (
     <S.Wrap>
       <S.ModalContainer>
@@ -15,10 +15,10 @@ const ChatExitModal = ({ onClickCancelModal, onClickChatExitBtnReview }: Props) 
           나가시겠습니까?
         </S.ModalMent>
         <S.BtnBox>
-          <S.CancelBtn data-name="exit" onClick={onClickCancelModal}>
+          <S.CancelBtn data-name="exit" onClick={handleCancelModalClick}>
             취소
           </S.CancelBtn>
-          <S.ExitBtn onClick={onClickChatExitBtnReview}>나가기</S.ExitBtn>
+          <S.ExitBtn onClick={handleChatExitReviewBtnClick}>나가기</S.ExitBtn>
         </S.BtnBox>
       </S.ModalContainer>
     </S.Wrap>

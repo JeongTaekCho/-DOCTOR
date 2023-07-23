@@ -3,10 +3,10 @@ import * as S from './style';
 import { Rating } from '@mui/material';
 
 interface Props {
-  onClickCancelModal: (_e: MouseEvent<HTMLButtonElement>) => void;
+  handleCancelModalClick: (_e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ReviewModal = ({ onClickCancelModal }: Props) => {
+const ReviewModal = ({ handleCancelModalClick }: Props) => {
   return (
     <S.Wrap>
       <S.ModalContainer>
@@ -16,7 +16,7 @@ const ReviewModal = ({ onClickCancelModal }: Props) => {
         </S.RateBox>
         <S.BtnBox>
           <S.CompleteBtn>완료</S.CompleteBtn>
-          <S.CancelBtn data-name="review" onClick={onClickCancelModal}>
+          <S.CancelBtn data-name="review" onClick={handleCancelModalClick}>
             취소
           </S.CancelBtn>
         </S.BtnBox>
