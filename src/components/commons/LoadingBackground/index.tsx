@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoadingBox, Wrap } from './style';
 
-const LoadingBg = () => {
+const LoadingBackground = () => {
   return (
     <Wrap>
       <LoadingBox>
@@ -11,4 +11,4 @@ const LoadingBg = () => {
   );
 };
 
-export default LoadingBg;
+export default LoadingBackground;

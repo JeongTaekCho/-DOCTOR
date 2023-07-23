@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { RESPONSIVE } from '../../styles/responsive';
 
 interface TabItemProps {
   active: boolean;
@@ -22,11 +23,16 @@ export const Profile = styled.div`
   background-color: white;
   border-radius: 10px;
   box-shadow: 3px 3px 3px lightgrey;
+
+  @media ${RESPONSIVE.mobile} {
+    height: 38rem;
+    width: 30rem;
+  }
 `;
 
 export const Detail = styled.div`
   width: 70rem;
-  height: 90rem;
+  height: 95rem;
   background-color: white;
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -109,4 +115,27 @@ export const TabItem = styled.p<TabItemProps>`
         background-color: #5429ff;
       }
     `}
+`;
+
+export const ChangeDiv = styled.div`
+  width: 5rem;
+  height: 5rem;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  position: absolute;
+  left: 60%;
+  top: 60%;
+  text-align: center;
+  cursor: pointer;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 8rem;
+    height: 8rem;
+  }
+`;
+
+export const AvatarDiv = styled.div`
+  width: 100%;
+  position: relative;
 `;

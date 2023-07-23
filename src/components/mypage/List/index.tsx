@@ -3,7 +3,7 @@ import * as S from './style';
 
 const List = () => {
   const posts = Array.from({ length: 10 }, (_, index) => ({
-    id: index + 1,
+    id: index + 1, //서버랑 연결할 때 유니크 값으로
     title: `게시글 ${index + 1}`
   }));
 

@@ -1,11 +1,8 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
 import { Button } from './style';
 
-interface buttonProps {
-  type: 'button' | 'submit' | 'reset' | undefined;
+interface buttonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
-  disabled?: boolean;
-  onClick: (_e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const FormButton = ({ type, text, disabled, onClick }: buttonProps) => {

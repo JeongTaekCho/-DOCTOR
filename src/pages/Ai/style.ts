@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
+import { RESPONSIVE } from '../../styles/responsive';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -25,6 +26,10 @@ export const Upload = styled.div`
   height: 43.9rem;
   text-align: center;
   padding-top: 2rem;
+
+  @media ${RESPONSIVE.mobile} {
+    height: 30rem;
+  }
 `;
 
 export const Label = styled.label`
@@ -68,6 +73,10 @@ export const Example = styled.div`
   width: 100%;
   text-align: center;
   padding-top: 5%;
+
+  @media ${RESPONSIVE.mobile} {
+    margin-top: 40%;
+  }
 `;
 
 export const Button = styled.button`
@@ -107,8 +116,8 @@ export const Modal = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 649px;
-  height: 609px;
+  width: 64.9rem;
+  height: 60.9rem;
   z-index: 999999;
   position: absolute;
   top: 55%;
@@ -116,6 +125,10 @@ export const Card = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 8px;
+
+  @media ${RESPONSIVE.mobile} {
+    top: 40%;
+  }
 `;
 
 export const Close = styled.div`

@@ -81,11 +81,10 @@ const ChatDetail = () => {
     const target = e.target as HTMLButtonElement;
     const { name } = target.dataset;
 
-    console.log(name);
     setIsNav(name || '');
   };
 
-  const handleCancelModalClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleCancelModal = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     const { name } = target.dataset;
 
@@ -96,16 +95,16 @@ const ChatDetail = () => {
     }
   };
 
-  const handleChatExitBtnClick = () => {
+  const handleChatExitBtn = () => {
     setIsExitModal(true);
   };
 
-  const handleChatExitReviewBtnClick = () => {
+  const handleChatExitBtnReview = () => {
     setIsExitModal(false);
     setIsReviewModal(true);
   };
 
-  const toggleChat = () => {
+  const handletoggleChat = () => {
     setIsChatActive(prev => !prev);
   };
 
@@ -119,19 +118,59 @@ const ChatDetail = () => {
         <S.ChatLeftBox className={isChatActive ? 'active' : ''}>
           <S.ChatListNav>
             <li className={isNav === '상담 목록' ? 'selected' : ''}>
-              <button type="button" data-name="상담 목록" onClick={handleNavClick}>
+              <button type="button" data-name="상담 목록" onClick={handleClickNav}>
                 상담 목록
               </button>
             </li>
             <li className={isNav === '신청 대기' ? 'selected' : ''}>
-              <button type="button" data-name="신청 대기" onClick={handleNavClick}>
+              <button type="button" data-name="신청 대기" onClick={handleClickNav}>
                 신청 대기
               </button>
             </li>
           </S.ChatListNav>
           <S.ChatListBox>
             <li>
-              <S.ChatBtn onClick={toggleChat}>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
+                <ChatBox />
+              </S.ChatBtn>
+            </li>
+            <li>
+              <S.ChatBtn type="button" onClick={handletoggleChat}>
                 <ChatBox />
               </S.ChatBtn>
             </li>
@@ -144,10 +183,10 @@ const ChatDetail = () => {
               <S.HeadProfileName>깜장이 수의사 [깜장 동물병원]</S.HeadProfileName>
             </S.ProfileBox>
             <S.HeadBtnBox>
-              <S.BackBtn type="button" onClick={toggleChat}>
+              <S.BackBtn type="button" onClick={handletoggleChat}>
                 목록
               </S.BackBtn>
-              <S.ExitBtn type="button" onClick={handleChatExitBtnClick}>
+              <S.ExitBtn type="button" onClick={handleChatExitBtn}>
                 <img src="/images/chats/exit.png" alt="채팅방 나가기 아이콘" />
               </S.ExitBtn>
             </S.HeadBtnBox>
@@ -180,11 +219,11 @@ const ChatDetail = () => {
       </S.Container>
       {isExitModal && (
         <ChatExitModal
-          handleCancelModalClick={handleCancelModalClick}
-          handleChatExitReviewBtnClick={handleChatExitReviewBtnClick}
+          handleCancelModal={handleCancelModal}
+          handleChatExitBtnReview={handleChatExitBtnReview}
         />
       )}
-      {isReviewModal && <ReviewModal handleCancelModalClick={handleCancelModalClick} />}
+      {isReviewModal && <ReviewModal handleCancelModal={handleCancelModal} />}
     </S.Wrap>
   );
 };

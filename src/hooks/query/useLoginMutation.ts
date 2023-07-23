@@ -1,13 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import * as API from '../../api/index';
 
 interface LoginData {
   email: string;
   password: string;
 }
 
+interface LoginReturn {
+  token: string;
+}
+
 const login = (data: LoginData) => {
-  return axios.post('http://localhost:8080/login', data);
+  return API.post<LoginReturn, LoginData>('/login', data);
 };
 
 export const useLoginMutation = () => {

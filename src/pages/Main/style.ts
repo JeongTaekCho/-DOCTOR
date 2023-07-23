@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { RESPONSIVE } from '../../styles/responsive';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -26,6 +27,11 @@ export const Header = styled.h4`
   color: #fff;
   -webkit-text-stroke: 2px #fff;
   font-family: 'Noto Sans KR', sans-serif;
+
+  @media ${RESPONSIVE.mobile} {
+    font-size: 9rem;
+    top: 20%;
+  }
 `;
 
 export const AiDiv = styled.div`
@@ -53,6 +59,11 @@ export const AiPic = styled.div`
   justify-content: center;
   align-items: center;
   gap: 4rem;
+
+  @media ${RESPONSIVE.mobile} {
+    flex-direction: column;
+    gap: 20rem;
+  }
 `;
 
 export const Pic = styled.img`
@@ -66,6 +77,10 @@ export const SubDiv = styled.div`
   height: 50rem;
   background-color: rgb(245, 245, 245);
   padding-top: 5%;
+
+  @media ${RESPONSIVE.mobile} {
+    height: 80rem;
+  }
 `;
 
 export const SubHeader = styled.h4`
@@ -81,6 +96,10 @@ export const ContentDiv = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 3%;
+
+  @media ${RESPONSIVE.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const Content = styled.div`
@@ -93,6 +112,11 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   padding-left: 1%;
+
+  @media ${RESPONSIVE.mobile} {
+    margin-top: 5%;
+    margin-right: 0;
+  }
 `;
 
 export const ContentP = styled.p`
@@ -134,6 +158,11 @@ export const EffectDiv = styled.div`
   height: 70rem;
   padding: 7% 0 15% 15%;
   line-height: 900%;
+
+  @media ${RESPONSIVE.mobile} {
+    text-align: center;
+    padding: 0;
+  }
 `;
 
 export const EffectHeader = styled.h4`
