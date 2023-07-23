@@ -14,16 +14,20 @@ const MyManage = () => {
 
   const handleEditBasic = () => {
     setIsBasic(prev => !prev);
+    resetPasswordValidation();
+  };
+
+  const handleEditVet = () => {
+    setIsVet(prev => !prev);
+  };
+
+  const resetPasswordValidation = () => {
     setValidate({
       password: false,
       passwordConfirm: false
     });
     setPassword('');
     setPasswordConfirm('');
-  };
-
-  const handleEditVet = () => {
-    setIsVet(prev => !prev);
   };
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {

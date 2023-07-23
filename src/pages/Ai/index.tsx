@@ -15,7 +15,9 @@ const AiPage = () => {
     setModal(false);
   };
 
-  const [AiImage, setAiImage] = useState<string>('/images/commons/aipic.png');
+  const DEFAULT_IMAGE = '/images/commons/aipic.png';
+
+  const [AiImage, setAiImage] = useState<string>(DEFAULT_IMAGE);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
