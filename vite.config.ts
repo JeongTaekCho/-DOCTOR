@@ -5,11 +5,15 @@ import react from '@vitejs/plugin-react';
 import eslintPlugin from 'vite-plugin-eslint';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import PrettierPlugin from 'vite-plugin-prettier';
+import replace from '@rollup/plugin-replace';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // https://vitejs.dev/config/
 
 const eslintOptions = {
-  extensions: ['js', 'ts', 'react'],
+  extensions: ['js', 'ts', 'react']
 };
 
 export default defineConfig({
@@ -23,29 +27,36 @@ export default defineConfig({
         semi: true,
         useTabs: false,
         tabWidth: 2,
-        trailingComma: 'all',
+        trailingComma: 'none',
         printWidth: 100,
         bracketSpacing: true,
-        arrowParens: 'avoid',
+        arrowParens: 'avoid'
       },
       {
         include: ['src/**/*.{react,js,ts,jsx,tsx}'],
         exclude: ['src/**/*.spec.{js,ts,jsx,tsx}'],
         logLevel: 'warn',
-        editorconfig: false,
-      } as any,
+        editorconfig: false
+      } as any
     ),
+    replace({
+      'process.env.GMAIL_OAUTH_CLIENT_ID': JSON.stringify(process.env.GMAIL_OAUTH_CLIENT_ID),
+      'process.env.GAMIL_OAUTH_CLIENT_SECRET': JSON.stringify(
+        process.env.GAMIL_OAUTH_CLIENT_SECRET
+      ),
+      'process.env.SERVER_PORT': JSON.stringify(process.env.SERVER_PORT)
+    })
   ],
   server: {
     fs: {
-      strict: false,
-    },
+      strict: false
+    }
   },
   build: {
     rollupOptions: {
       output: {
-        manualChunks: undefined,
-      },
-    },
-  },
+        manualChunks: undefined
+      }
+    }
+  }
 });
