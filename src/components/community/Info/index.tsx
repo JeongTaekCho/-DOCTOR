@@ -10,6 +10,8 @@ const Info = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
+  const [isOrderByDate, setIsOrderByDate] = useState(true);
+  const [isOrderByPopularity, setIsOrderByPopularity] = useState(false);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -17,6 +19,16 @@ const Info = () => {
 
   const handleWriteButtonClick = () => {
     setShowRegister(prev => !prev);
+  };
+
+  const handleOrderByDate = () => {
+    setIsOrderByDate(true);
+    setIsOrderByPopularity(false);
+  };
+
+  const handleOrderByPopularity = () => {
+    setIsOrderByDate(false);
+    setIsOrderByPopularity(true);
   };
   // Create an array of page numbers
   const pageNumbers = [];
@@ -32,41 +44,60 @@ const Info = () => {
         <div>
           <S.RadioDiv>
             <p>
-              오래된순
-              <input type="radio" />
-              <span>
+              <span
+                style={{
+                  marginRight: '1rem',
+                  fontWeight: isOrderByDate ? 'bold' : 'normal',
+                  cursor: 'pointer'
+                }}
+                onClick={handleOrderByDate}
+              >
+                최신순
+              </span>
+              <span
+                style={{
+                  fontWeight: isOrderByPopularity ? 'bold' : 'normal',
+                  cursor: 'pointer'
+                }}
+                onClick={handleOrderByPopularity}
+              >
                 인기순
-                <input type="radio" />
               </span>
             </p>
           </S.RadioDiv>
           <S.List>
             {currentPosts.map(post => (
               <S.Post key={post.id}>
-                <S.PostHeader>{post.title}</S.PostHeader>
-                <S.PostUser>
-                  <BiUser size="15" />
-                  {post.author}
-                  <S.PostDate>{post.date}</S.PostDate>
-                </S.PostUser>
+                <S.LeftDiv>
+                  <S.PostHeader>{post.title}</S.PostHeader>
+                  <S.PostUser>
+                    <BiUser size="15" />
+                    {post.author}
+                    <S.PostDate>{post.date}</S.PostDate>
+                  </S.PostUser>
+                </S.LeftDiv>
                 <S.HeartDiv>
-                  <S.PostHeart>
-                    <BiHeart size="25" color="#9747ff" />
-                    <S.HeartNumber>24</S.HeartNumber>
-                  </S.PostHeart>
+                  <S.HeartContainer>
+                    <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
+                    <S.PostHeart>24</S.PostHeart>
+                  </S.HeartContainer>
                 </S.HeartDiv>
               </S.Post>
             ))}
           </S.List>
           <S.PageNumber>
             <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage === 1}>
-              <BiSolidLeftArrow size="12"></BiSolidLeftArrow>
+              <BiSolidLeftArrow size="13"></BiSolidLeftArrow>
             </button>
             {pageNumbers.map(number => (
               <button
                 key={number}
                 onClick={() => setCurrentPage(number)}
-                style={{ fontWeight: currentPage === number ? 'bold' : 'normal', margin: '0 5px' }}
+                style={{
+                  fontWeight: currentPage === number ? 'bold' : 'normal',
+                  margin: '0 5px',
+                  fontSize: '2rem'
+                }}
               >
                 {number}
               </button>
@@ -75,12 +106,14 @@ const Info = () => {
               onClick={() => setCurrentPage(prev => prev + 1)}
               disabled={currentPosts.length < postsPerPage || currentPage === totalPages}
             >
-              <BiSolidRightArrow size="12"></BiSolidRightArrow>
+              <BiSolidRightArrow size="13"></BiSolidRightArrow>
             </button>
           </S.PageNumber>
-          <S.ButtonDiv>
-            <S.Button onClick={handleWriteButtonClick}>글쓰기</S.Button>
-          </S.ButtonDiv>
+          <S.ButtonContainer>
+            <S.ButtonDiv>
+              <S.Button onClick={handleWriteButtonClick}>글쓰기</S.Button>
+            </S.ButtonDiv>
+          </S.ButtonContainer>
         </div>
       )}
     </S.Container>
