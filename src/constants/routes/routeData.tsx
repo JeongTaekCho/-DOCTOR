@@ -8,6 +8,7 @@ import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
 import HospitalPage from '../../pages/Hospital';
 import AdminPage from '../../pages/Admin';
+import Community from '../../pages/Community';
 
 interface Route {
   path: string;
@@ -69,6 +70,12 @@ export const ROUTE: { [key: string]: Route } = {
     path: '/admin',
     link: '/admin',
     element: <AdminPage />,
+    exact: true
+  },
+  COMMUNITY: {
+    path: '/community',
+    link: '/community',
+    element: <Community />,
     exact: true
   }
 };

@@ -9,17 +9,17 @@ import useInput from '../../hooks/util/useInput';
 import { useEmailAuthMutation } from '../../hooks/query/useEmailAuthMutation';
 import { useEmailCheckMutation } from '../../hooks/query/useEmailCheckMutation';
 import { useRegisterMutation } from '../../hooks/query/useRegisterMutation';
-import LoadingBg from '../../components/commons/LoadingBg';
-import { EMAILREGEX, PASSOWRDREGEX } from '../../commons/validate';
 import { tokenAtom } from '../../atoms/atoms';
 import { useAtom } from 'jotai';
+import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
+import LoadingBackground from '../../components/commons/LoadingBackground';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [nickname, setNickname] = useState('');
-  const [authCode, onChangeAuthCode] = useInput('');
+  const [authCode, handleChangeAuthCode] = useInput('');
 
   const { mutate: emailAuthMutate, isLoading: emailAuthLoading } = useEmailAuthMutation();
   const { mutate: emailCheckMutate } = useEmailCheckMutation();
@@ -56,7 +56,7 @@ const RegisterPage = () => {
     validate.nickname === false &&
     validate.authCode === false;
 
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === 'email') {
@@ -98,15 +98,15 @@ const RegisterPage = () => {
     if (name === 'nickname') {
       setNickname(value);
 
-      if (value) {
-        setValidate({ ...validate, nickname: false });
-      } else {
+      if (value.length < 2 || value.length > 10) {
         setValidate({ ...validate, nickname: true });
+      } else {
+        setValidate({ ...validate, nickname: false });
       }
     }
   };
 
-  const onClickRegister = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleRegister = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     registerMutate(
       {
@@ -126,7 +126,7 @@ const RegisterPage = () => {
     );
   };
 
-  const onClickEmailAuthBtn = () => {
+  const handleEmailAuth = () => {
     emailAuthMutate(
       { email },
       {
@@ -141,7 +141,7 @@ const RegisterPage = () => {
     );
   };
 
-  const onClickEmailCheckBtn = () => {
+  const handleEmailCheck = () => {
     emailCheckMutate(
       {
         email,
@@ -168,10 +168,10 @@ const RegisterPage = () => {
           <S.InputBox>
             <S.InputLabel>이메일</S.InputLabel>
             <S.InputContainer>
-              <Input type="text" name="email" value={email} onChange={onChangeInput} />
+              <Input type="text" name="email" value={email} onChange={handleChangeInput} />
               <S.AuthBtn
                 type="button"
-                onClick={onClickEmailAuthBtn}
+                onClick={handleEmailAuth}
                 disabled={validate.email === true || email.length === 0}
               >
                 인증
@@ -185,13 +185,13 @@ const RegisterPage = () => {
                 <Input
                   type="text"
                   placeholder="인증코드를 입력해주세요."
-                  onChange={onChangeAuthCode}
+                  onChange={handleChangeAuthCode}
                   maxLength={6}
                 />
                 <S.AuthBtn
                   type="button"
                   disabled={authCode.length === 0}
-                  onClick={onClickEmailCheckBtn}
+                  onClick={handleEmailCheck}
                 >
                   확인
                 </S.AuthBtn>
@@ -201,7 +201,12 @@ const RegisterPage = () => {
           <S.InputBox>
             <S.InputLabel>비밀번호</S.InputLabel>
             <S.InputContainer>
-              <Input type="password" name="password" value={password} onChange={onChangeInput} />
+              <Input
+                type="password"
+                name="password"
+                value={password}
+                onChange={handleChangeInput}
+              />
               {/* <S.PositionBtn type="button">
                 <img src="/images/commons/hide.png" alt="" />
               </S.PositionBtn> */}
@@ -218,7 +223,7 @@ const RegisterPage = () => {
                 type="password"
                 name="passwordConfirm"
                 value={passwordConfirm}
-                onChange={onChangeInput}
+                onChange={handleChangeInput}
               />
               {/* <S.PositionBtn type="button">
                 <img src="/images/commons/hide.png" alt="" />
@@ -231,16 +236,19 @@ const RegisterPage = () => {
           <S.InputBox>
             <S.InputLabel>Nickname</S.InputLabel>
             <S.InputContainer>
-              <Input type="text" name="nickname" value={nickname} onChange={onChangeInput} />
+              <Input type="text" name="nickname" value={nickname} onChange={handleChangeInput} />
             </S.InputContainer>
-            <S.InputError> {validate.nickname && '닉네임을 입력해주세요.'}</S.InputError>
+            <S.InputError>
+              {' '}
+              {validate.nickname && '닉네임은 2글자 이상 10글자 이하로 입력해주세요.'}
+            </S.InputError>
           </S.InputBox>
           <S.ButtonBox>
             <FormButton
               type="submit"
               text="회원가입"
               disabled={validateComplete === false ? true : false}
-              onClick={onClickRegister}
+              onClick={handleRegister}
             />
           </S.ButtonBox>
         </S.Form>
@@ -248,7 +256,7 @@ const RegisterPage = () => {
           이미 회원가입을 하셨나요? <Link to={ROUTE.LOGIN.link}>로그인 하러 가기</Link>
         </S.LinkMent>
       </S.Container>
-      {emailAuthLoading && <LoadingBg />}
+      {emailAuthLoading && <LoadingBackground />}
     </S.Wrap>
   );
 };

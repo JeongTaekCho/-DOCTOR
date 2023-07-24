@@ -41,7 +41,10 @@ export default defineConfig({
     ),
     replace({
       'process.env.GMAIL_OAUTH_CLIENT_ID': JSON.stringify(process.env.GMAIL_OAUTH_CLIENT_ID),
-      'process.env.GAMIL_OAUTH_CLIENT_SECRET': JSON.stringify(process.env.GAMIL_OAUTH_CLIENT_SECRET)
+      'process.env.GAMIL_OAUTH_CLIENT_SECRET': JSON.stringify(
+        process.env.GAMIL_OAUTH_CLIENT_SECRET
+      ),
+      'process.env.SERVER_PORT': JSON.stringify(process.env.SERVER_PORT)
     })
   ],
   server: {

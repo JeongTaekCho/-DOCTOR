@@ -3,7 +3,6 @@ import * as S from './style';
 import { GrClose } from 'react-icons/gr';
 import { FcCheckmark, FcCancel } from 'react-icons/fc';
 import Avatar from '@mui/material/Avatar';
-import { useRef } from 'react';
 
 const AiPage = () => {
   const [modal, setModal] = useState(false);
@@ -16,8 +15,9 @@ const AiPage = () => {
     setModal(false);
   };
 
-  const [AiImage, setAiImage] = useState<string>('/images/commons/aipic.png');
-  const fileInput = useRef<HTMLInputElement>(null);
+  const DEFAULT_IMAGE = '/images/commons/aipic.png';
+
+  const [AiImage, setAiImage] = useState<string>(DEFAULT_IMAGE);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -46,27 +46,26 @@ const AiPage = () => {
         <S.P>우리 아이 피부질환 AI 자가진단 해보기</S.P>
       </S.Title>
       <S.Upload>
-        <S.Label2 htmlFor="profile-img-input">
-          <Avatar
-            src={AiImage}
-            sx={{
-              width: 420,
-              height: 450,
-              margin: 'auto',
-              marginTop: '2rem',
-              cursor: 'pointer',
-              borderRadius: '0.5rem'
-            }}
-          />
-          <S.Input
-            id="profile-img-input"
-            type="file"
-            accept="image/jpg,image/png,image/jpeg"
-            name="profile_img"
-            onChange={onChange}
-            ref={fileInput}
-          ></S.Input>
-        </S.Label2>
+        <Avatar
+          src={AiImage}
+          sx={{
+            width: 420,
+            height: 450,
+            margin: 'auto',
+            marginTop: '2rem',
+            cursor: 'pointer',
+            borderRadius: '0.5rem'
+          }}
+          onClick={() => document.getElementById('profile-img-input').click()}
+        />
+        <S.Input
+          id="profile-img-input"
+          type="file"
+          accept="image/jpg,image/png,image/jpeg"
+          name="profile_img"
+          onChange={onChange}
+          style={{ display: 'none' }}
+        />
       </S.Upload>
       <S.Example>
         {AiImage === '/images/commons/aipic.png' ? (

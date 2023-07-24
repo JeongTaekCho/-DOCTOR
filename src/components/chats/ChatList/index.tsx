@@ -4,14 +4,14 @@ import ProfileImg from '../../commons/ProfileImg';
 import { Rating } from '@mui/material';
 
 const ChatList = () => {
-  const [consult, setConsult] = useState('견종: \n몸무게: \n상세내용: ');
+  const [consult, setConsult] = useState('');
   const [isConsultModal, setIsConsultModal] = useState(false);
 
-  const onClickToggleConsultModal = () => {
+  const handleToggleConsultModal = () => {
     setIsConsultModal(prev => !prev);
   };
 
-  const onChangeConsult = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeConsult = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setConsult(e.target.value);
   };
 
@@ -29,7 +29,7 @@ const ChatList = () => {
               <S.ListDetail>검은인간 동물병원에서 제일 실력있는 수의사 입니다.</S.ListDetail>
             </S.ListContentBox>
           </S.ListContainer>
-          <S.ListBtnBox type="button" onClick={onClickToggleConsultModal}>
+          <S.ListBtnBox type="button" onClick={handleToggleConsultModal}>
             상담신청
           </S.ListBtnBox>
         </S.ListBox>
@@ -42,10 +42,18 @@ const ChatList = () => {
               <br />
               아이의 정보를 입력해주세요!
             </S.FormTitle>
-            <S.TextArea value={consult} onChange={onChangeConsult} />
+            <S.TextArea
+              value={consult}
+              onChange={handleChangeConsult}
+              placeholder="EX) 
+견종: 포메라니안
+몸무게: 5kg
+상세내용: 등쪽에 붉은 반점이 있습니다.
+              "
+            />
             <S.FormBtnBox>
               <S.FormSubmitBtn type="submit">상담신청</S.FormSubmitBtn>
-              <S.FormCancelBtn type="button" onClick={onClickToggleConsultModal}>
+              <S.FormCancelBtn type="button" onClick={handleToggleConsultModal}>
                 취소하기
               </S.FormCancelBtn>
             </S.FormBtnBox>

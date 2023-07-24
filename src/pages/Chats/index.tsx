@@ -2,28 +2,13 @@ import React, { MouseEvent, useState } from 'react';
 import * as S from './style';
 import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
-
-const AREA = [
-  '전체',
-  '서울',
-  '경기',
-  '인천',
-  '대전',
-  '대구',
-  '광주',
-  '울산',
-  '부산',
-  '강원도',
-  '충청도',
-  '전라도',
-  '경상도',
-  '제주도'
-];
+import { AREA } from '../../constants/commons/menus';
+import uuid from 'react-uuid';
 
 const ChatsPage = () => {
   const [isArea, setIsArea] = useState('전체');
 
-  const onClickArea = (e: MouseEvent<HTMLLIElement>) => {
+  const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     const { name } = target.dataset;
     setIsArea(name || '');
@@ -34,12 +19,12 @@ const ChatsPage = () => {
       <S.Container>
         <S.AreaBox>
           <S.AreaList>
-            {AREA.map((area, index) => (
+            {AREA.map(area => (
               <li
-                key={index}
+                key={uuid()}
                 data-name={area}
                 className={isArea === area ? 'selected' : ''}
-                onClick={onClickArea}
+                onClick={handleClickArea}
               >
                 {area}
               </li>
