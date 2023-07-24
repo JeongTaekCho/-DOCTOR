@@ -9,6 +9,7 @@ import MyPage from '../../pages/MyPage';
 import Community from '../../pages/Community';
 import HospitalPage from '../../pages/Hospital';
 import AdminPage from '../../pages/Admin';
+import FreeDetail from '../../components/community/FreeDetail';
 
 interface Route {
   path: string;
@@ -76,6 +77,12 @@ export const ROUTE: { [key: string]: Route } = {
     path: '/admin',
     link: '/admin',
     element: <AdminPage />,
+    exact: true
+  },
+  FREEDETAIL: {
+    path: '/free/:userId',
+    link: '/free',
+    element: <FreeDetail />,
     exact: true
   }
 };
