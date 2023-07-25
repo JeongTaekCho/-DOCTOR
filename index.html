@@ -10,12 +10,11 @@
       rel="stylesheet"
     />
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-    <link rel="icon" type="image/svg+xml" href="/images/commons/logo.png" />
+    <link rel="icon" type="image/svg+xml" href="/images/commons/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="/manifest.json" />
 
     <title>AI질병예측</title>
-    
   </head>
   <body>
     <div id="root"></div>
@@ -27,12 +26,5 @@
         navigator.serviceWorker.register('/service-worker.js');
       }
     </script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1134e78f9cd513274248b02eab63bca3&libraries=services,clusterer,drawing&autoload=false"></script>
-    <script type="text/javascript">
-      kakao.maps.load(function() {
-        const map = new kakao.maps.Map(node, options);
-      });
-    </script>
-    
   </body>
 </html>
