@@ -172,6 +172,33 @@ const MyManage = () => {
           )}
         </S.InputDiv>
       </S.MainBox2>
+      <S.MainBox2>
+        <S.LeftText>
+          <S.CenteredText>병원 소재지</S.CenteredText>
+        </S.LeftText>
+        <S.InputDiv>
+          {isVet ? (
+            <S.Select>
+              <option value="">지역선택</option>
+              <option value="학생">서울</option>
+              <option value="회사원">경기</option>
+              <option value="기타">인천</option>
+              <option value="기타">대전</option>
+              <option value="기타">대구</option>
+              <option value="기타">광주</option>
+              <option value="기타">울산</option>
+              <option value="기타">부산</option>
+              <option value="기타">강원도</option>
+              <option value="기타">충청도</option>
+              <option value="기타">전라도</option>
+              <option value="기타">경상도</option>
+              <option value="기타">제주도</option>
+            </S.Select>
+          ) : (
+            <S.RightText>서울</S.RightText>
+          )}
+        </S.InputDiv>
+      </S.MainBox2>
       <S.MainBox3>
         <S.LeftText>
           <S.CenteredText>병원 소개</S.CenteredText>

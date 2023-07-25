@@ -157,3 +157,9 @@ export const ConfirmDiv = styled.div`
 export const ConfirmSpan = styled.span`
   color: red;
 `;
+
+export const Select = styled.select`
+  width: 90%;
+  height: 70%;
+  margin-left: 1rem;
+`;
