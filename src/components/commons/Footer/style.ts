@@ -6,6 +6,9 @@ export const Wrap = styled.div`
   padding: 8rem 0;
   margin-top: 10rem;
   border-top: 1px solid #eee;
+  position: relative;
+  z-index: 9000;
+  background-color: #fff;
 
   @media ${RESPONSIVE.tablet} {
     padding: 6rem 0;
