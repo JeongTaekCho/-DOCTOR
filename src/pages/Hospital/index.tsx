@@ -6,6 +6,7 @@ import * as S from './style';
 import { Link } from 'react-router-dom';
 import useDebounce from '../../hooks/util/useDebounce';
 import LoadingBackground from '../../components/commons/LoadingBackground';
+import Swal from 'sweetalert2';
 
 const HospitalMap = () => {
   const [places, setPlaces] = useState([]);
@@ -35,8 +36,6 @@ const HospitalMap = () => {
             const address = data.results[0].address_components[1].long_name;
             if (address) {
               setSearchPlace(`${address} 동물병원`);
-            } else {
-              setSearchPlace('동물병원');
             }
           } catch (error) {
             console.error('Error fetching address:', error);
@@ -44,6 +43,8 @@ const HospitalMap = () => {
         },
         error => {
           console.error('Error getting current position:', error);
+          setSearchPlace('동물병원');
+          Swal.fire('내 위치 정보 활성화 또는 주소를 입력해주세요.');
         }
       );
     } else {
