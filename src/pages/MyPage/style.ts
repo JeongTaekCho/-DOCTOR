@@ -32,10 +32,10 @@ export const Profile = styled.div`
 
 export const Detail = styled.div`
   width: 70rem;
-  height: 95rem;
   background-color: white;
   border: 1px solid lightgrey;
   border-radius: 10px;
+  padding-bottom: 5rem;
 `;
 
 export const Label = styled.label``;
@@ -78,7 +78,6 @@ export const DetailTop = styled.div`
 
 export const MyDetail = styled.div`
   width: 100%;
-  height: 20rem;
 `;
 
 export const TabItem = styled.p<TabItemProps>`
