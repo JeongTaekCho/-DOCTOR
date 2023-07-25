@@ -78,6 +78,9 @@ const LoginPage = () => {
           setUserToken(sessionStorage.getItem('token'));
           Swal.fire('로그인 성공');
           navigate(ROUTE.HOME.link);
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
         }
       }
     );
