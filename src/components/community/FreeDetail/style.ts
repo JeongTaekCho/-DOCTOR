@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   width: 50%;
@@ -120,9 +121,63 @@ export const RightDiv = styled.div`
   text-align: right;
 `;
 
-export const Cocomment = styled.div`
+export const CoComment = styled.div`
   width: 100%;
   margin-top: 0.5rem;
   border-bottom: 0.5px solid black;
   padding: 1rem 0 1rem 4rem;
+`;
+
+export const Register = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+  background-color: white;
+  border-radius: 2px;
+  border: 0.5px solid lightgrey;
+  padding: 1rem;
+  box-shadow: 2px 2px 2px lightgrey;
+`;
+
+export const RegisterTitle = styled.div`
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.5rem;
+`;
+
+export const InputDiv = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const Input = styled.textarea`
+  resize: none;
+  width: 90%;
+  height: 7rem;
+  margin-top: 1rem;
+`;
+
+export const RegisterButton = styled.button`
+  width: 9%;
+  height: 7rem;
+  border: 1px solid black;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  border-radius: 2px;
+  font-weight: bolder;
+  font-size: 1.5rem;
+`;
+
+export const ListDiv = styled.div`
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  text-align: right;
+`;
+
+export const ListButton = styled(Link)`
+  background-color: #747474;
+  color: white;
+  font-size: 1.3rem;
+  padding: 0.3rem;
+  border-radius: 3px;
 `;

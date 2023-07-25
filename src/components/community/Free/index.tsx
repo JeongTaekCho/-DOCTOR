@@ -4,6 +4,7 @@ import { BiSolidLeftArrow, BiSolidRightArrow, BiUser, BiHeart } from 'react-icon
 import samplePosts from './data.ts';
 import FreeRegister from '../FreeRegister/index.tsx';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
+import { Link } from 'react-router-dom';
 
 const Free = () => {
   const postsPerPage = 10;
@@ -69,22 +70,24 @@ const Free = () => {
           </S.RadioDiv>
           <S.List>
             {currentPosts.map(post => (
-              <S.Post to={ROUTE.FREEDETAIL.path} key={post.id}>
-                <S.LeftDiv>
-                  <S.PostHeader>{post.title}</S.PostHeader>
-                  <S.PostUser>
-                    <BiUser size="15" />
-                    {post.author}
-                    <S.PostDate>{post.date}</S.PostDate>
-                  </S.PostUser>
-                </S.LeftDiv>
-                <S.HeartDiv>
-                  <S.HeartContainer>
-                    <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
-                    <S.PostHeart>24</S.PostHeart>
-                  </S.HeartContainer>
-                </S.HeartDiv>
-              </S.Post>
+              <Link to={ROUTE.FREEDETAIL.path} key={post.id}>
+                <S.Post>
+                  <S.LeftDiv>
+                    <S.PostHeader>{post.title}</S.PostHeader>
+                    <S.PostUser>
+                      <BiUser size="15" />
+                      {post.author}
+                      <S.PostDate>{post.date}</S.PostDate>
+                    </S.PostUser>
+                  </S.LeftDiv>
+                  <S.HeartDiv>
+                    <S.HeartContainer>
+                      <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
+                      <S.PostHeart>24</S.PostHeart>
+                    </S.HeartContainer>
+                  </S.HeartDiv>
+                </S.Post>
+              </Link>
             ))}
           </S.List>
           <S.PageNumber>

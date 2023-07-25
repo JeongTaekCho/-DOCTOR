@@ -2,6 +2,7 @@ import React from 'react';
 import * as S from './style';
 import { BiHeart } from 'react-icons/bi';
 import { BsArrowReturnRight } from 'react-icons/bs';
+import { ROUTE } from '../../../constants/routes/routeData.tsx';
 
 const FreeDetail = () => {
   return (
@@ -42,7 +43,7 @@ const FreeDetail = () => {
           <S.RightDiv>신고</S.RightDiv>
         </S.BottomDiv>
       </S.Comment>
-      <S.Cocomment>
+      <S.CoComment>
         <S.UserDiv>
           <S.User>
             <BsArrowReturnRight /> 유승제<S.CommentDate>2023-07-23</S.CommentDate>
@@ -52,7 +53,17 @@ const FreeDetail = () => {
           <S.LeftDiv>안녕하세요~</S.LeftDiv>
           <S.RightDiv>신고</S.RightDiv>
         </S.BottomDiv>
-      </S.Cocomment>
+      </S.CoComment>
+      <S.Register>
+        <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
+        <S.InputDiv>
+          <S.Input></S.Input>
+          <S.RegisterButton>등록</S.RegisterButton>
+        </S.InputDiv>
+      </S.Register>
+      <S.ListDiv>
+        <S.ListButton to={ROUTE.COMMUNITY.link}>목록</S.ListButton>
+      </S.ListDiv>
     </S.Container>
   );
 };
