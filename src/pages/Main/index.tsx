@@ -1,8 +1,12 @@
 import React from 'react';
 import * as S from './style';
 import { BiSolidChevronsRight } from 'react-icons/bi';
+import useScrollFadeIn from '../../hooks/util/useScrollFadeIn';
 
 const MainPage = () => {
+  const animatedAiDiv = useScrollFadeIn('down', 1, 0);
+  const animatedEffectDiv = useScrollFadeIn('up', 1, 0);
+
   return (
     <S.Wrap>
       <S.Container>
@@ -15,15 +19,7 @@ const MainPage = () => {
           서비스
         </S.Header>
       </S.Container>
-      <S.AiDiv
-        data-aos="fade-in"
-        data-aos-offset="200"
-        data-aos-duration="600"
-        data-aos-easing="ease-in-out"
-        data-aos-mirror="true"
-        data-aos-once="false"
-        data-aos-anchor-placement="top-center"
-      >
+      <S.AiDiv {...animatedAiDiv}>
         <S.AiIntro>
           <S.IntroHeader>
             무심코 지나치게 되는 아이의 피부질환,
@@ -69,15 +65,7 @@ const MainPage = () => {
           </S.Content>
         </S.ContentDiv>
       </S.SubDiv>
-      <S.EffectDiv
-        data-aos="fade-up"
-        data-aos-offset="200"
-        data-aos-duration="600"
-        data-aos-easing="ease-in-out"
-        data-aos-mirror="true"
-        data-aos-once="false"
-        data-aos-anchor-placement="top-center"
-      >
+      <S.EffectDiv {...animatedEffectDiv}>
         <S.EffectHeader>DOCTOR가 제공하는 기대효과 및 활용 방안</S.EffectHeader>
         <S.EffectP>
           <BiSolidChevronsRight color="#AE9AFF" size="20" />

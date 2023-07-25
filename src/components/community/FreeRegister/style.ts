@@ -14,33 +14,34 @@ export const TitleDiv = styled.div`
 export const Title = styled.input`
   font-size: 3rem;
   width: 100%;
-  height: 5rem;
   border-radius: 0.5rem;
   border: none;
+  padding: 1rem;
 `;
 
 export const DetailDiv = styled.div`
   width: 80%;
   margin: auto;
   margin-top: 2%;
-  border: 1px solid lightgrey;
+  margin-bottom: 2%;
+  height: 40rem;
 `;
 
 export const Detail = styled.textarea`
-  font-size: 2rem;
   width: 100%;
-  height: 40rem;
-  border-radius: 0.5rem;
-  border: none;
+  height: 100%;
   resize: none;
-  word-break: break-all;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  padding: 1rem;
+  font-size: 1.5rem;
 `;
 
 export const ButtonDiv = styled.div`
   width: 80%;
   margin: auto;
   text-align: right;
-  margin-top: 2%;
+  margin-top: 2rem;
 `;
 
 export const Register = styled.button`
