@@ -26,7 +26,7 @@ const HospitalMap = () => {
         async position => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-          const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyA0P7gq70DuNY2cE4Br_Jp7eBp9CKcH230`;
+          const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.GOOGLE_MAP_API_KEY}`;
 
           try {
             const response = await fetch(apiUrl);
