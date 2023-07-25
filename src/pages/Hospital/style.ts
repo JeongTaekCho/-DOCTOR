@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { RESPONSIVE } from '../../styles/responsive';
 
 export const Wrap = styled.div`
   width: 100%;
@@ -7,6 +8,14 @@ export const Wrap = styled.div`
 export const Container = styled.div`
   width: 1200px;
   margin: 0 auto;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 90%;
+
+    #myMap {
+      width: 100%;
+    }
+  }
 `;
 
 // 동물 병원 페이지 소개 제목 wrap
@@ -33,14 +42,19 @@ export const SubTitle = styled.h4`
 // 카카오맵
 export const MapContent = styled.div`
   width: 100%;
-  height: 50rem;
   margin-top: 2rem;
   position: relative;
+
+  @media ${RESPONSIVE.mobile} {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
 `;
 
 export const Map = styled.div`
   width: 100%;
-  height: 100%;
+  height: 50rem;
   background-color: gray;
   border: #b4b9c5 0.1rem solid;
   border-radius: 10px 10px 10px 10px;
@@ -57,6 +71,14 @@ export const SearchBox = styled.div`
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 0.6rem;
   z-index: 9000;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 100%;
+    height: 60rem;
+    position: static;
+    transform: translateY(0);
+    background-color: #fff;
+  }
 `;
 
 export const SearchContainer = styled.div`
