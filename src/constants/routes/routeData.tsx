@@ -8,7 +8,8 @@ import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
 import Community from '../../pages/Community';
 import HospitalPage from '../../pages/Hospital';
-import AdminPage from '../../pages/Admin';
+import ReportAdminPage from '../../pages/Admin/ReportAdmin';
+import CertifiedAdminPage from '../../pages/Admin/CertifiedAdmin';
 import FreeDetail from '../../components/community/FreeDetail';
 
 interface Route {
@@ -73,10 +74,16 @@ export const ROUTE: { [key: string]: Route } = {
     element: <HospitalPage />,
     exact: true
   },
-  ADMIN: {
-    path: '/admin',
-    link: '/admin',
-    element: <AdminPage />,
+  REPORTADMIN: {
+    path: '/report-admin',
+    link: '/report-admin',
+    element: <ReportAdminPage />,
+    exact: true
+  },
+  CERTIFIEDADMIN: {
+    path: '/certified-admin',
+    link: '/certified-admin',
+    element: <CertifiedAdminPage />,
     exact: true
   },
   FREEDETAIL: {
