@@ -2,13 +2,22 @@ import React, { ChangeEvent, useState } from 'react';
 import * as S from '../ChatList/style';
 import ProfileImg from '../../commons/ProfileImg';
 import { Rating } from '@mui/material';
+import Swal from 'sweetalert2';
 
-const ChatList = () => {
+interface ChatListProps {
+  userToken?: string | null;
+}
+
+const ChatList = ({ userToken }: ChatListProps) => {
   const [consult, setConsult] = useState('');
   const [isConsultModal, setIsConsultModal] = useState(false);
 
   const handleToggleConsultModal = () => {
-    setIsConsultModal(prev => !prev);
+    if (userToken) {
+      setIsConsultModal(prev => !prev);
+    } else {
+      Swal.fire('로그인 후 상담신청이 가능합니다.');
+    }
   };
 
   const handleChangeConsult = (e: ChangeEvent<HTMLTextAreaElement>) => {
