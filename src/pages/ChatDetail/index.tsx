@@ -7,6 +7,7 @@ import ReviewModal from '../../components/chats/ReviewModal';
 import { io, Socket } from 'socket.io-client';
 import UserChat from '../../components/chats/UserChat';
 import DoctorChat from '../../components/chats/DoctorChat';
+import { serverUrl } from '../../api';
 
 const ChatDetail = () => {
   const [isNav, setIsNav] = useState('상담 목록');
@@ -20,7 +21,7 @@ const ChatDetail = () => {
 
   useEffect(() => {
     // 백엔드 서버 주소로 소켓 연결
-    const socket = io('http://localhost:8080', {
+    const socket = io(serverUrl, {
       transports: ['websocket']
     });
     setSocket(socket);
