@@ -12,7 +12,7 @@ interface RegisterReturn {
 }
 
 const register = (data: RegisterData) => {
-  return API.post<RegisterReturn, RegisterData>('/register', data);
+  return API.post<RegisterReturn, RegisterData>('/users/register', data);
 };
 
 export const useRegisterMutation = () => {
