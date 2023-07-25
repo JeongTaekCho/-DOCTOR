@@ -5,10 +5,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 import useDebounce from '../../hooks/util/useDebounce';
+import LoadingBackground from '../../components/commons/LoadingBackground';
 
 const HospitalMap = () => {
   const [places, setPlaces] = useState([]);
-  const [searchPlace, setSearchPlace] = useState('광나루로 8길 동물병원');
+  const [searchPlace, setSearchPlace] = useState(null);
   const debounceSearchPlace = useDebounce(searchPlace, 500);
 
   const infowindowRef = useRef(null);
@@ -32,7 +33,11 @@ const HospitalMap = () => {
             const response = await fetch(apiUrl);
             const data = await response.json();
             const address = data.results[0].address_components[1].long_name;
-            setSearchPlace(`${address} 동물병원`);
+            if (address) {
+              setSearchPlace(`${address} 동물병원`);
+            } else {
+              setSearchPlace('동물병원');
+            }
           } catch (error) {
             console.error('Error fetching address:', error);
           }
@@ -226,6 +231,7 @@ const HospitalMap = () => {
           <S.Map id="myMap" />
         </S.MapContent>
       </S.Container>
+      {searchPlace === null && <LoadingBackground />}
     </S.Wrap>
   );
 };
