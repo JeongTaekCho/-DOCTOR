@@ -45,6 +45,9 @@ const ChatsPage = () => {
         <S.ChatListContainer>
           <S.ChatLists>
             <ChatList userToken={userToken} />
+            <ChatList userToken={userToken} />
+            <ChatList userToken={userToken} />
+            <ChatList userToken={userToken} />
           </S.ChatLists>
         </S.ChatListContainer>
         <Loading />

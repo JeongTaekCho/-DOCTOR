@@ -5,6 +5,10 @@ import { RESPONSIVE } from '../../../styles/responsive';
 export const ChatList = styled.li`
   padding: 2rem;
   border-bottom: 1px solid #000;
+
+  &:hover {
+    background-color: #e7e7e7;
+  }
 `;
 
 export const ListBox = styled.div`
