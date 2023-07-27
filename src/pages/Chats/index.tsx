@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import * as S from './style';
 import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
@@ -9,17 +9,31 @@ import { useAtom } from 'jotai';
 import { useGetDoctorListQuery } from '../../hooks/query/useGetDoctorListQuery';
 
 const ChatsPage = () => {
-  const [isArea, setIsArea] = useState('전체');
+  const [areaName, setAreaName] = useState('');
+  const [search, setSearch] = useState('');
   const [userToken] = useAtom(tokenAtom);
 
-  const { data } = useGetDoctorListQuery();
-
+  const { data, refetch } = useGetDoctorListQuery(areaName, search);
   console.log(data);
+
+  useEffect(() => {
+    refetch();
+  }, [areaName]);
 
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     const { name } = target.dataset;
-    setIsArea(name || '');
+    setAreaName(name || '');
+    setSearch('');
+  };
+
+  const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const handleSearch = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    refetch();
   };
 
   return (
@@ -31,18 +45,47 @@ const ChatsPage = () => {
               <li
                 key={uuid()}
                 data-name={area}
-                className={isArea === area ? 'selected' : ''}
+                className={areaName === area ? 'selected' : ''}
                 onClick={handleClickArea}
               >
-                {area}
+                {area === 'Seoul'
+                  ? '서울'
+                  : area === 'Gyeonggi'
+                  ? '경기도'
+                  : area === 'Incheon'
+                  ? '인천'
+                  : area === 'Daejeon'
+                  ? '대전'
+                  : area === 'Daegu'
+                  ? '대구'
+                  : area === 'Gwangju'
+                  ? '광주'
+                  : area === 'Ulsan'
+                  ? '울산'
+                  : area === 'Busan'
+                  ? '부산'
+                  : area === 'Gangwon'
+                  ? '강원도'
+                  : area === 'Chungcheong'
+                  ? '충청도'
+                  : area === 'Jeolla'
+                  ? '전라도'
+                  : area === 'Gyeongsang'
+                  ? '경상도'
+                  : area === 'Jeju'
+                  ? '제주도'
+                  : '전체'}
               </li>
             ))}
           </S.AreaList>
         </S.AreaBox>
         <S.SearchBox>
           <S.SearchForm>
-            <S.SearchInput placeholder="수의사명 또는 병원명을 입력해주세요." />
-            <S.SearchImgBtn type="submit">
+            <S.SearchInput
+              placeholder="수의사명 또는 병원명을 입력해주세요."
+              onChange={handleChangeSearch}
+            />
+            <S.SearchImgBtn type="submit" onClick={handleSearch}>
               <img src="/images/commons/search.png" alt="검색 아이콘 이미지" />
             </S.SearchImgBtn>
           </S.SearchForm>

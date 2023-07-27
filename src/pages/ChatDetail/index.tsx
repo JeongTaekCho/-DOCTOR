@@ -22,7 +22,10 @@ const ChatDetail = () => {
   useEffect(() => {
     // 백엔드 서버 주소로 소켓 연결
     const socket = io(serverUrl, {
-      transports: ['websocket']
+      transports: ['websocket'],
+      auth: {
+        token: sessionStorage.getItem('token')
+      }
     });
     setSocket(socket);
 
@@ -67,7 +70,7 @@ const ChatDetail = () => {
 
     // if (message.trim() === '' || !chatId) return;
     // 서버에 메시지 전송
-    socket?.emit('msgSend', { email: 'cjt3591@gmail.com', chatId, content: message });
+    socket?.emit('msgSend', { chatId: 2, content: message });
     setMessages(prevMessages => [
       ...prevMessages,
       {
