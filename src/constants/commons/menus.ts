@@ -33,7 +33,7 @@ export const PROFILE_MENU = [
 ];
 
 export const AREA = [
-  'All',
+  '',
   'Seoul',
   'Gyeonggi',
   'Incheon',

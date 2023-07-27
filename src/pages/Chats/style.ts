@@ -125,3 +125,11 @@ export const ChatLists = styled.ul`
   display: flex;
   flex-direction: column;
 `;
+
+export const ErrorMent = styled.p`
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: #5429ff;
+  text-align: center;
+  padding: 5rem 0;
+`;
