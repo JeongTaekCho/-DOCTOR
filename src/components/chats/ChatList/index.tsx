@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import * as S from '../ChatList/style';
 import ProfileImg from '../../commons/ProfileImg';
 import { Rating } from '@mui/material';
 import Swal from 'sweetalert2';
+import { useConsultRequestMutation } from '../../../hooks/query/useConsultRequestMutation';
 
 interface ChatListProps {
   userToken?: string | null;
@@ -11,6 +12,8 @@ interface ChatListProps {
 const ChatList = ({ userToken }: ChatListProps) => {
   const [consult, setConsult] = useState('');
   const [isConsultModal, setIsConsultModal] = useState(false);
+
+  const { mutate: consultRequestMutate } = useConsultRequestMutation();
 
   const handleToggleConsultModal = () => {
     if (userToken) {
@@ -22,6 +25,27 @@ const ChatList = ({ userToken }: ChatListProps) => {
 
   const handleChangeConsult = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setConsult(e.target.value);
+  };
+
+  const handleConsultRequest = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    consultRequestMutate(
+      {
+        vetEmail: 'tkdrl112@naver.com',
+        content: consult
+      },
+      {
+        onSuccess: () => {
+          setIsConsultModal(false);
+          setConsult('');
+          Swal.fire('상담신청이 완료 되었습니다.');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
   };
 
   return (
@@ -61,7 +85,9 @@ const ChatList = ({ userToken }: ChatListProps) => {
               "
             />
             <S.FormBtnBox>
-              <S.FormSubmitBtn type="submit">상담신청</S.FormSubmitBtn>
+              <S.FormSubmitBtn type="submit" onClick={handleConsultRequest}>
+                상담신청
+              </S.FormSubmitBtn>
               <S.FormCancelBtn type="button" onClick={handleToggleConsultModal}>
                 취소하기
               </S.FormCancelBtn>
