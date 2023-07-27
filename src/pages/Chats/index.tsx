@@ -34,6 +34,7 @@ const ChatsPage = () => {
   const handleSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     refetch();
+    setSearch('');
   };
 
   return (
