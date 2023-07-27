@@ -84,6 +84,7 @@ const ChatsPage = () => {
             <S.SearchInput
               placeholder="수의사명 또는 병원명을 입력해주세요."
               onChange={handleChangeSearch}
+              value={search}
             />
             <S.SearchImgBtn type="submit" onClick={handleSearch}>
               <img src="/images/commons/search.png" alt="검색 아이콘 이미지" />
@@ -92,17 +93,21 @@ const ChatsPage = () => {
         </S.SearchBox>
         <S.ChatListContainer>
           <S.ChatLists>
-            {doctorList?.data?.data?.map((doctor: any) => (
-              <ChatList
-                key={doctor?.id}
-                userToken={userToken}
-                name={doctor?.name}
-                hospitalName={doctor?.hospital_name}
-                profileImg={doctor?.img_path}
-                doctorEmail={doctor?.user_email}
-                grade={doctor?.grade}
-              />
-            ))}
+            {doctorList?.data?.data.length > 0 ? (
+              doctorList?.data?.data?.map((doctor: any) => (
+                <ChatList
+                  key={doctor?.id}
+                  userToken={userToken}
+                  name={doctor?.name}
+                  hospitalName={doctor?.hospital_name}
+                  profileImg={doctor?.img_path}
+                  doctorEmail={doctor?.user_email}
+                  grade={doctor?.grade}
+                />
+              ))
+            ) : (
+              <S.ErrorMent>해당 조건에 맞는 수의사가 없습니다.</S.ErrorMent>
+            )}
           </S.ChatLists>
         </S.ChatListContainer>
         <Loading />
