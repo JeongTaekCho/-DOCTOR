@@ -6,10 +6,15 @@ import { AREA } from '../../constants/commons/menus';
 import uuid from 'react-uuid';
 import { tokenAtom } from '../../atoms/atoms';
 import { useAtom } from 'jotai';
+import { useGetDoctorListQuery } from '../../hooks/query/useGetDoctorListQuery';
 
 const ChatsPage = () => {
   const [isArea, setIsArea] = useState('전체');
   const [userToken] = useAtom(tokenAtom);
+
+  const { data } = useGetDoctorListQuery();
+
+  console.log(data);
 
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;

@@ -35,6 +35,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     const saveUserEmail = localStorage.getItem('email');
+
     if (saveUserEmail) {
       setEmail(saveUserEmail);
       setRememberMe(true);
@@ -119,7 +120,7 @@ const LoginPage = () => {
         <S.Title>로그인</S.Title>
         <S.Form>
           <S.InputBox>
-            <S.InputLabel>Email</S.InputLabel>
+            <S.InputLabel>이메일</S.InputLabel>
             <S.InputContainer>
               <Input
                 type="text"
@@ -137,7 +138,7 @@ const LoginPage = () => {
             )}
           </S.InputBox>
           <S.InputBox>
-            <S.InputLabel>Password</S.InputLabel>
+            <S.InputLabel>비밀번호</S.InputLabel>
             <S.InputContainer>
               <Input
                 type="password"
