@@ -45,7 +45,7 @@ const ChatList = ({
     consultRequestMutate(
       {
         vetEmail: doctorEmail,
-        content: consult
+        message: consult
       },
       {
         onSuccess: () => {

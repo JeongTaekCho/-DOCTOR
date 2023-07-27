@@ -3,7 +3,7 @@ import * as API from '../../api/index';
 
 interface ConsultRequestData {
   vetEmail: string;
-  content: string;
+  message: string;
 }
 
 interface ConsultRequestReturn {
