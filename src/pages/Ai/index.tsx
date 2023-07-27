@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import * as S from './style';
 import { GrClose } from 'react-icons/gr';
 import { FcCheckmark, FcCancel } from 'react-icons/fc';
@@ -39,6 +39,8 @@ const AiPage = () => {
     window.location.reload();
   };
 
+  const imgInput = useRef<HTMLInputElement | null>(null);
+
   return (
     <S.Wrap>
       <S.Title>
@@ -56,9 +58,10 @@ const AiPage = () => {
             cursor: 'pointer',
             borderRadius: '0.5rem'
           }}
-          onClick={() => document.getElementById('profile-img-input').click()}
+          onClick={() => imgInput.current?.click()}
         />
         <S.Input
+          ref={imgInput}
           id="profile-img-input"
           type="file"
           accept="image/jpg,image/png,image/jpeg"

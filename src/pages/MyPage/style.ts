@@ -138,3 +138,19 @@ export const AvatarDiv = styled.div`
   width: 100%;
   position: relative;
 `;
+
+export const CertificationDiv = styled.div`
+  padding: 5rem 0 0 0;
+  text-align: center;
+`;
+
+export const Certification = styled.button`
+  width: 14rem;
+  height: 5rem;
+  padding: 1rem;
+  font-size: 2rem;
+  background-color: #5429ff;
+  color: white;
+  font-weight: bolder;
+  border-radius: 2rem;
+`;

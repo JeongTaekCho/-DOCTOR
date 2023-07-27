@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import * as S from './style';
 import Avatar from '@mui/material/Avatar';
 import MyManage from '../../components/mypage/Manage';
@@ -6,6 +6,7 @@ import List from '../../components/mypage/List';
 import { BiPencil } from 'react-icons/bi';
 
 const MyPage = () => {
+  const certification: string = '인증안됨';
   const [image, setImage] = useState<string | undefined>(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
@@ -30,6 +31,8 @@ const MyPage = () => {
     setActiveTab(tab);
   };
 
+  const imgInput = useRef<HTMLInputElement | null>(null);
+
   return (
     <S.Wrap>
       <S.Container>
@@ -40,15 +43,12 @@ const MyPage = () => {
               sx={{ width: 150, height: 150, margin: 'auto', marginTop: '2rem' }}
             />
             <S.ChangeDiv>
-              <BiPencil
-                size="48"
-                color="gray"
-                onClick={() => document.getElementById('profile-img-input')?.click()}
-              />
+              <BiPencil size="48" color="gray" onClick={() => imgInput.current?.click()} />
             </S.ChangeDiv>
           </S.AvatarDiv>
           <S.Label htmlFor="profile-img-input">
             <S.Input
+              ref={imgInput}
               id="profile-img-input"
               type="file"
               accept="image/jpg,image/png,image/jpeg"
@@ -60,6 +60,11 @@ const MyPage = () => {
               계정상태: <S.StateSpan>정상</S.StateSpan>
             </S.State>
           </S.Label>
+          {certification !== '인증됨' && (
+            <S.CertificationDiv>
+              <S.Certification>수의사 인증</S.Certification>
+            </S.CertificationDiv>
+          )}
         </S.Profile>
         <S.Detail>
           <S.DetailTop>
@@ -71,7 +76,7 @@ const MyPage = () => {
             </S.TabItem>
           </S.DetailTop>
           <S.MyDetail>
-            {activeTab === 'manage' && <MyManage />}
+            {activeTab === 'manage' && <MyManage certification={certification} />}
             {activeTab === 'list' && <List />}
           </S.MyDetail>
         </S.Detail>
