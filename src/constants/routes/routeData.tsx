@@ -38,13 +38,13 @@ export const ROUTE: { [key: string]: Route } = {
     exact: true
   },
   CHATLIST: {
-    path: '/chats',
-    link: '/chats',
+    path: '/chat-list',
+    link: '/chat-list',
     element: <ChatsPage />,
     exact: true
   },
   CHATDETAIL: {
-    path: '/chats/:userId',
+    path: '/chats',
     link: '/chats',
     element: <ChatDetail />,
     exact: true
@@ -56,7 +56,7 @@ export const ROUTE: { [key: string]: Route } = {
     exact: true
   },
   MYPAGE: {
-    path: '/mypage/:userId',
+    path: '/mypage',
     link: '/mypage',
     element: <MyPage />,
     exact: true

@@ -13,8 +13,7 @@ const ChatsPage = () => {
   const [search, setSearch] = useState('');
   const [userToken] = useAtom(tokenAtom);
 
-  const { data, refetch } = useGetDoctorListQuery(areaName, search);
-  console.log(data);
+  const { data: doctorList, refetch } = useGetDoctorListQuery(areaName, search);
 
   useEffect(() => {
     refetch();
@@ -93,10 +92,17 @@ const ChatsPage = () => {
         </S.SearchBox>
         <S.ChatListContainer>
           <S.ChatLists>
-            <ChatList userToken={userToken} />
-            <ChatList userToken={userToken} />
-            <ChatList userToken={userToken} />
-            <ChatList userToken={userToken} />
+            {doctorList?.data?.data?.map((doctor: any) => (
+              <ChatList
+                key={doctor?.id}
+                userToken={userToken}
+                name={doctor?.name}
+                hospitalName={doctor?.hospital_name}
+                profileImg={doctor?.img_path}
+                doctorEmail={doctor?.user_email}
+                grade={doctor?.grade}
+              />
+            ))}
           </S.ChatLists>
         </S.ChatListContainer>
         <Loading />

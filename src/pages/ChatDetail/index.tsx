@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import ChatBox from '../../components/chats/ChatBox';
 import ProfileImg from '../../components/commons/ProfileImg';
@@ -8,6 +8,13 @@ import { io, Socket } from 'socket.io-client';
 import UserChat from '../../components/chats/UserChat';
 import DoctorChat from '../../components/chats/DoctorChat';
 import { serverUrl } from '../../api';
+import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
+import uuid from 'react-uuid';
+import { useGetChatConentsQuery } from '../../hooks/query/useGetChatContentsQuery';
+import { useGetChatListQuery } from '../../hooks/query/useGetChatListQuery';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { ROUTE } from '../../constants/routes/routeData';
 
 const ChatDetail = () => {
   const [isNav, setIsNav] = useState('상담 목록');
@@ -19,7 +26,39 @@ const ChatDetail = () => {
   const [messages, setMessages] = useState<object[]>([]);
   const [message, setMessage] = useState('');
 
+  const { data: userData } = useGetUsersQuery();
+  const { data: chatContents, refetch } = useGetChatConentsQuery(1);
+  const { data: chatList } = useGetChatListQuery();
+
+  const ChatUiRef = useRef<HTMLDivElement | null>(null);
+
+  const navigate = useNavigate();
+
+  console.log(refetch);
+  console.log(chatList);
+  console.log(chatContents);
+
   useEffect(() => {
+    if (!sessionStorage.getItem('token')) {
+      navigate(ROUTE.LOGIN.link);
+      Swal.fire('로그인 후 이용이 가능합니다.');
+    }
+  }, []);
+
+  useEffect(() => {
+    // 채팅 메시지가 업데이트되거나 새로운 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    if (ChatUiRef.current) {
+      ChatUiRef.current.scrollTop = ChatUiRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    setMessages(chatContents?.data.ChatContents);
+
     // 백엔드 서버 주소로 소켓 연결
     const socket = io(serverUrl, {
       transports: ['websocket'],
@@ -40,12 +79,14 @@ const ChatDetail = () => {
     });
 
     // 메시지 수신 이벤트 처리
-    socket.on('msgReceive', ({ email, content }) => {
+    socket.on('msgReceive', ({ email, content, nickname, img_path }) => {
       setMessages(prevMessages => [
         ...prevMessages,
         {
-          email: email,
-          message: content
+          message: content,
+          email,
+          nickname,
+          img_path
         }
       ]);
     });
@@ -54,7 +95,7 @@ const ChatDetail = () => {
       // 컴포넌트가 언마운트될 때 소켓 연결 종료
       socket.disconnect();
     };
-  }, []);
+  }, [chatContents]);
 
   const handleJoinChat = () => {
     // chatId에 입장 요청 보내기
@@ -65,17 +106,17 @@ const ChatDetail = () => {
     setMessage(event.target.value);
   };
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
+  const handleSubmit = () => {
     // if (message.trim() === '' || !chatId) return;
     // 서버에 메시지 전송
-    socket?.emit('msgSend', { chatId: 2, content: message });
+    socket?.emit('msgSend', { chatId: 1, message });
     setMessages(prevMessages => [
       ...prevMessages,
       {
         message,
-        유저정보: '내 유저정보 객체'
+        email: userData?.data?.user?.email,
+        nickname: userData?.data?.user?.nickname,
+        img_path: userData?.data?.user?.img_path
       }
     ]);
     setMessage('');
@@ -113,7 +154,6 @@ const ChatDetail = () => {
   };
 
   console.log(setChatId);
-  console.log(messages);
   console.log(handleJoinChat);
 
   return (
@@ -155,13 +195,20 @@ const ChatDetail = () => {
               </S.ExitBtn>
             </S.HeadBtnBox>
           </S.ChatHead>
-          <S.ChatDetailBox>
-            <UserChat content="견종: 포메라니안 몸무게: 10kg 상세내용: 상담 부탁드립니다! 우리아이가 아파요 살려주세요" />
-            <DoctorChat
-              name="깜장이 수의사"
-              content="채팅이 입력되는 부분"
-              profileImg="/images/commons/kkam.png"
-            />
+          <S.ChatDetailBox ref={ChatUiRef}>
+            {messages?.map((message: any) =>
+              message.email === userData?.data?.user?.email ||
+              message.from_id === userData?.data?.user?.email ? (
+                <UserChat key={uuid()} content={message.message} />
+              ) : (
+                <DoctorChat
+                  key={uuid()}
+                  name={chatContents?.data?.nickname}
+                  content={message.message}
+                  profileImg={chatContents?.data?.img_path || '/images/commons/kkam.png'}
+                />
+              )
+            )}
           </S.ChatDetailBox>
           <S.ChatForm>
             <S.FileTextarea>

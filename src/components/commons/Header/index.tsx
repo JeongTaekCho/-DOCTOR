@@ -289,7 +289,7 @@ const Header = () => {
                   </li>
                 ))}
                 <li>
-                  <Link to={`${ROUTE.CHATDETAIL.link}/:유저아이디`} onClick={handleMobileMenuBtn}>
+                  <Link to={ROUTE.CHATDETAIL.link} onClick={handleMobileMenuBtn}>
                     <span>채팅</span>
                     <span>&gt;</span>
                   </Link>
