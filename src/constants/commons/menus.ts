@@ -33,18 +33,18 @@ export const PROFILE_MENU = [
 ];
 
 export const AREA = [
-  '전체',
-  '서울',
-  '경기',
-  '인천',
-  '대전',
-  '대구',
-  '광주',
-  '울산',
-  '부산',
-  '강원도',
-  '충청도',
-  '전라도',
-  '경상도',
-  '제주도'
+  'All',
+  'Seoul',
+  'Gyeonggi',
+  'Incheon',
+  'Daejeon',
+  'Daegu',
+  'Gwangju',
+  'Ulsan',
+  'Busan',
+  'Gangwon',
+  'Chungcheong',
+  'Jeolla',
+  'Gyeongsang',
+  'Jeju'
 ];
