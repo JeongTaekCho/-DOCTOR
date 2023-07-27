@@ -151,6 +151,7 @@ export const ChatDetailBox = styled.div`
   height: 420px;
   background-color: #fff;
   padding: 4rem 1.8rem 0 1.8rem;
+  overflow-y: auto;
 `;
 
 export const ChatForm = styled.form`

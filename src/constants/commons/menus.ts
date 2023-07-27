@@ -13,7 +13,7 @@ export const MENU = [
   },
   {
     name: '실시간 상담',
-    link: '/chats'
+    link: '/chat-list'
   },
   {
     name: '커뮤니티',
@@ -24,11 +24,11 @@ export const MENU = [
 export const PROFILE_MENU = [
   {
     name: '마이페이지',
-    link: '/mypage/:유저아이디'
+    link: '/mypage'
   },
   {
     name: '채팅',
-    link: '/chats/:유저아이디'
+    link: '/chats'
   }
 ];
 
