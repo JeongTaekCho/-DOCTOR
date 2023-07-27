@@ -6,18 +6,43 @@ import { AREA } from '../../constants/commons/menus';
 import uuid from 'react-uuid';
 import { tokenAtom } from '../../atoms/atoms';
 import { useAtom } from 'jotai';
-import { useGetDoctorListQuery } from '../../hooks/query/useGetDoctorListQuery';
+import * as API from '../../api/index';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import InfiniteScroll from 'react-infinite-scroller';
+import { DoctorListResponse } from './types';
+import useDebounce from '../../hooks/util/useDebounce';
 
 const ChatsPage = () => {
   const [areaName, setAreaName] = useState('');
   const [search, setSearch] = useState('');
   const [userToken] = useAtom(tokenAtom);
 
-  const { data: doctorList, refetch } = useGetDoctorListQuery(areaName, search);
+  const debounceSearchValue = useDebounce(search, 500);
 
-  useEffect(() => {
-    refetch();
-  }, [areaName]);
+  const getDoctorList = async (areaName: string, search: string, page = 1) => {
+    const result: any = await API.get(
+      `/chats/vet-lists?region=${areaName || ''}${
+        debounceSearchValue && `&search=${search}`
+      }&currentPage=${page}`
+    );
+    return result.data;
+  };
+
+  const {
+    data: doctorList,
+    fetchNextPage,
+    hasNextPage
+  } = useInfiniteQuery<DoctorListResponse>(
+    ['infiniteDoctorList', areaName, debounceSearchValue],
+    ({ pageParam }) => getDoctorList(areaName, debounceSearchValue, pageParam),
+    {
+      getNextPageParam: lastPage => {
+        return lastPage.currentPage < lastPage.totalPages && lastPage.currentPage + 1;
+      }
+    }
+  );
+
+  useEffect(() => {}, [areaName]);
 
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
@@ -32,10 +57,9 @@ const ChatsPage = () => {
 
   const handleSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    refetch();
     setSearch('');
   };
-
+  console.log(doctorList);
   return (
     <S.Wrap>
       <S.Container>
@@ -93,24 +117,31 @@ const ChatsPage = () => {
         </S.SearchBox>
         <S.ChatListContainer>
           <S.ChatLists>
-            {doctorList?.data?.data.length > 0 ? (
-              doctorList?.data?.data?.map((doctor: any) => (
-                <ChatList
-                  key={doctor?.id}
-                  userToken={userToken}
-                  name={doctor?.name}
-                  hospitalName={doctor?.hospital_name}
-                  profileImg={doctor?.img_path}
-                  doctorEmail={doctor?.user_email}
-                  grade={doctor?.grade}
-                />
-              ))
-            ) : (
-              <S.ErrorMent>해당 조건에 맞는 수의사가 없습니다.</S.ErrorMent>
-            )}
+            <InfiniteScroll
+              hasMore={hasNextPage}
+              loadMore={() => fetchNextPage()}
+              loader={<Loading />}
+            >
+              {doctorList?.pages?.[0]?.totalPages !== 0 ? (
+                doctorList?.pages.map(page =>
+                  page?.data.map((doctor: any) => (
+                    <ChatList
+                      key={doctor?.id}
+                      userToken={userToken}
+                      name={doctor?.name}
+                      hospitalName={doctor?.hospital_name}
+                      profileImg={doctor?.img_path}
+                      doctorEmail={doctor?.user_email}
+                      grade={doctor?.grade}
+                    />
+                  ))
+                )
+              ) : (
+                <S.ErrorMent>해당 조건에 맞는 수의사가 없습니다.</S.ErrorMent>
+              )}
+            </InfiniteScroll>
           </S.ChatLists>
         </S.ChatListContainer>
-        <Loading />
       </S.Container>
     </S.Wrap>
   );
