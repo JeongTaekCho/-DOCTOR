@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   width: 50%;
   margin: auto;
+  margin-left: 30%;
+`;
+
+export const ListContainer = styled.div`
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const Header = styled.div`

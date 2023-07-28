@@ -1,9 +1,4 @@
-import styled, { css } from 'styled-components';
-
-interface TabItemProps {
-  active: boolean;
-  onClick: () => void;
-}
+import styled from 'styled-components';
 
 export const Side = styled.div`
   background-color: #363740;
@@ -15,7 +10,7 @@ export const Side = styled.div`
   padding-top: 8rem;
 `;
 
-export const Free = styled.div<TabItemProps>`
+export const Free = styled.div`
   width: 100%;
   height: 6%;
   color: white;
@@ -30,15 +25,9 @@ export const Free = styled.div<TabItemProps>`
   &:hover {
     background-color: #747474;
   }
-
-  ${({ active }) =>
-    active &&
-    css`
-      background-color: #747474;
-    `}
 `;
 
-export const Info = styled.div<TabItemProps>`
+export const Info = styled.div`
   width: 100%;
   height: 6%;
   color: white;
@@ -54,10 +43,10 @@ export const Info = styled.div<TabItemProps>`
   &:hover {
     background-color: #747474;
   }
+`;
 
-  ${({ active }) =>
-    active &&
-    css`
-      background-color: #747474;
-    `}
+export const ListDiv = styled.div`
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 `;

@@ -5,7 +5,7 @@ import useScrollFadeIn from '../../hooks/util/useScrollFadeIn';
 
 const MainPage = () => {
   const animatedAiDiv = useScrollFadeIn('down', 1, 0);
-  const animatedEffectDiv = useScrollFadeIn('up', 1, 0);
+  const animatedEffectDiv = useScrollFadeIn('down', 1, 0);
 
   return (
     <S.Wrap>
