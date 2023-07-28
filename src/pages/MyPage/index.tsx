@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import MyManage from '../../components/mypage/Manage';
 import List from '../../components/mypage/List';
 import { BiPencil } from 'react-icons/bi';
-// import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
+import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 import { GrClose } from 'react-icons/gr';
 
 const MyPage = () => {
@@ -43,9 +43,9 @@ const MyPage = () => {
 
   const imgInput = useRef<HTMLInputElement | null>(null);
 
-  // const { data: userData } = useGetUsersQuery();
-  const certification = 'vet';
-  const vetStatus = 'pending';
+  const { data: userData } = useGetUsersQuery();
+  const certification = userData?.user?.role;
+  const vetStatus = userData?.vet?.status;
   return (
     <S.Wrap>
       <S.Container>
@@ -68,8 +68,7 @@ const MyPage = () => {
               name="profile_img"
               onChange={onChange}
             />
-            {/* <S.Name>{userData?.data?.user?.nickname}</S.Name> */}
-            <S.Name>유승제</S.Name>
+            <S.Name>{userData?.user?.nickname}</S.Name>
             <S.State>
               계정상태: <S.StateSpan>정상</S.StateSpan>
             </S.State>

@@ -32,7 +32,7 @@ interface Vet {
 
 interface UserResponse {
   user: User;
-  ver: Vet | null;
+  vet: Vet | null;
 }
 
 const getUsers = async (): Promise<UserResponse> => {

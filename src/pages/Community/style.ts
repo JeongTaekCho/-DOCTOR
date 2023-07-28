@@ -15,7 +15,7 @@ export const Side = styled.div`
   width: 15%;
   position: fixed;
   height: 100%;
-  top: 8.4rem;
+  top: 7.4rem;
   left: 0;
   padding-top: 8rem;
 `;
