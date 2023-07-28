@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import * as S from './style';
 import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
@@ -41,8 +41,6 @@ const ChatsPage = () => {
       }
     }
   );
-
-  useEffect(() => {}, [areaName]);
 
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;

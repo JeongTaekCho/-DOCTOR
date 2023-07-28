@@ -3,7 +3,7 @@ import * as S from './style';
 import ProfileImg from '../../commons/ProfileImg';
 
 interface DoctorChatProps {
-  name: string;
+  name: string | undefined;
   content: string;
   profileImg: string;
 }

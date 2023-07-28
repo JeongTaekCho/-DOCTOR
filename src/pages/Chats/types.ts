@@ -1,5 +1,4 @@
 interface Doctor {
-  // Doctor 타입에 관련된 프로퍼티들을 정의하세요
   id: number;
   name: string;
   hospital_name: string;
