@@ -187,7 +187,13 @@ const ChatDetail = () => {
           <S.ChatHead>
             <S.ProfileBox>
               <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-              <S.HeadProfileName>깜장이 수의사 [깜장 동물병원]</S.HeadProfileName>
+              <S.ProfileContent>
+                <S.HeadProfileName>깜장이 수의사 [깜장 동물병원]</S.HeadProfileName>
+                <S.ChatBtnBox>
+                  <S.AcceptBtn>수락</S.AcceptBtn>
+                  <S.RefuseBtn>거절</S.RefuseBtn>
+                </S.ChatBtnBox>
+              </S.ProfileContent>
             </S.ProfileBox>
             <S.HeadBtnBox>
               <S.BackBtn type="button" onClick={handletoggleChat}>

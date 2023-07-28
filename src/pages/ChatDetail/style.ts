@@ -112,7 +112,9 @@ export const ChatListBox = styled.ul`
   }
 `;
 
-export const ChatBtn = styled.div``;
+export const ChatBtn = styled.div`
+  cursor: pointer;
+`;
 
 export const ChatHead = styled.div`
   width: 100%;
@@ -211,4 +213,31 @@ export const BackBtn = styled.button`
   @media (max-width: 920px) {
     display: block;
   }
+`;
+
+export const ProfileContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const ChatBtnBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+`;
+
+export const AcceptBtn = styled.button`
+  padding: 0.5rem 1.4rem;
+  border-radius: 0.4rem;
+  background-color: ${STYLE.mainColor};
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+  border: 1px solid ${STYLE.mainColor};
+`;
+
+export const RefuseBtn = styled(AcceptBtn)`
+  background-color: #fff;
+  color: ${STYLE.mainColor};
 `;
