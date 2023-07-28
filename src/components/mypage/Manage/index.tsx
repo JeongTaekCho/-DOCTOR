@@ -36,8 +36,8 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
   };
   const { data: userData } = useGetUsersQuery();
   const generateAsterisks = length => '*'.repeat(Math.min(length, 10));
-  const passwordCheck = userData?.data?.user?.password;
-  const passwordLength = passwordCheck ? userData?.data?.user?.password?.length : 0;
+  const passwordCheck = userData?.user?.password;
+  const passwordLength = passwordCheck ? userData?.user?.password?.length : 0;
   const maskedPassword = generateAsterisks(passwordLength);
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +90,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
           {isVet ? (
             <S.FileInput type="file" />
           ) : (
-            <S.RightText2>{userData?.data?.vet?.status}</S.RightText2>
+            <S.RightText2>{userData?.vet?.status}</S.RightText2>
           )}
         </S.InputDiv>
       </S.MainBox>
@@ -100,9 +100,9 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv>
           {isVet ? (
-            <S.RightInput placeholder={userData?.data?.vet?.name} />
+            <S.RightInput placeholder={userData?.vet?.name} />
           ) : (
-            <S.RightText>{userData?.data?.vet?.name}</S.RightText>
+            <S.RightText>{userData?.vet?.name}</S.RightText>
           )}
         </S.InputDiv>
       </S.MainBox2>
@@ -112,9 +112,9 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv>
           {isVet ? (
-            <S.RightInput placeholder={userData?.data?.vet?.hospital_name} />
+            <S.RightInput placeholder={userData?.vet?.hospital_name} />
           ) : (
-            <S.RightText>{userData?.data?.vet?.hospital_name}</S.RightText>
+            <S.RightText>{userData?.vet?.hospital_name}</S.RightText>
           )}
         </S.InputDiv>
       </S.MainBox2>
@@ -141,7 +141,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
               <option value="기타">제주도</option>
             </S.Select>
           ) : (
-            <S.RightText>{userData?.data?.vet?.region}</S.RightText>
+            <S.RightText>{userData?.vet?.region}</S.RightText>
           )}
         </S.InputDiv>
       </S.MainBox2>
@@ -151,9 +151,9 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv2>
           {isVet ? (
-            <S.RightInput2 placeholder={userData?.data?.vet?.description} />
+            <S.RightInput2 placeholder={userData?.vet?.description} />
           ) : (
-            <S.RightText>{userData?.data?.vet?.description}</S.RightText>
+            <S.RightText>{userData?.vet?.description}</S.RightText>
           )}
         </S.InputDiv2>
       </S.MainBox3>
@@ -180,9 +180,9 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv>
           {isBasic ? (
-            <S.RightInput placeholder={userData?.data?.user?.nickname} />
+            <S.RightInput placeholder={userData?.user?.nickname} />
           ) : (
-            <S.RightText>{userData?.data?.user?.nickname}</S.RightText>
+            <S.RightText>{userData?.user?.nickname}</S.RightText>
           )}
         </S.InputDiv>
       </S.MainBox>
@@ -192,9 +192,9 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv>
           {isBasic ? (
-            <S.RightInput placeholder={userData?.data?.user?.email} />
+            <S.RightInput placeholder={userData?.user?.email} />
           ) : (
-            <S.RightText>{userData?.data?.user?.email}</S.RightText>
+            <S.RightText>{userData?.user?.email}</S.RightText>
           )}
         </S.InputDiv>
       </S.MainBox2>
