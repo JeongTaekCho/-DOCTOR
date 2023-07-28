@@ -2,12 +2,12 @@ import React, { useState, ChangeEvent } from 'react';
 import * as S from './style';
 import { BsPen } from 'react-icons/bs';
 import { PASSOWRDREGEX } from '../../../constants/commons/validaties';
-
+import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
 interface MyManageProps {
-  certification: string;
+  vetStatus: string;
 }
 
-const MyManage = ({ certification }: MyManageProps) => {
+const MyManage = ({ vetStatus }: MyManageProps) => {
   const [isBasic, setIsBasic] = useState(false);
   const [isVet, setIsVet] = useState(false);
   const [password, setPassword] = useState('');
@@ -34,6 +34,11 @@ const MyManage = ({ certification }: MyManageProps) => {
     setPassword('');
     setPasswordConfirm('');
   };
+  const { data: userData } = useGetUsersQuery();
+  const generateAsterisks = length => '*'.repeat(Math.min(length, 10));
+  const passwordCheck = userData?.data?.user?.password;
+  const passwordLength = passwordCheck ? userData?.data?.user?.password?.length : 0;
+  const maskedPassword = generateAsterisks(passwordLength);
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -82,7 +87,11 @@ const MyManage = ({ certification }: MyManageProps) => {
           )}
         </S.LeftText>
         <S.InputDiv>
-          {isVet ? <S.FileInput type="file" /> : <S.RightText2>{certification}</S.RightText2>}
+          {isVet ? (
+            <S.FileInput type="file" />
+          ) : (
+            <S.RightText2>{userData?.data?.vet?.status}</S.RightText2>
+          )}
         </S.InputDiv>
       </S.MainBox>
       <S.MainBox2>
@@ -90,7 +99,11 @@ const MyManage = ({ certification }: MyManageProps) => {
           <S.CenteredText>이름</S.CenteredText>
         </S.LeftText>
         <S.InputDiv>
-          {isVet ? <S.RightInput placeholder="엘리스" /> : <S.RightText>엘리스</S.RightText>}
+          {isVet ? (
+            <S.RightInput placeholder={userData?.data?.vet?.name} />
+          ) : (
+            <S.RightText>{userData?.data?.vet?.name}</S.RightText>
+          )}
         </S.InputDiv>
       </S.MainBox2>
       <S.MainBox2>
@@ -99,9 +112,9 @@ const MyManage = ({ certification }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv>
           {isVet ? (
-            <S.RightInput placeholder="엘리스 병원" />
+            <S.RightInput placeholder={userData?.data?.vet?.hospital_name} />
           ) : (
-            <S.RightText>엘리스 병원</S.RightText>
+            <S.RightText>{userData?.data?.vet?.hospital_name}</S.RightText>
           )}
         </S.InputDiv>
       </S.MainBox2>
@@ -128,7 +141,7 @@ const MyManage = ({ certification }: MyManageProps) => {
               <option value="기타">제주도</option>
             </S.Select>
           ) : (
-            <S.RightText>서울</S.RightText>
+            <S.RightText>{userData?.data?.vet?.region}</S.RightText>
           )}
         </S.InputDiv>
       </S.MainBox2>
@@ -138,9 +151,9 @@ const MyManage = ({ certification }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv2>
           {isVet ? (
-            <S.RightInput2 placeholder="안녕하세요 여러분" />
+            <S.RightInput2 placeholder={userData?.data?.vet?.description} />
           ) : (
-            <S.RightText>안녕하세요 여러분</S.RightText>
+            <S.RightText>{userData?.data?.vet?.description}</S.RightText>
           )}
         </S.InputDiv2>
       </S.MainBox3>
@@ -166,15 +179,23 @@ const MyManage = ({ certification }: MyManageProps) => {
           <S.CenteredText>닉네임</S.CenteredText>
         </S.LeftText>
         <S.InputDiv>
-          {isBasic ? <S.RightInput placeholder="유승제" /> : <S.RightText>유승제</S.RightText>}
+          {isBasic ? (
+            <S.RightInput placeholder={userData?.data?.user?.nickname} />
+          ) : (
+            <S.RightText>{userData?.data?.user?.nickname}</S.RightText>
+          )}
         </S.InputDiv>
       </S.MainBox>
       <S.MainBox2>
         <S.LeftText>
-          <S.CenteredText>아이디</S.CenteredText>
+          <S.CenteredText>이메일</S.CenteredText>
         </S.LeftText>
         <S.InputDiv>
-          {isBasic ? <S.RightInput placeholder="elice123" /> : <S.RightText>elice123</S.RightText>}
+          {isBasic ? (
+            <S.RightInput placeholder={userData?.data?.user?.email} />
+          ) : (
+            <S.RightText>{userData?.data?.user?.email}</S.RightText>
+          )}
         </S.InputDiv>
       </S.MainBox2>
       <S.MainBox2>
@@ -190,7 +211,7 @@ const MyManage = ({ certification }: MyManageProps) => {
               onChange={onChangeInput}
             />
           ) : (
-            <S.RightText>*******</S.RightText>
+            <S.RightText>{maskedPassword}</S.RightText>
           )}
         </S.InputDiv>
         {validate.password && isBasic && (
@@ -227,7 +248,7 @@ const MyManage = ({ certification }: MyManageProps) => {
           <S.RedButton onClick={handleEditBasic}>취소</S.RedButton>
         </S.ButtonDiv>
       )}
-      {certification === '인증됨' && certificationSection}
+      {vetStatus === 'accepted' && certificationSection}
     </div>
   );
 };

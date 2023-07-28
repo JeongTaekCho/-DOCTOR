@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import { GrClose } from 'react-icons/gr';
 import { FcCheckmark, FcCancel } from 'react-icons/fc';

@@ -30,7 +30,7 @@ export const Header = styled.h4`
 
   @media ${RESPONSIVE.mobile} {
     font-size: 9rem;
-    top: 15%;
+    top: 25%;
   }
 `;
 
