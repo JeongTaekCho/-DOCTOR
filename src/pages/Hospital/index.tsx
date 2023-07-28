@@ -21,6 +21,31 @@ const HospitalMap = () => {
     setSearchPlace(`${e.target.value} 동물병원`);
   };
 
+  // 마우스 오버시 해당 마커의 인포윈도우를 열어주는 함수
+  const handleMouseClick = (place, index) => {
+    const marker = markersRef.current[index];
+    // 인포윈도우가 열린 상태에서 다시 열렸을 때, setContent와 open을 다시 호출해야 합니다.
+    infowindowRef.current.setContent(
+      `<div style="padding:0.8rem;font-size:12px;">
+        <a href="${place.place_url}" target="blank" style="display:block;font-size: 1.2rem;
+        font-weight: 500;
+        color: #0c43b7;
+        margin-bottom: 1rem; line-height:1.3;">${place.place_name}</a>
+        <p style="  font-size: 1.1rem;
+        font-weight: 400;
+        color: #111;
+        margin-bottom: 1.5rem;">${place.road_address_name}</p>
+        <p style="  font-size: 1.1rem;
+        font-weight: 400;
+        color: #009900;
+        ">Tel: ${place.phone}</p>
+      </div>`
+    );
+    infowindowRef.current.open(mapRef.current, marker);
+    const position = new kakao.maps.LatLng(place.y, place.x);
+    mapRef.current.panTo(position); // 해당 위치로 지도의 중심 이동
+  };
+
   useEffect(() => {
     // Geolocation API를 사용하여 현재 위치 가져오기
     if (navigator.geolocation) {
@@ -160,31 +185,6 @@ const HospitalMap = () => {
       });
     };
   }, [debounceSearchPlace]);
-
-  // 마우스 오버시 해당 마커의 인포윈도우를 열어주는 함수
-  const handleMouseClick = (place, index) => {
-    const marker = markersRef.current[index];
-    // 인포윈도우가 열린 상태에서 다시 열렸을 때, setContent와 open을 다시 호출해야 합니다.
-    infowindowRef.current.setContent(
-      `<div style="padding:0.8rem;font-size:12px;">
-        <a href="${place.place_url}" target="blank" style="display:block;font-size: 1.2rem;
-        font-weight: 500;
-        color: #0c43b7;
-        margin-bottom: 1rem; line-height:1.3;">${place.place_name}</a>
-        <p style="  font-size: 1.1rem;
-        font-weight: 400;
-        color: #111;
-        margin-bottom: 1.5rem;">${place.road_address_name}</p>
-        <p style="  font-size: 1.1rem;
-        font-weight: 400;
-        color: #009900;
-        ">Tel: ${place.phone}</p>
-      </div>`
-    );
-    infowindowRef.current.open(mapRef.current, marker);
-    const position = new kakao.maps.LatLng(place.y, place.x);
-    mapRef.current.panTo(position); // 해당 위치로 지도의 중심 이동
-  };
 
   return (
     <S.Wrap>
