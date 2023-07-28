@@ -1,16 +1,31 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import * as S from '../ChatList/style';
 import ProfileImg from '../../commons/ProfileImg';
 import { Rating } from '@mui/material';
 import Swal from 'sweetalert2';
+import { useConsultRequestMutation } from '../../../hooks/query/useConsultRequestMutation';
 
 interface ChatListProps {
   userToken?: string | null;
+  name: string;
+  hospitalName: string;
+  profileImg: string | null;
+  doctorEmail: string;
+  grade?: number | null;
 }
 
-const ChatList = ({ userToken }: ChatListProps) => {
+const ChatList = ({
+  userToken,
+  name,
+  hospitalName,
+  profileImg,
+  doctorEmail,
+  grade
+}: ChatListProps) => {
   const [consult, setConsult] = useState('');
   const [isConsultModal, setIsConsultModal] = useState(false);
+
+  const { mutate: consultRequestMutate } = useConsultRequestMutation();
 
   const handleToggleConsultModal = () => {
     if (userToken) {
@@ -24,16 +39,39 @@ const ChatList = ({ userToken }: ChatListProps) => {
     setConsult(e.target.value);
   };
 
+  const handleConsultRequest = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    consultRequestMutate(
+      {
+        vetEmail: doctorEmail,
+        message: consult
+      },
+      {
+        onSuccess: () => {
+          setIsConsultModal(false);
+          setConsult('');
+          Swal.fire('상담신청이 완료 되었습니다.');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
   return (
     <>
       <S.ChatList>
         <S.ListBox>
           <S.ListContainer>
-            <ProfileImg w="8rem" h="8rem" src="/images/commons/kkam.png" />
+            <ProfileImg w="8rem" h="8rem" src={profileImg || '/images/commons/kkam.png'} />
             <S.ListContentBox>
               <S.NameRateBox>
-                <p>깜장이 [검은인간 동물병원]</p>
-                <Rating name="read-only" value={4} readOnly size="large" />
+                <p>
+                  {name} [{hospitalName}]
+                </p>
+                <Rating name="read-only" value={grade} readOnly size="large" />
               </S.NameRateBox>
               <S.ListDetail>검은인간 동물병원에서 제일 실력있는 수의사 입니다.</S.ListDetail>
             </S.ListContentBox>
@@ -61,7 +99,9 @@ const ChatList = ({ userToken }: ChatListProps) => {
               "
             />
             <S.FormBtnBox>
-              <S.FormSubmitBtn type="submit">상담신청</S.FormSubmitBtn>
+              <S.FormSubmitBtn type="submit" onClick={handleConsultRequest}>
+                상담신청
+              </S.FormSubmitBtn>
               <S.FormCancelBtn type="button" onClick={handleToggleConsultModal}>
                 취소하기
               </S.FormCancelBtn>
