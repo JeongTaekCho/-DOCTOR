@@ -30,7 +30,7 @@ interface Vet {
   user_email: string;
 }
 
-interface UserResponse {
+export interface UserResponse {
   user: User;
   vet: Vet | null;
 }

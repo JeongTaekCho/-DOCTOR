@@ -22,6 +22,7 @@ const ChatList = ({
   doctorEmail,
   grade
 }: ChatListProps) => {
+  console.log(doctorEmail);
   const [consult, setConsult] = useState('');
   const [isConsultModal, setIsConsultModal] = useState(false);
 
