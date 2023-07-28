@@ -4,8 +4,7 @@ import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
 import { AREA } from '../../constants/commons/menus';
 import uuid from 'react-uuid';
-import { tokenAtom } from '../../atoms/atoms';
-import { useAtom } from 'jotai';
+import { useAuth } from '../../atoms/atoms';
 import * as API from '../../api/index';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -13,9 +12,10 @@ import { DoctorListResponse } from './types';
 import useDebounce from '../../hooks/util/useDebounce';
 
 const ChatsPage = () => {
+  const auth = useAuth();
+
   const [areaName, setAreaName] = useState('');
   const [search, setSearch] = useState('');
-  const [userToken] = useAtom(tokenAtom);
 
   const debounceSearchValue = useDebounce(search, 500);
 
@@ -119,7 +119,7 @@ const ChatsPage = () => {
                   page?.data.map((doctor: any) => (
                     <ChatList
                       key={doctor?.id}
-                      userToken={userToken}
+                      userToken={auth}
                       name={doctor?.name}
                       hospitalName={doctor?.hospital_name}
                       profileImg={doctor?.img_path}

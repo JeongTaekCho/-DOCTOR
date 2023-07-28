@@ -3,19 +3,19 @@ import * as S from './style';
 import { GrClose } from 'react-icons/gr';
 import { FcCheckmark, FcCancel } from 'react-icons/fc';
 import Avatar from '@mui/material/Avatar';
-import { useAtom } from 'jotai';
-import { tokenAtom } from '../../atoms/atoms';
+import { useAuth } from '../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
 import Swal from 'sweetalert2';
 
 const AiPage = () => {
+  const auth = useAuth();
+
   const [modal, setModal] = useState(false);
-  const [userToken] = useAtom(tokenAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userToken) {
+    if (!auth) {
       navigate(ROUTE.LOGIN.link);
       Swal.fire('로그인 후 서비스 이용이 가능합니다.');
     }
