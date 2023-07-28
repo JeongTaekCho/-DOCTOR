@@ -1,19 +1,39 @@
 import React from 'react';
 import * as S from './style';
 import ProfileImg from '../../commons/ProfileImg';
+import { ChatListResponse } from '../../../pages/ChatDetail/types';
+import { UserResponse } from '../../../hooks/query/useGetUsersQuery';
 
-const ChatBox = () => {
+const ChatBox = ({
+  chatInfo,
+  userData
+}: {
+  chatInfo: ChatListResponse;
+  userData: UserResponse | undefined;
+}) => {
   return (
     <S.ChatListBox>
       <S.ProfileBox>
-        <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+        <ProfileImg
+          w="6rem"
+          h="6rem"
+          src={
+            userData?.user?.role !== 'user'
+              ? chatInfo?.users_chat_rooms_user_emailTousers?.img_path
+              : chatInfo?.users_chat_rooms_user_vet_emailTousers?.img_path
+          }
+        />
         <S.Status backgroundcolor="#34A853" />
       </S.ProfileBox>
       <S.ChatContentsBox>
         <S.NameBox>
-          <S.Name>깜장이 수의사 [깜장 동물병원]</S.Name>
+          <S.Name>
+            {userData?.user?.role !== 'user'
+              ? chatInfo?.users_chat_rooms_user_emailTousers?.nickname
+              : chatInfo?.users_chat_rooms_user_vet_emailTousers?.nickname}
+          </S.Name>
         </S.NameBox>
-        <S.ChatContent>상담해주셔서 감사합니다! 좋은 하루 보내세요!</S.ChatContent>
+        <S.ChatContent>{chatInfo?.chat_contents?.[0]?.message}</S.ChatContent>
       </S.ChatContentsBox>
       <S.ChatNum>18</S.ChatNum>
     </S.ChatListBox>

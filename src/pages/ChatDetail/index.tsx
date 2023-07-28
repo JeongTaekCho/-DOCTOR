@@ -38,7 +38,6 @@ const ChatDetail = () => {
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
 
   console.log(refetch);
-  console.log(chatList);
 
   const scrollToBottom = () => {
     if (ChatUiRef.current) {
@@ -171,11 +170,13 @@ const ChatDetail = () => {
             </li>
           </S.ChatListNav>
           <S.ChatListBox>
-            <li>
-              <S.ChatBtn onClick={handletoggleChat}>
-                <ChatBox />
-              </S.ChatBtn>
-            </li>
+            {chatList?.map(chatInfo => (
+              <li key={chatInfo?.id}>
+                <S.ChatBtn onClick={handletoggleChat}>
+                  <ChatBox chatInfo={chatInfo} userData={userData} />
+                </S.ChatBtn>
+              </li>
+            ))}
           </S.ChatListBox>
         </S.ChatLeftBox>
         <S.CharRightBox className={isChatActive ? 'active' : ''}>
