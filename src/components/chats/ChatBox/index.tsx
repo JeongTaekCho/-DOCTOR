@@ -16,10 +16,6 @@ const ChatBox = () => {
         <S.ChatContent>상담해주셔서 감사합니다! 좋은 하루 보내세요!</S.ChatContent>
       </S.ChatContentsBox>
       <S.ChatNum>18</S.ChatNum>
-      <S.ChatBtnBox>
-        <S.AcceptBtn>수락</S.AcceptBtn>
-        <S.RefuseBtn>거절</S.RefuseBtn>
-      </S.ChatBtnBox>
     </S.ChatListBox>
   );
 };
