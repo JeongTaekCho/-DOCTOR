@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { IoMdNotifications } from 'react-icons/io';
 import ProfileImg from '../ProfileImg';
 import { ROUTE } from '../../../constants/routes/routeData';
-import { useAtom } from 'jotai';
-import { tokenAtom } from '../../../atoms/atoms';
+import { useAuth } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import uuid from 'react-uuid';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
 
 const Header = () => {
+  const auth = useAuth();
+
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isAlramMenu, setIsAlramMenu] = useState(false);
 
-  const [userToken, setUserToken] = useAtom(tokenAtom);
   const { data: userData } = useGetUsersQuery();
-
-  useEffect(() => {
-    setUserToken(sessionStorage.getItem('token'));
-  }, []);
 
   const handleModalClose = () => {
     setIsAlramMenu(false);
@@ -62,7 +58,7 @@ const Header = () => {
               ))}
             </S.MenuList>
             <S.SubMenuWrap>
-              {userToken && (
+              {auth && (
                 <S.AlramBox>
                   <S.AlramNumBox>
                     <span>10</span>
@@ -104,7 +100,7 @@ const Header = () => {
                   )}
                 </S.AlramBox>
               )}
-              {userToken ? (
+              {auth ? (
                 <S.ProfileWrap>
                   <S.ProfileBox onClick={handleProfileBox}>
                     <S.ProfileContainer>
@@ -142,7 +138,7 @@ const Header = () => {
           </S.MenuBox>
         </S.Navigation>
         <S.MobileSubMenu>
-          {userToken && (
+          {auth && (
             <S.AlramBox>
               <S.AlramNumBox>
                 <span>10</span>
@@ -261,7 +257,7 @@ const Header = () => {
                 <img src="/images/commons/close.png" alt="" />
               </S.MobileMenuCloseBtn>
             </S.MobileMenuHead>
-            {userToken ? (
+            {auth ? (
               <S.MobileProfileBox>
                 <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
                 <p>깜장이 수의사 님</p>

@@ -9,12 +9,13 @@ import useInput from '../../hooks/util/useInput';
 import { useEmailAuthMutation } from '../../hooks/query/useEmailAuthMutation';
 import { useEmailCheckMutation } from '../../hooks/query/useEmailCheckMutation';
 import { useRegisterMutation } from '../../hooks/query/useRegisterMutation';
-import { tokenAtom } from '../../atoms/atoms';
-import { useAtom } from 'jotai';
+import { useAuth } from '../../atoms/atoms';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 import LoadingBackground from '../../components/commons/LoadingBackground';
 
 const RegisterPage = () => {
+  const auth = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -34,15 +35,13 @@ const RegisterPage = () => {
     authCode: true
   });
 
-  const [userToken] = useAtom(tokenAtom);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userToken) {
+    if (auth) {
       navigate(ROUTE.HOME.link);
     }
-  }, [userToken]);
+  }, [auth]);
 
   const validateComplete =
     !!email &&

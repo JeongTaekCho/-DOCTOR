@@ -15,8 +15,11 @@ import { useGetChatListQuery } from '../../hooks/query/useGetChatListQuery';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ROUTE } from '../../constants/routes/routeData';
+import { useAuth } from '../../atoms/atoms';
 
 const ChatDetail = () => {
+  const auth = useAuth();
+
   const [isNav, setIsNav] = useState('상담 목록');
   const [isExitModal, setIsExitModal] = useState(false);
   const [isReviewModal, setIsReviewModal] = useState(false);
@@ -39,7 +42,7 @@ const ChatDetail = () => {
   console.log(chatContents);
 
   useEffect(() => {
-    if (!sessionStorage.getItem('token')) {
+    if (!auth) {
       navigate(ROUTE.LOGIN.link);
       Swal.fire('로그인 후 이용이 가능합니다.');
     }
@@ -63,7 +66,7 @@ const ChatDetail = () => {
     const socket = io(serverUrl, {
       transports: ['websocket'],
       auth: {
-        token: sessionStorage.getItem('token')
+        token: auth
       }
     });
     setSocket(socket);
