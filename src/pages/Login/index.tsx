@@ -14,6 +14,10 @@ import { tokenAtom } from '../../atoms/atoms';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const { mutate: loginMutate }: any = useLoginMutation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -24,25 +28,6 @@ const LoginPage = () => {
   });
 
   const [userToken, setUserToken] = useAtom(tokenAtom);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (userToken) {
-      navigate(ROUTE.HOME.link);
-    }
-  }, [userToken]);
-
-  useEffect(() => {
-    const saveUserEmail = localStorage.getItem('email');
-
-    if (saveUserEmail) {
-      setEmail(saveUserEmail);
-      setRememberMe(true);
-    }
-  }, []);
-
-  const { mutate: loginMutate }: any = useLoginMutation();
 
   const validateComplete =
     !!email && !!password && validate.email === false && validate.password === false;
@@ -113,6 +98,21 @@ const LoginPage = () => {
       .assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GMAIL_OAUTH_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:5173&scope=https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email
     `);
   };
+
+  useEffect(() => {
+    if (userToken) {
+      navigate(ROUTE.HOME.link);
+    }
+  }, [userToken]);
+
+  useEffect(() => {
+    const saveUserEmail = localStorage.getItem('email');
+
+    if (saveUserEmail) {
+      setEmail(saveUserEmail);
+      setRememberMe(true);
+    }
+  }, []);
 
   return (
     <S.Wrap>

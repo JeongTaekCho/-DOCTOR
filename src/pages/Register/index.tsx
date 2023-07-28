@@ -15,17 +15,16 @@ import LoadingBackground from '../../components/commons/LoadingBackground';
 
 const RegisterPage = () => {
   const auth = useAuth();
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [authCode, handleChangeAuthCode] = useInput('');
+  const navigate = useNavigate();
 
   const { mutate: emailAuthMutate, isLoading: emailAuthLoading } = useEmailAuthMutation();
   const { mutate: emailCheckMutate } = useEmailCheckMutation();
   const { mutate: registerMutate } = useRegisterMutation();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [nickname, setNickname] = useState('');
   const [isCode, setIsCode] = useState(false);
   const [validate, setValidate] = useState({
     email: false,
@@ -34,14 +33,7 @@ const RegisterPage = () => {
     nickname: false,
     authCode: true
   });
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (auth) {
-      navigate(ROUTE.HOME.link);
-    }
-  }, [auth]);
+  const [authCode, handleChangeAuthCode] = useInput('');
 
   const validateComplete =
     !!email &&
@@ -158,6 +150,12 @@ const RegisterPage = () => {
       }
     );
   };
+
+  useEffect(() => {
+    if (auth) {
+      navigate(ROUTE.HOME.link);
+    }
+  }, [auth]);
 
   return (
     <S.Wrap>

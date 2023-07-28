@@ -10,16 +10,10 @@ import Swal from 'sweetalert2';
 
 const AiPage = () => {
   const auth = useAuth();
-
-  const [modal, setModal] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!auth) {
-      navigate(ROUTE.LOGIN.link);
-      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
-    }
-  });
+  const [modal, setModal] = useState(false);
+  const imgInput = useRef<HTMLInputElement | null>(null);
 
   const openModal = () => {
     setModal(true);
@@ -53,7 +47,12 @@ const AiPage = () => {
     window.location.reload();
   };
 
-  const imgInput = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (!auth) {
+      navigate(ROUTE.LOGIN.link);
+      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
+    }
+  });
 
   return (
     <S.Wrap>
