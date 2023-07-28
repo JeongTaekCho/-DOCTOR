@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { useAtom } from 'jotai';
 import { tokenAtom } from '../../atoms/atoms';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
+import { serverUrl } from '../../api';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -93,10 +94,8 @@ const LoginPage = () => {
     );
   };
 
-  const handleGoogleLogin = () => {
-    window.location
-      .assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GMAIL_OAUTH_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:5173&scope=https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email
-    `);
+  const handleGoogleLogin = async () => {
+    window.location.assign(`${serverUrl}/auth/google`);
   };
 
   useEffect(() => {

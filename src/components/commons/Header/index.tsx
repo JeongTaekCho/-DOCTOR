@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { IoMdNotifications } from 'react-icons/io';
 import ProfileImg from '../ProfileImg';
 import { ROUTE } from '../../../constants/routes/routeData';
-import { useAuth } from '../../../atoms/atoms';
+import { tokenAtom, useAuth } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import uuid from 'react-uuid';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
+import { useAtom } from 'jotai';
 
 const Header = () => {
   const auth = useAuth();
@@ -16,8 +17,9 @@ const Header = () => {
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isAlramMenu, setIsAlramMenu] = useState(false);
+  const [, setUserToken] = useAtom(tokenAtom);
 
-  const { data: userData } = useGetUsersQuery();
+  const { data: userData, refetch } = useGetUsersQuery();
 
   const handleModalClose = () => {
     setIsAlramMenu(false);
@@ -32,6 +34,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     sessionStorage.removeItem('token');
     window.location.reload();
   };
@@ -39,6 +42,21 @@ const Header = () => {
   const handleToggleAlramBtn = () => {
     setIsAlramMenu(prev => !prev);
   };
+
+  useEffect(() => {
+    const cookieToken = document.cookie
+      .split(';')
+      .map(cookie => cookie.trim())
+      .find(cookie => cookie.startsWith('token='));
+
+    if (cookieToken) {
+      const tokenValue = cookieToken.split('=')[1];
+
+      sessionStorage.setItem('token', tokenValue);
+      setUserToken(tokenValue);
+    }
+    refetch();
+  }, [auth]);
 
   return (
     <S.Wrap>
