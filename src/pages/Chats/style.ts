@@ -35,6 +35,12 @@ export const AreaList = styled.ul`
     font-weight: 400;
     color: #999;
     cursor: pointer;
+
+    &:hover {
+      font-weight: 600;
+      color: ${STYLE.mainColor};
+    }
+
     &.selected {
       font-weight: 600;
       color: ${STYLE.mainColor};

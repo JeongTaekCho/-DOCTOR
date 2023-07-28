@@ -16,6 +16,8 @@ import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+
   const [validate, setValidate] = useState({
     email: false,
     password: false
@@ -31,10 +33,23 @@ const LoginPage = () => {
     }
   }, [userToken]);
 
+  useEffect(() => {
+    const saveUserEmail = localStorage.getItem('email');
+
+    if (saveUserEmail) {
+      setEmail(saveUserEmail);
+      setRememberMe(true);
+    }
+  }, []);
+
   const { mutate: loginMutate }: any = useLoginMutation();
 
   const validateComplete =
     !!email && !!password && validate.email === false && validate.password === false;
+
+  const handleRememberMeChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(e.target.checked);
+  };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,6 +77,7 @@ const LoginPage = () => {
 
   const handleEmailClean = () => {
     setEmail('');
+    localStorage.removeItem('email');
   };
 
   const handleLogin = (e: MouseEvent<HTMLButtonElement>) => {
@@ -74,6 +90,12 @@ const LoginPage = () => {
       },
       {
         onSuccess: (loginData: any) => {
+          if (rememberMe) {
+            localStorage.setItem('email', email);
+          } else {
+            localStorage.removeItem('email');
+          }
+
           sessionStorage.setItem('token', loginData.data);
           setUserToken(sessionStorage.getItem('token'));
           Swal.fire('로그인 성공');
@@ -98,7 +120,7 @@ const LoginPage = () => {
         <S.Title>로그인</S.Title>
         <S.Form>
           <S.InputBox>
-            <S.InputLabel>Email</S.InputLabel>
+            <S.InputLabel>이메일</S.InputLabel>
             <S.InputContainer>
               <Input
                 type="text"
@@ -116,7 +138,7 @@ const LoginPage = () => {
             )}
           </S.InputBox>
           <S.InputBox>
-            <S.InputLabel>Password</S.InputLabel>
+            <S.InputLabel>비밀번호</S.InputLabel>
             <S.InputContainer>
               <Input
                 type="password"
@@ -137,9 +159,12 @@ const LoginPage = () => {
           </S.InputBox>
           <S.RememberBox>
             <FormGroup>
-              <FormControlLabel control={<Checkbox />} label="Remember me" />
+              <FormControlLabel
+                control={<Checkbox checked={rememberMe} onChange={handleRememberMeChecked} />}
+                label="아이디 기억하기"
+              />
             </FormGroup>
-            <Link to="/">Forgot Password?</Link>
+            <Link to="/">비밀번호를 잊어버리셨나요?</Link>
           </S.RememberBox>
           <S.ButtonBox>
             <FormButton

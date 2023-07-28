@@ -9,6 +9,7 @@ import { useAtom } from 'jotai';
 import { tokenAtom } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import uuid from 'react-uuid';
+import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
 
 const Header = () => {
   const [isProfileMenu, setIsProfileMenu] = useState(false);
@@ -16,6 +17,7 @@ const Header = () => {
   const [isAlramMenu, setIsAlramMenu] = useState(false);
 
   const [userToken, setUserToken] = useAtom(tokenAtom);
+  const { data: userData } = useGetUsersQuery();
 
   useEffect(() => {
     setUserToken(sessionStorage.getItem('token'));
@@ -106,9 +108,9 @@ const Header = () => {
                 <S.ProfileWrap>
                   <S.ProfileBox onClick={handleProfileBox}>
                     <S.ProfileContainer>
-                      <p>깜장이 님</p>
+                      <p>{userData?.data?.user?.nickname}</p>
                       <S.ProfileImgBox>
-                        <ProfileImg w="4rem" h="4rem" src="/images/commons/kkam.png" />
+                        <ProfileImg w="4rem" h="4rem" src={userData?.data?.user?.img_path} />
                       </S.ProfileImgBox>
                     </S.ProfileContainer>
                   </S.ProfileBox>

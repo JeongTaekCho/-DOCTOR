@@ -4,9 +4,17 @@ import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
 import { AREA } from '../../constants/commons/menus';
 import uuid from 'react-uuid';
+import { tokenAtom } from '../../atoms/atoms';
+import { useAtom } from 'jotai';
+import { useGetDoctorListQuery } from '../../hooks/query/useGetDoctorListQuery';
 
 const ChatsPage = () => {
   const [isArea, setIsArea] = useState('전체');
+  const [userToken] = useAtom(tokenAtom);
+
+  const { data } = useGetDoctorListQuery();
+
+  console.log(data);
 
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
@@ -41,11 +49,10 @@ const ChatsPage = () => {
         </S.SearchBox>
         <S.ChatListContainer>
           <S.ChatLists>
-            <ChatList />
-            <ChatList />
-            <ChatList />
-            <ChatList />
-            <ChatList />
+            <ChatList userToken={userToken} />
+            <ChatList userToken={userToken} />
+            <ChatList userToken={userToken} />
+            <ChatList userToken={userToken} />
           </S.ChatLists>
         </S.ChatListContainer>
         <Loading />
