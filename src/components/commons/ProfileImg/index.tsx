@@ -4,7 +4,7 @@ import { Profile } from './style';
 interface ProfileImgProps {
   w: string;
   h: string;
-  src: string;
+  src: string | null | undefined;
 }
 
 const ProfileImg = ({ w, h, src }: ProfileImgProps) => {

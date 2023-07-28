@@ -104,9 +104,9 @@ const Header = () => {
                 <S.ProfileWrap>
                   <S.ProfileBox onClick={handleProfileBox}>
                     <S.ProfileContainer>
-                      <p>{userData?.data?.user?.nickname}</p>
+                      <p>{userData?.user?.nickname}</p>
                       <S.ProfileImgBox>
-                        <ProfileImg w="4rem" h="4rem" src={userData?.data?.user?.img_path} />
+                        <ProfileImg w="4rem" h="4rem" src={userData?.user?.img_path} />
                       </S.ProfileImgBox>
                     </S.ProfileContainer>
                   </S.ProfileBox>

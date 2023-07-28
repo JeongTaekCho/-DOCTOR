@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ROUTE } from '../../constants/routes/routeData';
 import { useAuth } from '../../atoms/atoms';
+import { ChatContent } from './types';
 
 const ChatDetail = () => {
   const auth = useAuth();
@@ -26,12 +27,14 @@ const ChatDetail = () => {
   const [isChatActive, setIsChatActive] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [chatId, setChatId] = useState<string>('');
-  const [messages, setMessages] = useState<object[]>([]);
+  const [messages, setMessages] = useState<ChatContent[] | undefined>([]);
   const [message, setMessage] = useState('');
 
   const { data: userData } = useGetUsersQuery();
   const { data: chatContents, refetch } = useGetChatConentsQuery(1);
   const { data: chatList } = useGetChatListQuery();
+
+  console.log(userData);
 
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
 
@@ -60,7 +63,7 @@ const ChatDetail = () => {
   };
 
   useEffect(() => {
-    setMessages(chatContents?.data.ChatContents);
+    setMessages(chatContents?.ChatContents);
 
     // 백엔드 서버 주소로 소켓 연결
     const socket = io(serverUrl, {
@@ -83,7 +86,7 @@ const ChatDetail = () => {
 
     // 메시지 수신 이벤트 처리
     socket.on('msgReceive', ({ email, content, nickname, img_path }) => {
-      setMessages(prevMessages => [
+      setMessages((prevMessages: any) => [
         ...prevMessages,
         {
           message: content,
@@ -113,13 +116,13 @@ const ChatDetail = () => {
     // if (message.trim() === '' || !chatId) return;
     // 서버에 메시지 전송
     socket?.emit('msgSend', { chatId: 1, message });
-    setMessages(prevMessages => [
+    setMessages((prevMessages: any) => [
       ...prevMessages,
       {
         message,
-        email: userData?.data?.user?.email,
-        nickname: userData?.data?.user?.nickname,
-        img_path: userData?.data?.user?.img_path
+        email: userData?.user?.email,
+        nickname: userData?.user?.nickname,
+        img_path: userData?.user?.img_path
       }
     ]);
     setMessage('');
@@ -206,15 +209,15 @@ const ChatDetail = () => {
           </S.ChatHead>
           <S.ChatDetailBox ref={ChatUiRef}>
             {messages?.map((message: any) =>
-              message.email === userData?.data?.user?.email ||
-              message.from_id === userData?.data?.user?.email ? (
+              message.email === userData?.user?.email ||
+              message.from_id === userData?.user?.email ? (
                 <UserChat key={uuid()} content={message.message} />
               ) : (
                 <DoctorChat
                   key={uuid()}
-                  name={chatContents?.data?.nickname}
+                  name={chatContents?.nickname}
                   content={message.message}
-                  profileImg={chatContents?.data?.img_path || '/images/commons/kkam.png'}
+                  profileImg={chatContents?.img_path || '/images/commons/kkam.png'}
                 />
               )
             )}
