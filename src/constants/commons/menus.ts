@@ -1,9 +1,5 @@
 export const MENU = [
   {
-    name: '서비스 소개',
-    link: '/'
-  },
-  {
     name: 'AI 자가진단',
     link: '/ai'
   },

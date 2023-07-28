@@ -36,7 +36,7 @@ export const Navigation = styled.nav`
 
 export const MenuBox = styled.div`
   display: flex;
-  gap: 9rem;
+  gap: 6rem;
   align-items: center;
 `;
 
