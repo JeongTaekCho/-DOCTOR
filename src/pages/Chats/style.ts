@@ -99,18 +99,6 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const SearchImgBtn = styled.button`
-  width: 3rem;
-
-  @media ${RESPONSIVE.mobile} {
-    width: 4rem;
-  }
-
-  img {
-    width: 100%;
-  }
-`;
-
 export const ChatListContainer = styled.div`
   width: 800px;
   margin: 0 auto 2.5rem;
