@@ -55,11 +55,6 @@ const ChatsPage = () => {
     setSearch(e.target.value);
   };
 
-  const handleSearch = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setSearch('');
-  };
-  console.log(doctorList);
   return (
     <S.Wrap>
       <S.Container>
@@ -110,9 +105,6 @@ const ChatsPage = () => {
               onChange={handleChangeSearch}
               value={search}
             />
-            <S.SearchImgBtn type="submit" onClick={handleSearch}>
-              <img src="/images/commons/search.png" alt="검색 아이콘 이미지" />
-            </S.SearchImgBtn>
           </S.SearchForm>
         </S.SearchBox>
         <S.ChatListContainer>
