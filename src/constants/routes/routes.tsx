@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ROUTE_ARR } from './routeData';
-import uuid from 'react-uuid';
 import { useAtom } from 'jotai';
 import { tokenAtom } from '../../atoms/atoms';
 import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
@@ -28,8 +27,8 @@ const RouteComponents = () => {
 
   return (
     <Routes>
-      {ROUTE_ARR.map(({ path, element }) => (
-        <Route key={uuid()} path={path} element={element} />
+      {ROUTE_ARR.map(({ id, path, element }) => (
+        <Route key={id} path={path} element={element} />
       ))}
     </Routes>
   );

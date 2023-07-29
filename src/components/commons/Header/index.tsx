@@ -7,7 +7,6 @@ import ProfileImg from '../ProfileImg';
 import { ROUTE } from '../../../constants/routes/routeData';
 import { tokenAtom } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
-import uuid from 'react-uuid';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
 import { useAtomValue } from 'jotai';
 
@@ -53,8 +52,8 @@ const Header = () => {
         <S.Navigation>
           <S.MenuBox>
             <S.MenuList>
-              {MENU.map(({ name, link }) => (
-                <li key={uuid()}>
+              {MENU.map(({ id, name, link }) => (
+                <li key={id}>
                   <Link to={link}>{name}</Link>
                 </li>
               ))}
@@ -115,8 +114,8 @@ const Header = () => {
                   {isProfileMenu && (
                     <S.ProfileDetailBox>
                       <S.ProfileBoxMenu>
-                        {PROFILE_MENU.map(({ name, link }) => (
-                          <li key={uuid()}>
+                        {PROFILE_MENU.map(({ id, name, link }) => (
+                          <li key={id}>
                             <Link to={link} onClick={handleProfileBox}>
                               {name}
                             </Link>
@@ -196,48 +195,6 @@ const Header = () => {
                           <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
                         </Link>
                       </li>
-                      <li>
-                        <Link to="/">
-                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/">
-                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/">
-                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/">
-                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/">
-                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/">
-                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/">
-                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
-                        </Link>
-                      </li>
                     </S.AlramList>
                   </S.AlramBody>
                 </S.AlramContainer>
@@ -278,8 +235,8 @@ const Header = () => {
 
             <S.MobileNavigation>
               <ul>
-                {MENU.map(({ name, link }) => (
-                  <li key={uuid()}>
+                {MENU.map(({ id, name, link }) => (
+                  <li key={id}>
                     <Link to={link} onClick={handleMobileMenuBtn}>
                       <span>{name}</span>
                       <span>&gt;</span>

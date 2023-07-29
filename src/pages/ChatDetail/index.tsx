@@ -7,7 +7,6 @@ import ReviewModal from '../../components/chats/ReviewModal';
 import { io, Socket } from 'socket.io-client';
 import { serverUrl } from '../../api';
 import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
-import uuid from 'react-uuid';
 import { useGetChatConentsQuery } from '../../hooks/query/useGetChatContentsQuery';
 import { useGetChatListQuery } from '../../hooks/query/useGetChatListQuery';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +23,7 @@ const ChatDetail = () => {
   const navigate = useNavigate();
 
   const { data: userData } = useGetUsersQuery();
-  const { data: chatContents, refetch } = useGetChatConentsQuery(1);
+  const { data: chatContents } = useGetChatConentsQuery(1);
   const { data: chatList } = useGetChatListQuery();
 
   const [isNav, setIsNav] = useState('상담 목록');
@@ -38,17 +37,10 @@ const ChatDetail = () => {
 
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
 
-  console.log(refetch);
-
   const scrollToBottom = () => {
     if (ChatUiRef.current) {
       ChatUiRef.current.scrollTop = ChatUiRef.current.scrollHeight;
     }
-  };
-
-  const handleJoinChat = () => {
-    // chatId에 입장 요청 보내기
-    socket?.emit('join', chatId);
   };
 
   const handleChangeMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -103,7 +95,7 @@ const ChatDetail = () => {
   };
 
   console.log(setChatId);
-  console.log(handleJoinChat);
+  console.log(chatId);
 
   useEffect(() => {
     if (!auth) {
@@ -205,10 +197,10 @@ const ChatDetail = () => {
             {messages?.map((message: any) =>
               message.email === userData?.user?.email ||
               message.from_id === userData?.user?.email ? (
-                <MyChat key={uuid()} content={message.message} />
+                <MyChat key={message.id} content={message.message} />
               ) : (
                 <OtherChat
-                  key={uuid()}
+                  key={message.id}
                   name={chatContents?.nickname}
                   content={message.message}
                   profileImg={chatContents?.img_path || '/images/commons/kkam.png'}

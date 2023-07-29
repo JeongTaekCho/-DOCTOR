@@ -3,7 +3,6 @@ import * as S from './style';
 import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
 import { AREA } from '../../constants/commons/menus';
-import uuid from 'react-uuid';
 import { tokenAtom } from '../../atoms/atoms';
 import * as API from '../../api/index';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -59,9 +58,9 @@ const ChatsPage = () => {
       <S.Container>
         <S.AreaBox>
           <S.AreaList>
-            {AREA.map(area => (
+            {AREA.map((area, index) => (
               <li
-                key={uuid()}
+                key={area + index}
                 data-name={area}
                 className={areaName === area ? 'selected' : ''}
                 onClick={handleClickArea}
