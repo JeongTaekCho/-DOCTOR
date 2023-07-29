@@ -3,13 +3,14 @@ import * as S from './style';
 import { GrClose } from 'react-icons/gr';
 import { FcCheckmark, FcCancel } from 'react-icons/fc';
 import Avatar from '@mui/material/Avatar';
-import { useAuth } from '../../atoms/atoms';
+import { tokenAtom } from '../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
 import Swal from 'sweetalert2';
+import { useAtomValue } from 'jotai';
 
 const AiPage = () => {
-  const auth = useAuth();
+  const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);

@@ -11,6 +11,8 @@ const ChatBox = ({
   chatInfo: ChatListResponse;
   userData: UserResponse | undefined;
 }) => {
+  const isUser = userData?.user?.role === 'user';
+
   return (
     <S.ChatListBox>
       <S.ProfileBox>
@@ -18,9 +20,9 @@ const ChatBox = ({
           w="6rem"
           h="6rem"
           src={
-            userData?.user?.role !== 'user'
-              ? chatInfo?.users_chat_rooms_user_emailTousers?.img_path
-              : chatInfo?.users_chat_rooms_user_vet_emailTousers?.img_path
+            isUser
+              ? chatInfo?.users_chat_rooms_user_vet_emailTousers?.img_path
+              : chatInfo?.users_chat_rooms_user_emailTousers?.img_path
           }
         />
         <S.Status backgroundcolor="#34A853" />
@@ -28,9 +30,9 @@ const ChatBox = ({
       <S.ChatContentsBox>
         <S.NameBox>
           <S.Name>
-            {userData?.user?.role !== 'user'
-              ? chatInfo?.users_chat_rooms_user_emailTousers?.nickname
-              : chatInfo?.users_chat_rooms_user_vet_emailTousers?.nickname}
+            {isUser
+              ? chatInfo?.users_chat_rooms_user_vet_emailTousers?.nickname
+              : chatInfo?.users_chat_rooms_user_emailTousers?.nickname}
           </S.Name>
         </S.NameBox>
         <S.ChatContent>{chatInfo?.chat_contents?.[0]?.message}</S.ChatContent>

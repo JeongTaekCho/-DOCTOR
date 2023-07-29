@@ -9,12 +9,13 @@ import useInput from '../../hooks/util/useInput';
 import { useEmailAuthMutation } from '../../hooks/query/useEmailAuthMutation';
 import { useEmailCheckMutation } from '../../hooks/query/useEmailCheckMutation';
 import { useRegisterMutation } from '../../hooks/query/useRegisterMutation';
-import { useAuth } from '../../atoms/atoms';
+import { tokenAtom } from '../../atoms/atoms';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 import LoadingBackground from '../../components/commons/LoadingBackground';
+import { useAtomValue } from 'jotai';
 
 const RegisterPage = () => {
-  const auth = useAuth();
+  const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
 
   const { mutate: emailAuthMutate, isLoading: emailAuthLoading } = useEmailAuthMutation();
