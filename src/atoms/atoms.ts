@@ -1,4 +1,4 @@
-import { atom, useAtomValue } from 'jotai';
+import { atom } from 'jotai';
 
 const getAuth = (): string | null => {
   const token = sessionStorage.getItem('token');
@@ -6,5 +6,3 @@ const getAuth = (): string | null => {
 };
 
 export const tokenAtom = atom(getAuth());
-
-export const useAuth = () => useAtomValue(tokenAtom);

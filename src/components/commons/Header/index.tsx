@@ -5,14 +5,14 @@ import { HiMenu } from 'react-icons/hi';
 import { IoMdNotifications } from 'react-icons/io';
 import ProfileImg from '../ProfileImg';
 import { ROUTE } from '../../../constants/routes/routeData';
-import { tokenAtom, useAuth } from '../../../atoms/atoms';
+import { tokenAtom } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import uuid from 'react-uuid';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 
 const Header = () => {
-  const auth = useAuth();
+  const auth = useAtomValue(tokenAtom);
 
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);

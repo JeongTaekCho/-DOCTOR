@@ -4,15 +4,16 @@ import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
 import { AREA } from '../../constants/commons/menus';
 import uuid from 'react-uuid';
-import { useAuth } from '../../atoms/atoms';
+import { tokenAtom } from '../../atoms/atoms';
 import * as API from '../../api/index';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
 import { DoctorListResponse } from './types';
 import useDebounce from '../../hooks/util/useDebounce';
+import { useAtomValue } from 'jotai';
 
 const ChatsPage = () => {
-  const auth = useAuth();
+  const auth = useAtomValue(tokenAtom);
 
   const [areaName, setAreaName] = useState('');
   const [search, setSearch] = useState('');

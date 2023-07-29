@@ -15,11 +15,12 @@ import { useGetChatListQuery } from '../../hooks/query/useGetChatListQuery';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ROUTE } from '../../constants/routes/routeData';
-import { useAuth } from '../../atoms/atoms';
+import { tokenAtom } from '../../atoms/atoms';
 import { ChatContent } from './types';
+import { useAtomValue } from 'jotai';
 
 const ChatDetail = () => {
-  const auth = useAuth();
+  const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
 
   const { data: userData } = useGetUsersQuery();
