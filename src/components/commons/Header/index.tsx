@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
@@ -9,7 +9,7 @@ import { tokenAtom } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import uuid from 'react-uuid';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
 
 const Header = () => {
   const auth = useAtomValue(tokenAtom);
@@ -17,9 +17,8 @@ const Header = () => {
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isAlramMenu, setIsAlramMenu] = useState(false);
-  const [, setUserToken] = useAtom(tokenAtom);
 
-  const { data: userData, refetch } = useGetUsersQuery();
+  const { data: userData } = useGetUsersQuery();
 
   const handleModalClose = () => {
     setIsAlramMenu(false);
@@ -42,21 +41,6 @@ const Header = () => {
   const handleToggleAlramBtn = () => {
     setIsAlramMenu(prev => !prev);
   };
-
-  useEffect(() => {
-    const cookieToken = document.cookie
-      .split(';')
-      .map(cookie => cookie.trim())
-      .find(cookie => cookie.startsWith('token='));
-
-    if (cookieToken) {
-      const tokenValue = cookieToken.split('=')[1];
-
-      sessionStorage.setItem('token', tokenValue);
-      setUserToken(tokenValue);
-    }
-    refetch();
-  }, [auth]);
 
   return (
     <S.Wrap>
