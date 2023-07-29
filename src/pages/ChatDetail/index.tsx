@@ -5,8 +5,6 @@ import ProfileImg from '../../components/commons/ProfileImg';
 import ChatExitModal from '../../components/chats/ChatExitModal';
 import ReviewModal from '../../components/chats/ReviewModal';
 import { io, Socket } from 'socket.io-client';
-import UserChat from '../../components/chats/UserChat';
-import DoctorChat from '../../components/chats/DoctorChat';
 import { serverUrl } from '../../api';
 import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 import uuid from 'react-uuid';
@@ -18,6 +16,8 @@ import { ROUTE } from '../../constants/routes/routeData';
 import { tokenAtom } from '../../atoms/atoms';
 import { ChatContent } from './types';
 import { useAtomValue } from 'jotai';
+import MyChat from '../../components/chats/MyChat';
+import OtherChat from '../../components/chats/OtherChat';
 
 const ChatDetail = () => {
   const auth = useAtomValue(tokenAtom);
@@ -205,9 +205,9 @@ const ChatDetail = () => {
             {messages?.map((message: any) =>
               message.email === userData?.user?.email ||
               message.from_id === userData?.user?.email ? (
-                <UserChat key={uuid()} content={message.message} />
+                <MyChat key={uuid()} content={message.message} />
               ) : (
-                <DoctorChat
+                <OtherChat
                   key={uuid()}
                   name={chatContents?.nickname}
                   content={message.message}
