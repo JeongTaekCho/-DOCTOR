@@ -1,6 +1,15 @@
 import { styled } from 'styled-components';
 
-export const Profile = styled.div`
+interface ProfileProps {
+  w: string;
+  h: string;
+  src: string | null | undefined;
+}
+
+export const Profile = styled.div<ProfileProps>`
+  width: ${({ w }) => w};
+  height: ${({ h }) => h};
+  background-image: url(${({ src }) => src});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
