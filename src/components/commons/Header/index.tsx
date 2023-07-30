@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './style';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
 import { IoMdNotifications } from 'react-icons/io';
 import ProfileImg from '../ProfileImg';
@@ -12,6 +12,7 @@ import { useAtomValue } from 'jotai';
 
 const Header = () => {
   const auth = useAtomValue(tokenAtom);
+  const { pathname } = useLocation();
 
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -54,7 +55,9 @@ const Header = () => {
             <S.MenuList>
               {MENU.map(({ id, name, link }) => (
                 <li key={id}>
-                  <Link to={link}>{name}</Link>
+                  <Link className={pathname === link ? 'selected' : ''} to={link}>
+                    {name}
+                  </Link>
                 </li>
               ))}
             </S.MenuList>

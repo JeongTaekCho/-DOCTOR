@@ -47,9 +47,20 @@ export const MenuList = styled.ul`
 
   li {
     a {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 400;
       color: ${STYLE.subFontColor};
+
+      &.selected {
+        font-weight: 500;
+        color: ${STYLE.mainColor};
+      }
+
+      &:hover {
+        font-weight: 500;
+        color: ${STYLE.mainColor};
+        transition: all 0.2s;
+      }
     }
   }
 `;
@@ -68,6 +79,11 @@ export const ProfileBox = styled.button`
   align-items: center;
   position: relative;
   z-index: 101;
+
+  &:hover {
+    opacity: 0.9;
+    transition: all 0.2s;
+  }
 `;
 
 export const ProfileContainer = styled.div`
@@ -119,9 +135,13 @@ export const ProfileBoxMenu = styled.ul`
       width: 100%;
       padding: 10px 0;
       font-size: 1.6rem;
-      font-weight: 600;
+      font-weight: 400;
       color: #fff;
       text-align: center;
+
+      &:hover {
+        font-weight: 600;
+      }
     }
   }
 `;
