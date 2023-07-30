@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import samplePosts from './data';
-import { BiUser, BiHeart, BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
+import { BiUser, BiHeart } from 'react-icons/bi';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import { Link } from 'react-router-dom';
-
+import Pagination from '../../commons/Pagination/index.tsx';
 const List = () => {
   const postsPerPage = 10;
   const totalPosts = samplePosts.length;
@@ -16,11 +16,6 @@ const List = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = samplePosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  // Create an array of page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
   return (
     <S.Wrap>
       <S.List>
@@ -46,28 +41,11 @@ const List = () => {
         ))}
       </S.List>
       <S.PageNumber>
-        <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage === 1}>
-          <BiSolidLeftArrow size="13"></BiSolidLeftArrow>
-        </button>
-        {pageNumbers.map(number => (
-          <button
-            key={number}
-            onClick={() => setCurrentPage(number)}
-            style={{
-              fontWeight: currentPage === number ? 'bold' : 'normal',
-              margin: '0 5px',
-              fontSize: '2rem'
-            }}
-          >
-            {number}
-          </button>
-        ))}
-        <button
-          onClick={() => setCurrentPage(prev => prev + 1)}
-          disabled={currentPosts.length < postsPerPage || currentPage === totalPages}
-        >
-          <BiSolidRightArrow size="13"></BiSolidRightArrow>
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
       </S.PageNumber>
     </S.Wrap>
   );

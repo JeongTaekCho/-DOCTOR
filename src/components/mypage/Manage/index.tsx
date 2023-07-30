@@ -3,6 +3,7 @@ import * as S from './style';
 import { BsPen } from 'react-icons/bs';
 import { PASSOWRDREGEX } from '../../../constants/commons/validaties';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
+import { RegionOptions } from '../../../constants/commons/menus';
 interface MyManageProps {
   vetStatus: string;
 }
@@ -35,7 +36,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
     setPasswordConfirm('');
   };
   const { data: userData } = useGetUsersQuery();
-  const generateAsterisks = length => '*'.repeat(Math.min(length, 10));
+  const generateAsterisks = num => '*'.repeat(Math.min(num, 10));
   const passwordCheck = userData?.user?.password;
   const passwordLength = passwordCheck ? userData?.user?.password?.length : 0;
   const maskedPassword = generateAsterisks(passwordLength);
@@ -125,20 +126,11 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
         <S.InputDiv>
           {isVet ? (
             <S.Select>
-              <option value="">지역선택</option>
-              <option value="학생">서울</option>
-              <option value="회사원">경기</option>
-              <option value="기타">인천</option>
-              <option value="기타">대전</option>
-              <option value="기타">대구</option>
-              <option value="기타">광주</option>
-              <option value="기타">울산</option>
-              <option value="기타">부산</option>
-              <option value="기타">강원도</option>
-              <option value="기타">충청도</option>
-              <option value="기타">전라도</option>
-              <option value="기타">경상도</option>
-              <option value="기타">제주도</option>
+              {RegionOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </S.Select>
           ) : (
             <S.RightText>{userData?.vet?.region}</S.RightText>

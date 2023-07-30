@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { RESPONSIVE } from '../../../styles/responsive';
-import { Link } from 'react-router-dom';
+
 export const Container = styled.div`
   width: 100%;
   position: relative;
@@ -18,7 +18,7 @@ export const PageNumber = styled.div`
   margin-top: 0.5rem;
 `;
 
-export const Post = styled(Link)`
+export const Post = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
   padding-top: 0.5rem;

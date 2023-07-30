@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import * as S from './style';
-import { BiSolidLeftArrow, BiSolidRightArrow, BiUser, BiHeart } from 'react-icons/bi';
-import samplePosts from './data.ts';
+import { BiUser, BiHeart } from 'react-icons/bi';
 import FreeRegister from '../FreeRegister/index.tsx';
-import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import { Link } from 'react-router-dom';
-
+import samplePosts from './data.ts';
+import { ROUTE } from '../../../constants/routes/routeData.tsx';
+import Pagination from '../../commons/Pagination/index.tsx';
 const Free = () => {
   const postsPerPage = 10;
   const totalPosts = samplePosts.length;
@@ -13,8 +13,7 @@ const Free = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
-  const [isOrderByDate, setIsOrderByDate] = useState(true);
-  const [isOrderByPopularity, setIsOrderByPopularity] = useState(false);
+  const [order, setOrder] = useState<'oldest' | 'popularity'>('oldest');
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -25,19 +24,12 @@ const Free = () => {
   };
 
   const handleOrderByDate = () => {
-    setIsOrderByDate(true);
-    setIsOrderByPopularity(false);
+    setOrder('oldest');
   };
 
   const handleOrderByPopularity = () => {
-    setIsOrderByDate(false);
-    setIsOrderByPopularity(true);
+    setOrder('popularity');
   };
-  // Create an array of page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
 
   return (
     <S.Container>
@@ -50,16 +42,16 @@ const Free = () => {
               <span
                 style={{
                   marginRight: '1rem',
-                  fontWeight: isOrderByDate ? 'bold' : 'normal',
+                  fontWeight: order === 'oldest' ? 'bold' : 'normal',
                   cursor: 'pointer'
                 }}
                 onClick={handleOrderByDate}
               >
-                최신순
+                오래된순
               </span>
               <span
                 style={{
-                  fontWeight: isOrderByPopularity ? 'bold' : 'normal',
+                  fontWeight: order === 'popularity' ? 'bold' : 'normal',
                   cursor: 'pointer'
                 }}
                 onClick={handleOrderByPopularity}
@@ -91,28 +83,11 @@ const Free = () => {
             ))}
           </S.List>
           <S.PageNumber>
-            <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage === 1}>
-              <BiSolidLeftArrow size="13"></BiSolidLeftArrow>
-            </button>
-            {pageNumbers.map(number => (
-              <button
-                key={number}
-                onClick={() => setCurrentPage(number)}
-                style={{
-                  fontWeight: currentPage === number ? 'bold' : 'normal',
-                  margin: '0 5px',
-                  fontSize: '2rem'
-                }}
-              >
-                {number}
-              </button>
-            ))}
-            <button
-              onClick={() => setCurrentPage(prev => prev + 1)}
-              disabled={currentPosts.length < postsPerPage || currentPage === totalPages}
-            >
-              <BiSolidRightArrow size="13"></BiSolidRightArrow>
-            </button>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
           </S.PageNumber>
           <S.ButtonContainer>
             <S.ButtonDiv>
