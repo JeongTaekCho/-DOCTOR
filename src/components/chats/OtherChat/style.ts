@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
-import { UserChat, UserTriangle } from '../UserChat/style';
+import { MyChat, MyTriangle } from '../MyChat/style';
 
-export const DoctorChatProfileBox = styled.div`
+export const OtherChatProfileBox = styled.div`
   position: relative;
   display: flex;
   gap: 1.5rem;
@@ -14,7 +14,7 @@ export const DoctorChatProfileBox = styled.div`
   }
 `;
 
-export const DoctorChatBox = styled.div`
+export const OtherChatBox = styled.div`
   max-width: 60%;
   display: flex;
   position: absolute;
@@ -22,12 +22,12 @@ export const DoctorChatBox = styled.div`
   left: 6.8rem;
 `;
 
-export const DoctorChat = styled(UserChat)`
+export const OtherChat = styled(MyChat)`
   max-width: none;
   width: 100%;
 `;
 
-export const DoctorTriangle = styled(UserTriangle)`
+export const OtherTriangle = styled(MyTriangle)`
   top: 0.5rem;
   left: -0.8rem;
   transform: rotate(-65deg);

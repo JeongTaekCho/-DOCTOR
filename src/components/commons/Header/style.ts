@@ -47,9 +47,20 @@ export const MenuList = styled.ul`
 
   li {
     a {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 400;
       color: ${STYLE.subFontColor};
+
+      &.selected {
+        font-weight: 500;
+        color: ${STYLE.mainColor};
+      }
+
+      &:hover {
+        font-weight: 500;
+        color: ${STYLE.mainColor};
+        transition: all 0.2s;
+      }
     }
   }
 `;
@@ -68,12 +79,17 @@ export const ProfileBox = styled.button`
   align-items: center;
   position: relative;
   z-index: 101;
+
+  &:hover {
+    opacity: 0.9;
+    transition: all 0.2s;
+  }
 `;
 
 export const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 12px;
 
   p {
     font-size: 1.5rem;
@@ -85,16 +101,6 @@ export const ProfileContainer = styled.div`
 export const ProfileImgBox = styled.div`
   position: relative;
   width: 40px;
-  img {
-    width: 100%;
-  }
-`;
-
-export const AlarmImgBox = styled.div`
-  position: absolute;
-  top: -3px;
-  right: -3px;
-  width: 18px;
   img {
     width: 100%;
   }
@@ -129,9 +135,13 @@ export const ProfileBoxMenu = styled.ul`
       width: 100%;
       padding: 10px 0;
       font-size: 1.6rem;
-      font-weight: 600;
+      font-weight: 400;
       color: #fff;
       text-align: center;
+
+      &:hover {
+        font-weight: 600;
+      }
     }
   }
 `;
@@ -210,7 +220,7 @@ export const MobileLogoBox = styled.div`
     width: 10rem;
   }
   @media ${RESPONSIVE.mobile} {
-    width: 21.875%;
+    width: 33%;
   }
 
   img {
@@ -223,7 +233,7 @@ export const MobileMenuCloseBtn = styled.button`
     width: 5rem;
   }
   @media ${RESPONSIVE.mobile} {
-    width: 10%;
+    width: 7%;
   }
 
   img {
@@ -294,5 +304,130 @@ export const MobileProfileBox = styled.div`
     font-weight: 400;
     color: ${STYLE.subFontColor};
     margin-left: 0.5rem;
+  }
+`;
+
+export const SubMenuWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+`;
+
+export const MobileSubMenu = styled(SubMenuWrap)`
+  @media (min-width: 1200px) {
+    display: none;
+  }
+`;
+
+export const AlramBox = styled.div`
+  position: relative;
+  svg {
+    font-size: 4rem;
+  }
+`;
+
+export const AlramContainer = styled.div`
+  width: 40rem;
+  border: 1px solid #111;
+  background-color: #fff;
+  position: absolute;
+  top: 4.5rem;
+  right: 1rem;
+  border-radius: 0.6rem;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 100%;
+    height: 93vh;
+    position: fixed;
+    top: 8rem;
+    left: 0;
+    right: 0;
+  }
+`;
+
+export const AlramHead = styled.div`
+  width: 100%;
+  padding: 2rem;
+  border-bottom: 1px solid #111;
+  h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: #111;
+
+    button {
+      font-size: 2rem;
+    }
+  }
+`;
+
+export const AlramBody = styled.div`
+  width: 100%;
+  padding: 2rem;
+
+  @media ${RESPONSIVE.mobile} {
+    height: 93%;
+  }
+`;
+
+export const AlramList = styled.ul`
+  width: 100%;
+  height: 46rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  @media ${RESPONSIVE.mobile} {
+    height: 100%;
+  }
+
+  li {
+    border-bottom: 1px solid #aaa;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    a {
+      display: flex;
+      width: 100%;
+      padding: 1.5rem 0;
+      align-items: center;
+      gap: 1rem;
+
+      span {
+        width: 75%;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #111;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-break: break-all;
+      }
+    }
+  }
+`;
+
+export const AlramNumBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: #eb4335;
+  border-radius: 50%;
+
+  span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
   }
 `;

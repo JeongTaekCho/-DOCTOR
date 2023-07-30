@@ -1,3 +1,8 @@
 import { atom } from 'jotai';
 
-export const tokenAtom = atom<string | null>(null);
+const getAuth = (): string | null => {
+  const token = sessionStorage.getItem('token');
+  return token;
+};
+
+export const tokenAtom = atom(getAuth());

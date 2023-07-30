@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import { STYLE } from '../../../styles/commonStyle';
 
 export const ChatListBox = styled.div`
   width: 100%;
@@ -84,28 +83,4 @@ export const ChatNum = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const ChatBtnBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  position: absolute;
-  bottom: 0.7rem;
-  right: 1.4rem;
-`;
-
-export const AcceptBtn = styled.button`
-  padding: 0.5rem 1.4rem;
-  border-radius: 0.4rem;
-  background-color: ${STYLE.mainColor};
-  font-size: 1rem;
-  font-weight: 400;
-  color: #fff;
-  border: 1px solid ${STYLE.mainColor};
-`;
-
-export const RefuseBtn = styled(AcceptBtn)`
-  background-color: #fff;
-  color: ${STYLE.mainColor};
 `;

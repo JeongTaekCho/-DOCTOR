@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
 import { STYLE } from '../../../styles/commonStyle';
 
-export const UserChatBox = styled.div`
+export const MyChatBox = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
 
-export const UserChat = styled.div`
+export const MyChat = styled.div`
   max-width: 60%;
   padding: 1rem;
   position: relative;
@@ -23,7 +23,7 @@ export const UserChat = styled.div`
   }
 `;
 
-export const UserTriangle = styled.div`
+export const MyTriangle = styled.div`
   width: 0;
   height: 0;
   border-left: 0.6rem solid transparent;

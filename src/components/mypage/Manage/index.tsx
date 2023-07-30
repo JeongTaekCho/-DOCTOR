@@ -2,7 +2,13 @@ import React, { useState, ChangeEvent } from 'react';
 import * as S from './style';
 import { BsPen } from 'react-icons/bs';
 import { PASSOWRDREGEX } from '../../../constants/commons/validaties';
-const MyManage = () => {
+import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
+import { RegionOptions } from '../../../constants/commons/menus';
+interface MyManageProps {
+  vetStatus: string;
+}
+
+const MyManage = ({ vetStatus }: MyManageProps) => {
   const [isBasic, setIsBasic] = useState(false);
   const [isVet, setIsVet] = useState(false);
   const [password, setPassword] = useState('');
@@ -29,6 +35,11 @@ const MyManage = () => {
     setPassword('');
     setPasswordConfirm('');
   };
+  const { data: userData } = useGetUsersQuery();
+  const generateAsterisks = num => '*'.repeat(Math.min(num, 10));
+  const passwordCheck = userData?.user?.password;
+  const passwordLength = passwordCheck ? userData?.user?.password?.length : 0;
+  const maskedPassword = generateAsterisks(passwordLength);
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -60,6 +71,93 @@ const MyManage = () => {
     }
   };
 
+  const certificationSection = (
+    <>
+      <S.Title2>
+        <S.BasicHeader>수의사 정보</S.BasicHeader>
+      </S.Title2>
+      <S.Pen>
+        <BsPen size="15" onClick={handleEditVet} />
+      </S.Pen>
+      <S.MainBox>
+        <S.LeftText>
+          {isVet ? (
+            <S.CenteredText>면허증 첨부</S.CenteredText>
+          ) : (
+            <S.CenteredText>인증상태</S.CenteredText>
+          )}
+        </S.LeftText>
+        <S.InputDiv>
+          {isVet ? (
+            <S.FileInput type="file" />
+          ) : (
+            <S.RightText2>{userData?.vet?.status}</S.RightText2>
+          )}
+        </S.InputDiv>
+      </S.MainBox>
+      <S.MainBox2>
+        <S.LeftText>
+          <S.CenteredText>이름</S.CenteredText>
+        </S.LeftText>
+        <S.InputDiv>
+          {isVet ? (
+            <S.RightInput placeholder={userData?.vet?.name} />
+          ) : (
+            <S.RightText>{userData?.vet?.name}</S.RightText>
+          )}
+        </S.InputDiv>
+      </S.MainBox2>
+      <S.MainBox2>
+        <S.LeftText>
+          <S.CenteredText>병원</S.CenteredText>
+        </S.LeftText>
+        <S.InputDiv>
+          {isVet ? (
+            <S.RightInput placeholder={userData?.vet?.hospital_name} />
+          ) : (
+            <S.RightText>{userData?.vet?.hospital_name}</S.RightText>
+          )}
+        </S.InputDiv>
+      </S.MainBox2>
+      <S.MainBox2>
+        <S.LeftText>
+          <S.CenteredText>병원 소재지</S.CenteredText>
+        </S.LeftText>
+        <S.InputDiv>
+          {isVet ? (
+            <S.Select>
+              {RegionOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </S.Select>
+          ) : (
+            <S.RightText>{userData?.vet?.region}</S.RightText>
+          )}
+        </S.InputDiv>
+      </S.MainBox2>
+      <S.MainBox3>
+        <S.LeftText>
+          <S.CenteredText>병원 소개</S.CenteredText>
+        </S.LeftText>
+        <S.InputDiv2>
+          {isVet ? (
+            <S.RightInput2 placeholder={userData?.vet?.description} />
+          ) : (
+            <S.RightText>{userData?.vet?.description}</S.RightText>
+          )}
+        </S.InputDiv2>
+      </S.MainBox3>
+      {isVet && (
+        <S.ButtonDiv>
+          <S.BlueButton>확인</S.BlueButton>
+          <S.RedButton onClick={handleEditVet}>취소</S.RedButton>
+        </S.ButtonDiv>
+      )}
+    </>
+  );
+
   return (
     <div>
       <S.Title>
@@ -73,15 +171,23 @@ const MyManage = () => {
           <S.CenteredText>닉네임</S.CenteredText>
         </S.LeftText>
         <S.InputDiv>
-          {isBasic ? <S.RightInput placeholder="유승제" /> : <S.RightText>유승제</S.RightText>}
+          {isBasic ? (
+            <S.RightInput placeholder={userData?.user?.nickname} />
+          ) : (
+            <S.RightText>{userData?.user?.nickname}</S.RightText>
+          )}
         </S.InputDiv>
       </S.MainBox>
       <S.MainBox2>
         <S.LeftText>
-          <S.CenteredText>아이디</S.CenteredText>
+          <S.CenteredText>이메일</S.CenteredText>
         </S.LeftText>
         <S.InputDiv>
-          {isBasic ? <S.RightInput placeholder="elice123" /> : <S.RightText>elice123</S.RightText>}
+          {isBasic ? (
+            <S.RightInput placeholder={userData?.user?.email} />
+          ) : (
+            <S.RightText>{userData?.user?.email}</S.RightText>
+          )}
         </S.InputDiv>
       </S.MainBox2>
       <S.MainBox2>
@@ -97,7 +203,7 @@ const MyManage = () => {
               onChange={onChangeInput}
             />
           ) : (
-            <S.RightText>*******</S.RightText>
+            <S.RightText>{maskedPassword}</S.RightText>
           )}
         </S.InputDiv>
         {validate.password && isBasic && (
@@ -134,62 +240,7 @@ const MyManage = () => {
           <S.RedButton onClick={handleEditBasic}>취소</S.RedButton>
         </S.ButtonDiv>
       )}
-      <S.Title2>
-        <S.BasicHeader>수의사 정보</S.BasicHeader>
-      </S.Title2>
-      <S.Pen>
-        <BsPen size="15" onClick={handleEditVet} />
-      </S.Pen>
-      <S.MainBox>
-        <S.LeftText>
-          {isVet ? (
-            <S.CenteredText>면허증 첨부</S.CenteredText>
-          ) : (
-            <S.CenteredText>인증상태</S.CenteredText>
-          )}
-        </S.LeftText>
-        <S.InputDiv>
-          {isVet ? <S.FileInput type="file" /> : <S.RightText2>인증됨</S.RightText2>}
-        </S.InputDiv>
-      </S.MainBox>
-      <S.MainBox2>
-        <S.LeftText>
-          <S.CenteredText>이름</S.CenteredText>
-        </S.LeftText>
-        <S.InputDiv>
-          {isVet ? <S.RightInput placeholder="엘리스" /> : <S.RightText>엘리스</S.RightText>}
-        </S.InputDiv>
-      </S.MainBox2>
-      <S.MainBox2>
-        <S.LeftText>
-          <S.CenteredText>병원</S.CenteredText>
-        </S.LeftText>
-        <S.InputDiv>
-          {isVet ? (
-            <S.RightInput placeholder="엘리스 병원" />
-          ) : (
-            <S.RightText>엘리스 병원</S.RightText>
-          )}
-        </S.InputDiv>
-      </S.MainBox2>
-      <S.MainBox3>
-        <S.LeftText>
-          <S.CenteredText>병원 소개</S.CenteredText>
-        </S.LeftText>
-        <S.InputDiv2>
-          {isVet ? (
-            <S.RightInput2 placeholder="안녕하세요 여러분" />
-          ) : (
-            <S.RightText>안녕하세요 여러분</S.RightText>
-          )}
-        </S.InputDiv2>
-      </S.MainBox3>
-      {isVet && (
-        <S.ButtonDiv>
-          <S.BlueButton>확인</S.BlueButton>
-          <S.RedButton onClick={handleEditVet}>취소</S.RedButton>
-        </S.ButtonDiv>
-      )}
+      {vetStatus === 'accepted' && certificationSection}
     </div>
   );
 };

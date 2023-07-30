@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
+import { IoMdNotifications } from 'react-icons/io';
 import ProfileImg from '../ProfileImg';
 import { ROUTE } from '../../../constants/routes/routeData';
-import { useAtom } from 'jotai';
 import { tokenAtom } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
-import uuid from 'react-uuid';
+import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
+import { useAtomValue } from 'jotai';
 
 const Header = () => {
+  const auth = useAtomValue(tokenAtom);
+  const { pathname } = useLocation();
+
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
+  const [isAlramMenu, setIsAlramMenu] = useState(false);
 
-  const [userToken, setUserToken] = useAtom(tokenAtom);
+  const { data: userData } = useGetUsersQuery();
 
-  useEffect(() => {
-    setUserToken(sessionStorage.getItem('token'));
-  }, []);
+  const handleModalClose = () => {
+    setIsAlramMenu(false);
+  };
 
   const handleProfileBox = () => {
     setIsProfileMenu(prev => !prev);
@@ -28,8 +33,13 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     sessionStorage.removeItem('token');
     window.location.reload();
+  };
+
+  const handleToggleAlramBtn = () => {
+    setIsAlramMenu(prev => !prev);
   };
 
   return (
@@ -43,65 +53,173 @@ const Header = () => {
         <S.Navigation>
           <S.MenuBox>
             <S.MenuList>
-              {MENU.map(({ name, link }) => (
-                <li key={uuid()}>
-                  <Link to={link}>{name}</Link>
+              {MENU.map(({ id, name, link }) => (
+                <li key={id}>
+                  <Link className={pathname === link ? 'selected' : ''} to={link}>
+                    {name}
+                  </Link>
                 </li>
               ))}
             </S.MenuList>
-            {userToken ? (
-              <S.ProfileWrap>
-                <S.ProfileBox onClick={handleProfileBox}>
-                  <S.ProfileContainer>
-                    <p>깜장이 님</p>
-                    <S.ProfileImgBox>
-                      <img src="/images/commons/profile.png" alt="" />
-                      <S.AlarmImgBox>
-                        <img src="/images/commons/alarm.png" alt="" />
-                      </S.AlarmImgBox>
-                    </S.ProfileImgBox>
-                  </S.ProfileContainer>
-                </S.ProfileBox>
-                {isProfileMenu && (
-                  <S.ProfileDetailBox>
-                    <S.ProfileBoxMenu>
-                      {PROFILE_MENU.map(({ name, link }) => (
-                        <li key={uuid()}>
-                          <Link to={link} onClick={handleProfileBox}>
-                            {name}
-                          </Link>
+            <S.SubMenuWrap>
+              {auth && (
+                <S.AlramBox>
+                  <S.AlramNumBox>
+                    <span>10</span>
+                  </S.AlramNumBox>
+                  <button type="button" onClick={handleToggleAlramBtn}>
+                    <IoMdNotifications />
+                  </button>
+                  {isAlramMenu && (
+                    <S.AlramContainer>
+                      <S.AlramHead>
+                        <h4>
+                          <span>채팅 및 댓글 알림</span>
+                          <button type="button" onClick={handleModalClose}>
+                            X
+                          </button>
+                        </h4>
+                      </S.AlramHead>
+                      <S.AlramBody>
+                        <S.AlramList>
+                          <li>
+                            <Link to="/">
+                              <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                              <span>
+                                [댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?
+                              </span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to="/">
+                              <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                              <span>
+                                [댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?
+                              </span>
+                            </Link>
+                          </li>
+                        </S.AlramList>
+                      </S.AlramBody>
+                    </S.AlramContainer>
+                  )}
+                </S.AlramBox>
+              )}
+              {auth ? (
+                <S.ProfileWrap>
+                  <S.ProfileBox onClick={handleProfileBox}>
+                    <S.ProfileContainer>
+                      <p>{userData?.user?.nickname}</p>
+                      <S.ProfileImgBox>
+                        <ProfileImg w="4rem" h="4rem" src={userData?.user?.img_path} />
+                      </S.ProfileImgBox>
+                    </S.ProfileContainer>
+                  </S.ProfileBox>
+                  {isProfileMenu && (
+                    <S.ProfileDetailBox>
+                      <S.ProfileBoxMenu>
+                        {PROFILE_MENU.map(({ id, name, link }) => (
+                          <li key={id}>
+                            <Link to={link} onClick={handleProfileBox}>
+                              {name}
+                            </Link>
+                          </li>
+                        ))}
+                        <li>
+                          <button onClick={handleLogout}>로그아웃</button>
                         </li>
-                      ))}
-                      <li>
-                        <button onClick={handleLogout}>로그아웃</button>
-                      </li>
-                    </S.ProfileBoxMenu>
-                  </S.ProfileDetailBox>
-                )}
-              </S.ProfileWrap>
-            ) : (
-              <S.SubBox>
-                <S.LoginBtn>
-                  <Link to={ROUTE.LOGIN.link}>로그인</Link>
-                </S.LoginBtn>
-              </S.SubBox>
-            )}
+                      </S.ProfileBoxMenu>
+                    </S.ProfileDetailBox>
+                  )}
+                </S.ProfileWrap>
+              ) : (
+                <S.SubBox>
+                  <S.LoginBtn>
+                    <Link to={ROUTE.LOGIN.link}>로그인</Link>
+                  </S.LoginBtn>
+                </S.SubBox>
+              )}
+            </S.SubMenuWrap>
           </S.MenuBox>
         </S.Navigation>
-        <S.MobileMenuBtn type="button" onClick={handleMobileMenuBtn}>
-          <HiMenu />
-        </S.MobileMenuBtn>
+        <S.MobileSubMenu>
+          {auth && (
+            <S.AlramBox>
+              <S.AlramNumBox>
+                <span>10</span>
+              </S.AlramNumBox>
+              <button type="button" onClick={handleToggleAlramBtn}>
+                <IoMdNotifications />
+              </button>
+              {isAlramMenu && (
+                <S.AlramContainer>
+                  <S.AlramHead>
+                    <h4>
+                      <span>채팅 및 댓글 알림</span>
+                      <button type="button" onClick={handleModalClose}>
+                        X
+                      </button>
+                    </h4>
+                  </S.AlramHead>
+                  <S.AlramBody>
+                    <S.AlramList>
+                      <li>
+                        <Link to="/">
+                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/">
+                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/">
+                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/">
+                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/">
+                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/">
+                          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+                          <span>[댓글] 깜장이님 : 건대입구 주변에 어느 동물병원이 갈만한가요?</span>
+                        </Link>
+                      </li>
+                    </S.AlramList>
+                  </S.AlramBody>
+                </S.AlramContainer>
+              )}
+            </S.AlramBox>
+          )}
+          <S.MobileMenuBtn type="button" onClick={handleMobileMenuBtn}>
+            <HiMenu />
+          </S.MobileMenuBtn>
+        </S.MobileSubMenu>
         <S.MobileMenu className={isMobileMenu ? 'active' : ''}>
           <S.MobileMenuContainer>
             <S.MobileMenuHead>
               <S.MobileLogoBox>
                 <img src="/images/commons/logo.png" alt="" />
               </S.MobileLogoBox>
+
               <S.MobileMenuCloseBtn type="button" onClick={handleMobileMenuBtn}>
                 <img src="/images/commons/close.png" alt="" />
               </S.MobileMenuCloseBtn>
             </S.MobileMenuHead>
-            {userToken ? (
+            {auth ? (
               <S.MobileProfileBox>
                 <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
                 <p>깜장이 수의사 님</p>
@@ -120,8 +238,8 @@ const Header = () => {
 
             <S.MobileNavigation>
               <ul>
-                {MENU.map(({ name, link }) => (
-                  <li key={uuid()}>
+                {MENU.map(({ id, name, link }) => (
+                  <li key={id}>
                     <Link to={link} onClick={handleMobileMenuBtn}>
                       <span>{name}</span>
                       <span>&gt;</span>
@@ -129,7 +247,7 @@ const Header = () => {
                   </li>
                 ))}
                 <li>
-                  <Link to={`${ROUTE.CHATDETAIL.link}/:유저아이디`} onClick={handleMobileMenuBtn}>
+                  <Link to={ROUTE.CHATDETAIL.link} onClick={handleMobileMenuBtn}>
                     <span>채팅</span>
                     <span>&gt;</span>
                   </Link>

@@ -45,7 +45,8 @@ export default defineConfig({
         process.env.GAMIL_OAUTH_CLIENT_SECRET
       ),
       'process.env.SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
-      'process.env.KAKAO_API_KEY': JSON.stringify(process.env.KAKAO_API_KEY)
+      'process.env.KAKAO_API_KEY': JSON.stringify(process.env.KAKAO_API_KEY),
+      'process.env.GOOGLE_MAP_API_KEY': JSON.stringify(process.env.GOOGLE_MAP_API_KEY)
     })
   ],
   server: {

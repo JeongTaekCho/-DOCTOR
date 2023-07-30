@@ -10,21 +10,22 @@ import { useEmailAuthMutation } from '../../hooks/query/useEmailAuthMutation';
 import { useEmailCheckMutation } from '../../hooks/query/useEmailCheckMutation';
 import { useRegisterMutation } from '../../hooks/query/useRegisterMutation';
 import { tokenAtom } from '../../atoms/atoms';
-import { useAtom } from 'jotai';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 import LoadingBackground from '../../components/commons/LoadingBackground';
+import { useAtomValue } from 'jotai';
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [authCode, handleChangeAuthCode] = useInput('');
+  const auth = useAtomValue(tokenAtom);
+  const navigate = useNavigate();
 
   const { mutate: emailAuthMutate, isLoading: emailAuthLoading } = useEmailAuthMutation();
   const { mutate: emailCheckMutate } = useEmailCheckMutation();
   const { mutate: registerMutate } = useRegisterMutation();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [nickname, setNickname] = useState('');
   const [isCode, setIsCode] = useState(false);
   const [validate, setValidate] = useState({
     email: false,
@@ -33,16 +34,7 @@ const RegisterPage = () => {
     nickname: false,
     authCode: true
   });
-
-  const [userToken] = useAtom(tokenAtom);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (userToken) {
-      navigate(ROUTE.HOME.link);
-    }
-  }, [userToken]);
+  const [authCode, handleChangeAuthCode] = useInput('');
 
   const validateComplete =
     !!email &&
@@ -159,6 +151,12 @@ const RegisterPage = () => {
       }
     );
   };
+
+  useEffect(() => {
+    if (auth) {
+      navigate(ROUTE.HOME.link);
+    }
+  }, [auth]);
 
   return (
     <S.Wrap>
