@@ -4,12 +4,10 @@ import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
 import { AREA } from '../../constants/commons/menus';
 import { tokenAtom } from '../../atoms/atoms';
-import * as API from '../../api/index';
-import { useInfiniteQuery } from '@tanstack/react-query';
 import InfiniteScroll from 'react-infinite-scroller';
-import { DoctorListResponse } from './types';
 import useDebounce from '../../hooks/util/useDebounce';
 import { useAtomValue } from 'jotai';
+import { useChatListInfinityQuery } from '../../hooks/query/useChatListInfinityQuery';
 
 const ChatsPage = () => {
   const auth = useAtomValue(tokenAtom);
@@ -19,28 +17,11 @@ const ChatsPage = () => {
 
   const debounceSearchValue = useDebounce(search, 500);
 
-  const getDoctorList = async (areaName: string, search: string, page = 1) => {
-    const result: any = await API.get(
-      `/chats/vet-lists?region=${areaName || ''}${
-        debounceSearchValue && `&search=${search}`
-      }&currentPage=${page}`
-    );
-    return result.data;
-  };
-
   const {
     data: doctorList,
     fetchNextPage,
     hasNextPage
-  } = useInfiniteQuery<DoctorListResponse>(
-    ['infiniteDoctorList', areaName, debounceSearchValue],
-    ({ pageParam }) => getDoctorList(areaName, debounceSearchValue, pageParam),
-    {
-      getNextPageParam: lastPage => {
-        return lastPage.currentPage < lastPage.totalPages && lastPage.currentPage + 1;
-      }
-    }
-  );
+  } = useChatListInfinityQuery(areaName, debounceSearchValue);
 
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;

@@ -22,20 +22,24 @@ const ChatDetail = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
 
-  const { data: userData } = useGetUsersQuery();
-  const { data: chatContents } = useGetChatConentsQuery(1);
-  const { data: chatList } = useGetChatListQuery();
-
-  const [isNav, setIsNav] = useState('상담 목록');
+  const [isNav, setIsNav] = useState(true);
   const [isExitModal, setIsExitModal] = useState(false);
   const [isReviewModal, setIsReviewModal] = useState(false);
   const [isChatActive, setIsChatActive] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [chatId, setChatId] = useState<string>('');
+  const [chatId, setChatId] = useState<number | null>(1);
   const [messages, setMessages] = useState<ChatContent[] | undefined>([]);
   const [message, setMessage] = useState('');
 
+  const { data: userData } = useGetUsersQuery();
+  const { data: chatContents, refetch } = useGetChatConentsQuery(chatId);
+  const { data: chatList } = useGetChatListQuery();
+
+  console.log(chatContents);
+
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
+
+  const isUser = userData?.user?.role === 'user';
 
   const scrollToBottom = () => {
     if (ChatUiRef.current) {
@@ -50,9 +54,9 @@ const ChatDetail = () => {
   const handleSubmit = () => {
     // if (message.trim() === '' || !chatId) return;
     // 서버에 메시지 전송
-    socket?.emit('msgSend', { chatId: 1, message });
+    socket?.emit('msgSend', { chatId: chatId, message });
     setMessages((prevMessages: any) => [
-      ...prevMessages,
+      ...(prevMessages?.length ? prevMessages : []),
       {
         message,
         email: userData?.user?.email,
@@ -63,11 +67,11 @@ const ChatDetail = () => {
     setMessage('');
   };
 
-  const handleNavClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-    const { name } = target.dataset;
-
-    setIsNav(name || '');
+  const handleAcceptList = () => {
+    setIsNav(true);
+  };
+  const handlePenddingList = () => {
+    setIsNav(false);
   };
 
   const handleCancelModal = (e: MouseEvent<HTMLButtonElement>) => {
@@ -90,12 +94,18 @@ const ChatDetail = () => {
     setIsReviewModal(true);
   };
 
-  const handletoggleChat = () => {
-    setIsChatActive(prev => !prev);
+  const handleChatView = (chatId: number) => () => {
+    setIsChatActive(true);
+    setChatId(chatId);
   };
 
-  console.log(setChatId);
-  console.log(chatId);
+  const handleChatClose = () => {
+    setIsChatActive(false);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [chatId]);
 
   useEffect(() => {
     if (!auth) {
@@ -131,7 +141,7 @@ const ChatDetail = () => {
     // 메시지 수신 이벤트 처리
     socket.on('msgReceive', ({ email, content, nickname, img_path }) => {
       setMessages((prevMessages: any) => [
-        ...prevMessages,
+        ...(prevMessages?.length ? prevMessages : []),
         {
           message: content,
           email,
@@ -144,48 +154,68 @@ const ChatDetail = () => {
     return () => {
       socket.disconnect();
     };
-  }, [chatContents]);
+  }, [chatContents, chatId]);
 
   return (
     <S.Wrap>
       <S.Container>
         <S.ChatLeftBox className={isChatActive ? 'active' : ''}>
           <S.ChatListNav>
-            <li className={isNav === '상담 목록' ? 'selected' : ''}>
-              <button type="button" data-name="상담 목록" onClick={handleNavClick}>
+            <li className={isNav ? 'selected' : ''}>
+              <button type="button" data-name="상담 목록" onClick={handleAcceptList}>
                 상담 목록
               </button>
             </li>
-            <li className={isNav === '신청 대기' ? 'selected' : ''}>
-              <button type="button" data-name="신청 대기" onClick={handleNavClick}>
+            <li className={isNav ? '' : 'selected'}>
+              <button type="button" data-name="신청 대기" onClick={handlePenddingList}>
                 신청 대기
               </button>
             </li>
           </S.ChatListNav>
-          <S.ChatListBox>
-            {chatList?.map(chatInfo => (
-              <li key={chatInfo?.id}>
-                <S.ChatBtn onClick={handletoggleChat}>
-                  <ChatBox chatInfo={chatInfo} userData={userData} />
-                </S.ChatBtn>
-              </li>
-            ))}
-          </S.ChatListBox>
+          {isNav ? (
+            <S.ChatListBox>
+              {chatList?.map(
+                chatInfo =>
+                  chatInfo.status !== 'pending' && (
+                    <li key={chatInfo?.id}>
+                      <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
+                        <ChatBox chatInfo={chatInfo} userData={userData} />
+                      </S.ChatBtn>
+                    </li>
+                  )
+              )}
+            </S.ChatListBox>
+          ) : (
+            <S.ChatListBox>
+              {chatList?.map(
+                chatInfo =>
+                  chatInfo.status === 'pending' && (
+                    <li key={chatInfo?.id}>
+                      <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
+                        <ChatBox chatInfo={chatInfo} userData={userData} />
+                      </S.ChatBtn>
+                    </li>
+                  )
+              )}
+            </S.ChatListBox>
+          )}
         </S.ChatLeftBox>
         <S.CharRightBox className={isChatActive ? 'active' : ''}>
           <S.ChatHead>
             <S.ProfileBox>
               <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
               <S.ProfileContent>
-                <S.HeadProfileName>깜장이 수의사 [깜장 동물병원]</S.HeadProfileName>
-                <S.ChatBtnBox>
-                  <S.AcceptBtn>수락</S.AcceptBtn>
-                  <S.RefuseBtn>거절</S.RefuseBtn>
-                </S.ChatBtnBox>
+                <S.HeadProfileName>{isUser ? '수의사' : '나'}</S.HeadProfileName>
+                {isUser || (
+                  <S.ChatBtnBox>
+                    <S.AcceptBtn>수락</S.AcceptBtn>
+                    <S.RefuseBtn>거절</S.RefuseBtn>
+                  </S.ChatBtnBox>
+                )}
               </S.ProfileContent>
             </S.ProfileBox>
             <S.HeadBtnBox>
-              <S.BackBtn type="button" onClick={handletoggleChat}>
+              <S.BackBtn type="button" onClick={handleChatClose}>
                 목록
               </S.BackBtn>
               <S.ExitBtn type="button" onClick={handleChatExitBtn}>
