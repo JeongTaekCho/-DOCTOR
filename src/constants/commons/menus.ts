@@ -29,6 +29,10 @@ export const PROFILE_MENU = [
   {
     name: '채팅',
     link: '/chats/:유저아이디'
+  },
+  {
+    name: '관리자페이지',
+    link: '/report-admin/:유저아이디'
   }
 ];
 

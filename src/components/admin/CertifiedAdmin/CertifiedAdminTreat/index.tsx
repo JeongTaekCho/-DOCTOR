@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
+/* eslint-disable quotes */
+import React from 'react';
 import * as S from './style';
-import ProfileImg from '../../../components/commons/ProfileImg';
-import AdminLayout from '../../../components/layout/AdminLayout';
+import ProfileImg from '../../../commons/ProfileImg';
+import AdminLayout from '../../AdminLayouts/AdminNavLayout';
+import AdminPagination from '../../AdminLayouts/CertifiedAdminPaginationBtn';
+import Select from '../../AdminLayouts/CertifiedSelectBox';
 
-const CertifiedAdminPage = () => {
-  const [isActive, setIsActive] = useState(false);
-
-  const handleClickBtn1 = () => {
-    setIsActive(false);
-  };
-
-  const handleClickBtn2 = () => {
-    setIsActive(true);
-  };
-
+const CertifiedAdminTreatPage = () => {
   return (
     <AdminLayout>
       <S.Wrap>
@@ -22,25 +15,8 @@ const CertifiedAdminPage = () => {
             <S.ContentTitle>
               <S.CTitleName>수의사 인증 접수</S.CTitleName>
             </S.ContentTitle>
-            <S.PageNation>
-              <S.PageNationBtn>
-                <S.PageNationBox>
-                  <S.PageNationReportBtn
-                    onClick={handleClickBtn1}
-                    className={isActive ? '' : 'active'}
-                  >
-                    인증 대기 목록
-                  </S.PageNationReportBtn>
-                  <S.PageNationReportBtn
-                    className={isActive ? 'active' : ''}
-                    onClick={handleClickBtn2}
-                  >
-                    인증 완료 목록
-                  </S.PageNationReportBtn>
-                </S.PageNationBox>
-                <S.PageNationBar></S.PageNationBar>
-              </S.PageNationBtn>
-            </S.PageNation>
+
+            <AdminPagination></AdminPagination>
             <S.ReportList>
               <S.ListSet>
                 <S.ListOrder>▼ 요청 일자 순</S.ListOrder>
@@ -69,7 +45,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -85,7 +61,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -101,7 +77,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -117,7 +93,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -133,7 +109,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -149,7 +125,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -165,7 +141,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -181,7 +157,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -197,7 +173,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -213,7 +189,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
                 <S.ListOfLists>
@@ -229,7 +205,7 @@ const CertifiedAdminPage = () => {
                     <S.ReportContentListSet></S.ReportContentListSet>
                   </S.ReportContent>
                   <S.ReportHandle>
-                    <S.ReportHandleListSet>승인 완료</S.ReportHandleListSet>
+                    <Select></Select>
                   </S.ReportHandle>
                 </S.ListOfLists>
               </S.ListContentWrap>
@@ -241,4 +217,4 @@ const CertifiedAdminPage = () => {
   );
 };
 
-export default CertifiedAdminPage;
+export default CertifiedAdminTreatPage;

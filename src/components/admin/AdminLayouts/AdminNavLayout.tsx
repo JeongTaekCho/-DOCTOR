@@ -14,13 +14,13 @@ const AdminLayout = ({ children }: LayoutRouteProps) => {
             <span>관리자 페이지</span>
           </TitleName>
         </NavTitle>
-        <NavMenu to="/">
+        <NavMenu to="/report-wait-admin">
           <MenuName>신고 접수</MenuName>
         </NavMenu>
-        <NavMenu to="/">
+        <NavMenu to="/certified-wait-admin">
           <MenuName>수의사 인증 접수</MenuName>
         </NavMenu>
-        <NavMenu to="/">메뉴이름 3</NavMenu>
+        {/* <NavMenu to="/">메뉴이름 3</NavMenu> */}
       </Nav>
       {children}
     </Wrap>
@@ -57,18 +57,18 @@ const TitleName = styled.div`
   gap: 0.5rem;
   font-size: 2rem;
   font-weight: bolder;
-  color: #545563;
+  color: #cbcce8;
   padding: 1rem 0 1rem 3rem;
   margin-bottom: 6rem;
 `;
 
 const NavMenu = styled(Link)`
   // <메뉴바>
-  display: block;
+  display: flex;
   width: 100%;
   font-size: 1.5rem;
   align-items: center;
-  padding: 1rem 0 1rem 3rem;
+  padding: 1rem 0 3rem 3rem;
 
   &:hover {
     background-color: #3e4049;
@@ -89,4 +89,5 @@ const LogoImgBox = styled.div`
 const MenuName = styled.div`
   // 메뉴 이름
   font-size: 2rem;
+  padding-top: 2rem;
 `;

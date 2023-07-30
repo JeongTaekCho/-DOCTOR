@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import MainPage from '../../pages/Main';
 import RegisterPage from '../../pages/Register';
@@ -8,8 +9,9 @@ import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
 import Community from '../../pages/Community';
 import HospitalPage from '../../pages/Hospital';
-import ReportAdminPage from '../../pages/Admin/ReportAdmin';
-import CertifiedAdminPage from '../../pages/Admin/CertifiedAdmin';
+import ReportAdminPage from '../../components/admin/ReportAdmin/ReportAdminFalse';
+import CertifiedAdminTreatPage from '../../components/admin/CertifiedAdmin/CertifiedAdminTreat';
+import CertifiedAdminWaitPage from '../../components/admin/CertifiedAdmin/CertifiedAdminWait';
 import FreeDetail from '../../components/community/FreeDetail';
 
 interface Route {
@@ -74,16 +76,28 @@ export const ROUTE: { [key: string]: Route } = {
     element: <HospitalPage />,
     exact: true
   },
-  REPORTADMIN: {
-    path: '/report-admin',
-    link: '/report-admin',
+  REPORTADMINTREAT: {
+    path: '/report-treat-admin',
+    link: '/report-treat-admin',
     element: <ReportAdminPage />,
     exact: true
   },
-  CERTIFIEDADMIN: {
-    path: '/certified-admin',
-    link: '/certified-admin',
-    element: <CertifiedAdminPage />,
+  REPORTADMINWAIT: {
+    path: '/report-wait-admin',
+    link: '/report-wait-admin',
+    element: <ReportAdminPage />,
+    exact: true
+  },
+  CERTIFIEDADMINTREAT: {
+    path: '/certified-treat-admin',
+    link: '/certified-treat-admin',
+    element: <CertifiedAdminTreatPage />,
+    exact: true
+  },
+  CERTIFIEDADMINWAIT: {
+    path: '/certified-wait-admin',
+    link: '/certified-wait-admin',
+    element: <CertifiedAdminWaitPage />,
     exact: true
   },
   FREEDETAIL: {
