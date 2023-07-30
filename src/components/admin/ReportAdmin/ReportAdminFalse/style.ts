@@ -125,7 +125,10 @@ export const ReportN = styled.div`
 
 export const ReportDetailN = styled(ReportN)``;
 
-export const ReportPostN = styled.div``;
+export const ReportPostN = styled.div`
+  cursor: pointer;
+`;
+
 export const ReportDate = styled.div``;
 
 export const ReportContent = styled.div`
@@ -140,3 +143,17 @@ export const ReportHandle = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const Modal = styled.div`
+  position: absolute;
+  width: 70rem;
+  padding: 25rem;
+  background-color: #fff;
+  border: 0.5rem solid #667085;
+  border-radius: 20px;
+  position: fixed;
+  top: 30%;
+  left: 35%;
+  transform: translate() (-50%, -50%);
+`;
+export const ExitBtn = styled.div``;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
 import ProfileImg from '../../../commons/ProfileImg';
 import AdminLayout from '../../AdminLayouts/AdminNavLayout';
@@ -8,11 +8,21 @@ import ReportAdminPagination from '../../AdminLayouts/ReportAdminPaginationBtn';
 import Select from '../../AdminLayouts/ReportSelectBox';
 
 const ReportAdminPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <AdminLayout>
       <S.Wrap>
         <S.Content>
           <S.Container>
+            {isModalOpen && (
+              <S.Modal>
+                <p>게시물내용</p>
+                <S.ExitBtn onClick={closeModal}>Close</S.ExitBtn>
+              </S.Modal>
+            )}
             <S.ContentTitle>
               <S.CTitleName>신고접수</S.CTitleName>
             </S.ContentTitle>
@@ -38,7 +48,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
@@ -54,7 +64,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
@@ -70,7 +80,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
@@ -86,7 +96,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
@@ -102,7 +112,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
@@ -118,7 +128,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
@@ -134,7 +144,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
@@ -150,7 +160,7 @@ const ReportAdminPage = () => {
                   </S.ReportProfile>
                   <S.ReportN>10</S.ReportN>
                   <S.ReportDetailN>
-                    <S.ReportPostN>게시물10건/댓글2건</S.ReportPostN>
+                    <S.ReportPostN onClick={openModal}>게시물10건/댓글2건</S.ReportPostN>
                   </S.ReportDetailN>
                   <S.ReportContent>
                     <S.ReportContentListSet>스팸</S.ReportContentListSet>
