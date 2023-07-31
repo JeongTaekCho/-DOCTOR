@@ -245,3 +245,11 @@ export const RefuseBtn = styled(AcceptBtn)`
   background-color: #fff;
   color: ${STYLE.mainColor};
 `;
+
+export const ErrorMent = styled.p`
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin-top: 1.5rem;
+`;

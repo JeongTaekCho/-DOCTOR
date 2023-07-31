@@ -17,12 +17,13 @@ import { ChatContent } from './types';
 import { useAtomValue } from 'jotai';
 import MyChat from '../../components/chats/MyChat';
 import OtherChat from '../../components/chats/OtherChat';
+import { useChatChangeStatusMutation } from '../../hooks/query/useChatChangeStatusMutation';
 
 const ChatDetail = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
 
-  const { data: chatList } = useGetChatListQuery();
+  const { data: chatList, refetch: chatListRefetch } = useGetChatListQuery();
 
   const [isNav, setIsNav] = useState(true);
   const [isExitModal, setIsExitModal] = useState(false);
@@ -34,11 +35,18 @@ const ChatDetail = () => {
   const [message, setMessage] = useState('');
 
   const { data: userData } = useGetUsersQuery();
-  const { data: chatContents, refetch } = useGetChatConentsQuery(chatId);
+  const { data: chatContents, refetch: chatContentRefetch } = useGetChatConentsQuery(chatId);
+  const { mutate } = useChatChangeStatusMutation();
 
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
 
   const isUser = userData?.user?.role === 'user';
+  const acceptedList = chatList?.filter(chat => chat?.status === 'accepted');
+
+  const waitList = chatList?.filter(chat => chat?.status !== 'accepted');
+
+  const acceptedListLength = acceptedList?.length ?? 0;
+  const waitListLength = waitList?.length ?? 0;
 
   const scrollToBottom = () => {
     if (ChatUiRef.current) {
@@ -106,12 +114,37 @@ const ChatDetail = () => {
     setIsChatActive(false);
   };
 
+  const handleChatStatusChange = (status: string) => () => {
+    mutate(
+      {
+        id: chatId,
+        status: status
+      },
+      {
+        onSuccess: () => {
+          if (status === 'accepted') {
+            Swal.fire('수락 되었습니다.');
+          } else {
+            Swal.fire('거절 되었습니다.');
+          }
+          chatListRefetch();
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
   useEffect(() => {
-    setChatId(chatList?.filter(chat => chat.status === 'accepted')[0]?.id);
+    setChatId(
+      chatList?.filter(chat => chat.status === 'accepted')[0]?.id ||
+        chatList?.filter(chat => chat.status === 'pending')[0]?.id
+    );
   }, [chatList]);
 
   useEffect(() => {
-    refetch();
+    chatContentRefetch();
   }, [chatId]);
 
   useEffect(() => {
@@ -175,34 +208,44 @@ const ChatDetail = () => {
             </li>
             <li className={isNav ? '' : 'selected'}>
               <button type="button" data-name="신청 대기" onClick={handlePenddingList}>
-                신청 대기
+                {isUser ? '승인' : '신청'} 대기
               </button>
             </li>
           </S.ChatListNav>
           {isNav ? (
             <S.ChatListBox>
-              {chatList?.map(
-                chatInfo =>
-                  chatInfo.status !== 'pending' && (
-                    <li key={chatInfo?.id}>
-                      <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
-                        <ChatBox chatInfo={chatInfo} userData={userData} />
-                      </S.ChatBtn>
-                    </li>
-                  )
+              {acceptedListLength > 0 ? (
+                chatList?.map(
+                  chatInfo =>
+                    (chatInfo.status === 'accepted' || chatInfo.status === 'completed') && (
+                      <li key={chatInfo?.id}>
+                        <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
+                          <ChatBox chatInfo={chatInfo} userData={userData} />
+                        </S.ChatBtn>
+                      </li>
+                    )
+                )
+              ) : (
+                <S.ErrorMent>채팅 목록이 존재하지 않습니다.</S.ErrorMent>
               )}
             </S.ChatListBox>
           ) : (
             <S.ChatListBox>
-              {chatList?.map(
-                chatInfo =>
-                  chatInfo.status === 'pending' && (
-                    <li key={chatInfo?.id}>
-                      <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
-                        <ChatBox chatInfo={chatInfo} userData={userData} />
-                      </S.ChatBtn>
-                    </li>
-                  )
+              {waitListLength > 0 ? (
+                chatList?.map(
+                  chatInfo =>
+                    chatInfo.status === 'pending' && (
+                      <li key={chatInfo?.id}>
+                        <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
+                          <ChatBox chatInfo={chatInfo} userData={userData} />
+                        </S.ChatBtn>
+                      </li>
+                    )
+                )
+              ) : (
+                <S.ErrorMent>{`${
+                  isUser ? '승인' : '신청'
+                } 대기 목록이 존재하지 않습니다.`}</S.ErrorMent>
               )}
             </S.ChatListBox>
           )}
@@ -227,8 +270,8 @@ const ChatDetail = () => {
                 </S.HeadProfileName>
                 {!isUser && chatContents?.checkStatus?.status === 'pending' && (
                   <S.ChatBtnBox>
-                    <S.AcceptBtn>수락</S.AcceptBtn>
-                    <S.RefuseBtn>거절</S.RefuseBtn>
+                    <S.AcceptBtn onClick={handleChatStatusChange('accepted')}>수락</S.AcceptBtn>
+                    <S.RefuseBtn onClick={handleChatStatusChange('rejected')}>거절</S.RefuseBtn>
                   </S.ChatBtnBox>
                 )}
               </S.ProfileContent>
