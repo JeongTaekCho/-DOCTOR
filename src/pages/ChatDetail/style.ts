@@ -163,12 +163,16 @@ export const ChatForm = styled.form`
   padding: 1rem 2.5rem;
 `;
 
-export const Textarea = styled.textarea`
+export const ChatInput = styled.input`
   width: 100%;
   resize: none;
   border: 1px solid #000;
   border-radius: 0.6rem;
   padding: 1rem;
+
+  &:disabled {
+    background-color: #eee;
+  }
 `;
 
 export const FileTextarea = styled.div`
