@@ -8,6 +8,7 @@ export const Wrap = styled.div`
 export const Container = styled.div`
   width: 100%;
   margin-top: -8%;
+  position: relative;
 `;
 
 export const Img = styled.img`
@@ -20,17 +21,21 @@ export const Header = styled.h4`
   font-size: 9rem;
   color: white;
   font-weight: bolder;
-  position: absolute;
   top: 50%;
   padding-left: 5%;
   line-height: 130%;
   color: #fff;
   -webkit-text-stroke: 2px #fff;
   font-family: 'Noto Sans KR', sans-serif;
+  position: absolute;
 
   @media ${RESPONSIVE.mobile} {
-    font-size: 9rem;
-    top: 25%;
+    font-size: 5rem;
+    top: 30%;
+  }
+  @media ${RESPONSIVE.tablet} {
+    font-size: 7rem;
+    top: 40%;
   }
 `;
 
@@ -64,6 +69,10 @@ export const AiPic = styled.div`
     flex-direction: column;
     gap: 20rem;
   }
+  @media ${RESPONSIVE.tablet} {
+    flex-direction: column;
+    gap: 20rem;
+  }
 `;
 
 export const Pic = styled.img`
@@ -79,7 +88,11 @@ export const SubDiv = styled.div`
   padding-top: 5%;
 
   @media ${RESPONSIVE.mobile} {
-    height: 80rem;
+    height: 70rem;
+  }
+
+  @media ${RESPONSIVE.tablet} {
+    height: 70rem;
   }
 `;
 
@@ -99,6 +112,11 @@ export const ContentDiv = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     flex-direction: column;
+    padding: 0;
+  }
+  @media ${RESPONSIVE.tablet} {
+    flex-direction: column;
+    padding: 0;
   }
 `;
 
@@ -115,6 +133,11 @@ export const Content = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     margin-top: 5%;
+    margin-right: 0;
+  }
+
+  @media ${RESPONSIVE.tablet} {
+    margin-top: 3%;
     margin-right: 0;
   }
 `;
@@ -160,6 +183,11 @@ export const EffectDiv = styled.div`
   line-height: 900%;
 
   @media ${RESPONSIVE.mobile} {
+    text-align: center;
+    padding: 0;
+  }
+
+  @media ${RESPONSIVE.tablet} {
     text-align: center;
     padding: 0;
   }

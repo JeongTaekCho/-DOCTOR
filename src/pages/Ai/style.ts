@@ -102,6 +102,14 @@ export const Button = styled.button`
   &:active {
     transform: translateY(-1px);
   }
+
+  @media ${RESPONSIVE.tablet} {
+    margin-top: 10rem;
+  }
+
+  @media ${RESPONSIVE.mobile} {
+    margin-top: 7rem;
+  }
 `;
 
 export const Modal = styled.div`

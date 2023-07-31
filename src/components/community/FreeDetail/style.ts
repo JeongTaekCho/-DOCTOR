@@ -136,11 +136,18 @@ export const Comment = styled.div`
 
 export const UserDiv = styled.div`
   width: 100%;
+  display: flex;
 `;
 
 export const User = styled.p`
   font-size: 1.5rem;
   font-weight: bolder;
+  width: 97%;
+`;
+
+export const DeleteDiv = styled.div`
+  width: 3%;
+  cursor: pointer;
 `;
 
 export const CommentDate = styled.span`
@@ -284,6 +291,16 @@ export const ButtonDiv = styled.div`
   gap: 1rem;
 `;
 
+export const DeleteButtonDiv = styled.div`
+  width: 100%;
+  text-align: center;
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+`;
+
 export const BlueButton = styled.button`
   width: 5rem;
   height: 3.5rem;
@@ -312,4 +329,18 @@ export const MainTextDiv = styled.div`
 
 export const ReportTextDiv = styled.div`
   text-align: right;
+`;
+
+export const DeletePost = styled.div`
+  width: 100%;
+  text-align: right;
+  padding-bottom: 1rem;
+`;
+
+export const DeletePostButton = styled.button`
+  font-weight: 700;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
