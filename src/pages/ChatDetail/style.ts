@@ -112,7 +112,9 @@ export const ChatListBox = styled.ul`
   }
 `;
 
-export const ChatBtn = styled.div``;
+export const ChatBtn = styled.div`
+  cursor: pointer;
+`;
 
 export const ChatHead = styled.div`
   width: 100%;
@@ -151,6 +153,7 @@ export const ChatDetailBox = styled.div`
   height: 420px;
   background-color: #fff;
   padding: 4rem 1.8rem 0 1.8rem;
+  overflow-y: auto;
 `;
 
 export const ChatForm = styled.form`
@@ -160,12 +163,16 @@ export const ChatForm = styled.form`
   padding: 1rem 2.5rem;
 `;
 
-export const Textarea = styled.textarea`
+export const ChatInput = styled.input`
   width: 100%;
   resize: none;
   border: 1px solid #000;
   border-radius: 0.6rem;
   padding: 1rem;
+
+  &:disabled {
+    background-color: #eee;
+  }
 `;
 
 export const FileTextarea = styled.div`
@@ -210,4 +217,31 @@ export const BackBtn = styled.button`
   @media (max-width: 920px) {
     display: block;
   }
+`;
+
+export const ProfileContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const ChatBtnBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+`;
+
+export const AcceptBtn = styled.button`
+  padding: 0.5rem 1.4rem;
+  border-radius: 0.4rem;
+  background-color: ${STYLE.mainColor};
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+  border: 1px solid ${STYLE.mainColor};
+`;
+
+export const RefuseBtn = styled(AcceptBtn)`
+  background-color: #fff;
+  color: ${STYLE.mainColor};
 `;

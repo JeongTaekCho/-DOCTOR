@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import { GrClose } from 'react-icons/gr';
 import { FcCheckmark, FcCancel } from 'react-icons/fc';
 import Avatar from '@mui/material/Avatar';
+import { tokenAtom } from '../../atoms/atoms';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../constants/routes/routeData';
+import Swal from 'sweetalert2';
+import { useAtomValue } from 'jotai';
 
 const AiPage = () => {
+  const auth = useAtomValue(tokenAtom);
+  const navigate = useNavigate();
+
   const [modal, setModal] = useState(false);
+  const imgInput = useRef<HTMLInputElement | null>(null);
 
   const openModal = () => {
     setModal(true);
@@ -39,6 +48,13 @@ const AiPage = () => {
     window.location.reload();
   };
 
+  useEffect(() => {
+    if (!auth) {
+      navigate(ROUTE.LOGIN.link);
+      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
+    }
+  });
+
   return (
     <S.Wrap>
       <S.Title>
@@ -56,9 +72,10 @@ const AiPage = () => {
             cursor: 'pointer',
             borderRadius: '0.5rem'
           }}
-          onClick={() => document.getElementById('profile-img-input').click()}
+          onClick={() => imgInput.current?.click()}
         />
         <S.Input
+          ref={imgInput}
           id="profile-img-input"
           type="file"
           accept="image/jpg,image/png,image/jpeg"

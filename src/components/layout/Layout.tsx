@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import Header from '../commons/Header';
+import Footer from '../commons/Footer';
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,7 +11,10 @@ const LayoutComponents = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
-      <Wrap>{children}</Wrap>
+      <Wrap>
+        {children}
+        <Footer />
+      </Wrap>
     </>
   );
 };

@@ -11,7 +11,7 @@ interface EmailCheckReturn {
 }
 
 const emailCheck = (data: EmailCheckData) => {
-  return API.post<EmailCheckReturn, EmailCheckData>('/verifyEmail', data);
+  return API.post<EmailCheckReturn, EmailCheckData>('/users/verify-email', data);
 };
 
 export const useEmailCheckMutation = () => {

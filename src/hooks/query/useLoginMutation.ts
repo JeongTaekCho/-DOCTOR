@@ -11,7 +11,7 @@ interface LoginReturn {
 }
 
 const login = (data: LoginData) => {
-  return API.post<LoginReturn, LoginData>('/login', data);
+  return API.post<LoginReturn, LoginData>('/users/login', data);
 };
 
 export const useLoginMutation = () => {

@@ -10,7 +10,7 @@ interface EmailAuthReturn {
 }
 
 const emailAuth = async (data: EmailAuthData): Promise<EmailAuthReturn> => {
-  return API.post<EmailAuthReturn, EmailAuthData>('/verifyCode', data);
+  return API.post<EmailAuthReturn, EmailAuthData>('/users/send-verify-code', data);
 };
 
 export const useEmailAuthMutation = () => {

@@ -8,6 +8,7 @@ export const TitleDiv = styled.div`
   width: 80%;
   margin: auto;
   margin-top: 5%;
+  border: 1px solid lightgrey;
 `;
 
 export const Title = styled.input`
@@ -22,6 +23,7 @@ export const DetailDiv = styled.div`
   width: 80%;
   margin: auto;
   margin-top: 2%;
+  border: 1px solid lightgrey;
 `;
 
 export const Detail = styled.textarea`
@@ -31,6 +33,7 @@ export const Detail = styled.textarea`
   border-radius: 0.5rem;
   border: none;
   resize: none;
+  word-break: break-all;
 `;
 
 export const ButtonDiv = styled.div`

@@ -35,6 +35,12 @@ export const AreaList = styled.ul`
     font-weight: 400;
     color: #999;
     cursor: pointer;
+
+    &:hover {
+      font-weight: 600;
+      color: ${STYLE.mainColor};
+    }
+
     &.selected {
       font-weight: 600;
       color: ${STYLE.mainColor};
@@ -93,18 +99,6 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const SearchImgBtn = styled.button`
-  width: 3rem;
-
-  @media ${RESPONSIVE.mobile} {
-    width: 4rem;
-  }
-
-  img {
-    width: 100%;
-  }
-`;
-
 export const ChatListContainer = styled.div`
   width: 800px;
   margin: 0 auto 2.5rem;
@@ -118,4 +112,12 @@ export const ChatLists = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+export const ErrorMent = styled.p`
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: #5429ff;
+  text-align: center;
+  padding: 5rem 0;
 `;

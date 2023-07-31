@@ -11,7 +11,7 @@ const Community = () => {
   };
 
   return (
-    <S.Wrap>
+    <>
       <S.Side>
         <S.Free active={activeTab === 'free'} onClick={() => handleTabChange('free')}>
           자유게시판
@@ -20,11 +20,12 @@ const Community = () => {
           정보게시판
         </S.Info>
       </S.Side>
+
       <S.ListDiv>
         {activeTab === 'free' && <Free />}
         {activeTab === 'info' && <Info />}
       </S.ListDiv>
-    </S.Wrap>
+    </>
   );
 };
 

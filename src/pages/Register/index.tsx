@@ -10,21 +10,22 @@ import { useEmailAuthMutation } from '../../hooks/query/useEmailAuthMutation';
 import { useEmailCheckMutation } from '../../hooks/query/useEmailCheckMutation';
 import { useRegisterMutation } from '../../hooks/query/useRegisterMutation';
 import { tokenAtom } from '../../atoms/atoms';
-import { useAtom } from 'jotai';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 import LoadingBackground from '../../components/commons/LoadingBackground';
+import { useAtomValue } from 'jotai';
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [authCode, handleChangeAuthCode] = useInput('');
+  const auth = useAtomValue(tokenAtom);
+  const navigate = useNavigate();
 
   const { mutate: emailAuthMutate, isLoading: emailAuthLoading } = useEmailAuthMutation();
   const { mutate: emailCheckMutate } = useEmailCheckMutation();
   const { mutate: registerMutate } = useRegisterMutation();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [nickname, setNickname] = useState('');
   const [isCode, setIsCode] = useState(false);
   const [validate, setValidate] = useState({
     email: false,
@@ -33,16 +34,7 @@ const RegisterPage = () => {
     nickname: false,
     authCode: true
   });
-
-  const [userToken] = useAtom(tokenAtom);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (userToken) {
-      navigate(ROUTE.HOME.link);
-    }
-  }, [userToken]);
+  const [authCode, handleChangeAuthCode] = useInput('');
 
   const validateComplete =
     !!email &&
@@ -119,8 +111,8 @@ const RegisterPage = () => {
           Swal.fire('회원가입이 완료되었습니다.', '로그인 후 서비스를 이용해보세요!');
           navigate(ROUTE.LOGIN.link);
         },
-        onError: () => {
-          Swal.fire('회원가입에 실패하였습니다.');
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
         }
       }
     );
@@ -134,8 +126,8 @@ const RegisterPage = () => {
           Swal.fire('입력하신 이메일로 인증번호를 전송하였습니다.');
           setIsCode(true);
         },
-        onError: () => {
-          Swal.fire('인증번호 전송에 실패하였습니다.');
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
         }
       }
     );
@@ -152,13 +144,19 @@ const RegisterPage = () => {
           Swal.fire('인증에 성공하였습니다!');
           setValidate({ ...validate, authCode: false });
         },
-        onError: () => {
-          Swal.fire('이미 가입된 이메일 입니다.');
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
           setIsCode(false);
         }
       }
     );
   };
+
+  useEffect(() => {
+    if (auth) {
+      navigate(ROUTE.HOME.link);
+    }
+  }, [auth]);
 
   return (
     <S.Wrap>

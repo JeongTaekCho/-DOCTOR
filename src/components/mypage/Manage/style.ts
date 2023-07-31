@@ -157,3 +157,26 @@ export const ConfirmDiv = styled.div`
 export const ConfirmSpan = styled.span`
   color: red;
 `;
+
+export const Select = styled.select`
+  width: 90%;
+  height: 70%;
+  margin-left: 1rem;
+`;
+
+export const CertificationDiv = styled.div`
+  width: 100%;
+  padding: 5rem 0 0 0;
+  text-align: center;
+`;
+
+export const Certification = styled.button`
+  width: 14rem;
+  height: 5rem;
+  padding: 1rem;
+  font-size: 2rem;
+  background-color: #5429ff;
+  color: white;
+  font-weight: bolder;
+  border-radius: 2rem;
+`;

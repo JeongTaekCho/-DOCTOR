@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import * as S from './style';
-import { BiSolidLeftArrow, BiSolidRightArrow, BiUser, BiHeart } from 'react-icons/bi';
+import { BiUser, BiHeart } from 'react-icons/bi';
 import samplePosts from './data.ts';
+import { Link } from 'react-router-dom';
 import InfoRegister from '../InfoRegister/index.tsx';
+import { ROUTE } from '../../../constants/routes/routeData.tsx';
+import Pagination from '../../commons/Pagination/index.tsx';
 const Info = () => {
   const postsPerPage = 10;
   const totalPosts = samplePosts.length;
@@ -10,6 +13,7 @@ const Info = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
+  const [order, setOrder] = useState<'oldest' | 'popularity'>('oldest');
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -18,11 +22,14 @@ const Info = () => {
   const handleWriteButtonClick = () => {
     setShowRegister(prev => !prev);
   };
-  // Create an array of page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+
+  const handleOrderByDate = () => {
+    setOrder('oldest');
+  };
+
+  const handleOrderByPopularity = () => {
+    setOrder('popularity');
+  };
 
   return (
     <S.Container>
@@ -32,55 +39,61 @@ const Info = () => {
         <div>
           <S.RadioDiv>
             <p>
-              오래된순
-              <input type="radio" />
-              <span>
+              <span
+                style={{
+                  marginRight: '1rem',
+                  fontWeight: order === 'oldest' ? 'bold' : 'normal',
+                  cursor: 'pointer'
+                }}
+                onClick={handleOrderByDate}
+              >
+                오래된순
+              </span>
+              <span
+                style={{
+                  fontWeight: order === 'popularity' ? 'bold' : 'normal',
+                  cursor: 'pointer'
+                }}
+                onClick={handleOrderByPopularity}
+              >
                 인기순
-                <input type="radio" />
               </span>
             </p>
           </S.RadioDiv>
           <S.List>
             {currentPosts.map(post => (
-              <S.Post key={post.id}>
-                <S.PostHeader>{post.title}</S.PostHeader>
-                <S.PostUser>
-                  <BiUser size="15" />
-                  {post.author}
-                  <S.PostDate>{post.date}</S.PostDate>
-                </S.PostUser>
-                <S.HeartDiv>
-                  <S.PostHeart>
-                    <BiHeart size="25" color="#9747ff" />
-                    <S.HeartNumber>24</S.HeartNumber>
-                  </S.PostHeart>
-                </S.HeartDiv>
-              </S.Post>
+              <Link to={ROUTE.FREEDETAIL.path} key={post.id}>
+                <S.Post>
+                  <S.LeftDiv>
+                    <S.PostHeader>{post.title}</S.PostHeader>
+                    <S.PostUser>
+                      <BiUser size="15" />
+                      {post.author}
+                      <S.PostDate>{post.date}</S.PostDate>
+                    </S.PostUser>
+                  </S.LeftDiv>
+                  <S.HeartDiv>
+                    <S.HeartContainer>
+                      <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
+                      <S.PostHeart>24</S.PostHeart>
+                    </S.HeartContainer>
+                  </S.HeartDiv>
+                </S.Post>
+              </Link>
             ))}
           </S.List>
           <S.PageNumber>
-            <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage === 1}>
-              <BiSolidLeftArrow size="12"></BiSolidLeftArrow>
-            </button>
-            {pageNumbers.map(number => (
-              <button
-                key={number}
-                onClick={() => setCurrentPage(number)}
-                style={{ fontWeight: currentPage === number ? 'bold' : 'normal', margin: '0 5px' }}
-              >
-                {number}
-              </button>
-            ))}
-            <button
-              onClick={() => setCurrentPage(prev => prev + 1)}
-              disabled={currentPosts.length < postsPerPage || currentPage === totalPages}
-            >
-              <BiSolidRightArrow size="12"></BiSolidRightArrow>
-            </button>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
           </S.PageNumber>
-          <S.ButtonDiv>
-            <S.Button onClick={handleWriteButtonClick}>글쓰기</S.Button>
-          </S.ButtonDiv>
+          <S.ButtonContainer>
+            <S.ButtonDiv>
+              <S.Button onClick={handleWriteButtonClick}>글쓰기</S.Button>
+            </S.ButtonDiv>
+          </S.ButtonContainer>
         </div>
       )}
     </S.Container>
