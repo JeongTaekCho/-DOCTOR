@@ -178,15 +178,17 @@ const ChatDetail = () => {
       console.log('실시간 상담 종료');
     });
 
+    socket?.emit('join', chatId);
+
     // 메시지 수신 이벤트 처리
-    socket.on('msgReceive', ({ email, content, nickname, img_path }) => {
+    socket.on('msgReceive', msg => {
       setMessages((prevMessages: any) => [
         ...(prevMessages?.length ? prevMessages : []),
         {
-          message: content,
-          email,
-          nickname,
-          img_path
+          message: msg.message,
+          email: msg.email,
+          nickname: msg.nickname,
+          img_path: msg.img_path
         }
       ]);
     });
