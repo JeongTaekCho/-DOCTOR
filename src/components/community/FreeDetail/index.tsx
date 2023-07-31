@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import { BiHeart } from 'react-icons/bi';
-import { BsArrowReturnRight } from 'react-icons/bs';
+// import { BsArrowReturnRight } from 'react-icons/bs';
+import { GrClose } from 'react-icons/gr';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import SideLayout from '../../layout/SideBar.tsx';
 const FreeDetail = () => {
   const [modal, setModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
+  const [deleteComment, setDeleteComment] = useState(false);
+  const [deletePost, setDeletePost] = useState(false);
   const openModal = () => {
     setModal(true);
   };
@@ -24,12 +26,31 @@ const FreeDetail = () => {
     setIsEditing(false);
   };
 
+  const handleDeleteComment = () => {
+    setDeleteComment(true);
+  };
+
+  const handleCloseComment = () => {
+    setDeleteComment(false);
+  };
+
+  const handleDeletePost = () => {
+    setDeletePost(true);
+  };
+
+  const handleClosePost = () => {
+    setDeletePost(false);
+  };
+
   const text = '안녕하세요';
   return (
     <div style={{ width: '100%' }}>
       <SideLayout />
 
       <S.Container>
+        <S.DeletePost>
+          <S.DeletePostButton onClick={handleDeletePost}>삭제</S.DeletePostButton>
+        </S.DeletePost>
         <S.Header>
           <S.Title>안녕하세요</S.Title>
           <S.Date>2023-07-23</S.Date>
@@ -61,13 +82,16 @@ const FreeDetail = () => {
             <S.User>
               유승제<S.CommentDate>2023-07-23</S.CommentDate>
             </S.User>
+            <S.DeleteDiv onClick={handleDeleteComment}>
+              <GrClose />
+            </S.DeleteDiv>
           </S.UserDiv>
           <S.BottomDiv>
             <S.LeftDiv>안녕하세요~</S.LeftDiv>
             <S.RightDiv>신고</S.RightDiv>
           </S.BottomDiv>
         </S.Comment>
-        <S.CoComment>
+        {/* <S.CoComment>
           <S.UserDiv>
             <S.User>
               <BsArrowReturnRight /> 유승제<S.CommentDate>2023-07-23</S.CommentDate>
@@ -77,7 +101,7 @@ const FreeDetail = () => {
             <S.LeftDiv>안녕하세요~</S.LeftDiv>
             <S.RightDiv>신고</S.RightDiv>
           </S.BottomDiv>
-        </S.CoComment>
+        </S.CoComment> */}
         <S.Register>
           <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
           <S.InputDiv>
@@ -107,6 +131,32 @@ const FreeDetail = () => {
               <S.BlueButton>확인</S.BlueButton>
               <S.RedButton onClick={closeModal}>취소</S.RedButton>
             </S.ButtonDiv>
+          </S.Card>
+        </S.Modal>
+      )}
+
+      {deleteComment && (
+        <S.Modal>
+          <S.Card>
+            <S.Reason>댓글을 삭제하시겠습니까?</S.Reason>
+            <S.ReasonDiv></S.ReasonDiv>
+            <S.DeleteButtonDiv>
+              <S.BlueButton>확인</S.BlueButton>
+              <S.RedButton onClick={handleCloseComment}>취소</S.RedButton>
+            </S.DeleteButtonDiv>
+          </S.Card>
+        </S.Modal>
+      )}
+
+      {deletePost && (
+        <S.Modal>
+          <S.Card>
+            <S.Reason>게시물을 삭제하시겠습니까?</S.Reason>
+            <S.ReasonDiv></S.ReasonDiv>
+            <S.DeleteButtonDiv>
+              <S.BlueButton>확인</S.BlueButton>
+              <S.RedButton onClick={handleClosePost}>취소</S.RedButton>
+            </S.DeleteButtonDiv>
           </S.Card>
         </S.Modal>
       )}
