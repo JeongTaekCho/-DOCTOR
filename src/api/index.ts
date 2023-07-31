@@ -41,6 +41,17 @@ async function put<T, D>(endpoint: string, data: D): Promise<T> {
   });
 }
 
+async function patch<T, D>(endpoint: string, data: D): Promise<T> {
+  const bodyData = JSON.stringify(data);
+
+  return axios.patch(serverUrl + endpoint, bodyData, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`
+    }
+  });
+}
+
 async function del<T>(endpoint: string, params = ''): Promise<T> {
   return axios.delete(serverUrl + endpoint + '/' + params, {
     headers: {
@@ -49,4 +60,4 @@ async function del<T>(endpoint: string, params = ''): Promise<T> {
   });
 }
 
-export { serverUrl, get, post, formPost, put, del as delete };
+export { serverUrl, get, post, formPost, put, patch, del as delete };

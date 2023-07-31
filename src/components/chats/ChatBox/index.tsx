@@ -37,7 +37,7 @@ const ChatBox = ({
         </S.NameBox>
         <S.ChatContent>{chatInfo?.chat_contents?.[0]?.message}</S.ChatContent>
       </S.ChatContentsBox>
-      <S.ChatNum>18</S.ChatNum>
+      {/* <S.ChatNum>18</S.ChatNum> */}
     </S.ChatListBox>
   );
 };
