@@ -98,6 +98,10 @@ const LoginPage = () => {
     window.location.assign(`${serverUrl}/auth/google`);
   };
 
+  const handleKakaoLogin = async () => {
+    window.location.assign(`${serverUrl}/auth/kakao`);
+  };
+
   useEffect(() => {
     if (userToken) {
       navigate(ROUTE.HOME.link);
@@ -175,8 +179,12 @@ const LoginPage = () => {
           </S.ButtonBox>
           <S.SocialLoginBtn type="button" onClick={handleGoogleLogin}>
             <img src="/images/commons/google.png" alt="구글 아이콘" />
-            <span>Sign in with Google</span>
+            <span>구글 로그인</span>
           </S.SocialLoginBtn>
+          <S.KakaoLoginBtn type="button" onClick={handleKakaoLogin}>
+            <img src="/images/commons/kakao.png" alt="카카오톡 아이콘" />
+            <span>카카오 로그인</span>
+          </S.KakaoLoginBtn>
         </S.Form>
         <S.LinkMent>
           아이디가 없으시다구요? <Link to={ROUTE.REGISTER.link}>회원가입 하러 가기</Link>
