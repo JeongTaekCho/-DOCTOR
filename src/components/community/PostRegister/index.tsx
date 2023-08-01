@@ -1,0 +1,83 @@
+import React, { ChangeEvent, useState } from 'react';
+import * as S from './style';
+import PropTypes from 'prop-types';
+import { useCreatePostMutation } from '../../../hooks/query/useCreatePostMutation';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
+interface PostRegisterProps {
+  onCancel: () => void; // onCancel 함수의 타입을 명시적으로 지정
+  isFree: boolean;
+}
+
+const PostRegister: React.FC<PostRegisterProps> = ({ onCancel, isFree }) => {
+  const navigate = useNavigate();
+
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+
+  const { mutate } = useCreatePostMutation();
+
+  const handleCancelClick = () => {
+    onCancel();
+  };
+
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangeBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setBody(e.target.value);
+  };
+
+  const handleCreatePost = () => {
+    if (!title) {
+      Swal.fire('제목을 입력해주세요.');
+    } else if (!body) {
+      Swal.fire('내용을 입력해주세요.');
+    } else {
+      mutate(
+        {
+          title,
+          body,
+          category: isFree ? 'free' : 'info'
+        },
+        {
+          onSuccess: () => {
+            Swal.fire('게시글 등록이 완료되었습니다.');
+            navigate('/');
+          }
+        }
+      );
+    }
+  };
+
+  return (
+    <S.Container>
+      <S.TitleDiv>
+        <S.Title
+          placeholder="제목을 입력해주세요."
+          value={title}
+          onChange={handleChangeTitle}
+        ></S.Title>
+      </S.TitleDiv>
+      <S.DetailDiv>
+        <S.Detail
+          placeholder="내용을 입력해주세요."
+          value={body}
+          onChange={handleChangeBody}
+        ></S.Detail>
+      </S.DetailDiv>
+      <S.ButtonDiv>
+        <S.Register onClick={handleCreatePost}>등록</S.Register>
+        <S.Cancel onClick={handleCancelClick}>취소</S.Cancel>
+      </S.ButtonDiv>
+    </S.Container>
+  );
+};
+
+PostRegister.propTypes = {
+  onCancel: PropTypes.func.isRequired
+};
+
+export default PostRegister;

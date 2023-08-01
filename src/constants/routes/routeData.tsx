@@ -100,8 +100,8 @@ export const ROUTE: { [key: string]: Route } = {
   },
   FREEDETAIL: {
     id: 12,
-    path: '/community/free/:userId',
-    link: '/community/free',
+    path: '/community/:userId',
+    link: '/community',
     element: <FreeDetail />,
     exact: true
   }
