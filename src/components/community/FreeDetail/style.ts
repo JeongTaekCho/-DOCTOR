@@ -1,10 +1,17 @@
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
+import { RESPONSIVE } from '../../../styles/responsive';
 
 export const Container = styled.div`
   width: 50%;
   margin: auto;
   margin-left: 30%;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 90%;
+    margin: 0 auto;
+    margin-left: auto;
+  }
 `;
 
 export const ListContainer = styled.div`
@@ -18,17 +25,17 @@ export const Header = styled.div`
   border-top: 2px solid black;
   border-bottom: 2px solid black;
   display: flex;
+  justify-content: space-between;
 `;
 
 export const Title = styled.div`
-  width: 90%;
-  font-size: 3rem;
-  font-weight: bolder;
+  width: 80%;
+  font-size: 2.2rem;
+  font-weight: 500;
   padding: 1.5rem 0 1.5rem 0.5rem;
 `;
 
 export const Date = styled.div`
-  width: 10%;
   font-size: 1.3rem;
   padding: 1.5rem 0 1.5rem 0;
   display: flex;
@@ -38,21 +45,22 @@ export const Date = styled.div`
 
 export const MainDiv = styled.div`
   width: 100%;
-  height: 40rem;
   border-bottom: 2px solid black;
   position: relative;
 `;
 
 export const MainText = styled.div`
   width: 100%;
+  height: 40rem;
   padding: 1.5rem 0 0 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   line-height: 2rem;
 `;
 
 export const MainTextArea = styled.textarea`
   width: 100%;
-  padding: 1.5rem 0 0 0.5rem;
+  height: 40rem;
+  padding: 1.6rem 0 0 0.5rem;
   font-size: 1.5rem;
   line-height: 2rem;
   resize: none;
@@ -161,15 +169,15 @@ export const BottomDiv = styled.div`
   display: flex;
   padding-top: 3rem;
   padding-right: 1rem;
+  justify-content: space-between;
 `;
 
 export const LeftDiv = styled.div`
-  width: 95%;
+  width: 88%;
   font-size: 1.5rem;
 `;
 
 export const RightDiv = styled.div`
-  width: 5%;
   font-size: 1.3rem;
   text-align: right;
 `;
@@ -241,7 +249,7 @@ export const Modal = styled.div`
 
 export const Card = styled.div`
   width: 64.9rem;
-  z-index: 999999;
+  z-index: 9999;
   position: fixed;
   top: 40%;
   left: 55%;
@@ -250,6 +258,12 @@ export const Card = styled.div`
   border-radius: 8px;
   border: 1px solid black;
   padding: 3rem 0 2rem 0;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 90%;
+    top: 40%;
+    left: 50%;
+  }
 `;
 
 export const Reason = styled.div`
@@ -324,11 +338,12 @@ export const RedButton = styled.button`
 `;
 
 export const MainTextDiv = styled.div`
-  height: 77%;
+  height: 40rem;
 `;
 
 export const ReportTextDiv = styled.div`
   text-align: right;
+  margin-bottom: 1rem;
 `;
 
 export const DeletePost = styled.div`
