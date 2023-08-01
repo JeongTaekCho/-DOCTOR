@@ -14,6 +14,8 @@ const Header = () => {
   const auth = useAtomValue(tokenAtom);
   const { pathname } = useLocation();
 
+  console.log(pathname);
+
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isAlramMenu, setIsAlramMenu] = useState(false);
@@ -55,7 +57,7 @@ const Header = () => {
             <S.MenuList>
               {MENU.map(({ id, name, link }) => (
                 <li key={id}>
-                  <Link className={pathname === link ? 'selected' : ''} to={link}>
+                  <Link className={pathname.includes(link.slice(0, 4)) ? 'selected' : ''} to={link}>
                     {name}
                   </Link>
                 </li>
