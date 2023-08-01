@@ -22,7 +22,7 @@ export const ContentTitle = styled.div`
 
 export const CTitleName = styled.div`
   // '신고 접수'
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   font-weight: 600;
   color: #252733;
   margin-bottom: 4.3rem;
@@ -55,19 +55,19 @@ export const ListRowName = styled.div`
 `;
 
 export const ReportIdList = styled.div`
-  width: 30%;
+  width: 20%;
 `;
 export const ReportWarnList = styled.div`
-  width: 20%;
+  width: 15%;
 `;
 export const ReportAccrueList = styled.div`
   width: 20%;
 `;
 export const ReportDetailList = styled.div`
-  width: 20%;
+  width: 15%;
 `;
 export const ReportHandleList = styled.div`
-  width: 20%;
+  width: 15%;
 `;
 
 export const ContentNationBar = styled.div`

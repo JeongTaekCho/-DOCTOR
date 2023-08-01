@@ -9,9 +9,10 @@ import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
 import Community from '../../pages/Community';
 import HospitalPage from '../../pages/Hospital';
-import ReportAdminPage from '../../components/admin/ReportAdmin/ReportAdminFalse';
-import CertifiedAdminTreatPage from '../../components/admin/CertifiedAdmin/CertifiedAdminTreat';
-import CertifiedAdminWaitPage from '../../components/admin/CertifiedAdmin/CertifiedAdminWait';
+import AdminReportPostPage from '../../components/admin/PagesAdmin/ReportPostPage';
+import AdminReportCommentPage from '../../components/admin/PagesAdmin/ReportCommentPage';
+import AdminCertifiedPage from '../../components/admin/PagesAdmin/CertifiedPage';
+import AdminUserInfoPage from '../../components/admin/PagesAdmin/UserInfoPage';
 import FreeDetail from '../../components/community/FreeDetail';
 
 interface Route {
@@ -87,31 +88,31 @@ export const ROUTE: { [key: string]: Route } = {
     exact: true
   },
 
-  REPORTADMINTREAT: {
-    path: '/report-treat-admin',
-    link: '/report-treat-admin',
-    element: <ReportAdminPage />,
+  ADMINREPORTPOST: {
+    path: '/admin-report-post',
+    link: '/admin-report-post',
+    element: <AdminReportPostPage />,
     exact: true,
     id: 0
   },
-  REPORTADMINWAIT: {
-    path: '/report-wait-admin',
-    link: '/report-wait-admin',
-    element: <ReportAdminPage />,
+  ADMINREPORTCOMMAND: {
+    path: '/admin-report-comment',
+    link: '/admin-report-comment',
+    element: <AdminReportCommentPage />,
     exact: true,
     id: 0
   },
-  CERTIFIEDADMINTREAT: {
-    path: '/certified-treat-admin',
-    link: '/certified-treat-admin',
-    element: <CertifiedAdminTreatPage />,
+  ADMINUSERINFO: {
+    path: '/admin-userinfo',
+    link: '/admin-userinfo',
+    element: <AdminUserInfoPage />,
     exact: true,
     id: 0
   },
-  CERTIFIEDADMINWAIT: {
-    path: '/certified-wait-admin',
-    link: '/certified-wait-admin',
-    element: <CertifiedAdminWaitPage />,
+  ADMINCERTIFIED: {
+    path: '/admin-certified',
+    link: '/admin-certified',
+    element: <AdminCertifiedPage />,
     exact: true,
     id: 0
   },

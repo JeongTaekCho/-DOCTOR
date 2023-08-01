@@ -5,20 +5,16 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 const OPTIONS = [
-  { value: 'Normal', name: '정상 계정 유지' },
-  { value: 'WeekSuspension', name: '계정 제한 2주' },
-  { value: 'ForeverSuspension', name: '영구 정지' },
-  { value: 'SendAlert', name: '경고 알림 전송' },
-  { value: 'WaitingProgress', name: '처리 대기 중' }
+  { value: 'Normal', name: '유지' },
+  { value: 'Delete', name: '삭제' },
+  { value: 'WaitingProgress', name: '보류' }
 ];
 interface ColorOptions {
   [key: string]: string;
 }
 const COLORS: ColorOptions = {
-  Normal: '#667085',
-  WeekSuspension: '#000000',
-  ForeverSuspension: '#030303',
-  SendAlert: '#EB4335',
+  Normal: '#bec1c7',
+  Delete: '#e04938',
   WaitingProgress: '#344054'
 };
 
@@ -34,13 +30,17 @@ const SelectBox = (props: Props) => {
   };
 
   return (
-    <Select color={COLORS[selectedValue]} defaultValue={props.defaultValue} onChange={handleChange}>
+    <ReportHandleSelect
+      color={COLORS[selectedValue]}
+      defaultValue={props.defaultValue}
+      onChange={handleChange}
+    >
       {OPTIONS.map(option => (
         <option key={option.value} value={option.value}>
           {option.name}
         </option>
       ))}
-    </Select>
+    </ReportHandleSelect>
   );
 };
 
@@ -49,7 +49,7 @@ function SelectBoxOptionProps() {
 }
 export default SelectBoxOptionProps;
 
-const Select = styled.select<{ color: string }>`
+const ReportHandleSelect = styled.select<{ color: string }>`
   display: block;
   width: 60%;
   padding: 0.7rem;

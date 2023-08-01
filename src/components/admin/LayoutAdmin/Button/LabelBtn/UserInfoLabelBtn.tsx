@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { LayoutRouteProps, Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-const CertifiedAdminPagination = ({ children }: LayoutRouteProps) => {
+const ReportAdminPagination = ({ children }: LayoutRouteProps) => {
   const [activeTab, setActiveTab] = useState('waiting');
 
   const handleClickBtn1 = () => {
@@ -13,9 +13,9 @@ const CertifiedAdminPagination = ({ children }: LayoutRouteProps) => {
     setActiveTab('treat');
   };
 
-  const handleClickBtn3 = () => {
-    setActiveTab('completed');
-  };
+  // const handleClickBtn3 = () => {
+  //   setIsActive(true);
+  // };
 
   return (
     <Wrap>
@@ -23,31 +23,18 @@ const CertifiedAdminPagination = ({ children }: LayoutRouteProps) => {
         <PageNationBtn>
           <PageNationBox>
             <WaitingReportBtn
-              to="/certified-wait-admin"
+              to="/report-wait-admin"
               onClick={handleClickBtn1}
               className={activeTab === 'waiting' ? 'active' : ''}
-              // activeTab={activeTab}
             >
-              인증 대기 목록
+              전체 유저
             </WaitingReportBtn>
             <TreatReportBtn
-              to="/certified-treat-admin"
-              className={activeTab === 'treat' ? 'active' : ''}
+              to="/report-treat-admin"
               onClick={handleClickBtn2}
-              // activeTab={activeTab}
-            >
-              인증 진행 목록
-            </TreatReportBtn>
-            <CompletedReportBtn
-              to="/certified-treat-admin"
-              className={activeTab === 'completed' ? 'active' : ''}
-              onClick={handleClickBtn3}
-              // activeTab={activeTab}
-            >
-              인증 완료 목록
-            </CompletedReportBtn>
+              className={activeTab === 'treat' ? 'active' : ''}
+            ></TreatReportBtn>
           </PageNationBox>
-
           <PageNationBar activeTab={activeTab}></PageNationBar>
         </PageNationBtn>
       </PageNation>
@@ -56,7 +43,7 @@ const CertifiedAdminPagination = ({ children }: LayoutRouteProps) => {
   );
 };
 
-export default CertifiedAdminPagination;
+export default ReportAdminPagination;
 
 const Wrap = styled.div`
   width: 100%;
@@ -66,84 +53,48 @@ const PageNation = styled.div``;
 const PageNationBtn = styled.div`
   width: 100%;
   padding-top: 4rem;
-  display: inline-block;
   margin-bottom: 1.5rem;
+  display: inline-block;
 `;
 const PageNationBox = styled.div`
   display: flex;
 `;
 const WaitingReportBtn = styled(Link)`
-  // '인증 대기 목록'
+  // '신고 접수 목록'
   display: flex;
   justify-content: center;
   align-items: center;
   width: 15rem;
-  background-color: #5429ff;
   border-radius: 10px 10px 0px 0px;
   margin: 0;
   font-size: 1.5rem;
   color: #fff;
+  background-color: #344054;
   font-weight: bolder;
   padding: 1.3rem 0 1.3rem 0;
   cursor: pointer;
 
-  /* &.active {
-    background-color: #5429ff;
-    color: #fff;
-  } */
-
   &:hover {
-    background-color: #5c18fa;
+    background-color: #434d5f;
     color: white;
   }
 `;
-
 const TreatReportBtn = styled(Link)`
-  // '인증 진행 목록'
+  // '신고 처리 목록'
   display: flex;
   justify-content: center;
   align-items: center;
   width: 15rem;
-  background-color: #ac9bfa;
   border-radius: 10px 10px 0px 0px;
   margin: 0;
   font-size: 1.5rem;
+  background-color: #667085;
   color: #fff;
   font-weight: bolder;
   cursor: pointer;
 
-  /* &.active {
-    background-color: #ac9bfa;
-    color: #fff;
-  } */
-
   &:hover {
-    background-color: #a08bfd;
-    color: white;
-  }
-`;
-
-const CompletedReportBtn = styled(Link)`
-  // '인증 완료 목록'
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15rem;
-  background-color: #cbcce8;
-  border-radius: 10px 10px 0px 0px;
-  margin: 0;
-  font-size: 1.5rem;
-  color: #ffffff;
-  font-weight: bolder;
-  cursor: pointer;
-
-  /* &.active {
-    background-color: #CBCCE8;
-    color: #ac9bfa;
-  } */
-
-  &:hover {
-    background-color: #bbbde6;
+    background-color: #717c94;
     color: white;
   }
 `;
@@ -155,11 +106,9 @@ const PageNationBar = styled.div<{ activeTab: string }>`
   background-color: ${props => {
     switch (props.activeTab) {
       case 'waiting':
-        return '#4e2bf5';
-      case 'treat':
-        return '#ac9bfa';
+        return '#344054';
       default:
-        return '#CBCCE8';
+        return '#667085';
     }
   }};
 `;
