@@ -40,15 +40,13 @@ export const SideDiv = styled.div`
 
 export const PageNumber = styled.div`
   text-align: center;
-  margin-top: 0.5rem;
+  margin-top: 3.5rem;
 `;
 
 export const Post = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
+  padding: 1rem;
   display: flex;
   transition: 0.5s;
   &:hover {
@@ -58,7 +56,7 @@ export const Post = styled.div`
 
 export const PostHeader = styled.h4`
   font-size: 2rem;
-  font-weight: bolder;
+  font-weight: 500;
   width: 90%;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -81,14 +79,15 @@ export const PostDate = styled.span`
 `;
 
 export const HeartDiv = styled.span`
-  width: 10%;
+  width: 8%;
   display: flex;
   align-items: center;
 `;
 
 export const PostHeart = styled.span`
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   color: black;
+  margin-left: 0.3rem;
 `;
 
 export const HeartContainer = styled.span`
