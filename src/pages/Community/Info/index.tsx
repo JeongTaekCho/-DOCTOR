@@ -3,10 +3,10 @@ import * as S from './style.ts';
 import { BiUser, BiHeart } from 'react-icons/bi';
 import samplePosts from './data.ts';
 import { Link } from 'react-router-dom';
-import InfoRegister from '../../../components/community/InfoRegister/index.tsx';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import Pagination from '../../../components/commons/Pagination/index.tsx';
 import SideLayout from '../../../components/layout/SideBar.tsx';
+import PostRegister from '../../../components/community/PostRegister/index.tsx';
 const Info = () => {
   const postsPerPage = 10;
   const totalPosts = samplePosts.length;
@@ -39,7 +39,7 @@ const Info = () => {
       </S.SideDiv>
       <S.Container>
         {showRegister ? (
-          <InfoRegister onCancel={() => setShowRegister(false)} />
+          <PostRegister onCancel={() => setShowRegister(false)} isFree={false} />
         ) : (
           <div>
             <S.RadioDiv>
