@@ -45,8 +45,7 @@ const FreeDetail = () => {
   const text = '안녕하세요';
   return (
     <div style={{ width: '100%' }}>
-      <SideLayout />
-
+      <SideLayout> </SideLayout>
       <S.Container>
         <S.DeletePost>
           <S.DeletePostButton onClick={handleDeletePost}>삭제</S.DeletePostButton>
@@ -110,7 +109,7 @@ const FreeDetail = () => {
           </S.InputDiv>
         </S.Register>
         <S.ListDiv>
-          <S.ListButton to={ROUTE.COMMUNITY.link}>목록</S.ListButton>
+          <S.ListButton to={ROUTE.FREECOMMUNITY.link}>목록</S.ListButton>
         </S.ListDiv>
       </S.Container>
       {modal && (

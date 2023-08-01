@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { RESPONSIVE } from '../../../styles/responsive';
 
 export const Side = styled.div`
   background-color: #363740;
@@ -8,6 +9,15 @@ export const Side = styled.div`
   top: 7.4rem;
   left: 0;
   padding-top: 8rem;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    gap: 10rem;
+  }
 `;
 
 export const Free = styled.div`
@@ -24,6 +34,15 @@ export const Free = styled.div`
 
   &:hover {
     background-color: #747474;
+  }
+  @media ${RESPONSIVE.tablet} {
+    height: 100%;
+    padding: 0;
+
+    &:hover {
+      color: #a6a6a6;
+      background-color: #363740;
+    }
   }
 `;
 
@@ -42,6 +61,17 @@ export const Info = styled.div`
 
   &:hover {
     background-color: #747474;
+  }
+
+  @media ${RESPONSIVE.tablet} {
+    height: 100%;
+    padding: 0;
+    margin-top: 0;
+
+    &:hover {
+      color: #a6a6a6;
+      background-color: #363740;
+    }
   }
 `;
 

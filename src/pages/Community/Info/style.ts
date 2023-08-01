@@ -1,16 +1,41 @@
 import { styled } from 'styled-components';
 import { RESPONSIVE } from '../../../styles/responsive';
 
+export const Wrap = styled.div`
+  width: 100%;
+  display: flex;
+
+  @media ${RESPONSIVE.tablet} {
+    display: block;
+  }
+`;
+
 export const Container = styled.div`
   width: 100%;
   position: relative;
-  margin-left: 7rem;
   padding-bottom: 10rem;
+  padding-left: 30rem;
+  padding-right: 30rem;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 100%;
+    margin: 0;
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
 `;
 
 export const List = styled.div`
   width: 100%;
   position: relative;
+`;
+
+export const SideDiv = styled.div`
+  width: 15%;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 100%;
+  }
 `;
 
 export const PageNumber = styled.div`
@@ -71,16 +96,6 @@ export const HeartContainer = styled.span`
   align-items: center;
 `;
 
-export const HeartNumber = styled.span`
-  font-size: 2.2rem;
-  color: black;
-  margin-left: 3%;
-
-  @media ${RESPONSIVE.mobile} {
-    font-size: 3.2rem;
-  }
-`;
-
 export const RadioDiv = styled.div`
   text-align: right;
   font-size: 1.6rem;
@@ -97,7 +112,7 @@ export const ButtonDiv = styled.div`
   left: 91%;
   top: 100%;
 
-  @media ${RESPONSIVE.mobile} {
+  @media ${RESPONSIVE.tablet} {
     top: 59%;
     left: 88%;
   }

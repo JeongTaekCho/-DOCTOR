@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback } from 'react';
 
-const useScrollFadeIn = (direction = 'up', duration = 1, delay = 0) => {
-  const element = useRef<HTMLElement | null>(null);
+const useScrollFadeIn = (direction = 'down', duration = 1, delay = 0) => {
+  const element = useRef<HTMLDivElement | null>(null);
 
   const handleDirection = (name: string) => {
     switch (name) {
@@ -19,7 +19,7 @@ const useScrollFadeIn = (direction = 'up', duration = 1, delay = 0) => {
   };
 
   const onScroll = useCallback(
-    ([entry]) => {
+    ([entry]: IntersectionObserverEntry[]) => {
       const { current } = element;
       if (current && entry.isIntersecting) {
         current.style.transitionProperty = 'all';
