@@ -81,18 +81,10 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
       </S.Pen>
       <S.MainBox>
         <S.LeftText>
-          {isVet ? (
-            <S.CenteredText>면허증 첨부</S.CenteredText>
-          ) : (
-            <S.CenteredText>인증상태</S.CenteredText>
-          )}
+          <S.CenteredText>인증상태</S.CenteredText>
         </S.LeftText>
         <S.InputDiv>
-          {isVet ? (
-            <S.FileInput type="file" />
-          ) : (
-            <S.RightText2>{userData?.vet?.status}</S.RightText2>
-          )}
+          <S.RightText2>{userData?.vet?.status}</S.RightText2>
         </S.InputDiv>
       </S.MainBox>
       <S.MainBox2>

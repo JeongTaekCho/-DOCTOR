@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import * as S from './style';
-import samplePosts from './data';
-import { BiUser, BiHeart } from 'react-icons/bi';
+import { BiHeart } from 'react-icons/bi';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import { Link } from 'react-router-dom';
 import Pagination from '../../commons/Pagination/index.tsx';
+import { useGetUserPostQuery } from '../../../hooks/query/useGetUserPostQuery.ts';
+
+const formatDate = dateString => {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  return date.toLocaleDateString('en-US', options).split('/').reverse().join('/');
+};
+
 const List = () => {
+  const { data: postList } = useGetUserPostQuery();
   const postsPerPage = 10;
-  const totalPosts = samplePosts.length;
+  const totalPosts = postList?.data?.length;
   const totalPages = Math.ceil(totalPosts / postsPerPage);
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = samplePosts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = postList?.data?.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <S.Wrap>
@@ -25,15 +33,13 @@ const List = () => {
               <S.LeftDiv>
                 <S.PostHeader>{post.title}</S.PostHeader>
                 <S.PostUser>
-                  <BiUser size="15" />
-                  {post.author}
-                  <S.PostDate>{post.date}</S.PostDate>
+                  <S.PostDate>{formatDate(post.created_at)}</S.PostDate>
                 </S.PostUser>
               </S.LeftDiv>
               <S.HeartDiv>
                 <S.HeartContainer>
                   <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
-                  <S.PostHeart>24</S.PostHeart>
+                  <S.PostHeart>{post.like}</S.PostHeart>
                 </S.HeartContainer>
               </S.HeartDiv>
             </S.Post>
