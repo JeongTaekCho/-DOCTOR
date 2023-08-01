@@ -3,7 +3,6 @@ import * as S from './style';
 import Avatar from '@mui/material/Avatar';
 import MyManage from '../../components/mypage/Manage';
 import List from '../../components/mypage/List';
-import { BiPencil } from 'react-icons/bi';
 import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 import { GrClose } from 'react-icons/gr';
 
@@ -44,7 +43,7 @@ const MyPage = () => {
   const imgInput = useRef<HTMLInputElement | null>(null);
 
   const { data: userData } = useGetUsersQuery();
-  const certification = userData?.user?.role;
+  // const certification = userData?.user?.role;
   const vetStatus = userData?.vet?.status;
   return (
     <S.Wrap>
@@ -53,36 +52,38 @@ const MyPage = () => {
           <S.AvatarDiv>
             <Avatar
               src={image}
-              sx={{ width: 150, height: 150, margin: 'auto', marginTop: '2rem' }}
+              sx={{ width: '15rem', height: '15rem', margin: 'auto', marginTop: '2rem' }}
             />
             <S.ChangeDiv>
-              <BiPencil size="48" color="gray" onClick={() => imgInput.current?.click()} />
+              <S.ResponsiveBiPencil color="gray" onClick={() => imgInput.current?.click()} />
             </S.ChangeDiv>
           </S.AvatarDiv>
-          <S.Label htmlFor="profile-img-input">
-            <S.Input
-              ref={imgInput}
-              id="profile-img-input"
-              type="file"
-              accept="image/jpg,image/png,image/jpeg"
-              name="profile_img"
-              onChange={onChange}
-            />
-            <S.Name>{userData?.user?.nickname}</S.Name>
-            <S.State>
-              계정상태: <S.StateSpan>정상</S.StateSpan>
-            </S.State>
-          </S.Label>
-          {certification === 'user' && (
+          <S.LabelDiv>
+            <S.Label htmlFor="profile-img-input">
+              <S.Input
+                ref={imgInput}
+                id="profile-img-input"
+                type="file"
+                accept="image/jpg,image/png,image/jpeg"
+                name="profile_img"
+                onChange={onChange}
+              />
+              <S.Name>{userData?.user?.nickname}</S.Name>
+              <S.State>
+                계정상태: <S.StateSpan>정상</S.StateSpan>
+              </S.State>
+            </S.Label>
+            {/* {certification === 'user' && ( */}
             <S.CertificationDiv>
               <S.Certification onClick={openModal}>수의사 인증</S.Certification>
             </S.CertificationDiv>
-          )}
-          {vetStatus === 'pending' && (
-            <S.CertificationDiv>
-              <S.Certification>인증 대기중</S.Certification>
-            </S.CertificationDiv>
-          )}
+            {/* )} */}
+            {vetStatus === 'pending' && (
+              <S.CertificationDiv>
+                <S.Certification>인증 대기중</S.Certification>
+              </S.CertificationDiv>
+            )}
+          </S.LabelDiv>
         </S.Profile>
         <S.Detail>
           <S.DetailTop>
@@ -94,7 +95,9 @@ const MyPage = () => {
             </S.TabItem>
           </S.DetailTop>
           <S.MyDetail>
-            {activeTab === 'manage' && <MyManage vetStatus={vetStatus} />}
+            {activeTab === 'manage' && vetStatus !== undefined && (
+              <MyManage vetStatus={vetStatus} />
+            )}
             {activeTab === 'list' && <List />}
           </S.MyDetail>
         </S.Detail>

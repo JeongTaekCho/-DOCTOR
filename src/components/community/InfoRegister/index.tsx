@@ -2,13 +2,13 @@ import React from 'react';
 import * as S from './style';
 import PropTypes from 'prop-types';
 
-const InfoRegister = ({ onCancel }) => {
+interface InfoRegisterProps {
+  onCancel: () => void; // onCancel 함수의 타입을 명시적으로 지정
+}
+
+const InfoRegister: React.FC<InfoRegisterProps> = ({ onCancel }) => {
   const handleCancelClick = () => {
     onCancel();
-  };
-
-  InfoRegister.propTypes = {
-    onCancel: PropTypes.func.isRequired
   };
 
   return (
@@ -25,6 +25,10 @@ const InfoRegister = ({ onCancel }) => {
       </S.ButtonDiv>
     </S.Container>
   );
+};
+
+InfoRegister.propTypes = {
+  onCancel: PropTypes.func.isRequired
 };
 
 export default InfoRegister;

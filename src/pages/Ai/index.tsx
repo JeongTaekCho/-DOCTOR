@@ -65,8 +65,8 @@ const AiPage = () => {
         <Avatar
           src={AiImage}
           sx={{
-            width: 420,
-            height: 450,
+            width: '42rem',
+            height: '45rem',
             margin: 'auto',
             marginTop: '2rem',
             cursor: 'pointer',

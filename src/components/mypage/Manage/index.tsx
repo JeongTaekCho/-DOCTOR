@@ -36,7 +36,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
     setPasswordConfirm('');
   };
   const { data: userData } = useGetUsersQuery();
-  const generateAsterisks = num => '*'.repeat(Math.min(num, 10));
+  const generateAsterisks = (num: number): string => '*'.repeat(Math.min(num, 10));
   const passwordCheck = userData?.user?.password;
   const passwordLength = passwordCheck ? userData?.user?.password?.length : 0;
   const maskedPassword = generateAsterisks(passwordLength);

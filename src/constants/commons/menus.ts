@@ -17,7 +17,7 @@ export const MENU = [
   {
     id: 4,
     name: '커뮤니티',
-    link: '/community'
+    link: '/community/free'
   }
 ];
 

@@ -1,10 +1,16 @@
 import styled, { css } from 'styled-components';
 import { RESPONSIVE } from '../../styles/responsive';
+import { BiPencil } from 'react-icons/bi';
 
 interface TabItemProps {
   active: boolean;
   onClick: () => void;
 }
+
+export const ResponsiveBiPencil = styled(BiPencil)`
+  // 기본 크기 설정
+  font-size: 4.8rem;
+`;
 
 export const Wrap = styled.div`
   width: 100%;
@@ -15,6 +21,10 @@ export const Container = styled.div`
   justify-content: center;
   gap: 3rem;
   padding-bottom: 10rem;
+
+  @media ${RESPONSIVE.tablet} {
+    display: block;
+  }
 `;
 
 export const Profile = styled.div`
@@ -24,9 +34,11 @@ export const Profile = styled.div`
   border-radius: 10px;
   box-shadow: 3px 3px 3px lightgrey;
 
-  @media ${RESPONSIVE.mobile} {
-    height: 38rem;
-    width: 30rem;
+  @media ${RESPONSIVE.tablet} {
+    margin: auto;
+    display: flex;
+    height: 20rem;
+    width: 43rem;
   }
 `;
 
@@ -36,9 +48,23 @@ export const Detail = styled.div`
   border: 1px solid lightgrey;
   border-radius: 10px;
   padding-bottom: 5rem;
+
+  @media ${RESPONSIVE.tablet} {
+    margin: auto;
+    margin-top: 2rem;
+  }
 `;
 
-export const Label = styled.label``;
+export const LabelDiv = styled.div`
+  @media ${RESPONSIVE.tablet} {
+    width: 50%;
+    margin-top: 2rem;
+  }
+`;
+
+export const Label = styled.label`
+  align-items: center;
+`;
 
 export const Input = styled.input`
   display: none;
@@ -74,6 +100,11 @@ export const DetailTop = styled.div`
   gap: 3rem;
   font-size: 2rem;
   font-weight: bolder;
+
+  @media ${RESPONSIVE.tablet} {
+    justify-content: center;
+    gap: 15rem;
+  }
 `;
 
 export const MyDetail = styled.div`
@@ -123,25 +154,33 @@ export const ChangeDiv = styled.div`
   border-radius: 50%;
   border: 1px solid lightgray;
   position: absolute;
-  left: 60%;
-  top: 60%;
+  bottom: 0;
+  right: 17%;
   text-align: center;
   cursor: pointer;
 
-  @media ${RESPONSIVE.mobile} {
-    width: 8rem;
-    height: 8rem;
+  @media ${RESPONSIVE.tablet} {
+    bottom: 20%;
+    right: 19%;
   }
 `;
 
 export const AvatarDiv = styled.div`
-  width: 100%;
   position: relative;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 50%;
+  }
 `;
 
 export const CertificationDiv = styled.div`
   padding: 5rem 0 0 0;
   text-align: center;
+
+  @media ${RESPONSIVE.tablet} {
+    padding: 0%;
+    margin-top: 1rem;
+  }
 `;
 
 export const Certification = styled.button`
