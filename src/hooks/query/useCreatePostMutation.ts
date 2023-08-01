@@ -8,7 +8,17 @@ interface CreatePostRequestData {
 }
 
 interface CreatePostReturn {
-  message: string;
+  data: {
+    author_email: string;
+    body: string;
+    category: string;
+    created_at: Date;
+    deleted_at: Date | null;
+    id: number;
+    like: number;
+    title: string;
+    updated_at: Date | null;
+  };
 }
 
 const createPost = async (data: CreatePostRequestData): Promise<CreatePostReturn> => {
