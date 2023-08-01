@@ -17,29 +17,36 @@ import { ChatContent } from './types';
 import { useAtomValue } from 'jotai';
 import MyChat from '../../components/chats/MyChat';
 import OtherChat from '../../components/chats/OtherChat';
+import { useChatChangeStatusMutation } from '../../hooks/query/useChatChangeStatusMutation';
 
 const ChatDetail = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
+
+  const { data: chatList, refetch: chatListRefetch } = useGetChatListQuery();
 
   const [isNav, setIsNav] = useState(true);
   const [isExitModal, setIsExitModal] = useState(false);
   const [isReviewModal, setIsReviewModal] = useState(false);
   const [isChatActive, setIsChatActive] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [chatId, setChatId] = useState<number | null>(1);
+  const [chatId, setChatId] = useState<number | undefined>(9999);
   const [messages, setMessages] = useState<ChatContent[] | undefined>([]);
   const [message, setMessage] = useState('');
 
   const { data: userData } = useGetUsersQuery();
-  const { data: chatContents, refetch } = useGetChatConentsQuery(chatId);
-  const { data: chatList } = useGetChatListQuery();
-
-  console.log(chatContents);
+  const { data: chatContents, refetch: chatContentRefetch } = useGetChatConentsQuery(chatId);
+  const { mutate } = useChatChangeStatusMutation();
 
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
 
   const isUser = userData?.user?.role === 'user';
+  const acceptedList = chatList?.filter(chat => chat?.status === 'accepted');
+
+  const waitList = chatList?.filter(chat => chat?.status !== 'accepted');
+
+  const acceptedListLength = acceptedList?.length ?? 0;
+  const waitListLength = waitList?.length ?? 0;
 
   const scrollToBottom = () => {
     if (ChatUiRef.current) {
@@ -47,24 +54,27 @@ const ChatDetail = () => {
     }
   };
 
-  const handleChangeMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
 
-  const handleSubmit = () => {
-    // if (message.trim() === '' || !chatId) return;
-    // 서버에 메시지 전송
-    socket?.emit('msgSend', { chatId: chatId, message });
-    setMessages((prevMessages: any) => [
-      ...(prevMessages?.length ? prevMessages : []),
-      {
-        message,
-        email: userData?.user?.email,
-        nickname: userData?.user?.nickname,
-        img_path: userData?.user?.img_path
-      }
-    ]);
-    setMessage('');
+  const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!message) {
+      Swal.fire('메세지를 입력해주세요.');
+    } else {
+      socket?.emit('msgSend', { chatId: chatId, message });
+      setMessages((prevMessages: any) => [
+        ...(prevMessages?.length ? prevMessages : []),
+        {
+          message,
+          email: userData?.user?.email,
+          nickname: userData?.user?.nickname,
+          img_path: userData?.user?.img_path
+        }
+      ]);
+      setMessage('');
+    }
   };
 
   const handleAcceptList = () => {
@@ -97,14 +107,44 @@ const ChatDetail = () => {
   const handleChatView = (chatId: number) => () => {
     setIsChatActive(true);
     setChatId(chatId);
+    setMessage('');
   };
 
   const handleChatClose = () => {
     setIsChatActive(false);
   };
 
+  const handleChatStatusChange = (status: string) => () => {
+    mutate(
+      {
+        id: chatId,
+        status: status
+      },
+      {
+        onSuccess: () => {
+          if (status === 'accepted') {
+            Swal.fire('수락 되었습니다.');
+          } else {
+            Swal.fire('거절 되었습니다.');
+          }
+          chatListRefetch();
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
   useEffect(() => {
-    refetch();
+    setChatId(
+      chatList?.filter(chat => chat.status === 'accepted')[0]?.id ||
+        chatList?.filter(chat => chat.status === 'pending')[0]?.id
+    );
+  }, [chatList]);
+
+  useEffect(() => {
+    chatContentRefetch();
   }, [chatId]);
 
   useEffect(() => {
@@ -138,15 +178,17 @@ const ChatDetail = () => {
       console.log('실시간 상담 종료');
     });
 
+    socket?.emit('join', chatId);
+
     // 메시지 수신 이벤트 처리
-    socket.on('msgReceive', ({ email, content, nickname, img_path }) => {
+    socket.on('msgReceive', msg => {
       setMessages((prevMessages: any) => [
         ...(prevMessages?.length ? prevMessages : []),
         {
-          message: content,
-          email,
-          nickname,
-          img_path
+          message: msg.message,
+          email: msg.email,
+          nickname: msg.nickname,
+          img_path: msg.img_path
         }
       ]);
     });
@@ -168,34 +210,44 @@ const ChatDetail = () => {
             </li>
             <li className={isNav ? '' : 'selected'}>
               <button type="button" data-name="신청 대기" onClick={handlePenddingList}>
-                신청 대기
+                {isUser ? '승인' : '신청'} 대기
               </button>
             </li>
           </S.ChatListNav>
           {isNav ? (
             <S.ChatListBox>
-              {chatList?.map(
-                chatInfo =>
-                  chatInfo.status !== 'pending' && (
-                    <li key={chatInfo?.id}>
-                      <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
-                        <ChatBox chatInfo={chatInfo} userData={userData} />
-                      </S.ChatBtn>
-                    </li>
-                  )
+              {acceptedListLength > 0 ? (
+                chatList?.map(
+                  chatInfo =>
+                    (chatInfo.status === 'accepted' || chatInfo.status === 'completed') && (
+                      <li key={chatInfo?.id}>
+                        <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
+                          <ChatBox chatInfo={chatInfo} userData={userData} />
+                        </S.ChatBtn>
+                      </li>
+                    )
+                )
+              ) : (
+                <S.ErrorMent>채팅 목록이 존재하지 않습니다.</S.ErrorMent>
               )}
             </S.ChatListBox>
           ) : (
             <S.ChatListBox>
-              {chatList?.map(
-                chatInfo =>
-                  chatInfo.status === 'pending' && (
-                    <li key={chatInfo?.id}>
-                      <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
-                        <ChatBox chatInfo={chatInfo} userData={userData} />
-                      </S.ChatBtn>
-                    </li>
-                  )
+              {waitListLength > 0 ? (
+                chatList?.map(
+                  chatInfo =>
+                    chatInfo.status === 'pending' && (
+                      <li key={chatInfo?.id}>
+                        <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
+                          <ChatBox chatInfo={chatInfo} userData={userData} />
+                        </S.ChatBtn>
+                      </li>
+                    )
+                )
+              ) : (
+                <S.ErrorMent>{`${
+                  isUser ? '승인' : '신청'
+                } 대기 목록이 존재하지 않습니다.`}</S.ErrorMent>
               )}
             </S.ChatListBox>
           )}
@@ -203,13 +255,25 @@ const ChatDetail = () => {
         <S.CharRightBox className={isChatActive ? 'active' : ''}>
           <S.ChatHead>
             <S.ProfileBox>
-              <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
+              <ProfileImg
+                w="6rem"
+                h="6rem"
+                src={
+                  isUser
+                    ? chatContents?.checkStatus?.users_chat_rooms_user_vet_emailTousers?.img_path
+                    : chatContents?.checkStatus?.users_chat_rooms_user_emailTousers?.img_path
+                }
+              />
               <S.ProfileContent>
-                <S.HeadProfileName>{isUser ? '수의사' : '나'}</S.HeadProfileName>
-                {isUser || (
+                <S.HeadProfileName>
+                  {isUser
+                    ? chatContents?.checkStatus?.users_chat_rooms_user_vet_emailTousers?.nickname
+                    : chatContents?.checkStatus?.users_chat_rooms_user_emailTousers?.nickname}
+                </S.HeadProfileName>
+                {!isUser && chatContents?.checkStatus?.status === 'pending' && (
                   <S.ChatBtnBox>
-                    <S.AcceptBtn>수락</S.AcceptBtn>
-                    <S.RefuseBtn>거절</S.RefuseBtn>
+                    <S.AcceptBtn onClick={handleChatStatusChange('accepted')}>수락</S.AcceptBtn>
+                    <S.RefuseBtn onClick={handleChatStatusChange('rejected')}>거절</S.RefuseBtn>
                   </S.ChatBtnBox>
                 )}
               </S.ProfileContent>
@@ -231,26 +295,43 @@ const ChatDetail = () => {
               ) : (
                 <OtherChat
                   key={message.id}
-                  name={chatContents?.nickname}
+                  name={
+                    isUser
+                      ? chatContents?.checkStatus?.users_chat_rooms_user_vet_emailTousers?.nickname
+                      : chatContents?.checkStatus?.users_chat_rooms_user_emailTousers?.nickname
+                  }
                   content={message.message}
-                  profileImg={chatContents?.img_path || '/images/commons/kkam.png'}
+                  profileImg={
+                    isUser
+                      ? chatContents?.checkStatus?.users_chat_rooms_user_vet_emailTousers?.img_path
+                      : chatContents?.checkStatus?.users_chat_rooms_user_emailTousers?.img_path
+                  }
                 />
               )
             )}
           </S.ChatDetailBox>
           <S.ChatForm>
             <S.FileTextarea>
-              <S.FileInput id="file" type="file" />
+              {/* <S.FileInput id="file" type="file" />
               <S.FileLabel htmlFor="file">
                 <img src="/images/chats/file.png" alt="" />
-              </S.FileLabel>
-              <S.Textarea
-                placeholder="내용을 입력해주세요."
+              </S.FileLabel> */}
+              <S.ChatInput
+                placeholder={
+                  chatContents?.checkStatus?.status !== 'accepted'
+                    ? '채팅 수락 후 서비스 이용이 가능합니다.'
+                    : '내용을 입력해주세요.'
+                }
                 onChange={handleChangeMessage}
                 value={message}
+                disabled={chatContents?.checkStatus?.status !== 'accepted'}
               />
             </S.FileTextarea>
-            <S.SendBtn type="button" onClick={handleSubmit}>
+            <S.SendBtn
+              type="submit"
+              onClick={handleSubmit}
+              disabled={chatContents?.checkStatus?.status !== 'accepted'}
+            >
               <img src="/images/chats/send.png" alt="보내기 아이콘" />
             </S.SendBtn>
           </S.ChatForm>

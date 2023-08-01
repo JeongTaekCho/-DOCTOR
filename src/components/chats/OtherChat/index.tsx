@@ -5,7 +5,7 @@ import ProfileImg from '../../commons/ProfileImg';
 interface OtherChatProps {
   name: string | undefined;
   content: string;
-  profileImg: string;
+  profileImg: string | undefined;
 }
 
 const OtherChat = ({ name, content, profileImg }: OtherChatProps) => {
