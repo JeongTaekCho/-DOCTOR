@@ -12,7 +12,7 @@ export const TitleDiv = styled.div`
 `;
 
 export const Title = styled.input`
-  font-size: 3rem;
+  font-size: 1.8rem;
   width: 100%;
   border-radius: 0.5rem;
   border: none;
@@ -35,6 +35,7 @@ export const Detail = styled.textarea`
   border-radius: 3px;
   padding: 1rem;
   font-size: 1.5rem;
+  outline: none;
 `;
 
 export const ButtonDiv = styled.div`
