@@ -44,7 +44,6 @@ export const PostUser = styled.p`
 
 export const PostDate = styled.span`
   font-size: 1.6rem;
-  margin-left: 4%;
 `;
 
 export const HeartDiv = styled.span`
