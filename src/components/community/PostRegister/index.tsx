@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useCreatePostMutation } from '../../../hooks/query/useCreatePostMutation';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../../constants/routes/routeData';
 
 interface PostRegisterProps {
   onCancel: () => void; // onCancel 함수의 타입을 명시적으로 지정
@@ -43,9 +44,9 @@ const PostRegister: React.FC<PostRegisterProps> = ({ onCancel, isFree }) => {
           category: isFree ? 'free' : 'info'
         },
         {
-          onSuccess: () => {
+          onSuccess: ({ data }) => {
             Swal.fire('게시글 등록이 완료되었습니다.');
-            navigate('/');
+            navigate(`${ROUTE.FREEDETAIL.link}/${data.id}`);
           }
         }
       );
