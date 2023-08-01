@@ -20,8 +20,8 @@ export const Container = styled.div`
   @media ${RESPONSIVE.tablet} {
     width: 100%;
     margin: 0;
-    padding-left: 20rem;
-    padding-right: 20rem;
+    padding-left: 5%;
+    padding-right: 5%;
   }
 `;
 
