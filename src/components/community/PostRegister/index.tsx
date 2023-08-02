@@ -47,6 +47,9 @@ const PostRegister: React.FC<PostRegisterProps> = ({ onCancel, isFree }) => {
           onSuccess: ({ data }) => {
             Swal.fire('게시글 등록이 완료되었습니다.');
             navigate(`${ROUTE.FREEDETAIL.link}/${data.id}`);
+          },
+          onError: (err: any) => {
+            Swal.fire(err.response.data.error);
           }
         }
       );

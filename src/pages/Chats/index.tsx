@@ -8,9 +8,11 @@ import InfiniteScroll from 'react-infinite-scroller';
 import useDebounce from '../../hooks/util/useDebounce';
 import { useAtomValue } from 'jotai';
 import { useChatListInfinityQuery } from '../../hooks/query/useChatListInfinityQuery';
+import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 
 const ChatsPage = () => {
   const auth = useAtomValue(tokenAtom);
+  const { data: userData } = useGetUsersQuery();
 
   const [areaName, setAreaName] = useState('');
   const [search, setSearch] = useState('');
@@ -104,6 +106,7 @@ const ChatsPage = () => {
                       profileImg={doctor?.img_path}
                       doctorEmail={doctor?.user_email}
                       grade={doctor?.grade}
+                      role={userData?.user?.role}
                     />
                   ))
                 )
