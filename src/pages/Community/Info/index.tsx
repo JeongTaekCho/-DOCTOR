@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style.ts';
 import { BiUser, BiHeart } from 'react-icons/bi';
-import samplePosts from './data.ts';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import Pagination from '../../../components/commons/Pagination/index.tsx';
 import SideLayout from '../../../components/layout/SideBar.tsx';
 import PostRegister from '../../../components/community/PostRegister/index.tsx';
+import { useGetPostsQuery } from '../../../hooks/query/useGetPostsQuery.ts';
 const Info = () => {
-  const postsPerPage = 10;
-  const totalPosts = samplePosts.length;
-  const totalPages = Math.ceil(totalPosts / postsPerPage);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
   const [order, setOrder] = useState<'oldest' | 'popularity'>('oldest');
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = samplePosts.slice(indexOfFirstPost, indexOfLastPost);
+  const { data: postData, refetch: postRefetch } = useGetPostsQuery(currentPage, 'info');
+
+  const totalPages = postData?.total ? Math.ceil(postData?.total / 10) : undefined;
 
   const handleWriteButtonClick = () => {
+    window.scrollTo(0, 0);
     setShowRegister(prev => !prev);
   };
 
@@ -31,6 +28,11 @@ const Info = () => {
   const handleOrderByPopularity = () => {
     setOrder('popularity');
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    postRefetch();
+  }, [currentPage]);
 
   return (
     <S.Wrap>
@@ -66,21 +68,21 @@ const Info = () => {
               </p>
             </S.RadioDiv>
             <S.List>
-              {currentPosts.map(post => (
+              {postData?.posts?.map(post => (
                 <Link to={ROUTE.FREEDETAIL.path} key={post.id}>
                   <S.Post>
                     <S.LeftDiv>
                       <S.PostHeader>{post.title}</S.PostHeader>
                       <S.PostUser>
                         <BiUser size="15" />
-                        {post.author}
-                        <S.PostDate>{post.date}</S.PostDate>
+                        {'작성자 들어갈건데 API수정 후 수정할 예정'}
+                        <S.PostDate>{post?.created_at.slice(0, 10)}</S.PostDate>
                       </S.PostUser>
                     </S.LeftDiv>
                     <S.HeartDiv>
                       <S.HeartContainer>
                         <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
-                        <S.PostHeart>24</S.PostHeart>
+                        <S.PostHeart>{post?.like}</S.PostHeart>
                       </S.HeartContainer>
                     </S.HeartDiv>
                   </S.Post>
