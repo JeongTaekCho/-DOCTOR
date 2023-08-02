@@ -4,8 +4,8 @@ import { BiSolidChevronsRight } from 'react-icons/bi';
 import useScrollFadeIn from '../../hooks/util/useScrollFadeIn';
 
 const MainPage = () => {
-  const animatedAiDiv: any = useScrollFadeIn('down', 1, 0);
-  const animatedEffectDiv: any = useScrollFadeIn('down', 1, 0);
+  const animatedAiDiv = useScrollFadeIn('down', 1, 0);
+  const animatedEffectDiv = useScrollFadeIn('down', 1, 0);
 
   return (
     <S.Wrap>
