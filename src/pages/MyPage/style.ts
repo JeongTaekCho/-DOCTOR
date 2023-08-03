@@ -58,7 +58,7 @@ export const Detail = styled.div`
 export const LabelDiv = styled.div`
   @media ${RESPONSIVE.tablet} {
     width: 50%;
-    margin-top: 2rem;
+    margin-top: 3.5rem;
   }
 `;
 
