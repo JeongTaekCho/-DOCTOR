@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import * as S from './style';
-import AdminLayout from '../../LayoutAdmin/PageLayout/NavbarAdmin';
-import ListOfLists from '../../LayoutAdmin/ListSet/ReportList';
-const AdminReportPostPage = () => {
+import AdminLayout from '../../../components/admin/LayoutAdmin/PageLayout/NavbarAdmin';
+
+const AdminReportCommentPage = () => {
   const [activeTab, setActiveTab] = useState('waiting');
 
   const handleClickBtn1 = () => {
@@ -20,21 +20,21 @@ const AdminReportPostPage = () => {
         <S.Content>
           <S.Container>
             <S.ContentTitle>
-              <S.CTitleName>신고 접수 - 게시글 신고</S.CTitleName>
+              <S.CTitleName>신고 접수 - 댓글 신고</S.CTitleName>
             </S.ContentTitle>
             <S.PageNation>
-            <S.PageNationBtn>
-              <S.PageNationBox>
-                <S.WaitingReportBtn onClick={handleClickBtn1} active={activeTab === 'waiting'}>
-                  접수 목록
-                </S.WaitingReportBtn>
-                <S.TreatReportBtn onClick={handleClickBtn2} active={activeTab === 'treat'}>
-                  처리 목록
-                </S.TreatReportBtn>
-              </S.PageNationBox>
-              <S.PageNationBar activeTab={activeTab}></S.PageNationBar>
-            </S.PageNationBtn>
-      </S.PageNation>
+              <S.PageNationBtn>
+                <S.PageNationBox>
+                  <S.WaitingReportBtn onClick={handleClickBtn1} active={activeTab === 'waiting'}>
+                    접수 목록
+                  </S.WaitingReportBtn>
+                  <S.TreatReportBtn onClick={handleClickBtn2} active={activeTab === 'treat'}>
+                    처리 목록
+                  </S.TreatReportBtn>
+                </S.PageNationBox>
+                <S.PageNationBar activeTab={activeTab}></S.PageNationBar>
+              </S.PageNationBtn>
+            </S.PageNation>
             <S.ReportList>
               <S.ListSet>
                 <S.ListOrder>▼ 처리 내용 순</S.ListOrder>
@@ -51,7 +51,7 @@ const AdminReportPostPage = () => {
               </S.ListRowName>
               <S.ContentNationBar></S.ContentNationBar>
               <S.ListContentWrap>
-                <ListOfLists></ListOfLists>
+                <S.ListOfLists></S.ListOfLists>
               </S.ListContentWrap>
             </S.ReportList>
           </S.Container>
@@ -61,4 +61,4 @@ const AdminReportPostPage = () => {
   );
 };
 
-export default AdminReportPostPage;
+export default AdminReportCommentPage;

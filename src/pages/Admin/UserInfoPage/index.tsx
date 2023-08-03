@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import * as S from './style';
-import AdminLayout from '../../LayoutAdmin/PageLayout/NavbarAdmin';
-import ListOfLists from '../../LayoutAdmin/ListSet/UserInfoList';
+import AdminLayout from '../../../components/admin/LayoutAdmin/PageLayout/NavbarAdmin';
 
 const AdminUserInfoPage = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -63,7 +62,7 @@ const AdminUserInfoPage = () => {
               </S.ListRowName>
               <S.ContentNationBar></S.ContentNationBar>
               <S.ListContentWrap>
-                <ListOfLists></ListOfLists>
+                <S.ListOfLists></S.ListOfLists>
               </S.ListContentWrap>
             </S.ReportList>
           </S.Container>
