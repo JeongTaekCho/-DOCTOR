@@ -12,8 +12,12 @@ const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
         <ReportDetail>비방적인 글</ReportDetail>
         <ReportIdTreat>
           <ReportId>dkdlel5677@gmail.com</ReportId>
-          <IdHandleSelect></IdHandleSelect>
+          <IdState>2주 정지</IdState> {/* //D-day되도록 바꿔야 함 */}
         </ReportIdTreat>
+        <IdHandleBtn>
+          <IdHandleSelect></IdHandleSelect>
+        </IdHandleBtn>
+
         <ReportDate>2023-07-05</ReportDate>
         <ReportHandle>
           <ReportHandleSelect></ReportHandleSelect>
@@ -55,8 +59,8 @@ const ReportDetail = styled.div`
 `;
 
 const ReportIdTreat = styled.div`
-  // 신고된 아이디 + 계정 처리 버튼
-  width: 35%;
+  // 신고된 아이디 + 계정 처리 상태
+  width: 25%;
 `;
 
 const ReportId = styled.div`
@@ -67,6 +71,11 @@ const ReportId = styled.div`
   color: #252733;
   font-weight: 600;
   font-size: 1.4rem;
+`;
+const IdState = styled.div``;
+
+const IdHandleBtn = styled.div`
+  width: 20%;
 `;
 
 const ReportDate = styled.div`

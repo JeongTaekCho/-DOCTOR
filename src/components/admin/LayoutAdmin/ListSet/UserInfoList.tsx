@@ -14,9 +14,11 @@ const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
           <ReportPrifileId>jaklsjff@naver.com</ReportPrifileId>
         </ReportProfile>
         <ReportDetail>닉네임123</ReportDetail>
+
         <ReportDate>2023-07-05</ReportDate>
         <ReportHandle>
           <IdHandleSelect></IdHandleSelect>
+          <IdState>2주 정지</IdState> {/* //D-day되도록 바꿔야 함 */}
         </ReportHandle>
       </ListOfLists>
       {children}
@@ -59,6 +61,7 @@ const ReportPrifileId = styled.div`
   font-weight: 600;
   color: #252733;
 `;
+const IdState = styled.div``;
 //-------------------------------------
 //-------------------------------------
 const ReportComment = styled.div`

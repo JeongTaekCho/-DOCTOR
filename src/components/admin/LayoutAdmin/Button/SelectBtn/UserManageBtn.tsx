@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 const OPTIONS = [
-  { value: 'Normal', name: '정상 계정 유지' },
-  { value: 'WeekSuspension', name: '계정 제한 2주' },
+  { value: 'Normal', name: '정상 계정' },
+  { value: 'WeekSuspension', name: '2주 정지' },
   { value: 'ForeverSuspension', name: '영구 정지' },
-  { value: 'SendAlert', name: '경고 알림 전송' },
-  { value: 'WaitingProgress', name: '처리 대기 중' }
+  { value: 'SendAlert', name: '강제 탈퇴' },
+  { value: 'WaitingProgress', name: '정지 해제' }
 ];
 interface ColorOptions {
   [key: string]: string;

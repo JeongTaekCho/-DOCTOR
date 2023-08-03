@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { LayoutRouteProps, Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-
 const ReportAdminPagination = ({ children }: LayoutRouteProps) => {
   const [activeTab, setActiveTab] = useState('waiting');
 
@@ -23,17 +22,19 @@ const ReportAdminPagination = ({ children }: LayoutRouteProps) => {
         <PageNationBtn>
           <PageNationBox>
             <WaitingReportBtn
-              to="/report-wait-admin"
+              to="/admin-userinfo"
               onClick={handleClickBtn1}
               className={activeTab === 'waiting' ? 'active' : ''}
             >
               전체 유저
             </WaitingReportBtn>
             <TreatReportBtn
-              to="/report-treat-admin"
+              to="/admin-userinfo"
               onClick={handleClickBtn2}
               className={activeTab === 'treat' ? 'active' : ''}
-            ></TreatReportBtn>
+            >
+              제한 유저
+            </TreatReportBtn>
           </PageNationBox>
           <PageNationBar activeTab={activeTab}></PageNationBar>
         </PageNationBtn>

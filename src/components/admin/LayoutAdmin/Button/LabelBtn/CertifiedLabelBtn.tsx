@@ -13,9 +13,9 @@ const CertifiedAdminPagination = ({ children }: LayoutRouteProps) => {
     setActiveTab('treat');
   };
 
-  const handleClickBtn3 = () => {
-    setActiveTab('completed');
-  };
+  // const handleClickBtn3 = () => {
+  //   setActiveTab('completed');
+  // };
 
   return (
     <Wrap>
@@ -34,15 +34,8 @@ const CertifiedAdminPagination = ({ children }: LayoutRouteProps) => {
               active={activeTab === 'treat'}
               // activeTab={activeTab}
             >
-              인증 진행 목록
+              인증 목록
             </TreatReportBtn>
-            <CompletedReportBtn
-              onClick={handleClickBtn3}
-              active={activeTab === 'completed'}
-              // activeTab={activeTab}
-            >
-              인증 완료 목록
-            </CompletedReportBtn>
           </PageNationBox>
 
           <PageNationBar activeTab={activeTab}></PageNationBar>
@@ -120,30 +113,30 @@ const TreatReportBtn = styled.button<{ active: boolean }>`
   }
 `;
 
-const CompletedReportBtn = styled.button<{ active: boolean }>`
-  // '인증 완료 목록'
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15rem;
-  background-color: #cbcce8;
-  border-radius: 10px 10px 0px 0px;
-  margin: 0;
-  font-size: 1.5rem;
-  color: #ffffff;
-  font-weight: bolder;
-  cursor: pointer;
+// const CompletedReportBtn = styled.button<{ active: boolean }>`
+//   // '인증 완료 목록'
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 15rem;
+//   background-color: #cbcce8;
+//   border-radius: 10px 10px 0px 0px;
+//   margin: 0;
+//   font-size: 1.5rem;
+//   color: #ffffff;
+//   font-weight: bolder;
+//   cursor: pointer;
 
-  /* &.active {
+/* &.active {
     background-color: #CBCCE8;
     color: #ac9bfa;
   } */
 
-  &:hover {
-    background-color: #bbbde6;
-    color: white;
-  }
-`;
+//   &:hover {
+//     background-color: #bbbde6;
+//     color: white;
+//   }
+// `;
 
 const PageNationBar = styled.div<{ activeTab: string }>`
   width: 100%;
@@ -153,10 +146,8 @@ const PageNationBar = styled.div<{ activeTab: string }>`
     switch (props.activeTab) {
       case 'waiting':
         return '#4e2bf5';
-      case 'treat':
-        return '#ac9bfa';
       default:
-        return '#CBCCE8';
+        return '#ac9bfa';
     }
   }};
 `;

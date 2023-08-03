@@ -70,8 +70,9 @@ const WaitingReportBtn = styled.button<{ active: boolean }>`
 
   &:hover {
     background-color: #434d5f;
-    color: white;
+    color: #fff;
   }
+  
 `;
 const TreatReportBtn = styled.button<{ active: boolean }>`
   // '신고 처리 목록'

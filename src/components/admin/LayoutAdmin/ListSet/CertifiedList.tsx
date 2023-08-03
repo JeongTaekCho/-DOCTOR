@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LayoutRouteProps } from 'react-router-dom';
 import { styled } from 'styled-components';
 import ProfileImg from '../../../commons/ProfileImg';
 import ReportHandleSelect from '../Button/SelectBtn/ListManageBtn';
+import Modal from '../PageLayout/Modal';
 
 const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const handleOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => setModalOpen(false);
+
   return (
     <Wrap>
       <ListOfLists>
@@ -17,12 +22,14 @@ const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
           <ReportPostN>2023-07-25</ReportPostN>
         </ReportDetailN>
         <ReportContent>
-          <ReportContentListSet></ReportContentListSet>
+          <ReportContentListSet onClick={handleOpenModal}>제출자료보기</ReportContentListSet>
         </ReportContent>
         <ReportHandle>
           <ReportHandleSelect></ReportHandleSelect>
         </ReportHandle>
       </ListOfLists>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="제출자료" content="이미지" />
+
       {children}
     </Wrap>
   );

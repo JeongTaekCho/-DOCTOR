@@ -3,12 +3,25 @@ import { LayoutRouteProps, Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Icon from '../IconImg';
 const AdminLayout = ({ children }: LayoutRouteProps) => {
+  // const [isActive, setIsActive] = useState(false);
+
+  // const handleClick = () => {
+  //   setIsActive(prevState => !prevState);
+  // };
   return (
     <Wrap>
       <NavBar>
         <Title>
           <TitleName>관리자 페이지</TitleName>
         </Title>
+        <Menu to="/admin-userinfo" /*active={isActive} onClick={handleClick}*/>
+          <Icon w="2rem" h="2rem" src="/images/commons/usermanage1.png" />
+          <MenuName>유저 관리</MenuName>
+        </Menu>
+        <Menu to="/admin-certified">
+          <Icon w="2rem" h="2.5rem" src="/images/commons/certified1.png" />
+          <MenuName>수의사 인증 접수</MenuName>
+        </Menu>
         <Menu to="/admin-report-post">
           <Icon w="2rem" h="2rem" src="/images/commons/report1.png" />
           <MenuName>신고 접수</MenuName>
@@ -19,14 +32,6 @@ const AdminLayout = ({ children }: LayoutRouteProps) => {
         <List to="/admin-report-comment">
           <ListName>댓글 신고</ListName>
         </List>
-        <Menu to="/admin-certified">
-          <Icon w="2rem" h="2.5rem" src="/images/commons/certified1.png" />
-          <MenuName>수의사 인증 접수</MenuName>
-        </Menu>
-        <Menu to="/admin-userinfo">
-          <Icon w="2rem" h="2rem" src="/images/commons/usermanage1.png" />
-          <MenuName>유저 관리</MenuName>
-        </Menu>
       </NavBar>
       {children}
     </Wrap>
@@ -67,7 +72,7 @@ const TitleName = styled.div`
   font-weight: 500;
   color: #667085;
   padding: 1rem 0 1rem 2rem;
-  margin: 5rem 0 6rem 0;
+  margin: 5rem 0 3rem 0;
 `;
 
 //--------------------------------
@@ -77,10 +82,12 @@ const Menu = styled(Link)`
   // 유저관리[]
   display: flex;
   width: 100%;
-  font-size: 1.3rem;
   align-items: center;
   padding: 3rem 0 2rem 2rem;
   &:hover {
+    background-color: #2c2d33;
+  }
+  &:active {
     background-color: #2c2d33;
   }
 `;
@@ -91,7 +98,7 @@ const MenuName = styled.div`
   width: 100%;
   flex-wrap: wrap;
   gap: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2rem;
   padding-left: 1.5rem;
 `;
 
