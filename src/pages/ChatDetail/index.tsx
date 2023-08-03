@@ -139,9 +139,25 @@ const ChatDetail = () => {
             Swal.fire('거절 되었습니다.');
           }
           chatListRefetch();
+          chatContentRefetch();
         },
         onError: (err: any) => {
           Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
+  const handleChatComplete = () => {
+    mutate(
+      {
+        id: chatId,
+        status: 'completed'
+      },
+      {
+        onSuccess: () => {
+          Swal.fire('채팅이 종료되었습니다.');
+          chatListRefetch();
         }
       }
     );
@@ -233,7 +249,11 @@ const ChatDetail = () => {
                     (chatInfo.status === 'accepted' || chatInfo.status === 'completed') && (
                       <li key={chatInfo?.id}>
                         <S.ChatBtn onClick={handleChatView(chatInfo?.id)}>
-                          <ChatBox chatInfo={chatInfo} userData={userData} />
+                          <ChatBox
+                            chatInfo={chatInfo}
+                            userData={userData}
+                            status={chatInfo.status}
+                          />
                         </S.ChatBtn>
                       </li>
                     )
@@ -288,6 +308,11 @@ const ChatDetail = () => {
                       <S.RefuseBtn onClick={handleChatStatusChange('rejected')}>거절</S.RefuseBtn>
                     </S.ChatBtnBox>
                   )}
+                  {!isUser && chatContents?.checkStatus?.status === 'accepted' && (
+                    <S.ChatBtnBox>
+                      <S.RefuseBtn onClick={handleChatComplete}>채팅종료</S.RefuseBtn>
+                    </S.ChatBtnBox>
+                  )}
                 </S.ProfileContent>
               </S.ProfileBox>
               <S.HeadBtnBox>
@@ -332,8 +357,10 @@ const ChatDetail = () => {
               </S.FileLabel> */}
                 <S.ChatInput
                   placeholder={
-                    chatContents?.checkStatus?.status !== 'accepted'
+                    chatContents?.checkStatus?.status === 'pending'
                       ? '채팅 수락 후 서비스 이용이 가능합니다.'
+                      : chatContents?.checkStatus?.status === 'completed'
+                      ? '종료된 채팅방입니다.'
                       : '내용을 입력해주세요.'
                   }
                   onChange={handleChangeMessage}
