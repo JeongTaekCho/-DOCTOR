@@ -14,7 +14,6 @@ const formatDate = (dateString: any) => {
 
 const List = () => {
   const { data: postList } = useGetUserPostQuery();
-  console.log(postList);
   const postsPerPage = 10;
   const totalPosts: any = postList?.data?.length;
   const totalPages: number | undefined = Math.ceil(totalPosts / postsPerPage);
