@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import MainPage from '../../pages/Main';
 import RegisterPage from '../../pages/Register';
@@ -7,7 +8,10 @@ import ChatDetail from '../../pages/ChatDetail';
 import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
 import HospitalPage from '../../pages/Hospital';
-import AdminPage from '../../pages/Admin';
+import AdminReportPostPage from '../../components/admin/PagesAdmin/ReportPostPage';
+import AdminReportCommentPage from '../../components/admin/PagesAdmin/ReportCommentPage';
+import AdminCertifiedPage from '../../components/admin/PagesAdmin/CertifiedPage';
+import AdminUserInfoPage from '../../components/admin/PagesAdmin/UserInfoPage';
 import FreeDetail from '../../components/community/FreeDetail';
 import Free from '../../pages/Community/Free';
 import Info from '../../pages/Community/Info';
@@ -91,18 +95,39 @@ export const ROUTE: { [key: string]: Route } = {
     element: <HospitalPage />,
     exact: true
   },
-  ADMIN: {
-    id: 11,
-    path: '/admin',
-    link: '/admin',
-    element: <AdminPage />,
-    exact: true
-  },
   FREEDETAIL: {
-    id: 12,
+    id: 11,
     path: '/community/:postId',
     link: '/community',
     element: <FreeDetail />,
+    exact: true
+  },
+  ADMINREPORTPOST: {
+    id: 12,
+    path: '/admin-report-post',
+    link: '/admin-report-post',
+    element: <AdminReportPostPage />,
+    exact: true
+  },
+  ADMINREPORTCOMMAND: {
+    id: 13,
+    path: '/admin-report-comment',
+    link: '/admin-report-comment',
+    element: <AdminReportCommentPage />,
+    exact: true
+  },
+  ADMINUSERINFO: {
+    id: 14,
+    path: '/admin-userinfo',
+    link: '/admin-userinfo',
+    element: <AdminUserInfoPage />,
+    exact: true
+  },
+  ADMINCERTIFIED: {
+    id: 15,
+    path: '/admin-certified',
+    link: '/admin-certified',
+    element: <AdminCertifiedPage />,
     exact: true
   }
 };
