@@ -197,6 +197,10 @@ export const Skin = styled.h4`
   font-size: 4rem;
   font-weight: bolder;
   margin-top: 2rem;
+
+  @media (max-width: 400px) {
+    margin-top: 7rem;
+  }
 `;
 
 export const SkinSpan = styled.span`

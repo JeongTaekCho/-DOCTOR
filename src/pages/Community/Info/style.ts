@@ -16,6 +16,7 @@ export const Container = styled.div`
   padding-bottom: 10rem;
   padding-left: 30rem;
   padding-right: 30rem;
+  min-height: calc(100vh - 135px);
 
   @media ${RESPONSIVE.tablet} {
     width: 100%;

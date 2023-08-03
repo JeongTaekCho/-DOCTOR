@@ -30,7 +30,7 @@ const MyPage = () => {
 
   const handleDeleteVet = () => {
     deleteVetMutation();
-    window.location.reload();
+    refetch();
   };
 
   const { mutate: registerVet } = useRegisterVetMutation();
