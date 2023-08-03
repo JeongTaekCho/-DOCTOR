@@ -10,7 +10,10 @@ const ReviewModal = ({ handleCancelModal }: Props) => {
   return (
     <S.Wrap>
       <S.ModalContainer>
-        <S.ModalMent>상담은 만족스러우셨나요?</S.ModalMent>
+        <S.ModalMent>
+          채팅이 종료 되었습니다.
+          <br /> 상담은 만족스러우셨나요?
+        </S.ModalMent>
         <S.RateBox>
           <Rating name="size-large" defaultValue={2} size="large" />
         </S.RateBox>
