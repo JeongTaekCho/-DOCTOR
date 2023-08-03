@@ -253,3 +253,11 @@ export const ErrorMent = styled.p`
   text-align: center;
   margin-top: 1.5rem;
 `;
+
+export const ChatErrorMent = styled.p`
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: ${STYLE.mainColor};
+  margin-top: 2rem;
+  text-align: center;
+`;

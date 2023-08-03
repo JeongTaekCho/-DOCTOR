@@ -11,14 +11,14 @@ const ChatExitModal = ({ handleCancelModal, handleChatExitBtnReview }: Props) =>
     <S.Wrap>
       <S.ModalContainer>
         <S.ModalMent>
-          채팅방을 나가시면 채팅이 종료됩니다. <br />
-          나가시겠습니까?
+          채팅이 종료되면 상담이 불가능 합니다. <br />
+          종료하시겠습니까?
         </S.ModalMent>
         <S.BtnBox>
           <S.CancelBtn data-name="exit" onClick={handleCancelModal}>
             취소
           </S.CancelBtn>
-          <S.ExitBtn onClick={handleChatExitBtnReview}>나가기</S.ExitBtn>
+          <S.ExitBtn onClick={handleChatExitBtnReview}>종료</S.ExitBtn>
         </S.BtnBox>
       </S.ModalContainer>
     </S.Wrap>

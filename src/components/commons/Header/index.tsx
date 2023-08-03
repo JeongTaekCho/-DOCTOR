@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { Link, useLocation } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
@@ -9,18 +9,26 @@ import { tokenAtom } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
 import { useAtomValue } from 'jotai';
+import axios from 'axios';
 
 const Header = () => {
   const auth = useAtomValue(tokenAtom);
   const { pathname } = useLocation();
-
-  console.log(pathname);
 
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [isAlramMenu, setIsAlramMenu] = useState(false);
 
   const { data: userData } = useGetUsersQuery();
+
+  useEffect(() => {
+    const aaa = async () => {
+      const data: any = await axios.get('http://localhost:5000/image/jeongtaek.jpg');
+      console.log(data);
+      return data;
+    };
+    aaa();
+  }, []);
 
   const handleModalClose = () => {
     setIsAlramMenu(false);
