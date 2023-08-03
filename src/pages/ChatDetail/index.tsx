@@ -101,7 +101,18 @@ const ChatDetail = () => {
 
   const handleChatExitBtnReview = () => {
     setIsExitModal(false);
-    setIsReviewModal(true);
+
+    mutate(
+      {
+        id: chatId,
+        status: 'completed'
+      },
+      {
+        onSuccess: () => {
+          setIsReviewModal(true);
+        }
+      }
+    );
   };
 
   const handleChatView = (chatId: number) => () => {
