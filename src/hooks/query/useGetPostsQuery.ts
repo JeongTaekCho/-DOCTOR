@@ -3,7 +3,6 @@ import * as API from '../../api/index';
 import { PostsResponse } from '../../types/postType';
 
 const getPosts = async (currentPage: number, category: string): Promise<PostsResponse> => {
-  console.log(category);
   const result = await API.get<{ data: PostsResponse }>(
     `/posts?category=${category}&currentPage=${currentPage}`
   );
