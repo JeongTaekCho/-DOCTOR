@@ -69,7 +69,7 @@ const Info = () => {
             </S.RadioDiv>
             <S.List>
               {postData?.posts?.map(post => (
-                <Link to={ROUTE.FREEDETAIL.path} key={post.id}>
+                <Link to={`${ROUTE.FREEDETAIL.link}/${post.id}`} key={post.id}>
                   <S.Post>
                     <S.LeftDiv>
                       <S.PostHeader>{post.title}</S.PostHeader>
