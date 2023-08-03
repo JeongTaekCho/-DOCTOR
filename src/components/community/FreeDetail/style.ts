@@ -74,8 +74,15 @@ export const HeartIcon = styled.div`
   font-size: 2rem;
   color: #9747ff;
   width: 100%;
-  text-align: center;
   padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+`;
+
+export const HeartNumber = styled.div`
+  padding: 0.5rem 0 0 1rem;
+  color: black;
+  font-size: 3.5rem;
 `;
 
 export const ReportText = styled.button`
