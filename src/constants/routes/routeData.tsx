@@ -7,13 +7,14 @@ import ChatsPage from '../../pages/Chats';
 import ChatDetail from '../../pages/ChatDetail';
 import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
-import Community from '../../pages/Community';
 import HospitalPage from '../../pages/Hospital';
 import AdminReportPostPage from '../../components/admin/PagesAdmin/ReportPostPage';
 import AdminReportCommentPage from '../../components/admin/PagesAdmin/ReportCommentPage';
 import AdminCertifiedPage from '../../components/admin/PagesAdmin/CertifiedPage';
 import AdminUserInfoPage from '../../components/admin/PagesAdmin/UserInfoPage';
 import FreeDetail from '../../components/community/FreeDetail';
+import Free from '../../pages/Community/Free';
+import Info from '../../pages/Community/Info';
 
 interface Route {
   id: number;
@@ -73,21 +74,27 @@ export const ROUTE: { [key: string]: Route } = {
     element: <MyPage />,
     exact: true
   },
-  COMMUNITY: {
+  FREECOMMUNITY: {
     id: 8,
-    path: '/community',
-    link: '/community',
-    element: <Community />,
+    path: '/community/free',
+    link: '/community/free',
+    element: <Free />,
+    exact: true
+  },
+  INFOCOMMUNITY: {
+    id: 9,
+    path: '/community/info',
+    link: '/community/info',
+    element: <Info />,
     exact: true
   },
   HOSPITAL: {
-    id: 9,
+    id: 10,
     path: '/hospital',
     link: '/hospital',
     element: <HospitalPage />,
     exact: true
   },
-
   ADMINREPORTPOST: {
     path: '/admin-report-post',
     link: '/admin-report-post',
@@ -115,11 +122,18 @@ export const ROUTE: { [key: string]: Route } = {
     element: <AdminCertifiedPage />,
     exact: true,
     id: 0
+  }
+  ADMIN: {
+    id: 11,
+    path: '/admin',
+    link: '/admin',
+    element: <AdminPage />,
+    exact: true
   },
   FREEDETAIL: {
-    id: 11,
-    path: '/free/:userId',
-    link: '/free',
+    id: 12,
+    path: '/community/:postId',
+    link: '/community',
     element: <FreeDetail />,
     exact: true
   }

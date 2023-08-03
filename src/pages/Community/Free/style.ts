@@ -1,11 +1,29 @@
 import { styled } from 'styled-components';
 import { RESPONSIVE } from '../../../styles/responsive';
 
+export const Wrap = styled.div`
+  width: 100%;
+  display: flex;
+
+  @media ${RESPONSIVE.tablet} {
+    display: block;
+  }
+`;
+
 export const Container = styled.div`
   width: 100%;
   position: relative;
-  margin-left: 7rem;
   padding-bottom: 10rem;
+  padding-left: 30rem;
+  padding-right: 30rem;
+  min-height: calc(100vh - 135px);
+
+  @media ${RESPONSIVE.tablet} {
+    width: 100%;
+    margin: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 `;
 
 export const List = styled.div`
@@ -13,17 +31,23 @@ export const List = styled.div`
   position: relative;
 `;
 
+export const SideDiv = styled.div`
+  width: 15%;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 100%;
+  }
+`;
+
 export const PageNumber = styled.div`
   text-align: center;
-  margin-top: 0.5rem;
+  margin-top: 3.5rem;
 `;
 
 export const Post = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
+  padding: 1rem;
   display: flex;
   transition: 0.5s;
   &:hover {
@@ -33,7 +57,7 @@ export const Post = styled.div`
 
 export const PostHeader = styled.h4`
   font-size: 2rem;
-  font-weight: bolder;
+  font-weight: 500;
   width: 90%;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -56,14 +80,15 @@ export const PostDate = styled.span`
 `;
 
 export const HeartDiv = styled.span`
-  width: 10%;
+  width: 8%;
   display: flex;
   align-items: center;
 `;
 
 export const PostHeart = styled.span`
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   color: black;
+  margin-left: 0.3rem;
 `;
 
 export const HeartContainer = styled.span`
@@ -87,7 +112,7 @@ export const ButtonDiv = styled.div`
   left: 91%;
   top: 100%;
 
-  @media ${RESPONSIVE.mobile} {
+  @media ${RESPONSIVE.tablet} {
     top: 59%;
     left: 88%;
   }

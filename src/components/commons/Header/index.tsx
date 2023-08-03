@@ -55,7 +55,7 @@ const Header = () => {
             <S.MenuList>
               {MENU.map(({ id, name, link }) => (
                 <li key={id}>
-                  <Link className={pathname === link ? 'selected' : ''} to={link}>
+                  <Link className={pathname.includes(link.slice(0, 4)) ? 'selected' : ''} to={link}>
                     {name}
                   </Link>
                 </li>
@@ -220,13 +220,18 @@ const Header = () => {
               </S.MobileMenuCloseBtn>
             </S.MobileMenuHead>
             {auth ? (
-              <S.MobileProfileBox>
-                <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-                <p>깜장이 수의사 님</p>
-                <button type="button" onClick={handleLogout}>
-                  로그아웃
-                </button>
-              </S.MobileProfileBox>
+              <>
+                <S.MobileProfileBox>
+                  <ProfileImg w="6rem" h="6rem" src={userData?.user?.img_path} />
+                  <p>{userData?.user?.nickname} 님</p>
+                  <button type="button" onClick={handleLogout}>
+                    로그아웃
+                  </button>
+                </S.MobileProfileBox>
+                <S.MyPageLink to={ROUTE.MYPAGE.link} onClick={handleMobileMenuBtn}>
+                  마이페이지
+                </S.MyPageLink>
+              </>
             ) : (
               <S.MobileLoginBox>
                 <S.LoginMent>로그인 후 이용해 주세요.</S.LoginMent>

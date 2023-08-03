@@ -75,7 +75,7 @@ export const Example = styled.div`
   padding-top: 5%;
 
   @media ${RESPONSIVE.mobile} {
-    margin-top: 40%;
+    margin-top: 16%;
   }
 `;
 
@@ -102,6 +102,14 @@ export const Button = styled.button`
   &:active {
     transform: translateY(-1px);
   }
+
+  @media ${RESPONSIVE.tablet} {
+    margin-top: 10rem;
+  }
+
+  @media ${RESPONSIVE.mobile} {
+    margin-top: 7rem;
+  }
 `;
 
 export const Modal = styled.div`
@@ -113,6 +121,7 @@ export const Modal = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 `;
 
 export const Card = styled.div`
@@ -128,6 +137,7 @@ export const Card = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     top: 40%;
+    width: 50rem;
   }
 `;
 
@@ -187,6 +197,10 @@ export const Skin = styled.h4`
   font-size: 4rem;
   font-weight: bolder;
   margin-top: 2rem;
+
+  @media (max-width: 400px) {
+    margin-top: 7rem;
+  }
 `;
 
 export const SkinSpan = styled.span`

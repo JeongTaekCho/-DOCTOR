@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { RESPONSIVE } from '../../../styles/responsive';
 
 export const MainBox = styled.div`
   width: 90%;
@@ -51,6 +52,10 @@ export const RightText = styled.div`
   font-weight: 600;
   padding-left: 1rem;
   color: black;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 30rem;
+  }
 `;
 
 export const RightText2 = styled.div`
@@ -62,6 +67,10 @@ export const RightText2 = styled.div`
   font-weight: 600;
   padding-left: 1rem;
   color: blue;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 30rem;
+  }
 `;
 
 export const BasicHeader = styled.h4`

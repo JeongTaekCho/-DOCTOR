@@ -163,12 +163,16 @@ export const ChatForm = styled.form`
   padding: 1rem 2.5rem;
 `;
 
-export const Textarea = styled.textarea`
+export const ChatInput = styled.input`
   width: 100%;
   resize: none;
   border: 1px solid #000;
   border-radius: 0.6rem;
   padding: 1rem;
+
+  &:disabled {
+    background-color: #eee;
+  }
 `;
 
 export const FileTextarea = styled.div`
@@ -240,4 +244,20 @@ export const AcceptBtn = styled.button`
 export const RefuseBtn = styled(AcceptBtn)`
   background-color: #fff;
   color: ${STYLE.mainColor};
+`;
+
+export const ErrorMent = styled.p`
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin-top: 1.5rem;
+`;
+
+export const ChatErrorMent = styled.p`
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: ${STYLE.mainColor};
+  margin-top: 2rem;
+  text-align: center;
 `;

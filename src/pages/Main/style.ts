@@ -7,7 +7,8 @@ export const Wrap = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: -8%;
+  margin-top: -9.5rem;
+  position: relative;
 `;
 
 export const Img = styled.img`
@@ -19,18 +20,22 @@ export const Img = styled.img`
 export const Header = styled.h4`
   font-size: 9rem;
   color: white;
-  font-weight: bolder;
-  position: absolute;
-  top: 50%;
+  font-weight: 500;
+  bottom: 20%;
   padding-left: 5%;
-  line-height: 130%;
+  line-height: 1.3;
   color: #fff;
-  -webkit-text-stroke: 2px #fff;
+  -webkit-text-stroke: 0.2rem;
   font-family: 'Noto Sans KR', sans-serif;
+  position: absolute;
 
+  @media ${RESPONSIVE.tablet} {
+    font-size: 7rem;
+    bottom: 18%;
+  }
   @media ${RESPONSIVE.mobile} {
-    font-size: 9rem;
-    top: 25%;
+    font-size: 5rem;
+    bottom: 10%;
   }
 `;
 
@@ -64,6 +69,10 @@ export const AiPic = styled.div`
     flex-direction: column;
     gap: 20rem;
   }
+  @media ${RESPONSIVE.tablet} {
+    flex-direction: column;
+    gap: 10rem;
+  }
 `;
 
 export const Pic = styled.img`
@@ -79,7 +88,11 @@ export const SubDiv = styled.div`
   padding-top: 5%;
 
   @media ${RESPONSIVE.mobile} {
-    height: 80rem;
+    height: 70rem;
+  }
+
+  @media ${RESPONSIVE.tablet} {
+    height: 70rem;
   }
 `;
 
@@ -87,7 +100,7 @@ export const SubHeader = styled.h4`
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
-  line-height: 130%;
+  line-height: 1.3;
 `;
 
 export const ContentDiv = styled.div`
@@ -99,6 +112,11 @@ export const ContentDiv = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     flex-direction: column;
+    padding: 0;
+  }
+  @media ${RESPONSIVE.tablet} {
+    flex-direction: column;
+    padding: 0;
   }
 `;
 
@@ -115,6 +133,11 @@ export const Content = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     margin-top: 5%;
+    margin-right: 0;
+  }
+
+  @media ${RESPONSIVE.tablet} {
+    margin-top: 3%;
     margin-right: 0;
   }
 `;
@@ -160,6 +183,11 @@ export const EffectDiv = styled.div`
   line-height: 900%;
 
   @media ${RESPONSIVE.mobile} {
+    text-align: center;
+    line-height: 800%;
+  }
+
+  @media ${RESPONSIVE.tablet} {
     text-align: center;
     padding: 0;
   }

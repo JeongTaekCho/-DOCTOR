@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import { BiHeart } from 'react-icons/bi';
-import { BsArrowReturnRight } from 'react-icons/bs';
+import { useParams } from 'react-router-dom';
+// import { BsArrowReturnRight } from 'react-icons/bs';
+import { GrClose } from 'react-icons/gr';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import SideLayout from '../../layout/SideBar.tsx';
+import { useGetPostsDetailQuery } from '../../../hooks/query/useGetPostsDetailQuery.ts';
+import { useDeletePostMutation } from '../../../hooks/query/useDeletePostMutation.ts';
+const formatDate = (dateString: any) => {
+  const date = new Date(dateString);
+  const options: any = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  return date.toLocaleDateString('en-US', options).split('/').reverse().join('/');
+};
+
 const FreeDetail = () => {
   const [modal, setModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [deleteComment, setDeleteComment] = useState(false);
+  const [deletePost, setDeletePost] = useState(false);
+  const { postId } = useParams<{ postId: any }>();
+
+  const { data: post } = useGetPostsDetailQuery(postId);
+  const postMutation = useDeletePostMutation(postId);
+  const deletePostMutation = postMutation.mutate;
 
   const openModal = () => {
     setModal(true);
@@ -24,22 +41,74 @@ const FreeDetail = () => {
     setIsEditing(false);
   };
 
-  const text = '안녕하세요';
+  const handleDeleteComment = () => {
+    setDeleteComment(true);
+  };
+
+  const handleCloseComment = () => {
+    setDeleteComment(false);
+  };
+
+  const handleDeletePost = () => {
+    setDeletePost(true);
+  };
+
+  const handleClosePost = () => {
+    setDeletePost(false);
+  };
+
+  const getCurrentUserEmail = () => {
+    // localStorage에서 'email' 키로 저장된 값을 가져옵니다.
+    const userEmail = localStorage.getItem('email');
+
+    if (userEmail) {
+      try {
+        // userEmail이 JSON 형식인 경우에만 파싱하여 반환합니다.
+        const user = JSON.parse(userEmail);
+        return user;
+      } catch (error) {
+        // userEmail이 JSON 형식이 아니라면 그대로 반환합니다.
+        return userEmail;
+      }
+    }
+
+    return null;
+  };
+
+  const handleDeleteMyPost = () => {
+    deletePostMutation();
+    window.history.back();
+  };
+
+  const currentUserEmail = getCurrentUserEmail();
+  const isCurrentUserAuthor = currentUserEmail === post?.author_email;
+
   return (
     <div style={{ width: '100%' }}>
-      <SideLayout />
-
+      <SideLayout> </SideLayout>
       <S.Container>
+        {isCurrentUserAuthor && (
+          <S.DeletePost>
+            <S.DeletePostButton onClick={handleDeletePost}>삭제</S.DeletePostButton>
+          </S.DeletePost>
+        )}
         <S.Header>
-          <S.Title>안녕하세요</S.Title>
-          <S.Date>2023-07-23</S.Date>
+          <S.Title>{post?.title}</S.Title>
+          <S.Date>{formatDate(post?.created_at)}</S.Date>
         </S.Header>
         <S.MainDiv>
           <S.MainTextDiv>
-            {isEditing ? <S.MainTextArea>{text}</S.MainTextArea> : <S.MainText>{text}</S.MainText>}
+            {isEditing ? (
+              <S.MainTextArea>{post?.body}</S.MainTextArea>
+            ) : (
+              <S.MainText>{post?.body}</S.MainText>
+            )}
           </S.MainTextDiv>
           <S.HeartIcon>
-            <BiHeart size="40" />
+            <div>
+              <BiHeart size="40" />
+            </div>
+            <S.HeartNumber>{post?.like}</S.HeartNumber>
           </S.HeartIcon>
           <S.ReportTextDiv>
             {isEditing ? (
@@ -49,8 +118,12 @@ const FreeDetail = () => {
               </div>
             ) : (
               <div>
-                <S.Correction onClick={handleEditClick}>수정</S.Correction>
-                <S.ReportText onClick={openModal}>신고</S.ReportText>
+                {/* currentUserEmail과 post?.author_email이 같을 경우 수정 버튼 렌더링 */}
+                {isCurrentUserAuthor ? (
+                  <S.Correction onClick={handleEditClick}>수정</S.Correction>
+                ) : (
+                  <S.ReportText onClick={openModal}>신고</S.ReportText>
+                )}
               </div>
             )}
           </S.ReportTextDiv>
@@ -61,13 +134,16 @@ const FreeDetail = () => {
             <S.User>
               유승제<S.CommentDate>2023-07-23</S.CommentDate>
             </S.User>
+            <S.DeleteDiv onClick={handleDeleteComment}>
+              <GrClose />
+            </S.DeleteDiv>
           </S.UserDiv>
           <S.BottomDiv>
             <S.LeftDiv>안녕하세요~</S.LeftDiv>
             <S.RightDiv>신고</S.RightDiv>
           </S.BottomDiv>
         </S.Comment>
-        <S.CoComment>
+        {/* <S.CoComment>
           <S.UserDiv>
             <S.User>
               <BsArrowReturnRight /> 유승제<S.CommentDate>2023-07-23</S.CommentDate>
@@ -77,7 +153,7 @@ const FreeDetail = () => {
             <S.LeftDiv>안녕하세요~</S.LeftDiv>
             <S.RightDiv>신고</S.RightDiv>
           </S.BottomDiv>
-        </S.CoComment>
+        </S.CoComment> */}
         <S.Register>
           <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
           <S.InputDiv>
@@ -86,7 +162,7 @@ const FreeDetail = () => {
           </S.InputDiv>
         </S.Register>
         <S.ListDiv>
-          <S.ListButton to={ROUTE.COMMUNITY.link}>목록</S.ListButton>
+          <S.ListButton to={ROUTE.FREECOMMUNITY.link}>목록</S.ListButton>
         </S.ListDiv>
       </S.Container>
       {modal && (
@@ -107,6 +183,32 @@ const FreeDetail = () => {
               <S.BlueButton>확인</S.BlueButton>
               <S.RedButton onClick={closeModal}>취소</S.RedButton>
             </S.ButtonDiv>
+          </S.Card>
+        </S.Modal>
+      )}
+
+      {deleteComment && (
+        <S.Modal>
+          <S.Card>
+            <S.Reason>댓글을 삭제하시겠습니까?</S.Reason>
+            <S.ReasonDiv></S.ReasonDiv>
+            <S.DeleteButtonDiv>
+              <S.BlueButton>확인</S.BlueButton>
+              <S.RedButton onClick={handleCloseComment}>취소</S.RedButton>
+            </S.DeleteButtonDiv>
+          </S.Card>
+        </S.Modal>
+      )}
+
+      {deletePost && (
+        <S.Modal>
+          <S.Card>
+            <S.Reason>게시물을 삭제하시겠습니까?</S.Reason>
+            <S.ReasonDiv></S.ReasonDiv>
+            <S.DeleteButtonDiv>
+              <S.BlueButton onClick={handleDeleteMyPost}>확인</S.BlueButton>
+              <S.RedButton onClick={handleClosePost}>취소</S.RedButton>
+            </S.DeleteButtonDiv>
           </S.Card>
         </S.Modal>
       )}
