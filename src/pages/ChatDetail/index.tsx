@@ -197,12 +197,12 @@ const ChatDetail = () => {
     setSocket(socket);
 
     socket.on('connect', () => {
-      console.log('실시간 상담 접속 완료');
+      console.log('on');
     });
 
     // 연결 종료 시 이벤트 처리
     socket.on('disconnect', () => {
-      console.log('실시간 상담 종료');
+      console.log('off');
     });
 
     socket?.emit('join', chatId);

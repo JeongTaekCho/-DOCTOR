@@ -37,7 +37,6 @@ const MyPage = () => {
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
     if (name === 'file') {
       const target = e.currentTarget;
       const files = (target.files as FileList)[0];
