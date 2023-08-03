@@ -1,12 +1,19 @@
-/* eslint-disable quotes */
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
-//import ProfileImg from '../../../commons/ProfileImg';
+//import axios from 'axios';
 import AdminLayout from '../../LayoutAdmin/PageLayout/NavbarAdmin';
-import AdminPagination from '../../LayoutAdmin/Button/LabelBtn/CertifiedLabelBtn';
-//import Select from '../../LayoutAdmin/Button/UserManageSelectBtn';
 import ListOfLists from '../../LayoutAdmin/ListSet/CertifiedList';
+
 const AdminCertifiedPage = () => {
+  const [activeTab, setActiveTab] = useState('waiting');
+
+  const handleClickBtn1 = () => {
+    setActiveTab('waiting');
+  };
+
+  const handleClickBtn2 = () => {
+    setActiveTab('treat');
+  };
   return (
     <AdminLayout>
       <S.Wrap>
@@ -16,7 +23,28 @@ const AdminCertifiedPage = () => {
               <S.CTitleName>수의사 인증 접수</S.CTitleName>
             </S.ContentTitle>
 
-            <AdminPagination></AdminPagination>
+            <S.PageNation>
+              <S.PageNationBtn>
+                <S.PageNationBox>
+                  <S.WaitingReportBtn
+                    onClick={handleClickBtn1}
+                    active={activeTab === 'waiting'}
+                    // activeTab={activeTab}
+                  >
+                    인증 대기 목록
+                  </S.WaitingReportBtn>
+                  <S.TreatReportBtn
+                    onClick={handleClickBtn2}
+                    active={activeTab === 'treat'}
+                    // activeTab={activeTab}
+                  >
+                    인증 목록
+                  </S.TreatReportBtn>
+                </S.PageNationBox>
+
+                <S.PageNationBar activeTab={activeTab}></S.PageNationBar>
+              </S.PageNationBtn>
+            </S.PageNation>
             <S.ReportList>
               <S.ListSet>
                 <S.ListOrder>▼ 오래된 순</S.ListOrder>
@@ -32,7 +60,7 @@ const AdminCertifiedPage = () => {
               </S.ListRowName>
               <S.ContentNationBar></S.ContentNationBar>
               <S.ListContentWrap>
-                <ListOfLists></ListOfLists>
+                <ListOfLists />
               </S.ListContentWrap>
             </S.ReportList>
           </S.Container>

@@ -41,6 +41,7 @@ export const ListSet = styled.div`
   font-size: 1.2rem;
   margin-bottom: 2.6rem;
 `;
+
 export const ListOrder = styled.button`
   width: 15%;
 `;
@@ -148,4 +149,104 @@ export const ReportHandleListSet = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const PageNation = styled.div``;
+export const PageNationBtn = styled.div`
+  width: 100%;
+  padding-top: 4rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+`;
+export const PageNationBox = styled.div`
+  display: flex;
+`;
+export const WaitingReportBtn = styled.button<{ active: boolean }>`
+  // '인증 대기 목록'
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  background-color: #5429ff;
+  border-radius: 10px 10px 0px 0px;
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: bolder;
+  padding: 1.3rem 0 1.3rem 0;
+  cursor: pointer;
+
+  /* &.active {
+    background-color: #5429ff;
+    color: #fff;
+  } */
+
+  &:hover {
+    background-color: #5c18fa;
+    color: white;
+  }
+`;
+
+export const TreatReportBtn = styled.button<{ active: boolean }>`
+  // '인증 진행 목록'
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  background-color: #ac9bfa;
+  border-radius: 10px 10px 0px 0px;
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: bolder;
+  cursor: pointer;
+
+  /* &.active {
+    background-color: #ac9bfa;
+    color: #fff;
+  } */
+
+  &:hover {
+    background-color: #a08bfd;
+    color: white;
+  }
+`;
+
+// const CompletedReportBtn = styled.button<{ active: boolean }>`
+//   // '인증 완료 목록'
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 15rem;
+//   background-color: #cbcce8;
+//   border-radius: 10px 10px 0px 0px;
+//   margin: 0;
+//   font-size: 1.5rem;
+//   color: #ffffff;
+//   font-weight: bolder;
+//   cursor: pointer;
+
+/* &.active {
+    background-color: #CBCCE8;
+    color: #ac9bfa;
+  } */
+
+//   &:hover {
+//     background-color: #bbbde6;
+//     color: white;
+//   }
+// `;
+
+export const PageNationBar = styled.div<{ activeTab: string }>`
+  width: 100%;
+  display: flex;
+  padding: 0.4rem 0 0.4rem 0;
+  background-color: ${props => {
+    switch (props.activeTab) {
+      case 'waiting':
+        return '#4e2bf5';
+      default:
+        return '#ac9bfa';
+    }
+  }};
 `;

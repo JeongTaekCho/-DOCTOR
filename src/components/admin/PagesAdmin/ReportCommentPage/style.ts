@@ -3,39 +3,35 @@ import { styled } from 'styled-components';
 //-----------------------------------
 //-----------------------------------
 export const Wrap = styled.div``;
-export const Content = styled.div`
-  // 전체컨텐츠넓이
-  width: 79.16%;
-  margin-left: 20.83%;
-`;
+
 export const Container = styled.div`
-  // 내부컨텐츠넓이
   width: 93.85%;
   margin: 0 auto;
 `;
 
 //-----------------------------------
 //-----------------------------------
+export const Content = styled.div`
+  width: 79.16%;
+  margin-left: 20.83%;
+`;
+
 export const ContentTitle = styled.div`
-  // 신고 접수 - 댓글 신고[]
   width: 100%;
 `;
 
 export const CTitleName = styled.div`
-  // '신고 접수 - 댓글 신고'
+  // '신고 접수'
   font-size: 2.5rem;
   font-weight: 600;
   color: #252733;
   margin-bottom: 4.3rem;
 `;
 
-//-----------------------------------
-//-----------------------------------
 export const ReportList = styled.div`
   width: 100%;
 `;
 export const ListSet = styled.div`
-  // 처리내용순/오래된순/최신순 []
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -45,12 +41,10 @@ export const ListSet = styled.div`
   margin-bottom: 2.6rem;
 `;
 export const ListOrder = styled.div`
-  // '▼ 처리내용순'/'▼ 오래된순'/'▼ 최신순'
+  // '▼ 처리 내용 순' / '▼ 신고 건수 순'
   width: 15%;
 `;
 
-//-----------------------------------
-//-----------------------------------
 export const ListRowName = styled.div`
   width: 100%;
   display: flex;
@@ -60,28 +54,19 @@ export const ListRowName = styled.div`
   padding: 1.4rem 0;
 `;
 
-export const ReportCommentList = styled.div`
-  // '신고된 글'
+export const ReportIdList = styled.div`
+  width: 20%;
+`;
+export const ReportWarnList = styled.div`
+  width: 15%;
+`;
+export const ReportAccrueList = styled.div`
   width: 20%;
 `;
 export const ReportDetailList = styled.div`
-  // '신고된 항목'
   width: 15%;
 `;
-export const ReportIdList = styled.div`
-  // '작성자'
-  width: 20%;
-`;
-export const ReportIdHandleList = styled.div`
-  // '작성자 관리'
-  width: 15%;
-`;
-export const ReportDateList = styled.div`
-  // '신고 일자'
-  width: 15%;
-`;
-export const ReportCommentHandleList = styled.div`
-  // '처리 내용'
+export const ReportHandleList = styled.div`
   width: 15%;
 `;
 
@@ -172,3 +157,67 @@ export const Modal = styled.div`
   transform: translate() (-50%, -50%);
 `;
 export const ExitBtn = styled.div``;
+
+export const PageNation = styled.div``;
+export const PageNationBtn = styled.div`
+  width: 100%;
+  padding-top: 4rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+`;
+export const PageNationBox = styled.div`
+  display: flex;
+`;
+export const WaitingReportBtn = styled.button<{ active: boolean }>`
+  // '신고 접수 목록'
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  border-radius: 10px 10px 0px 0px;
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #344054;
+  font-weight: bolder;
+  padding: 1.3rem 0 1.3rem 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #434d5f;
+    color: #fff;
+  }
+`;
+export const TreatReportBtn = styled.button<{ active: boolean }>`
+  // '신고 처리 목록'
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  border-radius: 10px 10px 0px 0px;
+  margin: 0;
+  font-size: 1.5rem;
+  background-color: #667085;
+  color: #fff;
+  font-weight: bolder;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #717c94;
+    color: white;
+  }
+`;
+
+export const PageNationBar = styled.div<{ activeTab: string }>`
+  width: 100%;
+  display: flex;
+  padding: 0.4rem 0 0.4rem 0;
+  background-color: ${props => {
+    switch (props.activeTab) {
+      case 'waiting':
+        return '#344054';
+      default:
+        return '#667085';
+    }
+  }};
+`;

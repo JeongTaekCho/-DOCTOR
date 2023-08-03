@@ -1,8 +1,8 @@
 import React from 'react';
 import { LayoutRouteProps } from 'react-router-dom';
 import { styled } from 'styled-components';
-import ReportHandleSelect from '../Button/SelectBtn/ListManageBtn';
-import IdHandleSelect from '../Button/SelectBtn/UserManageBtn';
+import ReportHandleSelect from '../SelectBtn/ListManageBtn';
+import IdHandleSelect from '../SelectBtn/UserManageBtn';
 
 const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
   return (

@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { LayoutRouteProps } from 'react-router-dom';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import ProfileImg from '../../../commons/ProfileImg';
-import ReportHandleSelect from '../Button/SelectBtn/ListManageBtn';
+import ReportHandleSelect from '../SelectBtn/CertifiedManageBtn';
 import Modal from '../PageLayout/Modal';
 
-const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
+const CertifiedListLayout = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
-
   return (
     <Wrap>
       <ListOfLists>
         <ReportProfile>
           <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-          <ReportPrifileId>asjlfjaklsjff@naver.com</ReportPrifileId>
+          <ReportPrifileId></ReportPrifileId>
         </ReportProfile>
-        <ReportN>2023-07-20</ReportN>
+        <ReportN></ReportN>
         <ReportDetailN>
-          <ReportPostN>2023-07-25</ReportPostN>
+          <ReportPostN></ReportPostN>
         </ReportDetailN>
         <ReportContent>
           <ReportContentListSet onClick={handleOpenModal}>제출자료보기</ReportContentListSet>
@@ -28,9 +26,8 @@ const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
           <ReportHandleSelect></ReportHandleSelect>
         </ReportHandle>
       </ListOfLists>
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="제출자료" content="이미지" />
 
-      {children}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="제출자료" content="이미지" />
     </Wrap>
   );
 };
