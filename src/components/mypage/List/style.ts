@@ -9,6 +9,7 @@ export const Wrap = styled.div`
 export const List = styled.div`
   width: 100%;
   position: relative;
+  padding: 0 3rem 0 3rem;
 `;
 
 export const Post = styled.div`

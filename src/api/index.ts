@@ -52,6 +52,15 @@ async function patch<T, D>(endpoint: string, data: D): Promise<T> {
   });
 }
 
+async function formPatch<T, D>(endpoint: string, data: D): Promise<T> {
+  return axios.patch(serverUrl + endpoint, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`
+    }
+  });
+}
+
 async function del<T>(endpoint: string, params = ''): Promise<T> {
   return axios.delete(serverUrl + endpoint + '/' + params, {
     headers: {
@@ -60,4 +69,4 @@ async function del<T>(endpoint: string, params = ''): Promise<T> {
   });
 }
 
-export { serverUrl, get, post, formPost, put, patch, del as delete };
+export { serverUrl, get, post, formPost, put, patch, formPatch, del as delete };

@@ -5,9 +5,10 @@ import MyManage from '../../components/mypage/Manage';
 import List from '../../components/mypage/List';
 import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 import { GrClose } from 'react-icons/gr';
-import { useRegisterVetMutation } from '../../hooks/query/useRegisterVet';
+import { useRegisterVetMutation } from '../../hooks/query/useRegisterVetMutation';
 import Swal from 'sweetalert2';
-
+import { useChangeUserMutation } from '../../hooks/query/useChangeUserMutation';
+import { useDeleteVetMutation } from '../../hooks/query/useDeleteVetMutation';
 const MyPage = () => {
   const [image, setImage] = useState<string | undefined>(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
@@ -15,20 +16,35 @@ const MyPage = () => {
   const [activeTab, setActiveTab] = useState<'manage' | 'list'>('manage');
   const [modal, setModal] = useState(false);
 
-  const [file, setFile] = useState('');
+  const [file, setFile] = useState<File>();
   const [name, setName] = useState('');
   const [hospital, setHospital] = useState('');
   const [description, setDescription] = useState('');
   const [region, setRegion] = useState('');
-  console.log(file, name, hospital, description, region);
+
+  const mutation = useChangeUserMutation();
+  const registerMutate = mutation.mutate;
+
+  const vetMutation = useDeleteVetMutation();
+  const deleteVetMutation = vetMutation.mutate;
+
+  const handleDeleteVet = () => {
+    deleteVetMutation();
+    window.location.reload();
+  };
 
   const { mutate: registerVet } = useRegisterVetMutation();
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
+    console.log(name, value);
     if (name === 'file') {
-      setFile(e.target.files[0]);
+      const target = e.currentTarget;
+      const files = (target.files as FileList)[0];
+      if (files === undefined) {
+        return;
+      }
+      setFile(files);
     }
 
     if (name === 'name') {
@@ -56,6 +72,8 @@ const MyPage = () => {
     setModal(false);
   };
 
+  const { data: userData, refetch } = useGetUsersQuery();
+
   const handleRegister = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const formData: any = new FormData();
@@ -69,25 +87,49 @@ const MyPage = () => {
       onSuccess: () => {
         Swal.fire('신청이 완료되었습니다');
         setModal(false);
+        refetch();
       },
-      onError: () => {
-        Swal.fire('신청 실패해였습니다');
+      onError: (err: any) => {
+        Swal.fire(err.response.data.error);
       }
     });
+  };
+
+  const imgInput = useRef<HTMLInputElement | null>(null);
+
+  const handleRegisterImg = (e: MouseEvent<HTMLButtonElement>) => {
+    imgInput.current?.click();
+    e.preventDefault();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async () => {
         if (reader.readyState === 2) {
+          // 이미지 미리보기
           setImage(reader.result as string);
         }
       };
+
+      const formData: any = new FormData();
+      formData.append('users', e.target.files[0]); // img_path 필드 추가
+
+      registerMutate(formData, {
+        onSuccess: () => {
+          Swal.fire('프로필 사진이 업로드되었습니다');
+          refetch();
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      });
       reader.readAsDataURL(e.target.files[0]);
     } else {
       // 업로드 취소할 시
-      setImage(undefined);
+      setImage(
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+      );
     }
   };
 
@@ -95,11 +137,9 @@ const MyPage = () => {
     setActiveTab(tab);
   };
 
-  const imgInput = useRef<HTMLInputElement | null>(null);
-
-  const { data: userData } = useGetUsersQuery();
   const certification = userData?.user?.role;
   const vetStatus: any = userData?.vet?.status;
+  const userImage = userData?.user?.img_path;
 
   return (
     <S.Wrap>
@@ -107,21 +147,21 @@ const MyPage = () => {
         <S.Profile>
           <S.AvatarDiv>
             <Avatar
-              src={image}
+              src={userImage || image}
               sx={{ width: '15rem', height: '15rem', margin: 'auto', marginTop: '2rem' }}
             />
             <S.ChangeDiv>
-              <S.ResponsiveBiPencil color="gray" onClick={() => imgInput.current?.click()} />
+              <S.ResponsiveBiPencil color="gray" onClick={handleRegisterImg} />
             </S.ChangeDiv>
           </S.AvatarDiv>
           <S.LabelDiv>
-            <S.Label htmlFor="profile-img-input">
+            <S.Label>
               <S.Input
                 ref={imgInput}
                 id="profile-img-input"
                 type="file"
                 accept="image/jpg,image/png,image/jpeg"
-                name="profile_img"
+                name="img_path"
                 onChange={onChange}
               />
               <S.Name>{userData?.user?.nickname}</S.Name>
@@ -246,7 +286,7 @@ const MyPage = () => {
               <br /> 거절되었습니다.
             </S.Reject>
             <S.RejectButtonDiv>
-              <S.RejectButton>확인</S.RejectButton>
+              <S.RejectButton onClick={handleDeleteVet}>확인</S.RejectButton>
             </S.RejectButtonDiv>
           </S.RejectCard>
         </S.Modal>

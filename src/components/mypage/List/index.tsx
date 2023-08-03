@@ -6,17 +6,18 @@ import { Link } from 'react-router-dom';
 import Pagination from '../../commons/Pagination/index.tsx';
 import { useGetUserPostQuery } from '../../../hooks/query/useGetUserPostQuery.ts';
 
-const formatDate = dateString => {
+const formatDate = (dateString: any) => {
   const date = new Date(dateString);
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const options: any = { year: 'numeric', month: '2-digit', day: '2-digit' };
   return date.toLocaleDateString('en-US', options).split('/').reverse().join('/');
 };
 
 const List = () => {
   const { data: postList } = useGetUserPostQuery();
+  console.log(postList);
   const postsPerPage = 10;
-  const totalPosts = postList?.data?.length;
-  const totalPages = Math.ceil(totalPosts / postsPerPage);
+  const totalPosts: any = postList?.data?.length;
+  const totalPages: number | undefined = Math.ceil(totalPosts / postsPerPage);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -24,11 +25,15 @@ const List = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = postList?.data?.slice(indexOfFirstPost, indexOfLastPost);
 
+  if (!currentPosts) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <S.Wrap>
       <S.List>
         {currentPosts.map(post => (
-          <Link to={ROUTE.FREEDETAIL.path} key={post.id}>
+          <Link to={`${ROUTE.FREEDETAIL.link}/${post.id}`} key={post.id}>
             <S.Post>
               <S.LeftDiv>
                 <S.PostHeader>{post.title}</S.PostHeader>
