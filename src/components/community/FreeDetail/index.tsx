@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import * as S from './style';
 import { BiHeart } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
@@ -8,6 +8,8 @@ import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import SideLayout from '../../layout/SideBar.tsx';
 import { useGetPostsDetailQuery } from '../../../hooks/query/useGetPostsDetailQuery.ts';
 import { useDeletePostMutation } from '../../../hooks/query/useDeletePostMutation.ts';
+import { useReportMutation } from '../../../hooks/query/useReportMutation.ts';
+import Swal from 'sweetalert2';
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
   const options: any = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -15,13 +17,18 @@ const formatDate = (dateString: any) => {
 };
 
 const FreeDetail = () => {
+  const { postId } = useParams<{ postId: any }>();
+
   const [modal, setModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [deleteComment, setDeleteComment] = useState(false);
   const [deletePost, setDeletePost] = useState(false);
-  const { postId } = useParams<{ postId: any }>();
+  const [reason, setReason] = useState('');
+
+  console.log(reason);
 
   const { data: post } = useGetPostsDetailQuery(postId);
+  const { mutate: reportMutate } = useReportMutation();
   const postMutation = useDeletePostMutation(postId);
   const deletePostMutation = postMutation.mutate;
 
@@ -57,6 +64,10 @@ const FreeDetail = () => {
     setDeletePost(false);
   };
 
+  const onChangeReason = (e: ChangeEvent<HTMLSelectElement>) => {
+    setReason(e.target.value);
+  };
+
   const getCurrentUserEmail = () => {
     // localStorage에서 'email' 키로 저장된 값을 가져옵니다.
     const userEmail = localStorage.getItem('email');
@@ -78,6 +89,27 @@ const FreeDetail = () => {
   const handleDeleteMyPost = () => {
     deletePostMutation();
     window.history.back();
+  };
+
+  const handleReport = () => {
+    if (reason) {
+      reportMutate(
+        {
+          reason
+        },
+        {
+          onSuccess: () => {
+            Swal.fire('해당 게시글이 신고되었습니다.');
+            closeModal();
+          },
+          onError: (err: any) => {
+            Swal.fire(err.response.data.error);
+          }
+        }
+      );
+    } else {
+      Swal.fire('신고 항목을 선택해주세요.');
+    }
   };
 
   const currentUserEmail = getCurrentUserEmail();
@@ -170,17 +202,18 @@ const FreeDetail = () => {
           <S.Card>
             <S.Reason>신고사유</S.Reason>
             <S.ReasonDiv>
-              <S.ReasonBox>
-                <S.ReasonOption value="">홍보/상업성</S.ReasonOption>
-                <S.ReasonOption value="학생">스팸</S.ReasonOption>
-                <S.ReasonOption value="회사원">욕설/인신공격</S.ReasonOption>
-                <S.ReasonOption value="기타">음란/선정성</S.ReasonOption>
-                <S.ReasonOption value="기타">불법정보</S.ReasonOption>
-                <S.ReasonOption value="기타">개인정보 노출</S.ReasonOption>
+              <S.ReasonBox onChange={onChangeReason}>
+                <S.ReasonOption value="">항목을 선택해주세요.</S.ReasonOption>
+                <S.ReasonOption value="홍보/상업성">홍보/상업성</S.ReasonOption>
+                <S.ReasonOption value="스팸">스팸</S.ReasonOption>
+                <S.ReasonOption value="욕설/인신공격">욕설/인신공격</S.ReasonOption>
+                <S.ReasonOption value="음란/선정성">음란/선정성</S.ReasonOption>
+                <S.ReasonOption value="불법정보">불법정보</S.ReasonOption>
+                <S.ReasonOption value="개인정보 노출">개인정보 노출</S.ReasonOption>
               </S.ReasonBox>
             </S.ReasonDiv>
             <S.ButtonDiv>
-              <S.BlueButton>확인</S.BlueButton>
+              <S.BlueButton onClick={handleReport}>확인</S.BlueButton>
               <S.RedButton onClick={closeModal}>취소</S.RedButton>
             </S.ButtonDiv>
           </S.Card>
