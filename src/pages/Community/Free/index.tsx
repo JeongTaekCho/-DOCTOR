@@ -75,7 +75,7 @@ const Free = () => {
                       <S.PostHeader>{post.title}</S.PostHeader>
                       <S.PostUser>
                         <BiUser size="15" />
-                        {'작성자 들어갈건데 API수정 후 수정할 예정'}
+                        {post?.users?.nickname}
                         <S.PostDate>{post?.created_at.slice(0, 10)}</S.PostDate>
                       </S.PostUser>
                     </S.LeftDiv>
