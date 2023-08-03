@@ -2,7 +2,7 @@ import React from 'react';
 import { LayoutRouteProps } from 'react-router-dom';
 import { styled } from 'styled-components';
 import ProfileImg from '../../../commons/ProfileImg';
-import IdHandleSelect from '../Button/SelectBtn/UserManageBtn';
+import IdHandleSelect from '../SelectBtn/UserManageBtn';
 
 const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
   return (
