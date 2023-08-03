@@ -75,7 +75,7 @@ export const Example = styled.div`
   padding-top: 5%;
 
   @media ${RESPONSIVE.mobile} {
-    margin-top: 40%;
+    margin-top: 16%;
   }
 `;
 
@@ -137,6 +137,7 @@ export const Card = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     top: 40%;
+    width: 50rem;
   }
 `;
 

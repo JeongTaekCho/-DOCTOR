@@ -53,6 +53,10 @@ export const Detail = styled.div`
     margin: auto;
     margin-top: 2rem;
   }
+
+  @media ${RESPONSIVE.tablet} {
+    width: 50rem;
+  }
 `;
 
 export const LabelDiv = styled.div`
@@ -212,6 +216,10 @@ export const Card = styled.div`
   @media ${RESPONSIVE.mobile} {
     top: 40%;
   }
+
+  @media ${RESPONSIVE.mobile} {
+    width: 50rem;
+  }
 `;
 
 export const RejectCard = styled.div`
@@ -272,6 +280,10 @@ export const CenteredText = styled.div`
 export const InputDiv = styled.div`
   display: flex;
   align-items: center;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 80%;
+  }
 `;
 
 export const FileInput = styled.input`
