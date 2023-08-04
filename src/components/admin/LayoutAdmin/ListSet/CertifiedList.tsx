@@ -3,8 +3,14 @@ import styled from 'styled-components';
 import ProfileImg from '../../../commons/ProfileImg';
 import ReportHandleSelect from '../SelectBtn/CertifiedManageBtn';
 import Modal from '../PageLayout/Modal';
+import { VetAuthListResponse } from '../../../../hooks/query/useGetVetAuthListQuery';
 
-const CertifiedListLayout = () => {
+interface UserProps {
+  user: VetAuthListResponse;
+  activeTab: boolean;
+}
+
+const CertifiedListLayout = ({ user, activeTab }: UserProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
@@ -12,12 +18,12 @@ const CertifiedListLayout = () => {
     <Wrap>
       <ListOfLists>
         <ReportProfile>
-          <ProfileImg w="6rem" h="6rem" src="/images/commons/kkam.png" />
-          <ReportPrifileId></ReportPrifileId>
+          <ProfileImg w="6rem" h="6rem" src={user?.img_path || '/images/commons/kkam.png'} />
+          <ReportPrifileId>{user?.user_email}</ReportPrifileId>
         </ReportProfile>
-        <ReportN></ReportN>
+        <ReportN>{user?.created_at}</ReportN>
         <ReportDetailN>
-          <ReportPostN></ReportPostN>
+          <ReportPostN>{activeTab ? user?.updated_at : ''}</ReportPostN>
         </ReportDetailN>
         <ReportContent>
           <ReportContentListSet onClick={handleOpenModal}>제출자료보기</ReportContentListSet>

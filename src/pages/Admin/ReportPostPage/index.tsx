@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import * as S from './style';
-import AdminLayout from '../../LayoutAdmin/PageLayout/NavbarAdmin';
-import ListOfLists from '../../LayoutAdmin/ListSet/ReportList';
+import AdminLayout from '../../../components/admin/LayoutAdmin/PageLayout/NavbarAdmin';
+
 const AdminReportPostPage = () => {
   const [activeTab, setActiveTab] = useState('waiting');
 
@@ -20,7 +20,7 @@ const AdminReportPostPage = () => {
         <S.Content>
           <S.Container>
             <S.ContentTitle>
-              <S.CTitleName>신고 접수 - 댓글 신고</S.CTitleName>
+              <S.CTitleName>신고 접수 - 게시글 신고</S.CTitleName>
             </S.ContentTitle>
             <S.PageNation>
               <S.PageNationBtn>
@@ -51,7 +51,7 @@ const AdminReportPostPage = () => {
               </S.ListRowName>
               <S.ContentNationBar></S.ContentNationBar>
               <S.ListContentWrap>
-                <ListOfLists></ListOfLists>
+                <S.ListOfLists></S.ListOfLists>
               </S.ListContentWrap>
             </S.ReportList>
           </S.Container>

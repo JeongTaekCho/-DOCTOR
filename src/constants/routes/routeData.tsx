@@ -8,13 +8,14 @@ import ChatDetail from '../../pages/ChatDetail';
 import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
 import HospitalPage from '../../pages/Hospital';
-import AdminReportPostPage from '../../components/admin/PagesAdmin/ReportPostPage';
-import AdminReportCommentPage from '../../components/admin/PagesAdmin/ReportCommentPage';
-import AdminCertifiedPage from '../../components/admin/PagesAdmin/CertifiedPage';
-import AdminUserInfoPage from '../../components/admin/PagesAdmin/UserInfoPage';
+
 import FreeDetail from '../../components/community/FreeDetail';
 import Free from '../../pages/Community/Free';
 import Info from '../../pages/Community/Info';
+import AdminReportPostPage from '../../pages/Admin/ReportPostPage';
+import AdminReportCommentPage from '../../pages/Admin/ReportCommentPage';
+import AdminUserInfoPage from '../../pages/Admin/UserInfoPage';
+import AdminCertifiedPage from '../../pages/Admin/CertifiedPage';
 
 interface Route {
   id: number;

@@ -161,7 +161,7 @@ export const PageNationBtn = styled.div`
 export const PageNationBox = styled.div`
   display: flex;
 `;
-export const WaitingReportBtn = styled.button<{ active: boolean }>`
+export const WaitingReportBtn = styled.button`
   // '인증 대기 목록'
   display: flex;
   justify-content: center;
@@ -187,7 +187,7 @@ export const WaitingReportBtn = styled.button<{ active: boolean }>`
   }
 `;
 
-export const TreatReportBtn = styled.button<{ active: boolean }>`
+export const TreatReportBtn = styled.button`
   // '인증 진행 목록'
   display: flex;
   justify-content: center;
@@ -237,16 +237,9 @@ export const TreatReportBtn = styled.button<{ active: boolean }>`
 //   }
 // `;
 
-export const PageNationBar = styled.div<{ activeTab: string }>`
+export const PageNationBar = styled.div<{ activeTab: boolean }>`
   width: 100%;
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
-  background-color: ${props => {
-    switch (props.activeTab) {
-      case 'waiting':
-        return '#4e2bf5';
-      default:
-        return '#ac9bfa';
-    }
-  }};
+  background-color: ${({ activeTab }) => (activeTab ? '#ac9bfa' : '#4e2bf5')};
 `;
