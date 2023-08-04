@@ -99,7 +99,8 @@ const AdminUserInfoPage = () => {
                 <S.ReportWarnList>이메일</S.ReportWarnList>
                 <S.ReportAccrueList>닉네임</S.ReportAccrueList>
                 <S.ReportDetailList>가입 일자</S.ReportDetailList>
-                <S.ReportHandleList>계정 상태 및 처리</S.ReportHandleList>
+                <S.ReportHandleList>계정 상태</S.ReportHandleList>
+                <S.ReportHandleList>상태 변경</S.ReportHandleList>
               </S.ListRowName>
               <S.ContentNationBar></S.ContentNationBar>
               <S.ListContentWrap>

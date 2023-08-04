@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { styled } from 'styled-components';
-import IdHandleSelect from '../SelectBtn/UserManageBtn';
 import { AdminUserData } from '../../../../pages/Admin/UserInfoPage/types';
+import { useChangeUserStatusMutation } from '../../../../hooks/query/useChangeUserStatusMutation';
+import Swal from 'sweetalert2';
+
+const OPTIONS = [
+  { value: '', name: '선택해주세요.' },
+  { value: 'WeekSuspension', name: '2주 정지' },
+  { value: 'ForeverSuspension', name: '영구 정지' },
+  { value: 'resistor', name: '강제 탈퇴' },
+  { value: 'releaseStop', name: '정지 해제' }
+];
 
 interface UserProps {
   user: AdminUserData;
@@ -9,6 +18,65 @@ interface UserProps {
 }
 
 const UserInfoList = ({ user, index }: UserProps) => {
+  const { mutate } = useChangeUserStatusMutation();
+
+  const handleChangeStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+
+    if (value === 'WeekSuspension') {
+      console.log(user?.email);
+
+      mutate(
+        {
+          email: user?.email,
+          blocked: 'true'
+        },
+        {
+          onSuccess: () => {
+            Swal.fire('계정상태가 변경되었습니다.');
+          }
+        }
+      );
+    } else if (value === 'ForeverSuspension') {
+      console.log(user?.email);
+      mutate(
+        {
+          email: user?.email,
+          blocked: 'permanent'
+        },
+        {
+          onSuccess: () => {
+            Swal.fire('계정상태가 변경되었습니다.');
+          }
+        }
+      );
+    } else if (value === 'resistor') {
+      mutate(
+        {
+          email: user?.email,
+          deleted: 'true'
+        },
+        {
+          onSuccess: () => {
+            Swal.fire('계정상태가 변경되었습니다.');
+          }
+        }
+      );
+    } else if (value === 'releaseStop') {
+      mutate(
+        {
+          email: user?.email,
+          blocked: 'false'
+        },
+        {
+          onSuccess: () => {
+            Swal.fire('계정상태가 변경되었습니다.');
+          }
+        }
+      );
+    }
+  };
+
   return (
     <Wrap>
       <ListOfLists>
@@ -17,13 +85,20 @@ const UserInfoList = ({ user, index }: UserProps) => {
           <ReportPrifileId>{user?.email}</ReportPrifileId>
         </ReportProfile>
         <ReportDetail>{user?.nickname}</ReportDetail>
-
         <ReportDate>{user?.created_at}</ReportDate>
+        <ReportDate>정상</ReportDate>
         <ReportHandle>
-          <IdHandleSelect></IdHandleSelect>
-          <IdState>2주 정지</IdState> {/* //D-day되도록 바꿔야 함 */}
+          <IdHandleSelect onChange={handleChangeStatus}>
+            {OPTIONS.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.name}
+              </option>
+            ))}
+          </IdHandleSelect>
+          <StatusChangeBtn>계정 상태 변경</StatusChangeBtn>
         </ReportHandle>
       </ListOfLists>
+      <StatusChangeModal></StatusChangeModal>
     </Wrap>
   );
 };
@@ -63,8 +138,6 @@ const ReportPrifileId = styled.div`
   font-weight: 600;
   color: #252733;
 `;
-const IdState = styled.div``;
-//-------------------------------------
 //-------------------------------------
 const ReportComment = styled.div`
   // '신고된 글 제목..'
@@ -86,4 +159,35 @@ const ReportHandle = styled.div`
   width: 20%;
   display: flex;
   align-items: center;
+`;
+
+const IdHandleSelect = styled.select`
+  display: block;
+  width: 60%;
+  padding: 0.7rem;
+  background-color: ${props => props.color || '#4e2bf5'};
+  border-radius: 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 0;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+`;
+const StatusChangeBtn = styled.button`
+  width: 60%;
+  padding: 0.7rem;
+  background-color: #4e2bf5;
+  border-radius: 30px;
+  color: white;
+`;
+
+const StatusChangeModal = styled.div`
+  width: 400px;
+  padding: 40px;
+  background-color: #fff;
 `;
