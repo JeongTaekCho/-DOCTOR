@@ -35,8 +35,7 @@ export const ReportList = styled.div`
 export const ListSet = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
-  flex-direction: row-reverse;
+  justify-content: space-between;
   color: #344054;
   font-weight: bold;
   font-size: 1.2rem;
@@ -47,10 +46,11 @@ export const ListOrder = styled.div`
   width: 15%;
 `;
 export const ListOrder2 = styled.div`
-  // '▼ 처리 내용 순' / '▼ 신고 건수 순'
-  width: 15%;
-  display: flex;
-  align-content: flex-end;
+  input {
+    width: 300px;
+    padding: 0.5rem;
+    border-radius: 6px;
+  }
 `;
 
 export const ListRowName = styled.div`
@@ -216,16 +216,25 @@ export const TreatReportBtn = styled(Link)`
   }
 `;
 
-export const PageNationBar = styled.div<{ activeTab: string }>`
+export const PageNationBar = styled.div`
   width: 100%;
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
-  background-color: ${props => {
-    switch (props.activeTab) {
-      case 'waiting':
-        return '#344054';
-      default:
-        return '#667085';
-    }
-  }};
+  background-color: #344054;
+`;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const SelectBox = styled.select`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
 `;

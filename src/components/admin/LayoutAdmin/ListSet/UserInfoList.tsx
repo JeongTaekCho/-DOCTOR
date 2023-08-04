@@ -1,32 +1,34 @@
 import React from 'react';
-import { LayoutRouteProps } from 'react-router-dom';
 import { styled } from 'styled-components';
-import ProfileImg from '../../../commons/ProfileImg';
 import IdHandleSelect from '../SelectBtn/UserManageBtn';
+import { AdminUserData } from '../../../../pages/Admin/UserInfoPage/types';
 
-const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
+interface UserProps {
+  user: AdminUserData;
+  index: number;
+}
+
+const UserInfoList = ({ user, index }: UserProps) => {
   return (
     <Wrap>
       <ListOfLists>
-        <ReportComment>1</ReportComment>
+        <ReportComment>{index + 1}</ReportComment>
         <ReportProfile>
-          <ProfileImg w="4rem" h="4rem" src="/images/commons/kkam.png" />
-          <ReportPrifileId>jaklsjff@naver.com</ReportPrifileId>
+          <ReportPrifileId>{user?.email}</ReportPrifileId>
         </ReportProfile>
-        <ReportDetail>닉네임123</ReportDetail>
+        <ReportDetail>{user?.nickname}</ReportDetail>
 
-        <ReportDate>2023-07-05</ReportDate>
+        <ReportDate>{user?.created_at}</ReportDate>
         <ReportHandle>
           <IdHandleSelect></IdHandleSelect>
           <IdState>2주 정지</IdState> {/* //D-day되도록 바꿔야 함 */}
         </ReportHandle>
       </ListOfLists>
-      {children}
     </Wrap>
   );
 };
 
-export default CertifiedListLayout;
+export default UserInfoList;
 
 const Wrap = styled.div`
   display: flex;
