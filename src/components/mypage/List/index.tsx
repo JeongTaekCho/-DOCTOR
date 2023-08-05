@@ -5,12 +5,7 @@ import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import { Link } from 'react-router-dom';
 import Pagination from '../../commons/Pagination/index.tsx';
 import { useGetUserPostQuery } from '../../../hooks/query/useGetUserPostQuery.ts';
-
-const formatDate = (dateString: any) => {
-  const date = new Date(dateString);
-  const options: any = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  return date.toLocaleDateString('en-US', options).split('/').reverse().join('/');
-};
+import { formatDate } from '../../../util/formatDate.ts';
 
 const List = () => {
   const { data: postList } = useGetUserPostQuery();

@@ -9,7 +9,6 @@ const AdminCertifiedPage = () => {
   const [activeTab, setActiveTab] = useState(false);
 
   const { data, refetch } = useGetVetAuthListQuery(activeTab ? 'accepted' : 'pending');
-  console.log(data);
 
   const handleClickBtn1 = () => {
     setActiveTab(false);

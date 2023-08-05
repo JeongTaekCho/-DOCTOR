@@ -25,8 +25,6 @@ const FreeDetail = () => {
   const [deletePost, setDeletePost] = useState(false);
   const [reason, setReason] = useState('');
 
-  console.log(reason);
-
   const { data: post } = useGetPostsDetailQuery(postId);
   const { mutate: reportMutate } = useReportMutation();
   const postMutation = useDeletePostMutation(postId);

@@ -26,7 +26,6 @@ const SelectBox = (props: Props) => {
   const [selectedValue, setSelectedValue] = useState(props.defaultValue);
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
-    console.log(e.target.value);
   };
 
   return (

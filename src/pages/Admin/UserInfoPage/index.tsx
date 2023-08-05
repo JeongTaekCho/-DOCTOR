@@ -25,9 +25,6 @@ const AdminUserInfoPage = () => {
 
   const adminUserList = adminUserData ? adminUserData.pages.flatMap(page => page.data) : [];
 
-  console.log(userRole, order, blocked);
-  console.log(adminUserData);
-
   // 검색어 입력 핸들러
   const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -110,7 +107,12 @@ const AdminUserInfoPage = () => {
                   loader={<Loading />}
                 >
                   {adminUserList?.map((user, index) => (
-                    <UserInfoList key={user.email + index} user={user} index={index} />
+                    <UserInfoList
+                      key={user.email + index}
+                      user={user}
+                      index={index}
+                      adminUserRefetch={adminUserRefetch}
+                    />
                   ))}
                 </InfiniteScroll>
               </S.ListContentWrap>
