@@ -36,8 +36,6 @@ const FreeDetail = () => {
 
   const { data: post, refetch } = useGetPostsDetailQuery(postId);
 
-
-  const { mutate: reportMutate } = useReportMutation();
   const postMutation = useDeletePostMutation(postId);
   const deletePostMutation = postMutation.mutate;
   const { mutate: reportPost } = useReportPostMutation();
