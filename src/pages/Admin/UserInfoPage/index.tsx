@@ -12,7 +12,7 @@ const AdminUserInfoPage = () => {
   const [search, setSearch] = useState('');
   const [userRole, setUserRole] = useState('');
   const [order, setOrder] = useState('desc');
-  const [blocked, setBlocked] = useState('false');
+  const [status, setStatus] = useState('');
 
   const debounceSearch = useDebounce(search, 500);
 
@@ -21,7 +21,7 @@ const AdminUserInfoPage = () => {
     refetch: adminUserRefetch,
     fetchNextPage,
     hasNextPage
-  } = useGetAdminUserListInfinityQuery(debounceSearch, userRole, order, blocked);
+  } = useGetAdminUserListInfinityQuery(debounceSearch, userRole, order, status);
 
   const adminUserList = adminUserData ? adminUserData.pages.flatMap(page => page.data) : [];
 
@@ -41,13 +41,13 @@ const AdminUserInfoPage = () => {
   };
 
   const handleChangeBlocked = (e: ChangeEvent<HTMLSelectElement>) => {
-    setBlocked(e.target.value);
+    setStatus(e.target.value);
     adminUserRefetch();
   };
 
   useEffect(() => {
     adminUserRefetch();
-  }, [debounceSearch, userRole, order, blocked]);
+  }, [debounceSearch, userRole, order, status]);
 
   return (
     <AdminLayout>
@@ -78,8 +78,9 @@ const AdminUserInfoPage = () => {
                     <option value="asc">오래된 순 ▼</option>
                   </S.SelectBox>
                   <S.SelectBox onChange={handleChangeBlocked}>
-                    <option value="false">정상 ▼</option>
-                    <option value="true">정지 ▼</option>
+                    <option value="">정상 ▼</option>
+                    <option value="blocked">정지 ▼</option>
+                    <option value="deleted">탈퇴 ▼</option>
                   </S.SelectBox>
                 </S.SelectContainer>
                 <S.ListOrder2>
