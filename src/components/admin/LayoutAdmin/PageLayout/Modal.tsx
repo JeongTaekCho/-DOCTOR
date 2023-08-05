@@ -38,6 +38,8 @@ const ModalBody = styled.div`
   font-size: 1rem;
   line-height: 1.5;
   color: #333;
+  display: flex;
+  justify-content: center;
 `;
 
 const ModalFooter = styled.div`
@@ -45,7 +47,7 @@ const ModalFooter = styled.div`
   justify-content: flex-end;
   margin-top: 20px;
 `;
-
+ 
 const ModalCloseButton = styled.button`
   background-color: transparent;
   border: none;
@@ -61,6 +63,10 @@ const ModalCloseButton = styled.button`
   }
 `;
 
+const ModalImage = styled.img`
+  max-width: 60%;
+`;
+
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, content }) => {
   if (!isOpen) {
     return null; // 모달이 닫혀있을 때는 아무것도 렌더링하지 않음
@@ -70,9 +76,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, content }) => {
     <ModalOverlay>
       <ModalContent>
         <ModalTitle>{title}</ModalTitle>
-        <ModalBody>{content}</ModalBody>
+        <ModalBody>
+          <ModalImage src={content} alt="Vet License" />
+        </ModalBody>
         <ModalFooter>
-          fied2.png
           <ModalCloseButton onClick={onClose}>Close</ModalCloseButton>
         </ModalFooter>
       </ModalContent>

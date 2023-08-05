@@ -4,6 +4,7 @@ import ProfileImg from '../../../commons/ProfileImg';
 import ReportHandleSelect from '../SelectBtn/CertifiedManageBtn';
 import Modal from '../PageLayout/Modal';
 import { VetAuthListResponse } from '../../../../hooks/query/useGetVetAuthListQuery';
+import { formatDate } from '../../../../util/formatDate';
 
 interface UserProps {
   user: VetAuthListResponse;
@@ -21,7 +22,7 @@ const CertifiedListLayout = ({ user, activeTab }: UserProps) => {
           <ProfileImg w="6rem" h="6rem" src={user?.img_path || '/images/commons/kkam.png'} />
           <ReportPrifileId>{user?.user_email}</ReportPrifileId>
         </ReportProfile>
-        <ReportN>{user?.created_at}</ReportN>
+        <ReportN>{formatDate(user?.created_at)}</ReportN>
         <ReportDetailN>
           <ReportPostN>{activeTab ? user?.updated_at : ''}</ReportPostN>
         </ReportDetailN>
@@ -33,7 +34,12 @@ const CertifiedListLayout = ({ user, activeTab }: UserProps) => {
         </ReportHandle>
       </ListOfLists>
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="제출자료" content="이미지" />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title="수의사 면허증 자료 제출"
+        content={user?.img_path || '../../../../../public/images/commons/VetLicense.png'}
+      />
     </Wrap>
   );
 };

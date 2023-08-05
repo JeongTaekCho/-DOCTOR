@@ -43,6 +43,7 @@ const AdminCertifiedPage = () => {
             </S.PageNation>
             <S.ReportList>
               <S.ListSet>
+                {/*  */}
                 <S.ListOrder>▼ 오래된 순</S.ListOrder>
                 <S.ListOrder>▼ 최신 순</S.ListOrder>
                 <S.ListOrder>▼ 처리 상태 순</S.ListOrder>
