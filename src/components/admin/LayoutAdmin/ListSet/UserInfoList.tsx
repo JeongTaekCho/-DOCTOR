@@ -89,35 +89,38 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
           }
         );
       } else if (selectValue === 'releaseStop') {
-        mutate(
-          {
-            email: user?.email,
-            blocked: 'false'
-          },
-          {
-            onSuccess: () => {
-              Swal.fire('계정상태가 변경되었습니다.');
-              setIsModal(false);
-              adminUserRefetch();
+        if (user?.blocked_at) {
+          mutate(
+            {
+              email: user?.email,
+              blocked: 'false'
             },
-            onError: (err: any) => {
-              Swal.fire(err.response.data.error);
+            {
+              onSuccess: () => {
+                Swal.fire('계정상태가 변경되었습니다.');
+                setIsModal(false);
+                adminUserRefetch();
+              },
+              onError: (err: any) => {
+                Swal.fire(err.response.data.error);
+              }
             }
-          }
-        );
+          );
+        } else {
+          Swal.fire('정상인 계정입니다.');
+        }
       }
     } else {
       Swal.fire('항목을 선택해주세요.');
     }
   };
 
-  const userStatus = !user?.blocked_at ? (
-    <p>정상</p>
-  ) : calculateRemainingDays(user?.blocked_at) < 9999 ? (
-    <p className="textColor">정지</p>
-  ) : (
-    <p className="textColor">영구정지</p>
-  );
+  const userStatus =
+    calculateRemainingDays(user?.blocked_at) < 9999 ? (
+      <p className="textColor">정지</p>
+    ) : (
+      <p className="textColor">영구정지</p>
+    );
 
   const remainingDate =
     calculateRemainingDays(user?.blocked_at) > 0 &&
@@ -135,12 +138,18 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
         <ReportDetail>{user?.nickname}</ReportDetail>
         <ReportDate>{formatDate(user?.created_at)}</ReportDate>
         <DateBox>
-          {userStatus}
+          {!user?.blocked_at && !user?.deleted_at && <p>정상</p>}
+          {user?.blocked_at && userStatus}
+          {user?.deleted_at && <p className="textColor">강제 탈퇴</p>}
           {remainingDate}
         </DateBox>
-        <ReportHandle>
-          <StatusChangeBtn onClick={toggleModal}>계정 상태 변경</StatusChangeBtn>
-        </ReportHandle>
+        {!user?.deleted_at ? (
+          <ReportHandle>
+            <StatusChangeBtn onClick={toggleModal}>계정 상태 변경</StatusChangeBtn>
+          </ReportHandle>
+        ) : (
+          <ReportHandle></ReportHandle>
+        )}
       </ListOfLists>
       {isModal && (
         <ModalWrap>
