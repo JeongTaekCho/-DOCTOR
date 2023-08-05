@@ -23,32 +23,34 @@ export const Container = styled.div`
 `;
 
 export const ChatLeftBox = styled.div`
-  width: 320px;
-  height: 600px;
+  width: 80%;
+  margin: 0 auto;
+  height: 750px;
   border-radius: 0.6rem;
   background-color: ${STYLE.mainColor};
 
+  &.active {
+    display: none;
+  }
   @media (max-width: 920px) {
     width: 100%;
-
-    &.active {
-      display: none;
-    }
   }
 `;
 
 export const CharRightBox = styled.div`
-  width: 540px;
-  height: 600px;
+  width: 80%;
+  margin: 0 auto;
+  height: 650px;
   border-radius: 0.6rem;
   background-color: #fff;
 
-  @media (max-width: 920px) {
-    display: none;
+  display: none;
 
-    &.active {
-      display: block;
-    }
+  &.active {
+    display: block;
+  }
+  @media (max-width: 920px) {
+    width: 100%;
   }
 `;
 
@@ -60,7 +62,7 @@ export const ChatListNav = styled.ul`
 
   li {
     width: 50%;
-
+    position: relative;
     &.selected {
       &::after {
         display: block;
@@ -149,7 +151,7 @@ export const ChatDetailBox = styled.div`
   flex-direction: column;
   gap: 3.5rem;
   width: 100%;
-  height: 420px;
+  height: 500px;
   background-color: #fff;
   padding: 4rem 1.8rem 0 1.8rem;
   overflow-y: auto;
@@ -203,20 +205,12 @@ export const SendBtn = styled.button`
 `;
 
 export const HeadBtnBox = styled.div`
-  @media (max-width: 920px) {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
 `;
 
-export const BackBtn = styled.button`
-  display: none;
-
-  @media (max-width: 920px) {
-    display: block;
-  }
-`;
+export const BackBtn = styled.button``;
 
 export const ProfileContent = styled.div`
   display: flex;

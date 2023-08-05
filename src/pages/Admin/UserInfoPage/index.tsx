@@ -69,18 +69,18 @@ const AdminUserInfoPage = () => {
               <S.ListSet>
                 <S.SelectContainer>
                   <S.SelectBox onChange={handleChangeRole}>
-                    <option value="">전체 유저 ▼</option>
+                    <option value="">구분(전체) ▼</option>
                     <option value="user">일반 유저 ▼</option>
                     <option value="vet">수의사 유저 ▼</option>
+                  </S.SelectBox>
+                  <S.SelectBox onChange={handleChangeBlocked}>
+                    <option value="">상태(전체) ▼</option>
+                    <option value="blocked">정지 ▼</option>
+                    <option value="deleted">탈퇴 ▼</option>
                   </S.SelectBox>
                   <S.SelectBox onChange={handleChangeOrder}>
                     <option value="desc">최신 순 ▼</option>
                     <option value="asc">오래된 순 ▼</option>
-                  </S.SelectBox>
-                  <S.SelectBox onChange={handleChangeBlocked}>
-                    <option value="">정상 ▼</option>
-                    <option value="blocked">정지 ▼</option>
-                    <option value="deleted">탈퇴 ▼</option>
                   </S.SelectBox>
                 </S.SelectContainer>
                 <S.ListOrder2>
