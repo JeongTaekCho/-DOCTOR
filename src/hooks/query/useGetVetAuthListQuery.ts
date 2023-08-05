@@ -18,7 +18,6 @@ export interface VetAuthListResponse {
 }
 
 const getVetAuthList = async (status: string): Promise<VetAuthListResponse[]> => {
-  console.log(status);
   const result = await API.get<{ data: VetAuthListResponse[] }>(
     `/admins/vet-requests?status=${status}&`
   );

@@ -60,7 +60,6 @@ export const ChatListNav = styled.ul`
 
   li {
     width: 50%;
-    position: relative;
 
     &.selected {
       &::after {
