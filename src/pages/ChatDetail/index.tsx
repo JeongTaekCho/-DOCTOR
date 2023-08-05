@@ -18,6 +18,7 @@ import { useAtomValue } from 'jotai';
 import MyChat from '../../components/chats/MyChat';
 import OtherChat from '../../components/chats/OtherChat';
 import { useChatChangeStatusMutation } from '../../hooks/query/useChatChangeStatusMutation';
+import { useChatExitMutation } from '../../hooks/query/useChatExitMutation';
 
 const ChatDetail = () => {
   const auth = useAtomValue(tokenAtom);
@@ -36,7 +37,8 @@ const ChatDetail = () => {
 
   const { data: userData } = useGetUsersQuery();
   const { data: chatContents, refetch: chatContentRefetch } = useGetChatConentsQuery(chatId);
-  const { mutate } = useChatChangeStatusMutation();
+  const { mutate: chatChangeMutate } = useChatChangeStatusMutation();
+  const { mutate: chatExitMutate } = useChatExitMutation(chatId);
 
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
 
@@ -102,17 +104,13 @@ const ChatDetail = () => {
   const handleChatExitBtnReview = () => {
     setIsExitModal(false);
 
-    mutate(
-      {
-        id: chatId,
-        status: 'completed'
-      },
-      {
-        onSuccess: () => {
-          setIsReviewModal(true);
-        }
+    chatExitMutate(undefined, {
+      onSuccess: () => {
+        setIsReviewModal(true);
+        chatListRefetch();
+        setIsChatActive(false);
       }
-    );
+    });
   };
 
   const handleChatView = (chatId: number) => () => {
@@ -126,7 +124,7 @@ const ChatDetail = () => {
   };
 
   const handleChatStatusChange = (status: string) => () => {
-    mutate(
+    chatChangeMutate(
       {
         id: chatId,
         status: status
@@ -149,7 +147,7 @@ const ChatDetail = () => {
   };
 
   const handleChatComplete = () => {
-    mutate(
+    chatChangeMutate(
       {
         id: chatId,
         status: 'completed'
