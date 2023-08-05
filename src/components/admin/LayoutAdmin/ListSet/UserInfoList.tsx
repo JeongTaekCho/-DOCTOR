@@ -114,15 +114,15 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
   const userStatus = !user?.blocked_at ? (
     <p>정상</p>
   ) : calculateRemainingDays(user?.blocked_at) < 9999 ? (
-    <p>2주정지</p>
+    <p className="textColor">정지</p>
   ) : (
-    <p>영구정지</p>
+    <p className="textColor">영구정지</p>
   );
 
   const remainingDate =
     calculateRemainingDays(user?.blocked_at) > 0 &&
     calculateRemainingDays(user?.blocked_at) < 9999 ? (
-      <p>D - {calculateRemainingDays(user?.blocked_at)}</p>
+      <p className="mainFontColor">D - {calculateRemainingDays(user?.blocked_at)}</p>
     ) : null;
 
   return (
@@ -215,6 +215,17 @@ const DateBox = styled.div`
   width: 20%;
 
   p {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: ${STYLE.mainColor};
+
+    &.textColor {
+      color: #e80f0f;
+    }
+    &.mainFontColor {
+      color: ${STYLE.mainFontColor};
+    }
+
     &:last-child {
       margin-top: 1rem;
     }
