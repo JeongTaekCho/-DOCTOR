@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, MouseEvent } from 'react';
 import * as S from './style';
 import { BiHeart } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
@@ -8,27 +8,42 @@ import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import SideLayout from '../../layout/SideBar.tsx';
 import { useGetPostsDetailQuery } from '../../../hooks/query/useGetPostsDetailQuery.ts';
 import { useDeletePostMutation } from '../../../hooks/query/useDeletePostMutation.ts';
-import { useReportMutation } from '../../../hooks/query/useReportMutation.ts';
+
 import Swal from 'sweetalert2';
+import { useChangePostMutation } from '../../../hooks/query/useChangePostMutation.ts';
+import { useReportPostMutation } from '../../../hooks/query/useReportPostMutation.ts';
+import { useRegisterCommentMutation } from '../../../hooks/query/useRegisterCommentMutation.ts';
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
-  const options: any = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  return date.toLocaleDateString('en-US', options).split('/').reverse().join('/');
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
 
 const FreeDetail = () => {
   const { postId } = useParams<{ postId: any }>();
+  const parsedPostId = parseInt(postId, 10);
 
   const [modal, setModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [deleteComment, setDeleteComment] = useState(false);
   const [deletePost, setDeletePost] = useState(false);
   const [reason, setReason] = useState('');
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const [commentBody, setCommentBody] = useState('');
 
-  const { data: post } = useGetPostsDetailQuery(postId);
+  const { data: post, refetch } = useGetPostsDetailQuery(postId);
+
+
   const { mutate: reportMutate } = useReportMutation();
   const postMutation = useDeletePostMutation(postId);
   const deletePostMutation = postMutation.mutate;
+  const { mutate: reportPost } = useReportPostMutation();
+
+  const { mutate: changePost } = useChangePostMutation(postId);
+  const { mutate: registerComment } = useRegisterCommentMutation();
 
   const openModal = () => {
     setModal(true);
@@ -66,6 +81,18 @@ const FreeDetail = () => {
     setReason(e.target.value);
   };
 
+  const onChangeTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const onChangeBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setBody(e.target.value);
+  };
+
+  const onChangeCommentBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setCommentBody(e.target.value);
+  };
+
   const getCurrentUserEmail = () => {
     // localStorage에서 'email' 키로 저장된 값을 가져옵니다.
     const userEmail = localStorage.getItem('email');
@@ -89,29 +116,73 @@ const FreeDetail = () => {
     window.history.back();
   };
 
-  const handleReport = () => {
-    if (reason) {
-      reportMutate(
-        {
-          reason
+  const handleChangePost = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault;
+    changePost(
+      {
+        title,
+        body
+      },
+      {
+        onSuccess: () => {
+          setIsEditing(false);
+          refetch();
+          Swal.fire('게시물 수정이 완료되었습니다');
         },
-        {
-          onSuccess: () => {
-            Swal.fire('해당 게시글이 신고되었습니다.');
-            closeModal();
-          },
-          onError: (err: any) => {
-            Swal.fire(err.response.data.error);
-          }
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
         }
-      );
-    } else {
-      Swal.fire('신고 항목을 선택해주세요.');
-    }
+      }
+    );
+  };
+
+  const handleReportPost = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault;
+    reportPost(
+      {
+        post_id: parsedPostId,
+        reason
+      },
+      {
+        onSuccess: () => {
+          setModal(false);
+          refetch();
+          Swal.fire('신고 완료되었습니다');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
   };
 
   const currentUserEmail = getCurrentUserEmail();
   const isCurrentUserAuthor = currentUserEmail === post?.author_email;
+
+  const handleRegisterComment = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault;
+    registerComment(
+      {
+        post_id: parsedPostId,
+        body: commentBody,
+        group: 0,
+        indent: 0,
+        order: 0,
+        author_email: currentUserEmail
+      },
+      {
+        onSuccess: () => {
+          refetch();
+          Swal.fire('댓글이 작성되었습니다');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
+  // console.log(post?.comments);
 
   return (
     <div style={{ width: '100%' }}>
@@ -123,13 +194,22 @@ const FreeDetail = () => {
           </S.DeletePost>
         )}
         <S.Header>
-          <S.Title>{post?.title}</S.Title>
+          {isEditing ? (
+            <textarea
+              onChange={onChangeTitle}
+              style={{ resize: 'none', width: '75rem', alignItems: 'center', paddingTop: '2rem' }}
+            >
+              {post?.title}
+            </textarea>
+          ) : (
+            <S.Title>{post?.title}</S.Title>
+          )}
           <S.Date>{formatDate(post?.created_at)}</S.Date>
         </S.Header>
         <S.MainDiv>
           <S.MainTextDiv>
             {isEditing ? (
-              <S.MainTextArea>{post?.body}</S.MainTextArea>
+              <S.MainTextArea onChange={onChangeBody}>{post?.body}</S.MainTextArea>
             ) : (
               <S.MainText>{post?.body}</S.MainText>
             )}
@@ -143,7 +223,7 @@ const FreeDetail = () => {
           <S.ReportTextDiv>
             {isEditing ? (
               <div>
-                <S.ConfirmButton>확인</S.ConfirmButton>
+                <S.ConfirmButton onClick={handleChangePost}>확인</S.ConfirmButton>
                 <S.ReportText onClick={handleEditDelete}>취소</S.ReportText>
               </div>
             ) : (
@@ -187,8 +267,8 @@ const FreeDetail = () => {
         <S.Register>
           <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
           <S.InputDiv>
-            <S.Input></S.Input>
-            <S.RegisterButton>등록</S.RegisterButton>
+            <S.Input onChange={onChangeCommentBody}></S.Input>
+            <S.RegisterButton onClick={handleRegisterComment}>등록</S.RegisterButton>
           </S.InputDiv>
         </S.Register>
         <S.ListDiv>
@@ -211,7 +291,7 @@ const FreeDetail = () => {
               </S.ReasonBox>
             </S.ReasonDiv>
             <S.ButtonDiv>
-              <S.BlueButton onClick={handleReport}>확인</S.BlueButton>
+              <S.BlueButton onClick={handleReportPost}>확인</S.BlueButton>
               <S.RedButton onClick={closeModal}>취소</S.RedButton>
             </S.ButtonDiv>
           </S.Card>

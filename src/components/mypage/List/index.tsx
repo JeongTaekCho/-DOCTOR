@@ -5,7 +5,14 @@ import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import { Link } from 'react-router-dom';
 import Pagination from '../../commons/Pagination/index.tsx';
 import { useGetUserPostQuery } from '../../../hooks/query/useGetUserPostQuery.ts';
-import { formatDate } from '../../../util/formatDate.ts';
+
+const formatDate = (dateString: any) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 const List = () => {
   const { data: postList } = useGetUserPostQuery();

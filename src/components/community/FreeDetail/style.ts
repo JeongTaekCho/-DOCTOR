@@ -26,6 +26,7 @@ export const Header = styled.div`
   border-bottom: 2px solid black;
   display: flex;
   justify-content: space-between;
+  padding-right: 1rem;
 `;
 
 export const Title = styled.div`
