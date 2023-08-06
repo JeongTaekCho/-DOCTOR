@@ -3,7 +3,9 @@ import { styled } from 'styled-components';
 
 //-----------------------------------
 //-----------------------------------
-export const Wrap = styled.div``;
+export const Wrap = styled.div`
+  min-height: calc(100vh - 150px);
+`;
 
 export const Container = styled.div`
   width: 93.85%;
