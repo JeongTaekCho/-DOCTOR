@@ -25,7 +25,7 @@ export const Container = styled.div`
 export const ChatLeftBox = styled.div`
   width: 80%;
   margin: 0 auto;
-  height: 750px;
+  height: 75rem;
   border-radius: 0.6rem;
   background-color: ${STYLE.mainColor};
 
@@ -40,7 +40,7 @@ export const ChatLeftBox = styled.div`
 export const CharRightBox = styled.div`
   width: 80%;
   margin: 0 auto;
-  height: 650px;
+  height: 65rem;
   border-radius: 0.6rem;
   background-color: #fff;
 
@@ -151,7 +151,7 @@ export const ChatDetailBox = styled.div`
   flex-direction: column;
   gap: 3.5rem;
   width: 100%;
-  height: 500px;
+  height: 50rem;
   background-color: #fff;
   padding: 4rem 1.8rem 0 1.8rem;
   overflow-y: auto;
