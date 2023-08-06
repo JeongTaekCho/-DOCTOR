@@ -222,12 +222,16 @@ const MyPage = () => {
             </S.TabItem>
           </S.DetailTop>
           <S.MyDetail>
-            {activeTab === 'manage' && <MyManage vetStatus={vetStatus} />}
+            {activeTab === 'manage' && (
+              <>
+                <MyManage vetStatus={vetStatus} />
+                <S.DeleteUser>
+                  <S.DeleteUserP onClick={openDeleteModal}>회원탈퇴</S.DeleteUserP>
+                </S.DeleteUser>
+              </>
+            )}
             {activeTab === 'list' && <List />}
           </S.MyDetail>
-          <S.DeleteUser>
-            <S.DeleteUserP onClick={openDeleteModal}>회원탈퇴</S.DeleteUserP>
-          </S.DeleteUser>
         </S.Detail>
       </S.Container>
       {modal && (

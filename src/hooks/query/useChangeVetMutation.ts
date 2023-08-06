@@ -16,6 +16,5 @@ const changeVet = async (data: ChangeVetData): Promise<ChangeVetReturn> => {
 };
 
 export const useChangeVetMutation = () => {
-  const mutation = useMutation(changeVet);
-  return mutation;
+  return useMutation(changeVet);
 };
