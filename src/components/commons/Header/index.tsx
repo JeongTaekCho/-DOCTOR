@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { Link, useLocation } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
@@ -9,6 +9,7 @@ import { tokenAtom } from '../../../atoms/atoms';
 import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
 import { useAtomValue } from 'jotai';
+import Swal from 'sweetalert2';
 
 const Header = () => {
   const auth = useAtomValue(tokenAtom);
@@ -41,6 +42,17 @@ const Header = () => {
   const handleToggleAlramBtn = () => {
     setIsAlramMenu(prev => !prev);
   };
+
+  useEffect(() => {
+    console.log(userData);
+    if (userData?.user?.deleted_at) {
+      Swal.fire('서비스 이용이 불가능한 계정입니다.');
+
+      setTimeout(() => {
+        handleLogout();
+      }, 3000);
+    }
+  }, [userData]);
 
   return (
     <S.Wrap>
