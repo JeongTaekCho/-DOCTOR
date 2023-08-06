@@ -28,6 +28,7 @@ export const ChatLeftBox = styled.div`
   height: 75rem;
   border-radius: 0.6rem;
   background-color: ${STYLE.mainColor};
+  box-shadow: 0px 2px 0.4rem 2px rgba(0, 0, 0, 0.7);
 
   &.active {
     display: none;
@@ -40,9 +41,10 @@ export const ChatLeftBox = styled.div`
 export const CharRightBox = styled.div`
   width: 80%;
   margin: 0 auto;
-  height: 65rem;
+  height: 67rem;
   border-radius: 0.6rem;
   background-color: #fff;
+  box-shadow: 0px 0px 0.4rem 0px rgba(0, 0, 0, 0.5);
 
   display: none;
 
@@ -206,8 +208,12 @@ export const SendBtn = styled.button`
 
 export const HeadBtnBox = styled.div`
   display: flex;
-  gap: 1.5rem;
+  gap: 2.5rem;
   align-items: center;
+
+  svg {
+    font-size: 2.8rem;
+  }
 `;
 
 export const BackBtn = styled.button``;
