@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import React, { MouseEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import ChatBox from '../../components/chats/ChatBox';
 import ProfileImg from '../../components/commons/ProfileImg';
@@ -19,12 +19,11 @@ import MyChat from '../../components/chats/MyChat';
 import OtherChat from '../../components/chats/OtherChat';
 import { useChatChangeStatusMutation } from '../../hooks/query/useChatChangeStatusMutation';
 import { useChatExitMutation } from '../../hooks/query/useChatExitMutation';
+import { useChatReviewMutation } from '../../hooks/query/useChatReviewMutation';
 
 const ChatDetail = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
-
-  const { data: chatList, refetch: chatListRefetch } = useGetChatListQuery();
 
   const [isNav, setIsNav] = useState(true);
   const [isExitModal, setIsExitModal] = useState(false);
@@ -34,11 +33,15 @@ const ChatDetail = () => {
   const [chatId, setChatId] = useState<number | undefined>(9999);
   const [messages, setMessages] = useState<ChatContent[] | undefined>([]);
   const [message, setMessage] = useState('');
+  const [grade, setGrade] = useState(3);
 
   const { data: userData } = useGetUsersQuery();
   const { data: chatContents, refetch: chatContentRefetch } = useGetChatConentsQuery(chatId);
+  const { data: chatList, refetch: chatListRefetch } = useGetChatListQuery();
+
   const { mutate: chatChangeMutate } = useChatChangeStatusMutation();
   const { mutate: chatExitMutate } = useChatExitMutation(chatId);
+  const { mutate: chatReviewMutate } = useChatReviewMutation();
 
   const ChatUiRef = useRef<HTMLDivElement | null>(null);
 
@@ -60,6 +63,39 @@ const ChatDetail = () => {
     setMessage(event.target.value);
   };
 
+  const handleAcceptList = () => {
+    setIsNav(true);
+  };
+  const handlePenddingList = () => {
+    setIsNav(false);
+  };
+
+  const handleChatExitBtn = () => {
+    setIsExitModal(true);
+  };
+
+  const handleChatView = (chatId: number) => () => {
+    setIsChatActive(true);
+    setChatId(chatId);
+    setMessage('');
+  };
+
+  const handleChatClose = () => {
+    setIsChatActive(false);
+  };
+
+  const handleCancelModal = (e: MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    const { name } = target.dataset;
+
+    if (name === 'exit') {
+      setIsExitModal(false);
+    } else if (name === 'review') {
+      setIsReviewModal(false);
+      chatListRefetch();
+    }
+  };
+
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!message) {
@@ -79,48 +115,18 @@ const ChatDetail = () => {
     }
   };
 
-  const handleAcceptList = () => {
-    setIsNav(true);
-  };
-  const handlePenddingList = () => {
-    setIsNav(false);
-  };
-
-  const handleCancelModal = (e: MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-    const { name } = target.dataset;
-
-    if (name === 'exit') {
-      setIsExitModal(false);
-    } else if (name === 'review') {
-      setIsReviewModal(false);
-    }
-  };
-
-  const handleChatExitBtn = () => {
-    setIsExitModal(true);
-  };
-
   const handleChatExitBtnReview = () => {
     setIsExitModal(false);
 
     chatExitMutate(undefined, {
       onSuccess: () => {
         setIsReviewModal(true);
-        chatListRefetch();
         setIsChatActive(false);
+        if (!isUser || chatContents?.checkStatus?.status !== 'accepted') {
+          chatListRefetch();
+        }
       }
     });
-  };
-
-  const handleChatView = (chatId: number) => () => {
-    setIsChatActive(true);
-    setChatId(chatId);
-    setMessage('');
-  };
-
-  const handleChatClose = () => {
-    setIsChatActive(false);
   };
 
   const handleChatStatusChange = (status: string) => () => {
@@ -156,6 +162,32 @@ const ChatDetail = () => {
         onSuccess: () => {
           Swal.fire('채팅이 종료되었습니다.');
           chatListRefetch();
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
+  const handleChangeGrade = (_event: SyntheticEvent<Element, Event>, value: any) => {
+    setGrade(value);
+  };
+
+  const handleChatReview = () => {
+    chatReviewMutate(
+      {
+        id: chatId,
+        grade
+      },
+      {
+        onSuccess: () => {
+          Swal.fire('만족도 조사에 응해주셔서 감사합니다.');
+          setIsReviewModal(false);
+          chatListRefetch();
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
         }
       }
     );
@@ -349,10 +381,6 @@ const ChatDetail = () => {
             </S.ChatDetailBox>
             <S.ChatForm>
               <S.FileTextarea>
-                {/* <S.FileInput id="file" type="file" />
-              <S.FileLabel htmlFor="file">
-                <img src="/images/chats/file.png" alt="" />
-              </S.FileLabel> */}
                 <S.ChatInput
                   placeholder={
                     chatContents?.checkStatus?.status === 'pending'
@@ -387,7 +415,13 @@ const ChatDetail = () => {
           handleChatExitBtnReview={handleChatExitBtnReview}
         />
       )}
-      {isReviewModal && <ReviewModal handleCancelModal={handleCancelModal} />}
+      {isReviewModal && isUser && chatContents?.checkStatus?.status === 'accepted' && (
+        <ReviewModal
+          handleCancelModal={handleCancelModal}
+          handleChangeGrade={handleChangeGrade}
+          handleChatReview={handleChatReview}
+        />
+      )}
     </S.Wrap>
   );
 };
