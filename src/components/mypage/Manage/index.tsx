@@ -21,6 +21,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
   const [hospital, setHospital] = useState('');
   const [description, setDescription] = useState('');
   const [region, setRegion] = useState('');
+
   const [validate, setValidate] = useState({
     password: false,
     passwordConfirm: false
