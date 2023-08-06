@@ -93,13 +93,13 @@ const ChatsPage = () => {
             <InfiniteScroll
               hasMore={hasNextPage}
               loadMore={() => fetchNextPage()}
-              loader={<Loading />}
+              loader={<Loading key="loading" />}
             >
               {doctorList?.pages?.[0]?.totalPages !== 0 ? (
                 doctorList?.pages.map(page =>
-                  page?.data.map((doctor: any) => (
+                  page?.data.map((doctor, index) => (
                     <ChatList
-                      key={doctor?.id}
+                      key={doctor?.name + index}
                       userToken={auth}
                       name={doctor?.name}
                       hospitalName={doctor?.hospital_name}
@@ -109,7 +109,7 @@ const ChatsPage = () => {
                       role={userData?.user?.role}
                     />
                   ))
-                )
+                ) || []
               ) : (
                 <S.ErrorMent>해당 조건에 맞는 수의사가 없습니다.</S.ErrorMent>
               )}
