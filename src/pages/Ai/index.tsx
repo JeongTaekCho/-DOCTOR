@@ -8,13 +8,19 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
 import Swal from 'sweetalert2';
 import { useAtomValue } from 'jotai';
+import { usePostDiseaseMutation } from '../../hooks/query/usePostDiseaseMutation';
 
 const AiPage = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
+  const [result, setResult] = useState('');
+
   const imgInput = useRef<HTMLInputElement | null>(null);
+
+  const mutation = usePostDiseaseMutation();
+  const postDisease = mutation.mutate;
 
   const openModal = () => {
     setModal(true);
@@ -36,7 +42,21 @@ const AiPage = () => {
           setAiImage(reader.result as string);
         }
       };
-      reader.readAsDataURL(e.target.files[0]); //서버에는 이걸로 보냄
+      reader.readAsDataURL(e.target.files[0]);
+
+      const formData: any = new FormData();
+      formData.append('diseases', e.target.files[0]);
+
+      postDisease(formData, {
+        onSuccess: ({ data }: any) => {
+          Swal.fire('피부 사진이 업로드되었습니다');
+          const firstKey = Object.keys(data)[0];
+          setResult(firstKey);
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      });
     } else {
       // 업로드 취소할 시
       setAiImage('/images/commons/aipic.png');
@@ -89,7 +109,7 @@ const AiPage = () => {
           <S.Button onClick={openModal}>올바른 예시 확인</S.Button>
         ) : (
           <S.Skin>
-            <S.SkinSpan>각질</S.SkinSpan>이 의심됩니다. 병원에 방문해 주세요.
+            <S.SkinSpan>{result}</S.SkinSpan>이(가) 의심됩니다. 병원에 방문해 주세요.
             <S.SkinButton onClick={resetAiImage}>다시 검사하기</S.SkinButton>
           </S.Skin>
         )}

@@ -33,5 +33,5 @@ const getPostsDetail = async (postId: number): Promise<UserPostResponse> => {
 };
 
 export const useGetPostsDetailQuery = (postId: number) => {
-  return useQuery(['posts-key'], () => getPostsDetail(postId));
+  return useQuery(['posts-key', postId], () => getPostsDetail(postId));
 };

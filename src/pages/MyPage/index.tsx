@@ -9,12 +9,18 @@ import { useRegisterVetMutation } from '../../hooks/query/useRegisterVetMutation
 import Swal from 'sweetalert2';
 import { useChangeUserMutation } from '../../hooks/query/useChangeUserMutation';
 import { useDeleteVetMutation } from '../../hooks/query/useDeleteVetMutation';
+import { useDeleteUserMutation } from '../../hooks/query/useDeleteUserMutation';
+import { ROUTE } from '../../constants/routes/routeData';
+import { useNavigate } from 'react-router-dom';
+
 const MyPage = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState<string | undefined>(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   );
   const [activeTab, setActiveTab] = useState<'manage' | 'list'>('manage');
   const [modal, setModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const [file, setFile] = useState<File>();
   const [name, setName] = useState('');
@@ -28,12 +34,38 @@ const MyPage = () => {
   const vetMutation = useDeleteVetMutation();
   const deleteVetMutation = vetMutation.mutate;
 
+  const deleteMutation = useDeleteUserMutation();
+
   const handleDeleteVet = () => {
     deleteVetMutation();
     refetch();
   };
 
+  const handleLogout = () => {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    sessionStorage.removeItem('token');
+  };
+
   const { mutate: registerVet } = useRegisterVetMutation();
+
+  const handleDeleteUser = async () => {
+    try {
+      await deleteMutation.mutateAsync();
+      handleLogout();
+      navigate(ROUTE.HOME.link);
+      window.location.reload();
+    } catch (error) {
+      console.error('회원 탈퇴 중 오류가 발생했습니다.', error);
+    }
+  };
+
+  const openDeleteModal = () => {
+    setDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal(false);
+  };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -190,7 +222,14 @@ const MyPage = () => {
             </S.TabItem>
           </S.DetailTop>
           <S.MyDetail>
-            {activeTab === 'manage' && <MyManage vetStatus={vetStatus} />}
+            {activeTab === 'manage' && (
+              <>
+                <MyManage vetStatus={vetStatus} />
+                <S.DeleteUser>
+                  <S.DeleteUserP onClick={openDeleteModal}>회원탈퇴</S.DeleteUserP>
+                </S.DeleteUser>
+              </>
+            )}
             {activeTab === 'list' && <List />}
           </S.MyDetail>
         </S.Detail>
@@ -289,6 +328,18 @@ const MyPage = () => {
             </S.RejectButtonDiv>
           </S.RejectCard>
         </S.Modal>
+      )}
+      {deleteModal && (
+        <S.Modal2>
+          <S.Card2>
+            <S.Reason>정말로 탈퇴하시겠습니까?</S.Reason>
+            <S.ReasonDiv></S.ReasonDiv>
+            <S.DeleteButtonDiv>
+              <S.BlueButton2 onClick={handleDeleteUser}>확인</S.BlueButton2>
+              <S.RedButton2 onClick={closeDeleteModal}>취소</S.RedButton2>
+            </S.DeleteButtonDiv>
+          </S.Card2>
+        </S.Modal2>
       )}
     </S.Wrap>
   );

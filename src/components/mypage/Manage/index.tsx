@@ -21,6 +21,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
   const [hospital, setHospital] = useState('');
   const [description, setDescription] = useState('');
   const [region, setRegion] = useState('');
+
   const [validate, setValidate] = useState({
     password: false,
     passwordConfirm: false
@@ -259,7 +260,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
           <S.Pen>
             <BsPen size="15" onClick={handleEditVet} />
           </S.Pen>
-          {userData?.vet?.status === 'accepted' && (
+          {vetStatus === 'accepted' && (
             <S.MainBox>
               <S.LeftText>
                 <S.CenteredText>인증상태</S.CenteredText>
