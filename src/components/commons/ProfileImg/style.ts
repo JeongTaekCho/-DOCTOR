@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 
 interface ProfileProps {
-  w: string;
-  h: string;
+  w: string | undefined;
+  h: string | undefined;
   src: string | null | undefined;
 }
 

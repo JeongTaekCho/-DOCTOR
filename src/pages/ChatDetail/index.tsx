@@ -20,6 +20,7 @@ import OtherChat from '../../components/chats/OtherChat';
 import { useChatChangeStatusMutation } from '../../hooks/query/useChatChangeStatusMutation';
 import { useChatExitMutation } from '../../hooks/query/useChatExitMutation';
 import { useChatReviewMutation } from '../../hooks/query/useChatReviewMutation';
+import { HiArrowUturnLeft, HiMiniArrowRightOnRectangle } from 'react-icons/hi2';
 
 const ChatDetail = () => {
   const auth = useAtomValue(tokenAtom);
@@ -347,10 +348,10 @@ const ChatDetail = () => {
               </S.ProfileBox>
               <S.HeadBtnBox>
                 <S.BackBtn type="button" onClick={handleChatClose}>
-                  목록
+                  <HiArrowUturnLeft />
                 </S.BackBtn>
                 <S.ExitBtn type="button" onClick={handleChatExitBtn}>
-                  <img src="/images/chats/exit.png" alt="채팅방 나가기 아이콘" />
+                  <HiMiniArrowRightOnRectangle />
                 </S.ExitBtn>
               </S.HeadBtnBox>
             </S.ChatHead>

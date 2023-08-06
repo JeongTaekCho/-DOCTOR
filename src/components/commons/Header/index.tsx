@@ -44,7 +44,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    console.log(userData);
     if (userData?.user?.deleted_at) {
       Swal.fire('서비스 이용이 불가능한 계정입니다.');
 
