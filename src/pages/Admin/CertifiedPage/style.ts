@@ -35,7 +35,7 @@ export const ReportList = styled.div`
 export const ListSet = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  //justify-content: flex-start;
   color: #344054;
   font-weight: bold;
   font-size: 1.2rem;
@@ -46,6 +46,15 @@ export const ListOrder = styled.button`
   width: 15%;
 `;
 
+export const ListOrder2 = styled.div`
+  input {
+    display: flex;
+    width: 300px;
+    padding: 0.5rem;
+    border-radius: 6px;
+    justify-content: flex-end;
+  }
+`;
 export const ListRowName = styled.div`
   width: 100%;
   display: flex;
@@ -53,6 +62,9 @@ export const ListRowName = styled.div`
   font-weight: bold;
   font-size: 1.2rem;
   padding: 1.4rem 0;
+`;
+export const ReportId1List = styled.div`
+  width: 10%;
 `;
 export const ReportIdList = styled.div`
   width: 30%;
@@ -242,4 +254,14 @@ export const PageNationBar = styled.div<{ activeTab: boolean }>`
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
   background-color: ${({ activeTab }) => (activeTab ? '#ac9bfa' : '#4e2bf5')};
+`;
+
+export const SelectBox = styled.select`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
 `;
