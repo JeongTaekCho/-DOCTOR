@@ -31,8 +31,6 @@ const ReportPostListLayout = ({ data, reportPostRefetch }: ReportPostProps) => {
   const post = data?.posts;
   const report = data?.reports;
 
-  console.log(post, report);
-
   const toggleModal = () => {
     setIsModal(prev => !prev);
   };

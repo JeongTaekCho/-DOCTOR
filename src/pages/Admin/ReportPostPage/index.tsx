@@ -18,8 +18,6 @@ const AdminReportPostPage = () => {
 
   const reportPostList = reportPostData ? reportPostData.pages.flatMap(page => page.data) : [];
 
-  console.log(reportPostList);
-
   const handleClickBtn1 = () => {
     setActiveTab('pending');
   };
@@ -43,12 +41,8 @@ const AdminReportPostPage = () => {
             <S.PageNation>
               <S.PageNationBtn>
                 <S.PageNationBox>
-                  <S.WaitingReportBtn onClick={handleClickBtn1} active={activeTab === 'pending'}>
-                    접수 목록
-                  </S.WaitingReportBtn>
-                  <S.TreatReportBtn onClick={handleClickBtn2} active={activeTab === 'completed'}>
-                    처리 목록
-                  </S.TreatReportBtn>
+                  <S.WaitingReportBtn onClick={handleClickBtn1}>접수 목록</S.WaitingReportBtn>
+                  <S.TreatReportBtn onClick={handleClickBtn2}>처리 목록</S.TreatReportBtn>
                 </S.PageNationBox>
                 <S.PageNationBar activeTab={activeTab}></S.PageNationBar>
               </S.PageNationBtn>

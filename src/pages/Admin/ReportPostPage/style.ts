@@ -169,7 +169,7 @@ export const PageNationBtn = styled.div`
 export const PageNationBox = styled.div`
   display: flex;
 `;
-export const WaitingReportBtn = styled.button<{ active: boolean }>`
+export const WaitingReportBtn = styled.button`
   // '신고 접수 목록'
   display: flex;
   justify-content: center;
@@ -189,7 +189,7 @@ export const WaitingReportBtn = styled.button<{ active: boolean }>`
     color: #fff;
   }
 `;
-export const TreatReportBtn = styled.button<{ active: boolean }>`
+export const TreatReportBtn = styled.button`
   // '신고 처리 목록'
   display: flex;
   justify-content: center;

@@ -180,8 +180,6 @@ const FreeDetail = () => {
     );
   };
 
-  // console.log(post?.comments);
-
   return (
     <div style={{ width: '100%' }}>
       <SideLayout> </SideLayout>
