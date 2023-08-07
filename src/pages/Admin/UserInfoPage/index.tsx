@@ -109,7 +109,7 @@ const AdminUserInfoPage = () => {
                 >
                   {adminUserList?.map((user, index) => (
                     <UserInfoList
-                      key={user.email + index}
+                      key={user?.email}
                       user={user}
                       index={index}
                       adminUserRefetch={adminUserRefetch}

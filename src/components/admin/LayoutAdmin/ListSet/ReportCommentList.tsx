@@ -208,7 +208,7 @@ const ReportDetail = styled.p`
   width: 15%;
 `;
 
-const ReportIdTreat = styled.p`
+const ReportIdTreat = styled.div`
   // 신고된 아이디 + 계정 처리 상태
   width: 18%;
 `;

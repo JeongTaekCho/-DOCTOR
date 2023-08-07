@@ -209,12 +209,12 @@ export const TreatReportBtn = styled.button`
   }
 `;
 
-export const PageNationBar = styled.div<{ activeTab: string }>`
+export const PageNationBar = styled.div<{ activetab: string }>`
   width: 100%;
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
   background-color: ${props => {
-    switch (props.activeTab) {
+    switch (props.activetab) {
       case 'pending':
         return '#344054';
       default:

@@ -3,7 +3,7 @@ export interface ReportPostData {
     id: number;
     content: string;
     status: string;
-    created_at: string | Date;
+    created_at: string;
   };
   posts: {
     id: number;
