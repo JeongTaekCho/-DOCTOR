@@ -8,5 +8,5 @@ const getComment = async (postId: number): Promise<UserCommentDetail> => {
 };
 
 export const useGetCommentQuery = (postId: number) => {
-  return useQuery(['posts-key', postId], () => getComment(postId));
+  return useQuery(['posts-comment-key', postId], () => getComment(postId));
 };

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, MouseEvent } from 'react';
+import React, { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
 import * as S from './style';
 import { BiHeart, BiSolidUser } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
@@ -14,7 +14,8 @@ import { useChangePostMutation } from '../../../hooks/query/useChangePostMutatio
 import { useReportPostMutation } from '../../../hooks/query/useReportPostMutation.ts';
 import { useRegisterCommentMutation } from '../../../hooks/query/useRegisterCommentMutation.ts';
 import { useGetCommentQuery } from '../../../hooks/query/useGetCommentQuery.ts';
-
+import { useDeleteCommentMutation } from '../../../hooks/query/useDeleteCommentMutation.ts';
+import { useReportCommentMutation } from '../../../hooks/query/useReportCommentMutation.ts';
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -34,13 +35,20 @@ const FreeDetail = () => {
   const [reason, setReason] = useState('');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [commentReport, setCommentReport] = useState(false);
   const [commentBody, setCommentBody] = useState('');
+  const [commentId, setCommentId]: any = useState();
 
   const { data: post, refetch } = useGetPostsDetailQuery(postId);
-  const { data: commentData } = useGetCommentQuery(postId);
+  const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
 
   const postMutation = useDeletePostMutation(postId);
   const deletePostMutation = postMutation.mutate;
+
+  const commentsMutation = useDeleteCommentMutation(commentId);
+  const deleteComments = commentsMutation.mutate;
+
+  const { mutate: reportComment } = useReportCommentMutation();
   const { mutate: reportPost } = useReportPostMutation();
 
   const { mutate: changePost } = useChangePostMutation(postId);
@@ -54,6 +62,15 @@ const FreeDetail = () => {
     setModal(false);
   };
 
+  const openReport = (commentId: any) => () => {
+    setCommentReport(true);
+    setCommentId(commentId);
+  };
+
+  const closeReport = () => {
+    setCommentReport(false);
+  };
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -62,8 +79,15 @@ const FreeDetail = () => {
     setIsEditing(false);
   };
 
-  const handleDeleteComment = () => {
+  const handleDeleteComment = (commentId: any) => () => {
     setDeleteComment(true);
+    setCommentId(commentId);
+  };
+
+  const handleDeleteComments = () => {
+    deleteComments();
+    commentRefetch();
+    setDeleteComment(false);
   };
 
   const handleCloseComment = () => {
@@ -157,8 +181,29 @@ const FreeDetail = () => {
     );
   };
 
+  const handleReportComment = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault;
+    reportComment(
+      {
+        comment_id: commentId,
+        reason
+      },
+      {
+        onSuccess: () => {
+          setCommentReport(false);
+          refetch();
+          Swal.fire('신고 완료되었습니다');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
   const currentUserEmail = getCurrentUserEmail();
   const isCurrentUserAuthor = currentUserEmail === post?.author_email;
+  //const isCurrentCommentAuthor = currentUserEmail === commentData?.comments?.author_email;
 
   const handleRegisterComment = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault;
@@ -174,7 +219,9 @@ const FreeDetail = () => {
       {
         onSuccess: () => {
           refetch();
+          commentRefetch();
           Swal.fire('댓글이 작성되었습니다');
+          setCommentBody('');
         },
         onError: (err: any) => {
           Swal.fire(err.response.data.error);
@@ -183,7 +230,19 @@ const FreeDetail = () => {
     );
   };
 
-  console.log(commentData);
+  useEffect(() => {
+    // Modal이나 deleteComment, deletePost, commentReport가 변경될 때 body 스크롤 처리
+    if (modal || deleteComment || deletePost || commentReport) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // 컴포넌트 언마운트 시에도 body 스크롤 활성화
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [modal, deleteComment, deletePost, commentReport]);
 
   return (
     <div style={{ width: '100%' }}>
@@ -196,12 +255,7 @@ const FreeDetail = () => {
         )}
         <S.Header>
           {isEditing ? (
-            <textarea
-              onChange={onChangeTitle}
-              style={{ resize: 'none', width: '75rem', alignItems: 'center', paddingTop: '2rem' }}
-            >
-              {post?.title}
-            </textarea>
+            <S.TitleTextarea onChange={onChangeTitle}>{post?.title}</S.TitleTextarea>
           ) : (
             <S.Title>{post?.title}</S.Title>
           )}
@@ -248,20 +302,26 @@ const FreeDetail = () => {
           </S.ReportTextDiv>
         </S.MainDiv>
         <S.CommentDiv>댓글</S.CommentDiv>
-        {commentData?.comments?.map(comment => (
+        {commentData?.map((comment: any) => (
           <S.Comment key={comment.id}>
             <S.UserDiv>
               <S.User>
                 {comment.users.nickname}
                 <S.CommentDate>{formatDate(comment.created_at)}</S.CommentDate>
               </S.User>
-              <S.DeleteDiv onClick={() => handleDeleteComment()}>
-                <GrClose />
-              </S.DeleteDiv>
+              {currentUserEmail === comment.author_email && (
+                <S.DeleteDiv onClick={handleDeleteComment(comment.id)}>
+                  <GrClose />
+                </S.DeleteDiv>
+              )}
             </S.UserDiv>
             <S.BottomDiv>
               <S.LeftDiv>{comment.body}</S.LeftDiv>
-              <S.RightDiv>신고</S.RightDiv>
+              {currentUserEmail !== comment.author_email && (
+                <S.RightDiv onClick={openReport(comment.id)} style={{ cursor: 'pointer' }}>
+                  신고
+                </S.RightDiv>
+              )}
             </S.BottomDiv>
           </S.Comment>
         ))}
@@ -301,16 +361,18 @@ const FreeDetail = () => {
       )}
 
       {deleteComment && (
-        <S.Modal>
-          <S.Card>
-            <S.Reason>댓글을 삭제하시겠습니까?</S.Reason>
-            <S.ReasonDiv></S.ReasonDiv>
-            <S.DeleteButtonDiv>
-              <S.BlueButton>확인</S.BlueButton>
-              <S.RedButton onClick={handleCloseComment}>취소</S.RedButton>
-            </S.DeleteButtonDiv>
-          </S.Card>
-        </S.Modal>
+        <S.BlackDiv>
+          <S.Modal>
+            <S.Card>
+              <S.Reason>댓글을 삭제하시겠습니까?</S.Reason>
+              <S.ReasonDiv></S.ReasonDiv>
+              <S.DeleteButtonDiv>
+                <S.BlueButton onClick={handleDeleteComments}>확인</S.BlueButton>
+                <S.RedButton onClick={handleCloseComment}>취소</S.RedButton>
+              </S.DeleteButtonDiv>
+            </S.Card>
+          </S.Modal>
+        </S.BlackDiv>
       )}
 
       {deletePost && (
@@ -322,6 +384,29 @@ const FreeDetail = () => {
               <S.BlueButton onClick={handleDeleteMyPost}>확인</S.BlueButton>
               <S.RedButton onClick={handleClosePost}>취소</S.RedButton>
             </S.DeleteButtonDiv>
+          </S.Card>
+        </S.Modal>
+      )}
+
+      {commentReport && (
+        <S.Modal>
+          <S.Card>
+            <S.Reason>신고사유</S.Reason>
+            <S.ReasonDiv>
+              <S.ReasonBox onChange={onChangeReason}>
+                <S.ReasonOption value="">항목을 선택해주세요.</S.ReasonOption>
+                <S.ReasonOption value="홍보/상업성">홍보/상업성</S.ReasonOption>
+                <S.ReasonOption value="스팸">스팸</S.ReasonOption>
+                <S.ReasonOption value="욕설/인신공격">욕설/인신공격</S.ReasonOption>
+                <S.ReasonOption value="음란/선정성">음란/선정성</S.ReasonOption>
+                <S.ReasonOption value="불법정보">불법정보</S.ReasonOption>
+                <S.ReasonOption value="개인정보 노출">개인정보 노출</S.ReasonOption>
+              </S.ReasonBox>
+            </S.ReasonDiv>
+            <S.ButtonDiv>
+              <S.BlueButton onClick={handleReportComment}>확인</S.BlueButton>
+              <S.RedButton onClick={closeReport}>취소</S.RedButton>
+            </S.ButtonDiv>
           </S.Card>
         </S.Modal>
       )}
