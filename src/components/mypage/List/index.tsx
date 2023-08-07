@@ -26,8 +26,12 @@ const List = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = postList?.data?.slice(indexOfFirstPost, indexOfLastPost);
 
-  if (!currentPosts) {
-    return <div>Loading...</div>;
+  if (!currentPosts || currentPosts.length === 0) {
+    return (
+      <div style={{ width: '100%', height: '100%', textAlign: 'center', paddingTop: '7rem' }}>
+        <p style={{ fontSize: '3rem', fontWeight: '600' }}>작성한 게시물이 없습니다</p>
+      </div>
+    );
   }
 
   return (
