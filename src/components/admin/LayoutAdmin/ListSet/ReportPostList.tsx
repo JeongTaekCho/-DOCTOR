@@ -1,11 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
 import { styled } from 'styled-components';
-import { AdminUserData } from '../../../../pages/Admin/UserInfoPage/types';
-import { useChangeUserStatusMutation } from '../../../../hooks/query/useChangeUserStatusMutation';
-import Swal from 'sweetalert2';
 import { STYLE } from '../../../../styles/commonStyle';
-import { formatDate } from '../../../../util/formatDate';
+import Swal from 'sweetalert2';
+import { useChangeUserStatusMutation } from '../../../../hooks/query/useChangeUserStatusMutation';
+import ReportHandleSelect from '../SelectBtn/ListManageBtn';
+import { ReportPostData } from '../../../../pages/Admin/ReportPostPage/types';
 import { calculateRemainingDays } from '../../../../util/getRemaingTime';
+import { formatDate } from '../../../../util/formatDate';
 
 const OPTIONS = [
   { value: '', name: '선택해주세요.' },
@@ -15,17 +16,22 @@ const OPTIONS = [
   { value: 'releaseStop', name: '정지 해제' }
 ];
 
-interface UserProps {
-  user: AdminUserData;
-  index: number;
-  adminUserRefetch: () => void;
+interface ReportPostProps {
+  data: ReportPostData;
+  reportPostRefetch: () => void;
 }
 
-const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
+const ReportPostListLayout = ({ data, reportPostRefetch }: ReportPostProps) => {
   const [isModal, setIsModal] = useState(false);
   const [selectValue, setSelectValue] = useState('');
 
   const { mutate } = useChangeUserStatusMutation();
+
+  const user = data?.posts?.users;
+  const post = data?.posts;
+  const report = data?.reports;
+
+  console.log(post, report);
 
   const toggleModal = () => {
     setIsModal(prev => !prev);
@@ -47,7 +53,7 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
             onSuccess: () => {
               Swal.fire('계정상태가 변경되었습니다.');
               setIsModal(false);
-              adminUserRefetch();
+              reportPostRefetch();
             },
             onError: (err: any) => {
               Swal.fire(err.response.data.error);
@@ -64,7 +70,7 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
             onSuccess: () => {
               Swal.fire('계정상태가 변경되었습니다.');
               setIsModal(false);
-              adminUserRefetch();
+              reportPostRefetch();
             },
             onError: (err: any) => {
               Swal.fire(err.response.data.error);
@@ -81,7 +87,7 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
             onSuccess: () => {
               Swal.fire('계정상태가 변경되었습니다.');
               setIsModal(false);
-              adminUserRefetch();
+              reportPostRefetch();
             },
             onError: (err: any) => {
               Swal.fire(err.response.data.error);
@@ -99,7 +105,7 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
               onSuccess: () => {
                 Swal.fire('계정상태가 변경되었습니다.');
                 setIsModal(false);
-                adminUserRefetch();
+                reportPostRefetch();
               },
               onError: (err: any) => {
                 Swal.fire(err.response.data.error);
@@ -122,34 +128,31 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
       <p className="textColor">영구정지</p>
     );
 
-  const remainingDate =
-    calculateRemainingDays(formatDate(user?.blocked_at)) > 0 &&
-    calculateRemainingDays(formatDate(user?.blocked_at)) < 9999 ? (
-      <p className="mainFontColor">D - {calculateRemainingDays(formatDate(user?.blocked_at))}</p>
-    ) : null;
-
   return (
     <Wrap>
       <ListOfLists>
-        <ReportComment>{index + 1}</ReportComment>
-        <ReportProfile>
-          <ReportPrifileId>{user?.email}</ReportPrifileId>
-        </ReportProfile>
-        <ReportDetail>{user?.nickname}</ReportDetail>
-        <ReportDate>{formatDate(user?.created_at)}</ReportDate>
-        <DateBox>
-          {!user?.blocked_at && !user?.deleted_at && <p>정상</p>}
-          {user?.blocked_at && userStatus}
-          {user?.deleted_at && <p className="textColor">강제 탈퇴</p>}
-          {remainingDate}
-        </DateBox>
-        {!user?.deleted_at ? (
-          <ReportHandle>
-            <StatusChangeBtn onClick={toggleModal}>계정 상태 변경</StatusChangeBtn>
-          </ReportHandle>
-        ) : (
-          <ReportHandle></ReportHandle>
-        )}
+        <ReportComment>{post?.title}</ReportComment>
+        <ReportDetail>{report?.content}</ReportDetail>
+        <ReportIdTreat>
+          <ReportId>{user?.email}</ReportId>
+          <IdState>
+            {!user?.blocked_at && !user?.deleted_at && <p>정상</p>}
+            {user?.blocked_at && userStatus}
+            {user?.deleted_at && <p className="textColor">강제 탈퇴</p>}
+          </IdState>{' '}
+        </ReportIdTreat>
+        <ReportHandle>
+          <StatusChangeBtn onClick={toggleModal}>계정 상태 변경</StatusChangeBtn>
+        </ReportHandle>
+        <ReportDate>시간</ReportDate>
+        <IdHandleBtn>
+          <ReportHandleSelect
+            defaultValue="pending"
+            reportId={report?.id}
+            reportPostRefetch={reportPostRefetch}
+            status={report?.status}
+          />
+        </IdHandleBtn>
       </ListOfLists>
       {isModal && (
         <ModalWrap>
@@ -173,11 +176,9 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
   );
 };
 
-export default UserInfoList;
+export default ReportPostListLayout;
 
 const Wrap = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 100%;
 `;
 
@@ -185,44 +186,45 @@ const ListOfLists = styled.div`
   width: 100%;
   padding-left: 2%;
   display: flex;
-  align-items: center;
   font-size: 1.2rem;
   border-bottom: 1px solid #e7e7e7;
   padding: 2.3rem 0;
+  align-items: center;
 
   &:hover {
     background-color: #d6d5d5;
   }
 `;
-
-const ReportProfile = styled.div`
-  width: 30%;
-  display: flex;
-`;
-
-const ReportPrifileId = styled.div`
-  display: flex;
-  align-items: center;
-  width: 80%;
-  padding-left: 5%;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #252733;
-`;
+//-------------------------------------
 //-------------------------------------
 const ReportComment = styled.p`
   // '신고된 글 제목..'
-  width: 10%;
+  width: 20.5%;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: ${STYLE.mainFontColor};
 `;
 
 const ReportDetail = styled.p`
   // '비방적인글'
-  width: 20%;
+  width: 15%;
 `;
 
-const DateBox = styled.div`
-  width: 20%;
+const ReportIdTreat = styled.p`
+  // 신고된 아이디 + 계정 처리 상태
+  width: 18%;
+`;
 
+const ReportId = styled.p`
+  // '신고된 아이디'
+  width: 50%;
+  display: flex;
+  align-items: center;
+  color: #252733;
+  font-weight: 500;
+  font-size: 1.4rem;
+`;
+const IdState = styled.div`
   p {
     font-size: 1.3rem;
     font-weight: 600;
@@ -238,46 +240,25 @@ const DateBox = styled.div`
     &:last-child {
       margin-top: 1rem;
     }
-    &:first-child {
-      margin-top: 0;
-    }
   }
 `;
+
+const IdHandleBtn = styled.div`
+  width: 18%;
+`;
+
 const ReportDate = styled.p`
   // '신고된 날짜'
-  width: 20%;
+  width: 12%;
 `;
 
 const ReportHandle = styled.div`
   // 신고된 글 처리 버튼[]
-  width: 20%;
+  width: 18%;
   display: flex;
   align-items: center;
 `;
 
-const IdHandleSelect = styled.select`
-  display: block;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0.7rem;
-  background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  font-size: 1.7rem;
-  font-weight: 400;
-  color: #111;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  margin-bottom: 2rem;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-`;
 const StatusChangeBtn = styled.button`
   width: 60%;
   padding: 0.7rem;
@@ -340,4 +321,28 @@ const ModalMent = styled.p`
   text-align: center;
   line-height: 1.3;
   margin-bottom: 3rem;
+`;
+
+const IdHandleSelect = styled.select`
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.7rem;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 2rem;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 `;
