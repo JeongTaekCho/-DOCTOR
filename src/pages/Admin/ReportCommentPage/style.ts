@@ -44,6 +44,13 @@ export const ListOrder = styled.div`
   // '▼ 처리 내용 순' / '▼ 신고 건수 순'
   width: 15%;
 `;
+export const ListOrder2 = styled.div`
+  input {
+    width: 300px;
+    padding: 0.5rem;
+    border-radius: 6px;
+  }
+`;
 
 export const ListRowName = styled.div`
   width: 100%;
@@ -80,11 +87,11 @@ export const ContentNationBar = styled.div`
 //-------------------------------
 // 신고된 목록 리스트
 //-------------------------------
-export const ListContentWrap = styled.div`
+export const ListContentWrap = styled.ul`
   width: 100%;
 `;
 
-export const ListOfLists = styled.div`
+export const ListOfLists = styled.li`
   width: 100%;
   padding-left: 2%;
   display: flex;
@@ -168,7 +175,7 @@ export const PageNationBtn = styled.div`
 export const PageNationBox = styled.div`
   display: flex;
 `;
-export const WaitingReportBtn = styled.button<{ active: boolean }>`
+export const WaitingReportBtn = styled.button`
   // '신고 접수 목록'
   display: flex;
   justify-content: center;
@@ -188,7 +195,7 @@ export const WaitingReportBtn = styled.button<{ active: boolean }>`
     color: #fff;
   }
 `;
-export const TreatReportBtn = styled.button<{ active: boolean }>`
+export const TreatReportBtn = styled.button`
   // '신고 처리 목록'
   display: flex;
   justify-content: center;
@@ -208,16 +215,19 @@ export const TreatReportBtn = styled.button<{ active: boolean }>`
   }
 `;
 
-export const PageNationBar = styled.div<{ activeTab: string }>`
+export const PageNationBar = styled.div<{ activeTab: boolean }>`
   width: 100%;
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
-  background-color: ${props => {
-    switch (props.activeTab) {
-      case 'waiting':
-        return '#344054';
-      default:
-        return '#667085';
-    }
-  }};
+  background-color: ${({ activeTab }) => (activeTab ? '#667085' : '#344054')};
+`;
+
+export const SelectBox = styled.select`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
 `;
