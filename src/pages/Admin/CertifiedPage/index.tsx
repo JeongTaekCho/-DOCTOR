@@ -7,7 +7,6 @@ import { useGetVetAuthListQuery } from '../../../hooks/query/useGetVetAuthListQu
 
 const AdminCertifiedPage = () => {
   const [activeTab, setActiveTab] = useState(false);
-
   const { data, refetch } = useGetVetAuthListQuery(activeTab ? 'accepted' : 'pending');
 
   const handleClickBtn1 = () => {

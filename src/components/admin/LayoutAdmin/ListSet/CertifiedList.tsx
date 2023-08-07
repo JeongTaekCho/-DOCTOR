@@ -15,6 +15,7 @@ const CertifiedListLayout = ({ user, activeTab }: UserProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
+
   return (
     <Wrap>
       <ListOfLists>
@@ -24,7 +25,7 @@ const CertifiedListLayout = ({ user, activeTab }: UserProps) => {
         </ReportProfile>
         <ReportN>{formatDate(user?.created_at)}</ReportN>
         <ReportDetailN>
-          <ReportPostN>{activeTab ? user?.updated_at : ''}</ReportPostN>
+          <ReportPostN>{activeTab ? formatDate(user?.updated_at) : ''}</ReportPostN>
         </ReportDetailN>
         <ReportContent>
           <ReportContentListSet onClick={handleOpenModal}>제출자료보기</ReportContentListSet>
