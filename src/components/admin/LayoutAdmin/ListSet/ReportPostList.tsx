@@ -146,7 +146,12 @@ const ReportPostListLayout = ({ data, reportPostRefetch }: ReportPostProps) => {
         </ReportHandle>
         <ReportDate>시간</ReportDate>
         <IdHandleBtn>
-          <ReportHandleSelect />
+          <ReportHandleSelect
+            defaultValue="pending"
+            reportId={report?.id}
+            reportPostRefetch={reportPostRefetch}
+            status={report?.status}
+          />
         </IdHandleBtn>
       </ListOfLists>
       {isModal && (
