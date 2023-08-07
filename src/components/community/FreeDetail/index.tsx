@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState, MouseEvent } from 'react';
 import * as S from './style';
-import { BiHeart } from 'react-icons/bi';
+import { BiHeart, BiSolidUser } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
 // import { BsArrowReturnRight } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 import { useChangePostMutation } from '../../../hooks/query/useChangePostMutation.ts';
 import { useReportPostMutation } from '../../../hooks/query/useReportPostMutation.ts';
 import { useRegisterCommentMutation } from '../../../hooks/query/useRegisterCommentMutation.ts';
+import { useGetCommentQuery } from '../../../hooks/query/useGetCommentQuery.ts';
+
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -35,6 +37,7 @@ const FreeDetail = () => {
   const [commentBody, setCommentBody] = useState('');
 
   const { data: post, refetch } = useGetPostsDetailQuery(postId);
+  const { data: commentData } = useGetCommentQuery(postId);
 
   const postMutation = useDeletePostMutation(postId);
   const deletePostMutation = postMutation.mutate;
@@ -180,7 +183,7 @@ const FreeDetail = () => {
     );
   };
 
-  // console.log(post?.comments);
+  console.log(commentData);
 
   return (
     <div style={{ width: '100%' }}>
@@ -206,6 +209,14 @@ const FreeDetail = () => {
         </S.Header>
         <S.MainDiv>
           <S.MainTextDiv>
+            <S.UserWrap>
+              <S.SolidUserDiv>
+                <div>
+                  <BiSolidUser />
+                </div>
+                <S.Nickname>{post?.users?.nickname}</S.Nickname>
+              </S.SolidUserDiv>
+            </S.UserWrap>
             {isEditing ? (
               <S.MainTextArea onChange={onChangeBody}>{post?.body}</S.MainTextArea>
             ) : (
@@ -237,31 +248,24 @@ const FreeDetail = () => {
           </S.ReportTextDiv>
         </S.MainDiv>
         <S.CommentDiv>댓글</S.CommentDiv>
-        <S.Comment>
-          <S.UserDiv>
-            <S.User>
-              유승제<S.CommentDate>2023-07-23</S.CommentDate>
-            </S.User>
-            <S.DeleteDiv onClick={handleDeleteComment}>
-              <GrClose />
-            </S.DeleteDiv>
-          </S.UserDiv>
-          <S.BottomDiv>
-            <S.LeftDiv>안녕하세요~</S.LeftDiv>
-            <S.RightDiv>신고</S.RightDiv>
-          </S.BottomDiv>
-        </S.Comment>
-        {/* <S.CoComment>
-          <S.UserDiv>
-            <S.User>
-              <BsArrowReturnRight /> 유승제<S.CommentDate>2023-07-23</S.CommentDate>
-            </S.User>
-          </S.UserDiv>
-          <S.BottomDiv>
-            <S.LeftDiv>안녕하세요~</S.LeftDiv>
-            <S.RightDiv>신고</S.RightDiv>
-          </S.BottomDiv>
-        </S.CoComment> */}
+        {commentData?.comments?.map(comment => (
+          <S.Comment key={comment.id}>
+            <S.UserDiv>
+              <S.User>
+                {comment.users.nickname}
+                <S.CommentDate>{formatDate(comment.created_at)}</S.CommentDate>
+              </S.User>
+              <S.DeleteDiv onClick={() => handleDeleteComment()}>
+                <GrClose />
+              </S.DeleteDiv>
+            </S.UserDiv>
+            <S.BottomDiv>
+              <S.LeftDiv>{comment.body}</S.LeftDiv>
+              <S.RightDiv>신고</S.RightDiv>
+            </S.BottomDiv>
+          </S.Comment>
+        ))}
+
         <S.Register>
           <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
           <S.InputDiv>

@@ -16,6 +16,7 @@ const AiPage = () => {
 
   const [modal, setModal] = useState(false);
   const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const imgInput = useRef<HTMLInputElement | null>(null);
 
@@ -47,13 +48,17 @@ const AiPage = () => {
       const formData: any = new FormData();
       formData.append('diseases', e.target.files[0]);
 
+      setLoading(true);
+
       postDisease(formData, {
         onSuccess: ({ data }: any) => {
+          setLoading(false);
           Swal.fire('피부 사진이 업로드되었습니다');
           const firstKey = Object.keys(data)[0];
           setResult(firstKey);
         },
         onError: (err: any) => {
+          setLoading(false);
           Swal.fire(err.response.data.error);
         }
       });
@@ -146,6 +151,14 @@ const AiPage = () => {
             </S.Correct>
           </S.Card>
         </S.Modal>
+      )}
+      {loading && (
+        <S.Loader>
+          <S.Circle1></S.Circle1>
+          <S.Circle2></S.Circle2>
+          <S.Circle3></S.Circle3>
+          <S.Circle4></S.Circle4>
+        </S.Loader>
       )}
     </S.Wrap>
   );

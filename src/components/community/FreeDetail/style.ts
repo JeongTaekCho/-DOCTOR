@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 50%;
   margin: auto;
   margin-left: 30%;
+  min-height: calc(100vh - 135px);
 
   @media ${RESPONSIVE.tablet} {
     width: 90%;
@@ -366,4 +367,18 @@ export const DeletePostButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const UserWrap = styled.div`
+  padding-left: 0.5rem;
+  padding-top: 1rem;
+  font-size: 1.5rem;
+`;
+
+export const SolidUserDiv = styled.div`
+  display: flex;
+`;
+
+export const Nickname = styled.span`
+  margin-left: 0.5rem;
 `;
