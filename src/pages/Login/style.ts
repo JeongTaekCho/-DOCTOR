@@ -124,25 +124,3 @@ export const SocialLoginBtn = styled.button`
     width: 24px;
   }
 `;
-
-export const KakaoLoginBtn = styled.button`
-  width: 100%;
-  padding: 0.9rem 0;
-  display: block;
-  background-color: #fee500;
-  color: #000;
-  border-radius: 0.8rem;
-  font-size: 1.6rem;
-  text-decoration: none;
-  font-weight: 600;
-  border: 1px solid #d0d5dd;
-  margin-top: 1rem;
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 2rem;
-  }
-`;

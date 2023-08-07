@@ -1,18 +1,10 @@
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { RESPONSIVE } from '../../../styles/responsive';
 
 export const Container = styled.div`
   width: 50%;
   margin: auto;
   margin-left: 30%;
-  min-height: calc(100vh - 135px);
-
-  @media ${RESPONSIVE.tablet} {
-    width: 90%;
-    margin: 0 auto;
-    margin-left: auto;
-  }
 `;
 
 export const ListContainer = styled.div`
@@ -26,18 +18,17 @@ export const Header = styled.div`
   border-top: 2px solid black;
   border-bottom: 2px solid black;
   display: flex;
-  justify-content: space-between;
-  padding-right: 1rem;
 `;
 
 export const Title = styled.div`
-  width: 80%;
-  font-size: 2.2rem;
-  font-weight: 500;
+  width: 90%;
+  font-size: 3rem;
+  font-weight: bolder;
   padding: 1.5rem 0 1.5rem 0.5rem;
 `;
 
 export const Date = styled.div`
+  width: 10%;
   font-size: 1.3rem;
   padding: 1.5rem 0 1.5rem 0;
   display: flex;
@@ -47,23 +38,21 @@ export const Date = styled.div`
 
 export const MainDiv = styled.div`
   width: 100%;
+  height: 40rem;
   border-bottom: 2px solid black;
   position: relative;
 `;
 
 export const MainText = styled.div`
   width: 100%;
-  height: 40rem;
   padding: 1.5rem 0 0 0.5rem;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   line-height: 2rem;
-  overflow-y: auto;
 `;
 
 export const MainTextArea = styled.textarea`
   width: 100%;
-  height: 40rem;
-  padding: 1.6rem 0 0 0.5rem;
+  padding: 1.5rem 0 0 0.5rem;
   font-size: 1.5rem;
   line-height: 2rem;
   resize: none;
@@ -77,15 +66,8 @@ export const HeartIcon = styled.div`
   font-size: 2rem;
   color: #9747ff;
   width: 100%;
+  text-align: center;
   padding-top: 1rem;
-  display: flex;
-  justify-content: center;
-`;
-
-export const HeartNumber = styled.div`
-  padding: 0.5rem 0 0 1rem;
-  color: black;
-  font-size: 3.5rem;
 `;
 
 export const ReportText = styled.button`
@@ -179,15 +161,15 @@ export const BottomDiv = styled.div`
   display: flex;
   padding-top: 3rem;
   padding-right: 1rem;
-  justify-content: space-between;
 `;
 
 export const LeftDiv = styled.div`
-  width: 88%;
+  width: 95%;
   font-size: 1.5rem;
 `;
 
 export const RightDiv = styled.div`
+  width: 5%;
   font-size: 1.3rem;
   text-align: right;
 `;
@@ -255,13 +237,11 @@ export const ListButton = styled(Link)`
 
 export const Modal = styled.div`
   width: 100%;
-  z-index: 9999;
-  position: relative;
 `;
 
 export const Card = styled.div`
   width: 64.9rem;
-  z-index: 9999;
+  z-index: 999999;
   position: fixed;
   top: 40%;
   left: 55%;
@@ -270,12 +250,6 @@ export const Card = styled.div`
   border-radius: 8px;
   border: 1px solid black;
   padding: 3rem 0 2rem 0;
-
-  @media ${RESPONSIVE.tablet} {
-    width: 90%;
-    top: 40%;
-    left: 50%;
-  }
 `;
 
 export const Reason = styled.div`
@@ -350,12 +324,11 @@ export const RedButton = styled.button`
 `;
 
 export const MainTextDiv = styled.div`
-  height: 40rem;
+  height: 77%;
 `;
 
 export const ReportTextDiv = styled.div`
   text-align: right;
-  margin-bottom: 1rem;
 `;
 
 export const DeletePost = styled.div`
@@ -370,37 +343,4 @@ export const DeletePostButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-export const UserWrap = styled.div`
-  padding-left: 0.5rem;
-  padding-top: 1rem;
-  font-size: 1.5rem;
-`;
-
-export const SolidUserDiv = styled.div`
-  display: flex;
-`;
-
-export const Nickname = styled.span`
-  margin-left: 0.5rem;
-`;
-
-export const BlackDiv = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9998;
-`;
-
-export const TitleTextarea = styled.textarea`
-  resize: none;
-  width: 75rem;
-  align-items: center;
-  padding-top: 2rem;
 `;

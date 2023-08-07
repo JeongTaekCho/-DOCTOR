@@ -1,14 +1,21 @@
 import { styled } from 'styled-components';
+import { RESPONSIVE } from '../../../styles/responsive';
 
-export const Wrap = styled.div`
+export const Container = styled.div`
   width: 100%;
-  padding: 1rem;
-  padding-top: 2rem;
+  position: relative;
+  margin-left: 7rem;
+  padding-bottom: 10rem;
 `;
 
 export const List = styled.div`
   width: 100%;
   position: relative;
+`;
+
+export const PageNumber = styled.div`
+  text-align: center;
+  margin-top: 0.5rem;
 `;
 
 export const Post = styled.div`
@@ -23,6 +30,7 @@ export const Post = styled.div`
     background-color: #d5d5d5;
   }
 `;
+
 export const PostHeader = styled.h4`
   font-size: 2rem;
   font-weight: bolder;
@@ -63,7 +71,49 @@ export const HeartContainer = styled.span`
   align-items: center;
 `;
 
-export const PageNumber = styled.div`
+export const HeartNumber = styled.span`
+  font-size: 2.2rem;
+  color: black;
+  margin-left: 3%;
+
+  @media ${RESPONSIVE.mobile} {
+    font-size: 3.2rem;
+  }
+`;
+
+export const RadioDiv = styled.div`
+  text-align: right;
+  font-size: 1.6rem;
+  padding-bottom: 0.5rem;
+`;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+export const ButtonDiv = styled.div`
+  position: absolute;
+  left: 91%;
+  top: 100%;
+
+  @media ${RESPONSIVE.mobile} {
+    top: 59%;
+    left: 88%;
+  }
+`;
+
+export const Button = styled.button`
+  width: 7rem;
+  height: 3.5rem;
   text-align: center;
-  margin-top: 0.5rem;
+  background-color: #9747ff;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: #b5b2ff;
+  }
 `;

@@ -2,14 +2,11 @@ import React from 'react';
 
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 
-const Pagination = ({ currentPage, totalPages, setCurrentPage }: any) => {
+const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
   return (
     <div>
-      <button
-        onClick={() => setCurrentPage((prev: number) => prev - 1)}
-        disabled={currentPage === 1}
-      >
+      <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage === 1}>
         <BiSolidLeftArrow size="13"></BiSolidLeftArrow>
       </button>
       {pageNumbers.map(number => (
@@ -26,7 +23,7 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }: any) => {
         </button>
       ))}
       <button
-        onClick={() => setCurrentPage((prev: number) => prev + 1)}
+        onClick={() => setCurrentPage(prev => prev + 1)}
         disabled={currentPage === totalPages}
       >
         <BiSolidRightArrow size="13"></BiSolidRightArrow>

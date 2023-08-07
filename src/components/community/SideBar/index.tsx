@@ -6,15 +6,11 @@ const SideBar = () => {
   return (
     <>
       <S.Side>
-        <Link to={ROUTE.FREECOMMUNITY.path}>
-          <S.Free>
-            <p>자유게시판</p>
-          </S.Free>
+        <Link to={ROUTE.COMMUNITY.path}>
+          <S.Free>자유게시판</S.Free>
         </Link>
-        <Link to={ROUTE.INFOCOMMUNITY.path}>
-          <S.Info>
-            <p>정보게시판</p>
-          </S.Info>
+        <Link to={ROUTE.COMMUNITY.path}>
+          <S.Info>정보게시판</S.Info>
         </Link>
       </S.Side>
     </>

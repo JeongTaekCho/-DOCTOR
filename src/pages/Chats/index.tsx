@@ -8,11 +8,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 import useDebounce from '../../hooks/util/useDebounce';
 import { useAtomValue } from 'jotai';
 import { useChatListInfinityQuery } from '../../hooks/query/useChatListInfinityQuery';
-import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 
 const ChatsPage = () => {
   const auth = useAtomValue(tokenAtom);
-  const { data: userData } = useGetUsersQuery();
 
   const [areaName, setAreaName] = useState('');
   const [search, setSearch] = useState('');
@@ -93,23 +91,22 @@ const ChatsPage = () => {
             <InfiniteScroll
               hasMore={hasNextPage}
               loadMore={() => fetchNextPage()}
-              loader={<Loading key="loading" />}
+              loader={<Loading />}
             >
               {doctorList?.pages?.[0]?.totalPages !== 0 ? (
                 doctorList?.pages.map(page =>
-                  page?.data.map((doctor, index) => (
+                  page?.data.map((doctor: any) => (
                     <ChatList
-                      key={doctor?.name + index}
+                      key={doctor?.id}
                       userToken={auth}
                       name={doctor?.name}
                       hospitalName={doctor?.hospital_name}
                       profileImg={doctor?.img_path}
                       doctorEmail={doctor?.user_email}
                       grade={doctor?.grade}
-                      role={userData?.user?.role}
                     />
                   ))
-                ) || []
+                )
               ) : (
                 <S.ErrorMent>해당 조건에 맞는 수의사가 없습니다.</S.ErrorMent>
               )}

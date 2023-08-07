@@ -1,28 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import { styled } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
 import { RESPONSIVE } from '../../styles/responsive';
-
-const spinAnimation = keyframes`
-  0% {
-    transform: scale(1) rotate(0);
-  }
-
-  20%, 25% {
-    transform: scale(1.3) rotate(90deg);
-  }
-
-  45%, 50% {
-    transform: scale(1) rotate(180deg);
-  }
-
-  70%, 75% {
-    transform: scale(1.3) rotate(270deg);
-  }
-
-  95%, 100% {
-    transform: scale(1) rotate(360deg);
-  }
-`;
 
 export const Wrap = styled.div`
   width: 100%;
@@ -97,7 +75,7 @@ export const Example = styled.div`
   padding-top: 5%;
 
   @media ${RESPONSIVE.mobile} {
-    margin-top: 16%;
+    margin-top: 40%;
   }
 `;
 
@@ -143,7 +121,6 @@ export const Modal = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
-  z-index: 9999;
 `;
 
 export const Card = styled.div`
@@ -159,7 +136,6 @@ export const Card = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     top: 40%;
-    width: 50rem;
   }
 `;
 
@@ -219,10 +195,6 @@ export const Skin = styled.h4`
   font-size: 4rem;
   font-weight: bolder;
   margin-top: 2rem;
-
-  @media (max-width: 400px) {
-    margin-top: 7rem;
-  }
 `;
 
 export const SkinSpan = styled.span`
@@ -255,62 +227,4 @@ export const SkinButton = styled.button`
   &:active {
     transform: translateY(-1px);
   }
-`;
-
-export const Loader = styled.div`
-  --dim: 3rem;
-  width: var(--dim);
-  height: var(--dim);
-  position: absolute;
-  animation: ${spinAnimation} 2s linear infinite;
-  left: 50%;
-  bottom: 50%;
-`;
-
-export const Circle1 = styled.div`
-  --color: #333;
-  --dim: 1.2rem;
-  width: var(--dim);
-  height: var(--dim);
-  background-color: var(--color);
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-export const Circle2 = styled.div`
-  --color: #333;
-  --dim: 1.2rem;
-  width: var(--dim);
-  height: var(--dim);
-  background-color: var(--color);
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
-export const Circle3 = styled.div`
-  --color: #333;
-  --dim: 1.2rem;
-  width: var(--dim);
-  height: var(--dim);
-  background-color: var(--color);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-`;
-
-export const Circle4 = styled.div`
-  --color: #333;
-  --dim: 1.2rem;
-  width: var(--dim);
-  height: var(--dim);
-  background-color: var(--color);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
 `;

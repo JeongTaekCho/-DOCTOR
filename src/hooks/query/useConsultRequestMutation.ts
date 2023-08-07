@@ -6,12 +6,12 @@ interface ConsultRequestData {
   message: string;
 }
 
-interface ConsultReturn {
+interface ConsultRequestReturn {
   message: string;
 }
 
-const consultRequest = async (data: ConsultRequestData): Promise<ConsultReturn> => {
-  return API.post<ConsultReturn, ConsultRequestData>('/chats/request', data);
+const consultRequest = async (data: ConsultRequestData): Promise<ConsultRequestReturn> => {
+  return API.post<ConsultRequestReturn, ConsultRequestData>('/chats/request', data);
 };
 
 export const useConsultRequestMutation = () => {

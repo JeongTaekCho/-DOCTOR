@@ -6,17 +6,15 @@ import { UserResponse } from '../../../hooks/query/useGetUsersQuery';
 
 const ChatBox = ({
   chatInfo,
-  userData,
-  status
+  userData
 }: {
   chatInfo: ChatListResponse;
   userData: UserResponse | undefined;
-  status?: string;
 }) => {
   const isUser = userData?.user?.role === 'user';
 
   return (
-    <S.ChatListBox status={status}>
+    <S.ChatListBox>
       <S.ProfileBox>
         <ProfileImg
           w="6rem"
@@ -39,7 +37,7 @@ const ChatBox = ({
         </S.NameBox>
         <S.ChatContent>{chatInfo?.chat_contents?.[0]?.message}</S.ChatContent>
       </S.ChatContentsBox>
-      {/* <S.ChatNum>18</S.ChatNum> */}
+      <S.ChatNum>18</S.ChatNum>
     </S.ChatListBox>
   );
 };

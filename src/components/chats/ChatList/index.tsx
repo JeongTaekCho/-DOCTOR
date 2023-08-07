@@ -12,7 +12,6 @@ interface ChatListProps {
   profileImg: string | null;
   doctorEmail: string;
   grade?: number | null;
-  role: string | undefined;
 }
 
 const ChatList = ({
@@ -21,9 +20,9 @@ const ChatList = ({
   hospitalName,
   profileImg,
   doctorEmail,
-  grade,
-  role
+  grade
 }: ChatListProps) => {
+  console.log(doctorEmail);
   const [consult, setConsult] = useState('');
   const [isConsultModal, setIsConsultModal] = useState(false);
 
@@ -78,11 +77,9 @@ const ChatList = ({
               <S.ListDetail>검은인간 동물병원에서 제일 실력있는 수의사 입니다.</S.ListDetail>
             </S.ListContentBox>
           </S.ListContainer>
-          {role === 'user' && (
-            <S.ListBtnBox type="button" onClick={handleToggleConsultModal}>
-              상담신청
-            </S.ListBtnBox>
-          )}
+          <S.ListBtnBox type="button" onClick={handleToggleConsultModal}>
+            상담신청
+          </S.ListBtnBox>
         </S.ListBox>
       </S.ChatList>
       {isConsultModal && (

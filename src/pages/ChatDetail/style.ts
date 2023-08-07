@@ -23,36 +23,32 @@ export const Container = styled.div`
 `;
 
 export const ChatLeftBox = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  height: 75rem;
+  width: 320px;
+  height: 600px;
   border-radius: 0.6rem;
   background-color: ${STYLE.mainColor};
-  box-shadow: 0px 2px 0.4rem 2px rgba(0, 0, 0, 0.7);
 
-  &.active {
-    display: none;
-  }
   @media (max-width: 920px) {
     width: 100%;
+
+    &.active {
+      display: none;
+    }
   }
 `;
 
 export const CharRightBox = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  height: 67rem;
+  width: 540px;
+  height: 600px;
   border-radius: 0.6rem;
   background-color: #fff;
-  box-shadow: 0px 0px 0.4rem 0px rgba(0, 0, 0, 0.5);
 
-  display: none;
-
-  &.active {
-    display: block;
-  }
   @media (max-width: 920px) {
-    width: 100%;
+    display: none;
+
+    &.active {
+      display: block;
+    }
   }
 `;
 
@@ -65,6 +61,7 @@ export const ChatListNav = styled.ul`
   li {
     width: 50%;
     position: relative;
+
     &.selected {
       &::after {
         display: block;
@@ -153,7 +150,7 @@ export const ChatDetailBox = styled.div`
   flex-direction: column;
   gap: 3.5rem;
   width: 100%;
-  height: 50rem;
+  height: 420px;
   background-color: #fff;
   padding: 4rem 1.8rem 0 1.8rem;
   overflow-y: auto;
@@ -207,16 +204,20 @@ export const SendBtn = styled.button`
 `;
 
 export const HeadBtnBox = styled.div`
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-
-  svg {
-    font-size: 2.8rem;
+  @media (max-width: 920px) {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
   }
 `;
 
-export const BackBtn = styled.button``;
+export const BackBtn = styled.button`
+  display: none;
+
+  @media (max-width: 920px) {
+    display: block;
+  }
+`;
 
 export const ProfileContent = styled.div`
   display: flex;
@@ -243,20 +244,4 @@ export const AcceptBtn = styled.button`
 export const RefuseBtn = styled(AcceptBtn)`
   background-color: #fff;
   color: ${STYLE.mainColor};
-`;
-
-export const ErrorMent = styled.p`
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-  margin-top: 1.5rem;
-`;
-
-export const ChatErrorMent = styled.p`
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: ${STYLE.mainColor};
-  margin-top: 2rem;
-  text-align: center;
 `;

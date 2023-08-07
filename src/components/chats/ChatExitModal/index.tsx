@@ -11,8 +11,8 @@ const ChatExitModal = ({ handleCancelModal, handleChatExitBtnReview }: Props) =>
     <S.Wrap>
       <S.ModalContainer>
         <S.ModalMent>
-          채팅방을 나가시면 상담이 종료됩니다. <br />
-          채팅방을 나가시겠습니까?
+          채팅방을 나가시면 채팅이 종료됩니다. <br />
+          나가시겠습니까?
         </S.ModalMent>
         <S.BtnBox>
           <S.CancelBtn data-name="exit" onClick={handleCancelModal}>

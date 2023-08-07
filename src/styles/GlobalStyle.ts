@@ -46,7 +46,6 @@ const GlobalStyle = createGlobalStyle`
         font-size: 6px;
       }
     }
-
     a{
         text-decoration: none;
         color: inherit;

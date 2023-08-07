@@ -1,16 +1,10 @@
 import styled, { css } from 'styled-components';
 import { RESPONSIVE } from '../../styles/responsive';
-import { BiPencil } from 'react-icons/bi';
 
 interface TabItemProps {
   active: boolean;
   onClick: () => void;
 }
-
-export const ResponsiveBiPencil = styled(BiPencil)`
-  // 기본 크기 설정
-  font-size: 4.8rem;
-`;
 
 export const Wrap = styled.div`
   width: 100%;
@@ -21,10 +15,6 @@ export const Container = styled.div`
   justify-content: center;
   gap: 3rem;
   padding-bottom: 10rem;
-
-  @media ${RESPONSIVE.tablet} {
-    display: block;
-  }
 `;
 
 export const Profile = styled.div`
@@ -34,11 +24,9 @@ export const Profile = styled.div`
   border-radius: 10px;
   box-shadow: 3px 3px 3px lightgrey;
 
-  @media ${RESPONSIVE.tablet} {
-    margin: auto;
-    display: flex;
-    height: 20rem;
-    width: 43rem;
+  @media ${RESPONSIVE.mobile} {
+    height: 38rem;
+    width: 30rem;
   }
 `;
 
@@ -48,27 +36,9 @@ export const Detail = styled.div`
   border: 1px solid lightgrey;
   border-radius: 10px;
   padding-bottom: 5rem;
-
-  @media ${RESPONSIVE.tablet} {
-    margin: auto;
-    margin-top: 2rem;
-  }
-
-  @media ${RESPONSIVE.tablet} {
-    width: 50rem;
-  }
 `;
 
-export const LabelDiv = styled.div`
-  @media ${RESPONSIVE.tablet} {
-    width: 50%;
-    margin-top: 3.5rem;
-  }
-`;
-
-export const Label = styled.label`
-  align-items: center;
-`;
+export const Label = styled.label``;
 
 export const Input = styled.input`
   display: none;
@@ -104,11 +74,6 @@ export const DetailTop = styled.div`
   gap: 3rem;
   font-size: 2rem;
   font-weight: bolder;
-
-  @media ${RESPONSIVE.tablet} {
-    justify-content: center;
-    gap: 15rem;
-  }
 `;
 
 export const MyDetail = styled.div`
@@ -158,33 +123,25 @@ export const ChangeDiv = styled.div`
   border-radius: 50%;
   border: 1px solid lightgray;
   position: absolute;
-  bottom: 0;
-  right: 17%;
+  left: 60%;
+  top: 60%;
   text-align: center;
   cursor: pointer;
 
-  @media ${RESPONSIVE.tablet} {
-    bottom: 20%;
-    right: 19%;
+  @media ${RESPONSIVE.mobile} {
+    width: 8rem;
+    height: 8rem;
   }
 `;
 
 export const AvatarDiv = styled.div`
+  width: 100%;
   position: relative;
-
-  @media ${RESPONSIVE.tablet} {
-    width: 50%;
-  }
 `;
 
 export const CertificationDiv = styled.div`
   padding: 5rem 0 0 0;
   text-align: center;
-
-  @media ${RESPONSIVE.tablet} {
-    padding: 0%;
-    margin-top: 1rem;
-  }
 `;
 
 export const Certification = styled.button`
@@ -215,10 +172,6 @@ export const Card = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     top: 40%;
-  }
-
-  @media ${RESPONSIVE.mobile} {
-    width: 50rem;
   }
 `;
 
@@ -280,10 +233,6 @@ export const CenteredText = styled.div`
 export const InputDiv = styled.div`
   display: flex;
   align-items: center;
-
-  @media ${RESPONSIVE.mobile} {
-    width: 80%;
-  }
 `;
 
 export const FileInput = styled.input`
@@ -392,86 +341,4 @@ export const RejectButton = styled.button`
   font-weight: bolder;
   font-size: 1.5rem;
   padding: 0.5rem;
-`;
-
-export const DeleteUser = styled.div`
-  width: 95%;
-  padding-top: 5rem;
-  text-align: right;
-  margin-bottom: -2rem;
-`;
-
-export const DeleteUserP = styled.p`
-  transition: 0.5s;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export const Modal2 = styled.div`
-  width: 100%;
-`;
-
-export const Card2 = styled.div`
-  width: 64.9rem;
-  z-index: 9999;
-  position: fixed;
-  top: 40%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border-radius: 8px;
-  border: 1px solid black;
-  padding: 3rem 0 2rem 0;
-
-  @media ${RESPONSIVE.tablet} {
-    width: 90%;
-    top: 40%;
-    left: 50%;
-  }
-`;
-
-export const Reason = styled.div`
-  text-align: center;
-  font-weight: 700;
-  font-size: 3rem;
-`;
-
-export const ReasonDiv = styled.div`
-  text-align: center;
-  height: 100%;
-  padding-top: 2rem;
-`;
-
-export const DeleteButtonDiv = styled.div`
-  width: 100%;
-  text-align: center;
-  padding-top: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-`;
-
-export const BlueButton2 = styled.button`
-  width: 5rem;
-  height: 3.5rem;
-  border-radius: 5px;
-  background-color: #5429ff;
-  font-size: 1.5rem;
-  font-weight: bolder;
-  color: white;
-  text-align: center;
-`;
-
-export const RedButton2 = styled.button`
-  width: 5rem;
-  height: 3.5rem;
-  border-radius: 5px;
-  background-color: #d5d5d5;
-  font-size: 1.5rem;
-  font-weight: bolder;
-  color: black;
-  text-align: center;
 `;

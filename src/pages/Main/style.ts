@@ -7,7 +7,7 @@ export const Wrap = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-  margin-top: -9.5rem;
+  margin-top: -8%;
   position: relative;
 `;
 
@@ -20,22 +20,22 @@ export const Img = styled.img`
 export const Header = styled.h4`
   font-size: 9rem;
   color: white;
-  font-weight: 500;
-  bottom: 20%;
+  font-weight: bolder;
+  top: 50%;
   padding-left: 5%;
-  line-height: 1.3;
+  line-height: 130%;
   color: #fff;
-  -webkit-text-stroke: 0.2rem;
+  -webkit-text-stroke: 2px #fff;
   font-family: 'Noto Sans KR', sans-serif;
   position: absolute;
 
-  @media ${RESPONSIVE.tablet} {
-    font-size: 7rem;
-    bottom: 18%;
-  }
   @media ${RESPONSIVE.mobile} {
     font-size: 5rem;
-    bottom: 10%;
+    top: 30%;
+  }
+  @media ${RESPONSIVE.tablet} {
+    font-size: 7rem;
+    top: 40%;
   }
 `;
 
@@ -71,7 +71,7 @@ export const AiPic = styled.div`
   }
   @media ${RESPONSIVE.tablet} {
     flex-direction: column;
-    gap: 10rem;
+    gap: 20rem;
   }
 `;
 
@@ -100,7 +100,7 @@ export const SubHeader = styled.h4`
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
-  line-height: 1.3;
+  line-height: 130%;
 `;
 
 export const ContentDiv = styled.div`
@@ -184,7 +184,7 @@ export const EffectDiv = styled.div`
 
   @media ${RESPONSIVE.mobile} {
     text-align: center;
-    line-height: 800%;
+    padding: 0;
   }
 
   @media ${RESPONSIVE.tablet} {
