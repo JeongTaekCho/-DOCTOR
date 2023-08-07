@@ -1,4 +1,4 @@
-import React, { useState, useRef, MouseEvent, ChangeEvent } from 'react';
+import React, { useState, useRef, MouseEvent, ChangeEvent, useEffect } from 'react';
 import * as S from './style';
 import Avatar from '@mui/material/Avatar';
 import MyManage from '../../components/mypage/Manage';
@@ -171,6 +171,21 @@ const MyPage = () => {
   const certification = userData?.user?.role;
   const vetStatus: any = userData?.vet?.status;
   const userImage = userData?.user?.img_path;
+
+  useEffect(() => {
+    // Modal이 열릴 때 body에 스크롤 막기
+    if (modal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Modal이 닫힐 때 body 스크롤 활성화
+      document.body.style.overflow = 'auto';
+    }
+
+    // 컴포넌트 언마운트 시에도 body 스크롤 활성화
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [modal]);
 
   return (
     <S.Wrap>
