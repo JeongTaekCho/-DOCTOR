@@ -8,13 +8,20 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../constants/routes/routeData';
 import Swal from 'sweetalert2';
 import { useAtomValue } from 'jotai';
+import { usePostDiseaseMutation } from '../../hooks/query/usePostDiseaseMutation';
 
 const AiPage = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
+  const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const imgInput = useRef<HTMLInputElement | null>(null);
+
+  const mutation = usePostDiseaseMutation();
+  const postDisease = mutation.mutate;
 
   const openModal = () => {
     setModal(true);
@@ -36,7 +43,25 @@ const AiPage = () => {
           setAiImage(reader.result as string);
         }
       };
-      reader.readAsDataURL(e.target.files[0]); //서버에는 이걸로 보냄
+      reader.readAsDataURL(e.target.files[0]);
+
+      const formData: any = new FormData();
+      formData.append('diseases', e.target.files[0]);
+
+      setLoading(true);
+
+      postDisease(formData, {
+        onSuccess: ({ data }: any) => {
+          setLoading(false);
+          Swal.fire('피부 사진이 업로드되었습니다');
+          const firstKey = Object.keys(data)[0];
+          setResult(firstKey);
+        },
+        onError: (err: any) => {
+          setLoading(false);
+          Swal.fire(err.response.data.error);
+        }
+      });
     } else {
       // 업로드 취소할 시
       setAiImage('/images/commons/aipic.png');
@@ -55,6 +80,21 @@ const AiPage = () => {
     }
   });
 
+  useEffect(() => {
+    // Modal이 열릴 때 body에 스크롤 막기
+    if (modal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Modal이 닫힐 때 body 스크롤 활성화
+      document.body.style.overflow = 'auto';
+    }
+
+    // 컴포넌트 언마운트 시에도 body 스크롤 활성화
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [modal]);
+
   return (
     <S.Wrap>
       <S.Title>
@@ -65,8 +105,8 @@ const AiPage = () => {
         <Avatar
           src={AiImage}
           sx={{
-            width: 420,
-            height: 450,
+            width: '42rem',
+            height: '45rem',
             margin: 'auto',
             marginTop: '2rem',
             cursor: 'pointer',
@@ -89,7 +129,7 @@ const AiPage = () => {
           <S.Button onClick={openModal}>올바른 예시 확인</S.Button>
         ) : (
           <S.Skin>
-            <S.SkinSpan>각질</S.SkinSpan>이 의심됩니다. 병원에 방문해 주세요.
+            <S.SkinSpan>{result}</S.SkinSpan>이(가) 의심됩니다. 병원에 방문해 주세요.
             <S.SkinButton onClick={resetAiImage}>다시 검사하기</S.SkinButton>
           </S.Skin>
         )}
@@ -126,6 +166,14 @@ const AiPage = () => {
             </S.Correct>
           </S.Card>
         </S.Modal>
+      )}
+      {loading && (
+        <S.Loader>
+          <S.Circle1></S.Circle1>
+          <S.Circle2></S.Circle2>
+          <S.Circle3></S.Circle3>
+          <S.Circle4></S.Circle4>
+        </S.Loader>
       )}
     </S.Wrap>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import MainPage from '../../pages/Main';
 import RegisterPage from '../../pages/Register';
@@ -6,10 +7,15 @@ import ChatsPage from '../../pages/Chats';
 import ChatDetail from '../../pages/ChatDetail';
 import AiPage from '../../pages/Ai';
 import MyPage from '../../pages/MyPage';
-import Community from '../../pages/Community';
 import HospitalPage from '../../pages/Hospital';
-import AdminPage from '../../pages/Admin';
+
 import FreeDetail from '../../components/community/FreeDetail';
+import Free from '../../pages/Community/Free';
+import Info from '../../pages/Community/Info';
+import AdminReportPostPage from '../../pages/Admin/ReportPostPage';
+import AdminReportCommentPage from '../../pages/Admin/ReportCommentPage';
+import AdminUserInfoPage from '../../pages/Admin/UserInfoPage';
+import AdminCertifiedPage from '../../pages/Admin/CertifiedPage';
 
 interface Route {
   id: number;
@@ -69,32 +75,60 @@ export const ROUTE: { [key: string]: Route } = {
     element: <MyPage />,
     exact: true
   },
-  COMMUNITY: {
+  FREECOMMUNITY: {
     id: 8,
-    path: '/community',
-    link: '/community',
-    element: <Community />,
+    path: '/community/free',
+    link: '/community/free',
+    element: <Free />,
+    exact: true
+  },
+  INFOCOMMUNITY: {
+    id: 9,
+    path: '/community/info',
+    link: '/community/info',
+    element: <Info />,
     exact: true
   },
   HOSPITAL: {
-    id: 9,
+    id: 10,
     path: '/hospital',
     link: '/hospital',
     element: <HospitalPage />,
     exact: true
   },
-  ADMIN: {
-    id: 10,
-    path: '/admin',
-    link: '/admin',
-    element: <AdminPage />,
-    exact: true
-  },
   FREEDETAIL: {
     id: 11,
-    path: '/free/:userId',
-    link: '/free',
+    path: '/community/:postId',
+    link: '/community',
     element: <FreeDetail />,
+    exact: true
+  },
+  ADMINREPORTPOST: {
+    id: 12,
+    path: '/admin-report-post',
+    link: '/admin-report-post',
+    element: <AdminReportPostPage />,
+    exact: true
+  },
+  ADMINREPORTCOMMAND: {
+    id: 13,
+    path: '/admin-report-comment',
+    link: '/admin-report-comment',
+    element: <AdminReportCommentPage />,
+    exact: true
+  },
+  ADMINUSERINFO: {
+    id: 14,
+    path: '/admin-userinfo',
+    link: '/admin-userinfo',
+    element: <AdminUserInfoPage />,
+    exact: true
+  },
+  ADMINCERTIFIED: {
+    id: 15,
+    path: '/admin-certified',
+    link: '/admin-certified',
+    element: <AdminCertifiedPage />,
     exact: true
   }
 };

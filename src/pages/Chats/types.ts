@@ -4,7 +4,7 @@ interface Doctor {
   hospital_name: string;
   img_path: string;
   user_email: string;
-  grade: string;
+  grade: number;
   chat_count: number | null;
   created_at: Date;
   deleted_at: Date | null;

@@ -9,6 +9,7 @@ export const Wrap = styled.div`
 export const List = styled.div`
   width: 100%;
   position: relative;
+  padding: 0 3rem 0 3rem;
 `;
 
 export const Post = styled.div`
@@ -44,7 +45,6 @@ export const PostUser = styled.p`
 
 export const PostDate = styled.span`
   font-size: 1.6rem;
-  margin-left: 4%;
 `;
 
 export const HeartDiv = styled.span`

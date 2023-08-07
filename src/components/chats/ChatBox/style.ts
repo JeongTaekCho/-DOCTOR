@@ -1,9 +1,13 @@
 import { styled } from 'styled-components';
 
-export const ChatListBox = styled.div`
+interface ChatListBoxProps {
+  status: string | undefined;
+}
+
+export const ChatListBox = styled.div<ChatListBoxProps>`
   width: 100%;
   padding: 2.4rem 1.4rem;
-  background-color: #fff;
+  background-color: ${({ status }) => (status === 'completed' ? '#ddd' : '#fff')};
   border-radius: 0.6rem;
   display: flex;
   align-items: center;

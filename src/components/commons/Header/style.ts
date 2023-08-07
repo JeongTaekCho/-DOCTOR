@@ -431,3 +431,16 @@ export const AlramNumBox = styled.div`
     color: #fff;
   }
 `;
+
+export const MyPageLink = styled(Link)`
+  display: block;
+  width: 13rem;
+  padding: 1.5rem;
+  border-radius: 0.7rem;
+  background-color: ${STYLE.mainColor};
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #fff;
+  margin-top: 2rem;
+  text-align: center;
+`;

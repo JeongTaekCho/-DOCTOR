@@ -17,7 +17,7 @@ export const MENU = [
   {
     id: 4,
     name: '커뮤니티',
-    link: '/community'
+    link: '/community/free'
   }
 ];
 
@@ -53,17 +53,17 @@ export const AREA = [
 
 export const RegionOptions = [
   { value: '', label: '지역선택' },
-  { value: '서울', label: '서울' },
-  { value: '경기', label: '경기' },
-  { value: '인천', label: '인천' },
-  { value: '대전', label: '대전' },
-  { value: '대구', label: '대구' },
-  { value: '광주', label: '광주' },
-  { value: '울산', label: '울산' },
-  { value: '부산', label: '부산' },
-  { value: '강원도', label: '강원도' },
-  { value: '충청도', label: '충청도' },
-  { value: '전라도', label: '전라도' },
-  { value: '경상도', label: '경상도' },
-  { value: '제주도', label: '제주도' }
+  { value: 'Seoul', label: '서울' },
+  { value: 'Gyeonggi', label: '경기' },
+  { value: 'Incheon', label: '인천' },
+  { value: 'Daejeon', label: '대전' },
+  { value: 'Daegu', label: '대구' },
+  { value: 'Gwangju', label: '광주' },
+  { value: 'Ulsan', label: '울산' },
+  { value: 'Busan', label: '부산' },
+  { value: 'Gangwon', label: '강원도' },
+  { value: 'Chungcheong', label: '충청도' },
+  { value: 'Jelloa', label: '전라도' },
+  { value: 'Gyeongsang', label: '경상도' },
+  { value: 'Jeju', label: '제주도' }
 ];

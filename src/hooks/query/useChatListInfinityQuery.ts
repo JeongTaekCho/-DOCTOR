@@ -14,6 +14,7 @@ export const useChatListInfinityQuery = (areaName: string, debounceSearchValue: 
     ['infiniteDoctorList', areaName, debounceSearchValue],
     ({ pageParam }) => getDoctorList(areaName, debounceSearchValue, pageParam),
     {
+      staleTime: 10000,
       getNextPageParam: lastPage => {
         return lastPage.currentPage < lastPage.totalPages && lastPage.currentPage + 1;
       }
