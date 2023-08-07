@@ -44,15 +44,10 @@ const AdminReportPostPage = () => {
                   <S.WaitingReportBtn onClick={handleClickBtn1}>접수 목록</S.WaitingReportBtn>
                   <S.TreatReportBtn onClick={handleClickBtn2}>처리 목록</S.TreatReportBtn>
                 </S.PageNationBox>
-                <S.PageNationBar activeTab={activeTab}></S.PageNationBar>
+                <S.PageNationBar activetab={activeTab}></S.PageNationBar>
               </S.PageNationBtn>
             </S.PageNation>
             <S.ReportList>
-              {/* <S.ListSet>
-                <S.ListOrder>▼ 처리 내용 순</S.ListOrder>
-                <S.ListOrder>▼ 오래된 순</S.ListOrder>
-                <S.ListOrder>▼ 최신 순</S.ListOrder>
-              </S.ListSet> */}
               <S.ListRowName>
                 <S.ReportIdList>신고된 글</S.ReportIdList>
                 <S.ReportWarnList>신고된 항목</S.ReportWarnList>
@@ -71,7 +66,7 @@ const AdminReportPostPage = () => {
                   {reportPostList.length > 0 ? (
                     reportPostList?.map(data => (
                       <ReportPostListLayout
-                        key={data?.posts?.id}
+                        key={data?.reports?.id}
                         data={data}
                         reportPostRefetch={reportPostRefetch}
                       />

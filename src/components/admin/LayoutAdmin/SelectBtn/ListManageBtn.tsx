@@ -75,9 +75,9 @@ const ReportSelectBox = ({ reportId, reportPostRefetch, reportCommentRefetch, st
   };
 
   return (
-    <ReportHandleSelect color={COLORS[selectedValue]} onChange={handleReportStatus}>
+    <ReportHandleSelect value={status} color={COLORS[selectedValue]} onChange={handleReportStatus}>
       {OPTIONS.map(option => (
-        <option key={option.value} value={option.value} selected={status === option.value}>
+        <option key={option.value} value={option.value}>
           {option.name}
         </option>
       ))}

@@ -46,7 +46,7 @@ const AdminReportCommentPage = () => {
                   <S.WaitingReportBtn onClick={handleClickBtn1}>접수 목록</S.WaitingReportBtn>
                   <S.TreatReportBtn onClick={handleClickBtn2}>처리 목록</S.TreatReportBtn>
                 </S.PageNationBox>
-                <S.PageNationBar activeTab={activeTab}></S.PageNationBar>
+                <S.PageNationBar activetab={activeTab}></S.PageNationBar>
               </S.PageNationBtn>
             </S.PageNation>
             <S.ReportList>
@@ -68,7 +68,7 @@ const AdminReportCommentPage = () => {
                   {reportCommentList.length > 0 ? (
                     reportCommentList?.map(data => (
                       <ReportCommentLayout
-                        key={data?.comments?.id}
+                        key={data?.reports?.id}
                         data={data}
                         reportCommentRefetch={reportCommentRefetch}
                       />
