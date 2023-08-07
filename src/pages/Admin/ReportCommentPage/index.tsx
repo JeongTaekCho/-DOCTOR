@@ -4,7 +4,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import * as S from './style';
 import AdminLayout from '../../../components/admin/LayoutAdmin/PageLayout/NavbarAdmin';
 import { useGetReportCommentListQuery } from '../../../hooks/query/useGetReportCommentListQuery';
-import ReportCommentLayout from '../../../components/admin/LayoutAdmin/ListSet/ReportList';
+import ReportCommentLayout from '../../../components/admin/LayoutAdmin/ListSet/ReportCommentList';
 
 const AdminReportCommentPage = () => {
   const [activeTab, setActiveTab] = useState(false);
