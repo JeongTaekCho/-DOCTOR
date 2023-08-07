@@ -116,16 +116,16 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
   };
 
   const userStatus =
-    calculateRemainingDays(user?.blocked_at) < 9999 ? (
+    calculateRemainingDays(formatDate(user?.blocked_at)) < 9999 ? (
       <p className="textColor">정지</p>
     ) : (
       <p className="textColor">영구정지</p>
     );
 
   const remainingDate =
-    calculateRemainingDays(user?.blocked_at) > 0 &&
-    calculateRemainingDays(user?.blocked_at) < 9999 ? (
-      <p className="mainFontColor">D - {calculateRemainingDays(user?.blocked_at)}</p>
+    calculateRemainingDays(formatDate(user?.blocked_at)) > 0 &&
+    calculateRemainingDays(formatDate(user?.blocked_at)) < 9999 ? (
+      <p className="mainFontColor">D - {calculateRemainingDays(formatDate(user?.blocked_at))}</p>
     ) : null;
 
   return (
