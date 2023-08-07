@@ -200,6 +200,9 @@ const ListOfLists = styled.div`
 const ReportComment = styled.p`
   // '신고된 글 제목..'
   width: 20.5%;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: ${STYLE.mainFontColor};
 `;
 
 const ReportDetail = styled.p`
@@ -218,7 +221,7 @@ const ReportId = styled.p`
   display: flex;
   align-items: center;
   color: #252733;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.4rem;
 `;
 const IdState = styled.div`

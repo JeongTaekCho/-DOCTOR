@@ -238,6 +238,9 @@ const DateBox = styled.div`
     &:last-child {
       margin-top: 1rem;
     }
+    &:first-child {
+      margin-top: 0;
+    }
   }
 `;
 const ReportDate = styled.p`

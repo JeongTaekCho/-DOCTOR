@@ -75,9 +75,9 @@ const AdminReportPostPage = () => {
                   loader={<Loading />}
                 >
                   {reportPostList.length > 0 ? (
-                    reportPostList?.map((data, index) => (
+                    reportPostList?.map(data => (
                       <ReportPostListLayout
-                        key={index}
+                        key={data?.posts?.id}
                         data={data}
                         reportPostRefetch={reportPostRefetch}
                       />
