@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { STYLE } from '../../../styles/commonStyle';
 
 //-----------------------------------
 //-----------------------------------
@@ -214,10 +215,18 @@ export const PageNationBar = styled.div<{ activeTab: string }>`
   padding: 0.4rem 0 0.4rem 0;
   background-color: ${props => {
     switch (props.activeTab) {
-      case 'waiting':
+      case 'pending':
         return '#344054';
       default:
         return '#667085';
     }
   }};
+`;
+
+export const ErrorMent = styled.p`
+  font-size: 2rem;
+  font-weight: 500;
+  color: ${STYLE.mainFontColor};
+  text-align: center;
+  margin-top: 3rem;
 `;
