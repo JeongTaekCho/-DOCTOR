@@ -1,34 +1,39 @@
 import React from 'react';
-import { LayoutRouteProps } from 'react-router-dom';
+//import { LayoutRouteProps } from 'react-router-dom';
 import { styled } from 'styled-components';
 import ReportHandleSelect from '../SelectBtn/ListManageBtn';
 import IdHandleSelect from '../SelectBtn/UserManageBtn';
+import { ReportCommentListResponse } from '../../../../hooks/query/useGetReportCommentListQuery';
 
-const CertifiedListLayout = ({ children }: LayoutRouteProps) => {
+interface UserProps {
+  user: ReportCommentListResponse;
+  activeTab: boolean;
+}
+
+const ReportCommentListLayout = ({ user }: UserProps) => {
   return (
     <Wrap>
       <ListOfLists>
-        <ReportComment>신고된 글 제목..</ReportComment>
-        <ReportDetail>비방적인 글</ReportDetail>
+        <ReportComment>{user?.title}</ReportComment>
+        <ReportDetail>{user?.content}</ReportDetail>
         <ReportIdTreat>
-          <ReportId>dkdlel5677@gmail.com</ReportId>
+          <ReportId>{user?.email}</ReportId>
           <IdState>2주 정지</IdState> {/* //D-day되도록 바꿔야 함 */}
         </ReportIdTreat>
         <IdHandleBtn>
           <IdHandleSelect></IdHandleSelect>
         </IdHandleBtn>
 
-        <ReportDate>2023-07-05</ReportDate>
+        <ReportDate>{user?.created_at}</ReportDate>
         <ReportHandle>
           <ReportHandleSelect></ReportHandleSelect>
         </ReportHandle>
       </ListOfLists>
-      {children}
     </Wrap>
   );
 };
 
-export default CertifiedListLayout;
+export default ReportCommentListLayout;
 
 const Wrap = styled.div`
   width: 100%;
