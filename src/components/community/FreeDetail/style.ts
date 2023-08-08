@@ -77,15 +77,19 @@ export const HeartIcon = styled.div`
   font-size: 2rem;
   color: #9747ff;
   width: 100%;
-  padding-top: 1rem;
+  padding-top: 4rem;
   display: flex;
   justify-content: center;
 `;
 
 export const HeartNumber = styled.div`
-  padding: 0.5rem 0 0 1rem;
+  padding-top: 0.35rem;
   color: black;
-  font-size: 3.5rem;
+  font-size: 3.3rem;
+
+  @media ${RESPONSIVE.tablet} {
+    padding-top: 0.7rem;
+  }
 `;
 
 export const ReportText = styled.button`
@@ -403,4 +407,12 @@ export const TitleTextarea = styled.textarea`
   width: 75rem;
   align-items: center;
   padding-top: 2rem;
+`;
+
+export const Pre = styled.pre`
+  width: 100%;
+  height: 100%;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
 `;

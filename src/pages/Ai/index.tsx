@@ -9,7 +9,10 @@ import { ROUTE } from '../../constants/routes/routeData';
 import Swal from 'sweetalert2';
 import { useAtomValue } from 'jotai';
 import { usePostDiseaseMutation } from '../../hooks/query/usePostDiseaseMutation';
-
+import { useGetTopVetsQuery } from '../../hooks/query/useGetTopVetsQuery';
+import ProfileImg from '../../components/commons/ProfileImg';
+import { imgUrl } from '../../api';
+import { Rating } from '@mui/material';
 const AiPage = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
@@ -24,6 +27,8 @@ const AiPage = () => {
 
   const mutation = usePostDiseaseMutation();
   const postDisease = mutation.mutate;
+  const { data: topVets }: any = useGetTopVetsQuery();
+  console.log(topVets);
 
   const openModal = () => {
     setModal(true);
@@ -55,7 +60,6 @@ const AiPage = () => {
       postDisease(formData, {
         onSuccess: ({ data }: any) => {
           setLoading(false);
-          Swal.fire('피부 사진이 업로드되었습니다');
           const firstKey = Object.values(data)[0];
           setResult(firstKey);
           console.log(data);
@@ -140,6 +144,29 @@ const AiPage = () => {
           )
         )}
       </S.Example>
+
+      {topVets?.map((vet: any) => (
+        <S.ChatListContainer key={vet.id}>
+          <S.ChatLists>
+            <S.ChatList>
+              <S.ListBox>
+                <S.ListContainer>
+                  <ProfileImg w="8rem" h="8rem" src={`${imgUrl}${vet.img_path}`} />
+                  <S.ListContentBox>
+                    <S.NameRateBox>
+                      <p>
+                        {vet.name} [{vet.hospital_name}]
+                      </p>
+                      <Rating name="read-only" value={vet.grade} readOnly size="large" />
+                    </S.NameRateBox>
+                    <S.ListDetail>{vet.description}</S.ListDetail>
+                  </S.ListContentBox>
+                </S.ListContainer>
+              </S.ListBox>
+            </S.ChatList>
+          </S.ChatLists>
+        </S.ChatListContainer>
+      ))}
 
       {modal && (
         <S.Modal>

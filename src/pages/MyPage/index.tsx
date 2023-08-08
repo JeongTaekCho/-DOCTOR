@@ -13,6 +13,8 @@ import { useDeleteUserMutation } from '../../hooks/query/useDeleteUserMutation';
 import { ROUTE } from '../../constants/routes/routeData';
 import { useNavigate } from 'react-router-dom';
 import { imgUrl } from '../../api';
+import { calculateRemainingDays } from '../../util/getRemaingTime';
+import { formatDate } from '../../util/formatDate';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -180,8 +182,7 @@ const MyPage = () => {
   const certification = userData?.user?.role;
   const vetStatus: any = userData?.vet?.status;
   const userImage = userData?.user?.img_path;
-
-  console.log(`${imgUrl}${userImage}`);
+  const userBlockDate = calculateRemainingDays(formatDate(userData?.user?.blocked_at));
 
   return (
     <S.Wrap>
@@ -207,9 +208,17 @@ const MyPage = () => {
                 onChange={onChange}
               />
               <S.Name>{userData?.user?.nickname}</S.Name>
-              <S.State>
-                계정상태: <S.StateSpan>정상</S.StateSpan>
-              </S.State>
+              {userData?.user?.blocked_at === null ? (
+                <S.State>
+                  계정상태 <S.StateSpan>정상</S.StateSpan>
+                </S.State>
+              ) : userBlockDate < 9999 ? (
+                <S.State>
+                  정지해제 <S.StateSpan>D-{userBlockDate}</S.StateSpan>
+                </S.State>
+              ) : (
+                <S.State style={{ color: 'red' }}>영구정지</S.State>
+              )}
             </S.Label>
             {certification === 'user' && (!vetStatus || vetStatus !== 'pending') && (
               <S.CertificationDiv>

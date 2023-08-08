@@ -1,11 +1,12 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 import * as S from './style';
 import PropTypes from 'prop-types';
 import { useCreatePostMutation } from '../../../hooks/query/useCreatePostMutation';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../constants/routes/routeData';
-
+import { tokenAtom } from '../../../atoms/atoms';
+import { useAtomValue } from 'jotai';
 interface PostRegisterProps {
   onCancel: () => void; // onCancel 함수의 타입을 명시적으로 지정
   isFree: boolean;
@@ -13,7 +14,7 @@ interface PostRegisterProps {
 
 const PostRegister: React.FC<PostRegisterProps> = ({ onCancel, isFree }) => {
   const navigate = useNavigate();
-
+  const auth = useAtomValue(tokenAtom);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
@@ -30,6 +31,13 @@ const PostRegister: React.FC<PostRegisterProps> = ({ onCancel, isFree }) => {
   const handleChangeBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setBody(e.target.value);
   };
+
+  useEffect(() => {
+    if (!auth) {
+      navigate(ROUTE.LOGIN.link);
+      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
+    }
+  });
 
   const handleCreatePost = () => {
     if (!title) {
