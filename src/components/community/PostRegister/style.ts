@@ -36,6 +36,7 @@ export const Detail = styled.textarea`
   padding: 1rem;
   font-size: 1.5rem;
   outline: none;
+  white-space: pre-line;
 `;
 
 export const ButtonDiv = styled.div`

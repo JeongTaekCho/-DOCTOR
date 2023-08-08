@@ -33,7 +33,7 @@ export const Container = styled.div`
 
 export const ImgBox = styled.div<UrlProps>`
   width: 100%;
-  height: 65rem;
+  height: 90vh;
   background-image: url(${({ url }) => url});
   background-size: cover;
   filter: brightness(85%);

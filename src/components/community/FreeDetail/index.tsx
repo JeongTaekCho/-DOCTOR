@@ -16,6 +16,10 @@ import { useRegisterCommentMutation } from '../../../hooks/query/useRegisterComm
 import { useGetCommentQuery } from '../../../hooks/query/useGetCommentQuery.ts';
 import { useDeleteCommentMutation } from '../../../hooks/query/useDeleteCommentMutation.ts';
 import { useReportCommentMutation } from '../../../hooks/query/useReportCommentMutation.ts';
+import { tokenAtom } from '../../../atoms/atoms.ts';
+import { useAtomValue } from 'jotai';
+import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutation.ts';
+
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -51,6 +55,8 @@ const FreeDetail = () => {
 
   const { mutate: changePost } = useChangePostMutation(postId);
   const { mutate: registerComment } = useRegisterCommentMutation();
+
+  const { mutate: changeHeart } = useChangeHeartMutation();
 
   const openModal = () => {
     setModal(true);
@@ -207,7 +213,13 @@ const FreeDetail = () => {
   //const isCurrentCommentAuthor = currentUserEmail === commentData?.comments?.author_email;
 
   const handleRegisterComment = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault;
+    e.preventDefault();
+
+    if (!auth) {
+      Swal.fire('댓글을 작성하려면 로그인이 필요합니다');
+      return;
+    }
+
     registerComment(
       {
         post_id: parsedPostId,
@@ -230,6 +242,24 @@ const FreeDetail = () => {
     );
   };
 
+  const handleChangeHeart = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    changeHeart(
+      {
+        postId: postId
+      },
+      {
+        onSuccess: () => {
+          refetch();
+          Swal.fire('좋아요');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
+  };
+
   useEffect(() => {
     // Modal이나 deleteComment, deletePost, commentReport가 변경될 때 body 스크롤 처리
     if (modal || deleteComment || deletePost || commentReport) {
@@ -243,19 +273,24 @@ const FreeDetail = () => {
       document.body.style.overflow = 'auto';
     };
   }, [modal, deleteComment, deletePost, commentReport]);
+  const auth = useAtomValue(tokenAtom);
 
+  const maxTitleLength = 40;
+  const maxBodyLength = 500;
   return (
     <div style={{ width: '100%' }}>
       <SideLayout> </SideLayout>
       <S.Container>
-        {isCurrentUserAuthor && (
+        {isCurrentUserAuthor && auth && (
           <S.DeletePost>
             <S.DeletePostButton onClick={handleDeletePost}>삭제</S.DeletePostButton>
           </S.DeletePost>
         )}
         <S.Header>
           {isEditing ? (
-            <S.TitleTextarea onChange={onChangeTitle}>{post?.title}</S.TitleTextarea>
+            <S.TitleTextarea maxLength={maxTitleLength} onChange={onChangeTitle}>
+              {post?.title}
+            </S.TitleTextarea>
           ) : (
             <S.Title>{post?.title}</S.Title>
           )}
@@ -272,33 +307,38 @@ const FreeDetail = () => {
               </S.SolidUserDiv>
             </S.UserWrap>
             {isEditing ? (
-              <S.MainTextArea onChange={onChangeBody}>{post?.body}</S.MainTextArea>
+              <S.MainTextArea maxLength={maxBodyLength} onChange={onChangeBody}>
+                {post?.body}
+              </S.MainTextArea>
             ) : (
-              <S.MainText>{post?.body}</S.MainText>
+              <S.Pre>
+                <S.MainText>{post?.body}</S.MainText>
+              </S.Pre>
             )}
           </S.MainTextDiv>
-          <S.HeartIcon>
+          <S.HeartIcon onClick={handleChangeHeart}>
             <div>
               <BiHeart size="40" />
             </div>
             <S.HeartNumber>{post?.like}</S.HeartNumber>
           </S.HeartIcon>
           <S.ReportTextDiv>
-            {isEditing ? (
-              <div>
-                <S.ConfirmButton onClick={handleChangePost}>확인</S.ConfirmButton>
-                <S.ReportText onClick={handleEditDelete}>취소</S.ReportText>
-              </div>
-            ) : (
-              <div>
-                {/* currentUserEmail과 post?.author_email이 같을 경우 수정 버튼 렌더링 */}
-                {isCurrentUserAuthor ? (
-                  <S.Correction onClick={handleEditClick}>수정</S.Correction>
-                ) : (
-                  <S.ReportText onClick={openModal}>신고</S.ReportText>
-                )}
-              </div>
-            )}
+            {auth ? ( // auth가 참일 때만 아래의 내용을 나타냅니다.
+              isEditing ? (
+                <div>
+                  <S.ConfirmButton onClick={handleChangePost}>확인</S.ConfirmButton>
+                  <S.ReportText onClick={handleEditDelete}>취소</S.ReportText>
+                </div>
+              ) : (
+                <div>
+                  {isCurrentUserAuthor ? (
+                    <S.Correction onClick={handleEditClick}>수정</S.Correction>
+                  ) : (
+                    <S.ReportText onClick={openModal}>신고</S.ReportText>
+                  )}
+                </div>
+              )
+            ) : null}{' '}
           </S.ReportTextDiv>
         </S.MainDiv>
         <S.CommentDiv>댓글</S.CommentDiv>
@@ -309,7 +349,7 @@ const FreeDetail = () => {
                 {comment.users.nickname}
                 <S.CommentDate>{formatDate(comment.created_at)}</S.CommentDate>
               </S.User>
-              {currentUserEmail === comment.author_email && (
+              {currentUserEmail === comment.author_email && auth && (
                 <S.DeleteDiv onClick={handleDeleteComment(comment.id)}>
                   <GrClose />
                 </S.DeleteDiv>
@@ -317,7 +357,7 @@ const FreeDetail = () => {
             </S.UserDiv>
             <S.BottomDiv>
               <S.LeftDiv>{comment.body}</S.LeftDiv>
-              {currentUserEmail !== comment.author_email && (
+              {currentUserEmail !== comment.author_email && auth && (
                 <S.RightDiv onClick={openReport(comment.id)} style={{ cursor: 'pointer' }}>
                   신고
                 </S.RightDiv>
