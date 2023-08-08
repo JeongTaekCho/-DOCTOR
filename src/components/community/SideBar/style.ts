@@ -35,6 +35,9 @@ export const Free = styled.div`
   &:hover {
     background-color: #747474;
   }
+  &.selected {
+    background-color: #747474;
+  }
   @media ${RESPONSIVE.tablet} {
     height: 100%;
     padding: 0;
@@ -61,6 +64,12 @@ export const Info = styled.div`
 
   &:hover {
     background-color: #747474;
+  }
+
+  @media ${RESPONSIVE.pc} {
+    &.selected {
+      background-color: #747474;
+    }
   }
 
   @media ${RESPONSIVE.tablet} {
