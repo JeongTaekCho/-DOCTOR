@@ -5,9 +5,10 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 const OPTIONS = [
-  { value: 'Normal', name: '유지' },
-  { value: 'Delete', name: '삭제' },
-  { value: 'WaitingProgress', name: '대기' }
+  { value: 'accepted', name: '유지' },
+  { value: 'rejected', name: '반려' },
+  { value: 'waitingProgress', name: '대기' }
+  //{ value: 'all', name: '대기'}
 ];
 interface ColorOptions {
   [key: string]: string;

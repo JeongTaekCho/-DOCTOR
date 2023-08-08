@@ -3,18 +3,13 @@ import { LayoutRouteProps, Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Icon from '../IconImg';
 const AdminLayout = ({ children }: LayoutRouteProps) => {
-  // const [isActive, setIsActive] = useState(false);
-
-  // const handleClick = () => {
-  //   setIsActive(prevState => !prevState);
-  // };
   return (
     <Wrap>
       <NavBar>
         <Title>
           <TitleName>관리자 페이지</TitleName>
         </Title>
-        <Menu to="/admin-userinfo" /*active={isActive} onClick={handleClick}*/>
+        <Menu to="/admin-userinfo">
           <Icon w="2rem" h="2rem" src="/images/commons/usermanage1.png" />
           <MenuName>유저 관리</MenuName>
         </Menu>
@@ -85,9 +80,6 @@ const Menu = styled(Link)`
   align-items: center;
   padding: 3rem 0 2rem 2rem;
   &:hover {
-    background-color: #2c2d33;
-  }
-  &:active {
     background-color: #2c2d33;
   }
 `;

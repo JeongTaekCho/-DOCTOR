@@ -4,6 +4,7 @@ import * as API from '../../api/index';
 interface ChangeVetStatusData {
   id: number;
   status: string;
+  email: string;
 }
 
 interface ChangeVetStatusReturn {

@@ -48,11 +48,9 @@ export const ListOrder = styled.button`
 
 export const ListOrder2 = styled.div`
   input {
-    display: flex;
     width: 300px;
     padding: 0.5rem;
     border-radius: 6px;
-    justify-content: flex-end;
   }
 `;
 export const ListRowName = styled.div`
@@ -253,7 +251,7 @@ export const PageNationBar = styled.div<{ activeTab: boolean }>`
   width: 100%;
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
-  background-color: ${({ activeTab }) => (activeTab ? '#ac9bfa' : '#4e2bf5')};
+  background-color: ${props => (props.activeTab ? '#ac9bfa' : '#4e2bf5')};
 `;
 
 export const SelectBox = styled.select`

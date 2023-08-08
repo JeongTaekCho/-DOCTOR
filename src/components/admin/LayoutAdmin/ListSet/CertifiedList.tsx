@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import ProfileImg from '../../../commons/ProfileImg';
-import ReportHandleSelect from '../SelectBtn/CertifiedManageBtn';
+import SelectBox from '../SelectBtn/CertifiedManageBtn';
 import Modal from '../PageLayout/Modal';
-import { VetAuthListResponse } from '../../../../hooks/query/useGetVetAuthListQuery';
+import { VetAuthListResponse } from '../../../../hooks/query/useGetVetAuthListInfinityQuery';
 import { formatDate } from '../../../../util/formatDate';
 
 interface UserProps {
-  user: VetAuthListResponse;
+  user: VetAuthListResponse['data'][number];
+  index: number;
   activeTab: boolean;
+  vetAuthRefetch: () => void;
 }
 
-const CertifiedListLayout = ({ user, activeTab }: UserProps) => {
+const CertifiedListLayout = ({ user, index, activeTab }: UserProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
+  console.log(user);
 
   return (
     <Wrap>
       <ListOfLists>
+        <ReportDetailN>{index}</ReportDetailN>
         <ReportProfile>
           <ProfileImg w="6rem" h="6rem" src={user?.img_path || '/images/commons/kkam.png'} />
           <ReportPrifileId>{user?.user_email}</ReportPrifileId>
@@ -31,7 +35,7 @@ const CertifiedListLayout = ({ user, activeTab }: UserProps) => {
           <ReportContentListSet onClick={handleOpenModal}>제출자료보기</ReportContentListSet>
         </ReportContent>
         <ReportHandle>
-          <ReportHandleSelect></ReportHandleSelect>
+          <SelectBox email={user?.user_email} vetId={user?.id} />
         </ReportHandle>
       </ListOfLists>
 

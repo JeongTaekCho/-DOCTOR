@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { useChangeVetStatusMutation } from '../../../../hooks/query/useChangeVetStatusMutation';
+import Swal from 'sweetalert2';
 
 const OPTIONS = [
   { value: 'accepted', name: '인증' },
@@ -11,31 +12,37 @@ interface ColorOptions {
   [key: string]: string;
 }
 const COLORS: ColorOptions = {
-  Accepted: '#43c223', //인증
-  Rejected: '#e04938', //반려
-  Pending: '#5429FF' //대기
+  accepted: '#43c223', //인증
+  rejected: '#e04938', //반려
+  pending: '#5429FF' //대기
 };
 
-interface Props extends React.HTMLAttributes<HTMLSelectElement> {
-  defaultValue: string;
+interface Props {
   vetId: number;
+  email: string;
 }
 
-const SelectBox = (props: Props) => {
-  const [selectedValue, setSelectedValue] = useState(props.defaultValue);
+const SelectBox = ({ email, vetId }: Props) => {
+  const [selectedValue, setSelectedValue] = useState('');
   const mutation = useChangeVetStatusMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
-    mutation.mutate({ id: props.vetId, status: e.target.value });
+    mutation.mutate(
+      { id: vetId, status: e.target.value, email: email },
+      {
+        onSuccess: () => {
+          Swal.fire('수의사 신청 정보 변경 성공');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      }
+    );
   };
 
   return (
-    <ReportHandleSelect
-      color={COLORS[selectedValue]}
-      defaultValue={props.defaultValue}
-      onChange={handleChange}
-    >
+    <ReportHandleSelect color={COLORS[selectedValue]} onChange={handleChange}>
       {OPTIONS.map(option => (
         <option key={option.value} value={option.value}>
           {option.name}
@@ -45,10 +52,7 @@ const SelectBox = (props: Props) => {
   );
 };
 
-function SelectBoxOptionProps() {
-  return <SelectBox defaultValue="WaitingProgress" vetId={12345}></SelectBox>;
-}
-export default SelectBoxOptionProps;
+export default SelectBox;
 
 const ReportHandleSelect = styled.select<{ color: string }>`
   display: block;

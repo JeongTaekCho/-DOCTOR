@@ -11,6 +11,7 @@ const AdminReportCommentPage = () => {
   const [search, setSearch] = useState('');
 
   const [order, setOrder] = useState('desc');
+  
   const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
     setOrder(e.target.value);
   };
