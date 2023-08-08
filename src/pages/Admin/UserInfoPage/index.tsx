@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import * as S from './style';
 import AdminLayout from '../../../components/admin/LayoutAdmin/PageLayout/NavbarAdmin';
 import { useGetAdminUserListInfinityQuery } from '../../../hooks/query/useGetAdminUserListInfinityQuery';
@@ -26,24 +26,24 @@ const AdminUserInfoPage = () => {
   const adminUserList = adminUserData ? adminUserData.pages.flatMap(page => page.data) : [];
 
   // 검색어 입력 핸들러
-  const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  };
+  }, []);
 
-  const handleChangeRole = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeRole = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setUserRole(e.target.value);
     adminUserRefetch();
-  };
+  }, []);
 
-  const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeOrder = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setOrder(e.target.value);
     adminUserRefetch();
-  };
+  }, []);
 
-  const handleChangeBlocked = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeBlocked = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value);
     adminUserRefetch();
-  };
+  }, []);
 
   useEffect(() => {
     adminUserRefetch();

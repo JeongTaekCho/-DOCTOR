@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import * as S from '../ChatList/style';
 import ProfileImg from '../../commons/ProfileImg';
 import { Rating } from '@mui/material';
@@ -37,9 +37,9 @@ const ChatList = ({
     }
   };
 
-  const handleChangeConsult = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeConsult = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setConsult(e.target.value);
-  };
+  }, []);
 
   const handleConsultRequest = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
