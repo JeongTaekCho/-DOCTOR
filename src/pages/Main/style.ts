@@ -1,5 +1,11 @@
 import { styled } from 'styled-components';
 import { RESPONSIVE } from '../../styles/responsive';
+import { Link } from 'react-router-dom';
+import { STYLE } from '../../styles/commonStyle';
+
+interface UrlProps {
+  url: string;
+}
 
 export const Wrap = styled.div`
   width: 100%;
@@ -9,12 +15,33 @@ export const Container = styled.div`
   width: 100%;
   margin-top: -9.5rem;
   position: relative;
+  overflow: hidden;
+
+  .slick-dots {
+    bottom: 10px;
+
+    li {
+      button {
+        &::before {
+          font-size: 13px;
+          color: #fff;
+        }
+      }
+    }
+  }
 `;
 
-export const Img = styled.img`
+export const ImgBox = styled.div<UrlProps>`
   width: 100%;
-  height: 100%;
+  height: 65rem;
+  background-image: url(${({ url }) => url});
+  background-size: cover;
   filter: brightness(85%);
+  background-position: center;
+
+  @media ${RESPONSIVE.mobile} {
+    height: 40rem;
+  }
 `;
 
 export const Header = styled.h4`
@@ -59,7 +86,6 @@ export const AiPic = styled.div`
   width: 100%;
   text-align: center;
   padding-top: 4%;
-  padding-bottom: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,7 +146,7 @@ export const ContentDiv = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const Content = styled(Link)`
   width: 55rem;
   height: 7.5rem;
   background-color: white;
@@ -130,6 +156,13 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   padding-left: 1%;
+
+  @media ${RESPONSIVE.pc} {
+    &:hover {
+      transform: scale(1.05);
+      transition: all 0.2s;
+    }
+  }
 
   @media ${RESPONSIVE.mobile} {
     margin-top: 5%;
@@ -181,6 +214,8 @@ export const EffectDiv = styled.div`
   height: 70rem;
   padding: 7% 0 15% 15%;
   line-height: 900%;
+  position: relative;
+  z-index: 1;
 
   @media ${RESPONSIVE.mobile} {
     text-align: center;
@@ -206,4 +241,26 @@ export const EffectP = styled.p`
 
 export const EffectSpan = styled.span`
   margin-left: 1rem;
+`;
+
+export const AiLinkBtn = styled(Link)`
+  display: block;
+  width: 40rem;
+  padding: 2rem;
+  background-color: ${STYLE.mainColor};
+  border-radius: 0.6rem;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 8rem auto 12rem;
+  text-align: center;
+  position: relative;
+  z-index: 5000;
+
+  @media ${RESPONSIVE.pc} {
+    &:hover {
+      transform: translateY(0.5rem);
+      transition: all 0.2s;
+    }
+  }
 `;
