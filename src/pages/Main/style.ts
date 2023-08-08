@@ -23,7 +23,7 @@ export const Container = styled.div`
     li {
       button {
         &::before {
-          font-size: 13px;
+          font-size: 1.3rem;
           color: #fff;
         }
       }
@@ -37,10 +37,10 @@ export const ImgBox = styled.div<UrlProps>`
   background-image: url(${({ url }) => url});
   background-size: cover;
   filter: brightness(85%);
-  background-position: center;
 
   @media ${RESPONSIVE.mobile} {
     height: 40rem;
+    background-position: center;
   }
 `;
 
