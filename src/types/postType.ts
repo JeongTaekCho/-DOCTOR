@@ -19,3 +19,21 @@ export interface PostsResponse {
   total: number | undefined;
   posts: postData[];
 }
+
+export interface UserCommentResponse {
+  id: number;
+  post_id: number;
+  author_email: string;
+  body: string;
+  group: 0;
+  order: 0;
+  indent: 0;
+  created_at: Date;
+  update_at: Date | null;
+  deleted_at: Date | null;
+  users: User;
+}
+
+export interface UserCommentDetail {
+  comments: UserCommentResponse[];
+}

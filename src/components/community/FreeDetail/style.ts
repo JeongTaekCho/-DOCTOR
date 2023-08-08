@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 50%;
   margin: auto;
   margin-left: 30%;
+  min-height: calc(100vh - 135px);
 
   @media ${RESPONSIVE.tablet} {
     width: 90%;
@@ -56,6 +57,7 @@ export const MainText = styled.div`
   padding: 1.5rem 0 0 0.5rem;
   font-size: 1.6rem;
   line-height: 2rem;
+  overflow-y: auto;
 `;
 
 export const MainTextArea = styled.textarea`
@@ -253,6 +255,8 @@ export const ListButton = styled(Link)`
 
 export const Modal = styled.div`
   width: 100%;
+  z-index: 9999;
+  position: relative;
 `;
 
 export const Card = styled.div`
@@ -366,4 +370,37 @@ export const DeletePostButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const UserWrap = styled.div`
+  padding-left: 0.5rem;
+  padding-top: 1rem;
+  font-size: 1.5rem;
+`;
+
+export const SolidUserDiv = styled.div`
+  display: flex;
+`;
+
+export const Nickname = styled.span`
+  margin-left: 0.5rem;
+`;
+
+export const BlackDiv = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9998;
+`;
+
+export const TitleTextarea = styled.textarea`
+  resize: none;
+  width: 75rem;
+  align-items: center;
+  padding-top: 2rem;
 `;

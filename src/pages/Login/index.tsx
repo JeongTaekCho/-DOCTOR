@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useState } from 'react';
 import * as S from './style';
 import { Input } from '../../components/inputs/FormInput/style';
 import FormButton from '../../components/buttons/FormButton';
@@ -37,7 +37,7 @@ const LoginPage = () => {
     setRememberMe(e.target.checked);
   };
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === 'email') {
@@ -59,7 +59,7 @@ const LoginPage = () => {
         setValidate(prevError => ({ ...prevError, password: true }));
       }
     }
-  };
+  }, []);
 
   const handleEmailClean = () => {
     setEmail('');

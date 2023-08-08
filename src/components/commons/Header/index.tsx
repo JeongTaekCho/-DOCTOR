@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { Link, useLocation } from 'react-router-dom';
 import { HiMenu } from 'react-icons/hi';
-import { IoMdNotifications } from 'react-icons/io';
 import ProfileImg from '../ProfileImg';
 import { ROUTE } from '../../../constants/routes/routeData';
 import { tokenAtom } from '../../../atoms/atoms';
@@ -17,13 +16,13 @@ const Header = () => {
 
   const [isProfileMenu, setIsProfileMenu] = useState(false);
   const [isMobileMenu, setIsMobileMenu] = useState(false);
-  const [isAlramMenu, setIsAlramMenu] = useState(false);
+  // const [isAlramMenu, setIsAlramMenu] = useState(false);
 
   const { data: userData } = useGetUsersQuery();
 
-  const handleModalClose = () => {
-    setIsAlramMenu(false);
-  };
+  // const handleModalClose = () => {
+  //   setIsAlramMenu(false);
+  // };
 
   const handleProfileBox = () => {
     setIsProfileMenu(prev => !prev);
@@ -39,9 +38,9 @@ const Header = () => {
     window.location.reload();
   };
 
-  const handleToggleAlramBtn = () => {
-    setIsAlramMenu(prev => !prev);
-  };
+  // const handleToggleAlramBtn = () => {
+  //   setIsAlramMenu(prev => !prev);
+  // };
 
   useEffect(() => {
     if (userData?.user?.deleted_at) {
@@ -73,7 +72,7 @@ const Header = () => {
               ))}
             </S.MenuList>
             <S.SubMenuWrap>
-              {auth && (
+              {/* {auth && (
                 <S.AlramBox>
                   <S.AlramNumBox>
                     <span>10</span>
@@ -114,7 +113,7 @@ const Header = () => {
                     </S.AlramContainer>
                   )}
                 </S.AlramBox>
-              )}
+              )} */}
               {auth ? (
                 <S.ProfileWrap>
                   <S.ProfileBox onClick={handleProfileBox}>
@@ -153,7 +152,7 @@ const Header = () => {
           </S.MenuBox>
         </S.Navigation>
         <S.MobileSubMenu>
-          {auth && (
+          {/* {auth && (
             <S.AlramBox>
               <S.AlramNumBox>
                 <span>10</span>
@@ -214,7 +213,7 @@ const Header = () => {
                 </S.AlramContainer>
               )}
             </S.AlramBox>
-          )}
+          )} */}
           <S.MobileMenuBtn type="button" onClick={handleMobileMenuBtn}>
             <HiMenu />
           </S.MobileMenuBtn>

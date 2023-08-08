@@ -1,4 +1,4 @@
-import React, { useState, useRef, MouseEvent, ChangeEvent } from 'react';
+import React, { useState, useRef, MouseEvent, ChangeEvent, useEffect } from 'react';
 import * as S from './style';
 import Avatar from '@mui/material/Avatar';
 import MyManage from '../../components/mypage/Manage';
@@ -12,12 +12,11 @@ import { useDeleteVetMutation } from '../../hooks/query/useDeleteVetMutation';
 import { useDeleteUserMutation } from '../../hooks/query/useDeleteUserMutation';
 import { ROUTE } from '../../constants/routes/routeData';
 import { useNavigate } from 'react-router-dom';
+import { imgUrl } from '../../api';
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const [image, setImage] = useState<string | undefined>(
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-  );
+  const [, setImage] = useState<string | undefined>();
   const [activeTab, setActiveTab] = useState<'manage' | 'list'>('manage');
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -156,11 +155,6 @@ const MyPage = () => {
         }
       });
       reader.readAsDataURL(e.target.files[0]);
-    } else {
-      // 업로드 취소할 시
-      setImage(
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-      );
     }
   };
 
@@ -168,9 +162,26 @@ const MyPage = () => {
     setActiveTab(tab);
   };
 
+  useEffect(() => {
+    // Modal이 열릴 때 body에 스크롤 막기
+    if (modal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Modal이 닫힐 때 body 스크롤 활성화
+      document.body.style.overflow = 'auto';
+    }
+
+    // 컴포넌트 언마운트 시에도 body 스크롤 활성화
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [modal]);
+
   const certification = userData?.user?.role;
   const vetStatus: any = userData?.vet?.status;
   const userImage = userData?.user?.img_path;
+
+  console.log(`${imgUrl}${userImage}`);
 
   return (
     <S.Wrap>
@@ -178,7 +189,7 @@ const MyPage = () => {
         <S.Profile>
           <S.AvatarDiv>
             <Avatar
-              src={userImage || image}
+              src={`${imgUrl}${userImage}`}
               sx={{ width: '15rem', height: '15rem', margin: 'auto', marginTop: '2rem' }}
             />
             <S.ChangeDiv>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const serverUrl = 'http://' + window.location.hostname + ':' + process.env.SERVER_PORT;
+const imgUrl = `http://${window.location.hostname}:${process.env.SERVER_PORT}/imgs?filename=`;
 
 async function get<T>(endpoint: string, params = ''): Promise<T> {
   return axios.get(serverUrl + endpoint + '/' + params, {
@@ -69,4 +70,4 @@ async function del<T>(endpoint: string, params = ''): Promise<T> {
   });
 }
 
-export { serverUrl, get, post, formPost, put, patch, formPatch, del as delete };
+export { serverUrl, get, post, formPost, put, patch, formPatch, del as delete, imgUrl };

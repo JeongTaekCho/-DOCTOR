@@ -1,4 +1,4 @@
-import React, { MouseEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { MouseEvent, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import ChatBox from '../../components/chats/ChatBox';
 import ProfileImg from '../../components/commons/ProfileImg';
@@ -60,9 +60,9 @@ const ChatDetail = () => {
     }
   };
 
-  const handleChangeMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMessage = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
-  };
+  }, []);
 
   const handleAcceptList = () => {
     setIsNav(true);
@@ -171,9 +171,9 @@ const ChatDetail = () => {
     );
   };
 
-  const handleChangeGrade = (_event: SyntheticEvent<Element, Event>, value: any) => {
+  const handleChangeGrade = useCallback((_event: SyntheticEvent<Element, Event>, value: any) => {
     setGrade(value);
-  };
+  }, []);
 
   const handleChatReview = () => {
     chatReviewMutate(

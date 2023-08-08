@@ -1,6 +1,28 @@
-import { styled } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { STYLE } from '../../styles/commonStyle';
 import { RESPONSIVE } from '../../styles/responsive';
+
+const spinAnimation = keyframes`
+  0% {
+    transform: scale(1) rotate(0);
+  }
+
+  20%, 25% {
+    transform: scale(1.3) rotate(90deg);
+  }
+
+  45%, 50% {
+    transform: scale(1) rotate(180deg);
+  }
+
+  70%, 75% {
+    transform: scale(1.3) rotate(270deg);
+  }
+
+  95%, 100% {
+    transform: scale(1) rotate(360deg);
+  }
+`;
 
 export const Wrap = styled.div`
   width: 100%;
@@ -233,4 +255,90 @@ export const SkinButton = styled.button`
   &:active {
     transform: translateY(-1px);
   }
+`;
+
+export const SkinButton2 = styled.button`
+  background-color: #344054;
+  color: white;
+  height: 6rem;
+  width: 18rem;
+  font-size: 2.5rem;
+  border-radius: 1rem;
+  font-weight: bolder;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+
+  &:hover {
+    background-color: ${STYLE.subColor};
+    box-shadow: #ae9aff;
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
+
+export const Loader = styled.div`
+  --dim: 3rem;
+  width: var(--dim);
+  height: var(--dim);
+  position: absolute;
+  animation: ${spinAnimation} 2s linear infinite;
+  left: 50%;
+  bottom: 50%;
+`;
+
+export const Circle1 = styled.div`
+  --color: #333;
+  --dim: 1.2rem;
+  width: var(--dim);
+  height: var(--dim);
+  background-color: var(--color);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const Circle2 = styled.div`
+  --color: #333;
+  --dim: 1.2rem;
+  width: var(--dim);
+  height: var(--dim);
+  background-color: var(--color);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+export const Circle3 = styled.div`
+  --color: #333;
+  --dim: 1.2rem;
+  width: var(--dim);
+  height: var(--dim);
+  background-color: var(--color);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+`;
+
+export const Circle4 = styled.div`
+  --color: #333;
+  --dim: 1.2rem;
+  width: var(--dim);
+  height: var(--dim);
+  background-color: var(--color);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
