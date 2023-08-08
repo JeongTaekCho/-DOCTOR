@@ -42,11 +42,9 @@ const FreeDetail = () => {
   const { data: post, refetch } = useGetPostsDetailQuery(postId);
   const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
 
-  const postMutation = useDeletePostMutation(postId);
-  const deletePostMutation = postMutation.mutate;
+  const { mutate: deletePostMutation } = useDeletePostMutation(postId);
 
-  const commentsMutation = useDeleteCommentMutation(commentId);
-  const deleteComments = commentsMutation.mutate;
+  const { mutate: deleteComments } = useDeleteCommentMutation(commentId);
 
   const { mutate: reportComment } = useReportCommentMutation();
   const { mutate: reportPost } = useReportPostMutation();
@@ -85,8 +83,11 @@ const FreeDetail = () => {
   };
 
   const handleDeleteComments = () => {
-    deleteComments();
-    commentRefetch();
+    deleteComments(undefined, {
+      onSuccess: () => {
+        commentRefetch();
+      }
+    });
     setDeleteComment(false);
   };
 
@@ -218,7 +219,6 @@ const FreeDetail = () => {
       },
       {
         onSuccess: () => {
-          refetch();
           commentRefetch();
           Swal.fire('댓글이 작성되었습니다');
           setCommentBody('');
@@ -329,7 +329,7 @@ const FreeDetail = () => {
         <S.Register>
           <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
           <S.InputDiv>
-            <S.Input onChange={onChangeCommentBody}></S.Input>
+            <S.Input value={commentBody} onChange={onChangeCommentBody}></S.Input>
             <S.RegisterButton onClick={handleRegisterComment}>등록</S.RegisterButton>
           </S.InputDiv>
         </S.Register>

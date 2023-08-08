@@ -15,8 +15,10 @@ const AiPage = () => {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
-  const [result, setResult] = useState('');
+  const [result, setResult]: any = useState('');
   const [loading, setLoading] = useState(false);
+
+  console.log(result);
 
   const imgInput = useRef<HTMLInputElement | null>(null);
 
@@ -54,8 +56,9 @@ const AiPage = () => {
         onSuccess: ({ data }: any) => {
           setLoading(false);
           Swal.fire('피부 사진이 업로드되었습니다');
-          const firstKey = Object.keys(data)[0];
+          const firstKey = Object.values(data)[0];
           setResult(firstKey);
+          console.log(data);
         },
         onError: (err: any) => {
           setLoading(false);
@@ -128,12 +131,16 @@ const AiPage = () => {
         {AiImage === '/images/commons/aipic.png' ? (
           <S.Button onClick={openModal}>올바른 예시 확인</S.Button>
         ) : (
-          <S.Skin>
-            <S.SkinSpan>{result}</S.SkinSpan>이(가) 의심됩니다. 병원에 방문해 주세요.
-            <S.SkinButton onClick={resetAiImage}>다시 검사하기</S.SkinButton>
-          </S.Skin>
+          !loading && (
+            <S.Skin>
+              <S.SkinSpan>{result}</S.SkinSpan>
+              {result !== '증상 없음' && <span>이(가) 의심됩니다. 병원에 방문해 주세요.</span>}
+              <S.SkinButton2 onClick={resetAiImage}>다시 검사하기</S.SkinButton2>
+            </S.Skin>
+          )
         )}
       </S.Example>
+
       {modal && (
         <S.Modal>
           <S.Card>

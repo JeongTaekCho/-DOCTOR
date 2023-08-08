@@ -12,12 +12,11 @@ import { useDeleteVetMutation } from '../../hooks/query/useDeleteVetMutation';
 import { useDeleteUserMutation } from '../../hooks/query/useDeleteUserMutation';
 import { ROUTE } from '../../constants/routes/routeData';
 import { useNavigate } from 'react-router-dom';
+import { imgUrl } from '../../api';
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const [image, setImage] = useState<string | undefined>(
-    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-  );
+  const [, setImage] = useState<string | undefined>();
   const [activeTab, setActiveTab] = useState<'manage' | 'list'>('manage');
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -156,21 +155,12 @@ const MyPage = () => {
         }
       });
       reader.readAsDataURL(e.target.files[0]);
-    } else {
-      // 업로드 취소할 시
-      setImage(
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-      );
     }
   };
 
   const handleTabChange = (tab: 'manage' | 'list') => {
     setActiveTab(tab);
   };
-
-  const certification = userData?.user?.role;
-  const vetStatus: any = userData?.vet?.status;
-  const userImage = userData?.user?.img_path;
 
   useEffect(() => {
     // Modal이 열릴 때 body에 스크롤 막기
@@ -187,13 +177,19 @@ const MyPage = () => {
     };
   }, [modal]);
 
+  const certification = userData?.user?.role;
+  const vetStatus: any = userData?.vet?.status;
+  const userImage = userData?.user?.img_path;
+
+  console.log(`${imgUrl}${userImage}`);
+
   return (
     <S.Wrap>
       <S.Container>
         <S.Profile>
           <S.AvatarDiv>
             <Avatar
-              src={userImage || image}
+              src={`${imgUrl}${userImage}`}
               sx={{ width: '15rem', height: '15rem', margin: 'auto', marginTop: '2rem' }}
             />
             <S.ChangeDiv>

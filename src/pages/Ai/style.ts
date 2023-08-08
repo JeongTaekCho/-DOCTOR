@@ -257,6 +257,34 @@ export const SkinButton = styled.button`
   }
 `;
 
+export const SkinButton2 = styled.button`
+  background-color: #344054;
+  color: white;
+  height: 6rem;
+  width: 18rem;
+  font-size: 2.5rem;
+  border-radius: 1rem;
+  font-weight: bolder;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+
+  &:hover {
+    background-color: ${STYLE.subColor};
+    box-shadow: #ae9aff;
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
+
 export const Loader = styled.div`
   --dim: 3rem;
   width: var(--dim);
