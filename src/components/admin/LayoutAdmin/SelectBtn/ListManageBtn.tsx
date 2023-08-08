@@ -75,7 +75,12 @@ const ReportSelectBox = ({ reportId, reportPostRefetch, reportCommentRefetch, st
   };
 
   return (
-    <ReportHandleSelect value={status} color={COLORS[selectedValue]} onChange={handleReportStatus}>
+    <ReportHandleSelect
+      disabled={status !== 'pending'}
+      value={status}
+      color={COLORS[selectedValue]}
+      onChange={handleReportStatus}
+    >
       {OPTIONS.map(option => (
         <option key={option.value} value={option.value}>
           {option.name}
@@ -103,4 +108,10 @@ const ReportHandleSelect = styled.select<{ color: string }>`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 1;
+    cursor: default;
+  }
 `;
