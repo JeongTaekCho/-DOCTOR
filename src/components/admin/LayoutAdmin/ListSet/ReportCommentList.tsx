@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 import { STYLE } from '../../../../styles/commonStyle';
 import Swal from 'sweetalert2';
@@ -35,9 +35,9 @@ const ReportPostListLayout = ({ data, reportCommentRefetch }: ReportCommentProps
     setIsModal(prev => !prev);
   };
 
-  const handleChangeStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeStatus = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(e.target.value);
-  };
+  }, []);
 
   const handleSubmit = () => {
     if (selectValue) {

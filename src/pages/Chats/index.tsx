@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import * as S from './style';
 import Loading from '../../components/commons/Loading';
 import ChatList from '../../components/chats/ChatList';
@@ -32,9 +32,9 @@ const ChatsPage = () => {
     setSearch('');
   };
 
-  const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  };
+  }, []);
 
   return (
     <S.Wrap>

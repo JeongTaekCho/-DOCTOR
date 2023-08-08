@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable quotes */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 
 const OPTIONS = [
@@ -28,9 +28,10 @@ interface Props extends React.HTMLAttributes<HTMLSelectElement> {
 
 const SelectBox = (props: Props) => {
   const [selectedValue, setSelectedValue] = useState(props.defaultValue);
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
-  };
+  }, []);
 
   return (
     <IdHandleSelect
