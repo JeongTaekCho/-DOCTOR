@@ -32,16 +32,27 @@ export const Free = styled.div`
   align-items: center;
   transition: 0.5s;
 
-  &:hover {
-    background-color: #747474;
+  @media ${RESPONSIVE.pc} {
+    &:hover {
+      background-color: #747474;
+    }
+    &.selected {
+      background-color: #747474;
+    }
   }
   @media ${RESPONSIVE.tablet} {
     height: 100%;
     padding: 0;
+    background-color: #363740;
+    color: #a6a6a6;
 
     &:hover {
-      color: #a6a6a6;
-      background-color: #363740;
+      color: #fff;
+      background-color: none;
+    }
+    &.selected {
+      color: #fff;
+      background-color: none;
     }
   }
 `;
@@ -59,18 +70,28 @@ export const Info = styled.div`
   transition: 0.5s;
   margin-top: 5%;
 
-  &:hover {
-    background-color: #747474;
+  @media ${RESPONSIVE.pc} {
+    &:hover {
+      background-color: #747474;
+    }
+    &.selected {
+      background-color: #747474;
+    }
   }
-
   @media ${RESPONSIVE.tablet} {
     height: 100%;
     padding: 0;
     margin-top: 0;
+    background-color: #363740;
+    color: #a6a6a6;
 
     &:hover {
-      color: #a6a6a6;
-      background-color: #363740;
+      color: #fff;
+      background-color: none;
+    }
+    &.selected {
+      color: #fff;
+      background-color: none;
     }
   }
 `;

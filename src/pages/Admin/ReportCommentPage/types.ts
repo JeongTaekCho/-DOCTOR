@@ -1,14 +1,12 @@
-export interface ReportPostData {
+export interface ReportCommentData {
   reports: {
     id: number;
     content: string;
     status: string;
     created_at: string;
   };
-  posts: {
+  comments: {
     id: number;
-    category: string;
-    title: string;
     body: string;
     created_at: string | Date;
     users: {
@@ -21,8 +19,8 @@ export interface ReportPostData {
   };
 }
 
-export interface ReportPostResponse {
+export interface ReportCommentResponse {
   currentPage: number;
   totalPages: number;
-  data: ReportPostData[];
+  data: ReportCommentData[];
 }

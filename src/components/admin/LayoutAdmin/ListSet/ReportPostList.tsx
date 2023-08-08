@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 import { STYLE } from '../../../../styles/commonStyle';
 import Swal from 'sweetalert2';
@@ -31,15 +31,13 @@ const ReportPostListLayout = ({ data, reportPostRefetch }: ReportPostProps) => {
   const post = data?.posts;
   const report = data?.reports;
 
-  console.log(post, report);
-
   const toggleModal = () => {
     setIsModal(prev => !prev);
   };
 
-  const handleChangeStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeStatus = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(e.target.value);
-  };
+  }, []);
 
   const handleSubmit = () => {
     if (selectValue) {
@@ -210,7 +208,7 @@ const ReportDetail = styled.p`
   width: 15%;
 `;
 
-const ReportIdTreat = styled.p`
+const ReportIdTreat = styled.div`
   // 신고된 아이디 + 계정 처리 상태
   width: 18%;
 `;

@@ -10,7 +10,7 @@ import { useGetPostsQuery } from '../../../hooks/query/useGetPostsQuery.ts';
 const Free = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
-  const [order, setOrder] = useState<'oldest' | 'popularity'>('oldest');
+  // const [order, setOrder] = useState<'oldest' | 'popularity'>('oldest');
 
   const { data: postData, refetch: postRefetch } = useGetPostsQuery(currentPage, 'free');
 
@@ -21,13 +21,13 @@ const Free = () => {
     setShowRegister(prev => !prev);
   };
 
-  const handleOrderByDate = () => {
-    setOrder('oldest');
-  };
+  // const handleOrderByDate = () => {
+  //   setOrder('oldest');
+  // };
 
-  const handleOrderByPopularity = () => {
-    setOrder('popularity');
-  };
+  // const handleOrderByPopularity = () => {
+  //   setOrder('popularity');
+  // };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -44,7 +44,7 @@ const Free = () => {
           <PostRegister onCancel={handleWriteButtonClick} isFree={true} />
         ) : (
           <div>
-            <S.RadioDiv>
+            {/* <S.RadioDiv>
               <p>
                 <span
                   style={{
@@ -66,7 +66,7 @@ const Free = () => {
                   인기순
                 </span>
               </p>
-            </S.RadioDiv>
+            </S.RadioDiv> */}
             <S.List>
               {postData?.posts?.map(post => (
                 <Link to={`${ROUTE.FREEDETAIL.link}/${post.id}`} key={post.id}>

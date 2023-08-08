@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { STYLE } from '../../../styles/commonStyle';
 
 //-----------------------------------
 //-----------------------------------
@@ -44,13 +45,6 @@ export const ListOrder = styled.div`
   // '▼ 처리 내용 순' / '▼ 신고 건수 순'
   width: 15%;
 `;
-export const ListOrder2 = styled.div`
-  input {
-    width: 300px;
-    padding: 0.5rem;
-    border-radius: 6px;
-  }
-`;
 
 export const ListRowName = styled.div`
   width: 100%;
@@ -87,11 +81,11 @@ export const ContentNationBar = styled.div`
 //-------------------------------
 // 신고된 목록 리스트
 //-------------------------------
-export const ListContentWrap = styled.ul`
+export const ListContentWrap = styled.div`
   width: 100%;
 `;
 
-export const ListOfLists = styled.li`
+export const ListOfLists = styled.div`
   width: 100%;
   padding-left: 2%;
   display: flex;
@@ -215,19 +209,24 @@ export const TreatReportBtn = styled.button`
   }
 `;
 
-export const PageNationBar = styled.div<{ activeTab: boolean }>`
+export const PageNationBar = styled.div<{ activetab: string }>`
   width: 100%;
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
-  background-color: ${({ activeTab }) => (activeTab ? '#667085' : '#344054')};
+  background-color: ${props => {
+    switch (props.activetab) {
+      case 'pending':
+        return '#344054';
+      default:
+        return '#667085';
+    }
+  }};
 `;
 
-export const SelectBox = styled.select`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  padding: 5px;
-  border: none;
-  background: none;
-  cursor: pointer;
+export const ErrorMent = styled.p`
+  font-size: 2rem;
+  font-weight: 500;
+  color: ${STYLE.mainFontColor};
+  text-align: center;
+  margin-top: 3rem;
 `;

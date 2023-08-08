@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 import { AdminUserData } from '../../../../pages/Admin/UserInfoPage/types';
 import { useChangeUserStatusMutation } from '../../../../hooks/query/useChangeUserStatusMutation';
@@ -31,9 +31,9 @@ const UserInfoList = ({ user, index, adminUserRefetch }: UserProps) => {
     setIsModal(prev => !prev);
   };
 
-  const handleChangeStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeStatus = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(e.target.value);
-  };
+  }, []);
 
   const handleSubmit = () => {
     if (selectValue) {

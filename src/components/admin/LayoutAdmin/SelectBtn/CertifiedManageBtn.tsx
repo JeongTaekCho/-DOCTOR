@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 import { useChangeVetStatusMutation } from '../../../../hooks/query/useChangeVetStatusMutation';
 
@@ -25,10 +25,10 @@ const SelectBox = (props: Props) => {
   const [selectedValue, setSelectedValue] = useState(props.defaultValue);
   const mutation = useChangeVetStatusMutation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
     mutation.mutate({ id: props.vetId, status: e.target.value });
-  };
+  }, []);
 
   return (
     <ReportHandleSelect

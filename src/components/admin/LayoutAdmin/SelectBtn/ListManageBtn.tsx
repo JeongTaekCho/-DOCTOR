@@ -23,11 +23,12 @@ const COLORS: ColorOptions = {
 interface Props extends React.HTMLAttributes<HTMLSelectElement> {
   defaultValue: string;
   reportId: number;
-  reportPostRefetch: () => void;
+  reportPostRefetch?: () => void;
+  reportCommentRefetch?: () => void;
   status: string;
 }
 
-const ReportSelectBox = ({ reportId, reportPostRefetch, status }: Props) => {
+const ReportSelectBox = ({ reportId, reportPostRefetch, reportCommentRefetch, status }: Props) => {
   const [selectedValue, setSelectedValue] = useState(status);
 
   const { mutate: reportStatusMutate } = useReportStatusMutation();
@@ -45,7 +46,8 @@ const ReportSelectBox = ({ reportId, reportPostRefetch, status }: Props) => {
         {
           onSuccess: () => {
             Swal.fire('처리가 완료 되었습니다.');
-            reportPostRefetch();
+            reportPostRefetch && reportPostRefetch();
+            reportCommentRefetch && reportCommentRefetch();
           },
           onError: (err: any) => {
             Swal.fire(err.response.data.error);
@@ -61,7 +63,8 @@ const ReportSelectBox = ({ reportId, reportPostRefetch, status }: Props) => {
         {
           onSuccess: () => {
             Swal.fire('처리가 완료 되었습니다.');
-            reportPostRefetch();
+            reportPostRefetch && reportPostRefetch();
+            reportCommentRefetch && reportCommentRefetch();
           },
           onError: (err: any) => {
             Swal.fire(err.response.data.error);
@@ -72,9 +75,14 @@ const ReportSelectBox = ({ reportId, reportPostRefetch, status }: Props) => {
   };
 
   return (
-    <ReportHandleSelect color={COLORS[selectedValue]} onChange={handleReportStatus}>
+    <ReportHandleSelect
+      disabled={status !== 'pending'}
+      value={status}
+      color={COLORS[selectedValue]}
+      onChange={handleReportStatus}
+    >
       {OPTIONS.map(option => (
-        <option key={option.value} value={option.value} selected={status === option.value}>
+        <option key={option.value} value={option.value}>
           {option.name}
         </option>
       ))}
@@ -100,4 +108,10 @@ const ReportHandleSelect = styled.select<{ color: string }>`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 1;
+    cursor: default;
+  }
 `;
