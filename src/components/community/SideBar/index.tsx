@@ -5,8 +5,6 @@ import { ROUTE } from '../../../constants/routes/routeData';
 const SideBar = () => {
   const { pathname } = useLocation();
 
-  console.log(pathname);
-
   return (
     <>
       <S.Side>
