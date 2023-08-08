@@ -2,6 +2,22 @@ import React from 'react';
 import * as S from './style';
 import { BiSolidChevronsRight } from 'react-icons/bi';
 import useScrollFadeIn from '../../hooks/util/useScrollFadeIn';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { ROUTE } from '../../constants/routes/routeData';
+
+const settings = {
+  dots: true,
+  infinite: true,
+  autoplay: true,
+  autoplaySpeed: 4000,
+  pauseOnFocus: false,
+  pauseOnHover: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1
+};
 
 const MainPage = () => {
   const animatedAiDiv = useScrollFadeIn('down', 1, 0);
@@ -10,7 +26,11 @@ const MainPage = () => {
   return (
     <S.Wrap>
       <S.Container>
-        <S.Img src="/images/commons/Dog.jpg"></S.Img>
+        <Slider {...settings}>
+          <S.ImgBox url="/images/commons/slide01.jpg"></S.ImgBox>
+          <S.ImgBox url="/images/commons/slide02.jpg"></S.ImgBox>
+          <S.ImgBox url="/images/commons/slide03.jpg"></S.ImgBox>
+        </Slider>
         <S.Header>
           반려동물
           <br />
@@ -33,6 +53,7 @@ const MainPage = () => {
           <S.Pic src="/images/commons/maintest1.png"></S.Pic>
           <S.Pic src="/images/commons/maintest2.png"></S.Pic>
         </S.AiPic>
+        <S.AiLinkBtn to={ROUTE.AI.link}>AI 자가진단 하러가기</S.AiLinkBtn>
       </S.AiDiv>
       <S.SubDiv>
         <S.SubHeader>
@@ -41,24 +62,24 @@ const MainPage = () => {
           다양한 콘텐츠 제공
         </S.SubHeader>
         <S.ContentDiv>
-          <S.Content>
+          <S.Content to={ROUTE.AI.link}>
             <S.ContentP>
               AI 자가진단<S.ContentSpan1>AI를 통해 실시간으로 증상 파악</S.ContentSpan1>
             </S.ContentP>
           </S.Content>
-          <S.Content>
+          <S.Content to={ROUTE.HOSPITAL.link}>
             <S.ContentP>
               병원 찾기<S.ContentSpan2>전국에 있는 동물병원 위치 제공</S.ContentSpan2>
             </S.ContentP>
           </S.Content>
         </S.ContentDiv>
         <S.ContentDiv>
-          <S.Content>
+          <S.Content to={ROUTE.FREECOMMUNITY.link}>
             <S.ContentP>
               커뮤니티<S.ContentSpan3>유저들 간 정보 공유 및 소통</S.ContentSpan3>
             </S.ContentP>
           </S.Content>
-          <S.Content>
+          <S.Content to={ROUTE.CHATLIST.link}>
             <S.ContentP>
               실시간 상담<S.ContentSpan4>수의사들과 실시간으로 채팅</S.ContentSpan4>
             </S.ContentP>
