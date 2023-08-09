@@ -7,6 +7,7 @@ import UserInfoList from '../../../components/admin/LayoutAdmin/ListSet/UserInfo
 import useDebounce from '../../../hooks/util/useDebounce';
 import Loading from '../../../components/commons/Loading';
 import InfiniteScroll from 'react-infinite-scroller';
+import AdminAuth from '../../../components/commons/AdminAuth';
 
 const AdminUserInfoPage = () => {
   const [search, setSearch] = useState('');
@@ -125,4 +126,4 @@ const AdminUserInfoPage = () => {
   );
 };
 
-export default AdminUserInfoPage;
+export default AdminAuth(AdminUserInfoPage);

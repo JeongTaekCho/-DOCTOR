@@ -5,6 +5,7 @@ import ReportPostListLayout from '../../../components/admin/LayoutAdmin/ListSet/
 import { useGetReportPostInfinityQuery } from '../../../hooks/query/useGetReportPostInfinityQuery';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loading from '../../../components/commons/Loading';
+import adminAuth from '../../../components/commons/AdminAuth';
 
 const AdminReportPostPage = () => {
   const [activeTab, setActiveTab] = useState('pending');
@@ -84,4 +85,4 @@ const AdminReportPostPage = () => {
   );
 };
 
-export default AdminReportPostPage;
+export default adminAuth(AdminReportPostPage);

@@ -5,6 +5,7 @@ import { useGetVetAuthListInfinityQuery } from '../../../hooks/query/useGetVetAu
 import CertifiedListLayout from '../../../components/admin/LayoutAdmin/ListSet/CertifiedList';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loading from '../../../components/commons/Loading';
+import adminAuth from '../../../components/commons/AdminAuth';
 
 const AdminCertifiedPage = () => {
   const [activeTab, setActiveTab] = useState(false);
@@ -110,4 +111,4 @@ const AdminCertifiedPage = () => {
   );
 };
 
-export default AdminCertifiedPage;
+export default adminAuth(AdminCertifiedPage);

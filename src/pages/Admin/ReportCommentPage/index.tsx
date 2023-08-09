@@ -5,6 +5,7 @@ import { useGetReportCommentInfinityQuery } from '../../../hooks/query/useGetRep
 import ReportCommentLayout from '../../../components/admin/LayoutAdmin/ListSet/ReportCommentList';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loading from '../../../components/commons/Loading';
+import adminAuth from '../../../components/commons/AdminAuth';
 
 const AdminReportCommentPage = () => {
   const [activeTab, setActiveTab] = useState('pending');
@@ -86,4 +87,4 @@ const AdminReportCommentPage = () => {
   );
 };
 
-export default AdminReportCommentPage;
+export default adminAuth(AdminReportCommentPage);
