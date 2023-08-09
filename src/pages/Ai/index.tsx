@@ -103,15 +103,12 @@ const AiPage = () => {
   });
 
   useEffect(() => {
-    // Modal이 열릴 때 body에 스크롤 막기
     if (modal) {
       document.body.style.overflow = 'hidden';
     } else {
-      // Modal이 닫힐 때 body 스크롤 활성화
       document.body.style.overflow = 'auto';
     }
 
-    // 컴포넌트 언마운트 시에도 body 스크롤 활성화
     return () => {
       document.body.style.overflow = 'auto';
     };
