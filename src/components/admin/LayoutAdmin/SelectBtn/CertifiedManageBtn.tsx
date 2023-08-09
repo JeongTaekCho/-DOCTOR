@@ -4,9 +4,9 @@ import { useChangeVetStatusMutation } from '../../../../hooks/query/useChangeVet
 import Swal from 'sweetalert2';
 
 const OPTIONS = [
+  { value: 'pending', name: '대기' },
   { value: 'accepted', name: '인증' },
-  { value: 'rejected', name: '반려' },
-  { value: 'pending', name: '대기' }
+  { value: 'rejected', name: '반려' }
 ];
 interface ColorOptions {
   [key: string]: string;
@@ -20,30 +20,41 @@ const COLORS: ColorOptions = {
 interface Props {
   vetId: number;
   email: string;
+  status: string;
+  vetAuthRefetch: () => void;
 }
 
-const SelectBox = ({ email, vetId }: Props) => {
+const SelectBox = ({ email, vetId, vetAuthRefetch, status }: Props) => {
   const [selectedValue, setSelectedValue] = useState('');
   const mutation = useChangeVetStatusMutation();
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(e.target.value);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedValue(e.target.value);
 
-    mutation.mutate(
-      { id: vetId, status: e.target.value, email: email },
-      {
-        onSuccess: () => {
-          Swal.fire('수의사 신청 정보 변경 성공');
-        },
-        onError: (err: any) => {
-          Swal.fire(err.response.data.error);
+      mutation.mutate(
+        { id: vetId, status: e.target.value, email: email },
+        {
+          onSuccess: () => {
+            Swal.fire('수의사 신청 정보 변경 성공');
+            vetAuthRefetch();
+          },
+          onError: (err: any) => {
+            Swal.fire(err.response.data.error);
+          }
         }
-      }
-    );
-  }, [vetId, email, mutation]);
+      );
+    },
+    [vetId, email, mutation]
+  );
 
   return (
-    <ReportHandleSelect color={COLORS[selectedValue]} onChange={handleChange}>
+    <ReportHandleSelect
+      disabled={status === 'accepted'}
+      value={status}
+      color={COLORS[selectedValue]}
+      onChange={handleChange}
+    >
       {OPTIONS.map(option => (
         <option key={option.value} value={option.value}>
           {option.name}
@@ -55,7 +66,7 @@ const SelectBox = ({ email, vetId }: Props) => {
 
 export default SelectBox;
 
-const ReportHandleSelect = styled.select<{ color?: string}>`
+const ReportHandleSelect = styled.select<{ color?: string }>`
   display: block;
   width: 60%;
   padding: 0.7rem;
@@ -67,6 +78,11 @@ const ReportHandleSelect = styled.select<{ color?: string}>`
   justify-content: center;
   text-align: center;
   border: 0;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
 
   -webkit-appearance: none;
   -moz-appearance: none;

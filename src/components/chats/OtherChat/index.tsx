@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from './style';
 import ProfileImg from '../../commons/ProfileImg';
+import { imgUrl } from '../../../api';
 
 interface OtherChatProps {
   name: string | undefined;
@@ -11,7 +12,7 @@ interface OtherChatProps {
 const OtherChat = ({ name, content, profileImg }: OtherChatProps) => {
   return (
     <S.OtherChatProfileBox>
-      <ProfileImg w="6rem" h="6rem" src={`${profileImg}`} />
+      <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${profileImg}`} />
       <p>{name}</p>
       <S.OtherChatBox>
         <S.OtherChat>
