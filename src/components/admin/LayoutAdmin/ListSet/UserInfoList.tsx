@@ -186,9 +186,13 @@ const ListOfLists = styled.div`
   padding-left: 2%;
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   border-bottom: 1px solid #e7e7e7;
   padding: 2.3rem 0;
+
+  p {
+    font-size: 1.5rem;
+  }
 
   &:hover {
     background-color: #d6d5d5;
@@ -205,7 +209,7 @@ const ReportPrifileId = styled.div`
   align-items: center;
   width: 80%;
   padding-left: 5%;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #252733;
   overflow-x: auto;
@@ -237,7 +241,7 @@ const DateBox = styled.div`
   width: 20%;
 
   p {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: ${STYLE.mainColor};
 
@@ -334,7 +338,7 @@ const ConfirmBtn = styled.button`
   width: 47%;
   padding: 1rem 0;
   background-color: ${STYLE.mainColor};
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: #fff;
   border: 1px solid ${STYLE.mainColor};

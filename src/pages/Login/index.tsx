@@ -99,7 +99,8 @@ const LoginPage = () => {
   };
 
   const handleKakaoLogin = async () => {
-    window.location.assign(`${serverUrl}/auth/kakao`);
+    // window.location.assign(`${serverUrl}/auth/kakao`);
+    Swal.fire('서비스 이용 준비중입니다.');
   };
 
   useEffect(() => {
@@ -167,7 +168,6 @@ const LoginPage = () => {
                 label="아이디 기억하기"
               />
             </FormGroup>
-            <Link to="/">비밀번호를 잊어버리셨나요?</Link>
           </S.RememberBox>
           <S.ButtonBox>
             <FormButton
