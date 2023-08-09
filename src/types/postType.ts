@@ -1,5 +1,9 @@
 import { User } from './userType';
 
+interface IsLike {
+  is_like: boolean;
+}
+
 export interface postData {
   author_email: string;
   body: string;
@@ -11,6 +15,7 @@ export interface postData {
   title: string;
   updated_at: string | null;
   users: User;
+  likes: IsLike[];
 }
 
 export interface PostsResponse {

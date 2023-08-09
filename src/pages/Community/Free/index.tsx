@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style.ts';
-import { BiUser, BiHeart } from 'react-icons/bi';
+import { BiUser } from 'react-icons/bi';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import Pagination from '../../../components/commons/Pagination/index.tsx';
 import SideLayout from '../../../components/layout/SideBar.tsx';
 import PostRegister from '../../../components/community/PostRegister/index.tsx';
 import { useGetPostsQuery } from '../../../hooks/query/useGetPostsQuery.ts';
-import { tokenAtom } from '../../../atoms/atoms.ts';
-import { useNavigate } from 'react-router-dom';
-import { useAtomValue } from 'jotai';
-import Swal from 'sweetalert2';
+
 const Free = () => {
-  const auth = useAtomValue(tokenAtom);
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
 
-  const { data: postData, refetch: postRefetch } = useGetPostsQuery(currentPage, 'free');
+  const { data: postData, refetch: postRefetch }: any = useGetPostsQuery(currentPage, 'free');
 
   const totalPages = postData?.total ? Math.ceil(postData?.total / 10) : undefined;
 
@@ -25,13 +21,6 @@ const Free = () => {
     window.scrollTo(0, 0);
     setShowRegister(prev => !prev);
   };
-
-  useEffect(() => {
-    if (!auth) {
-      navigate(ROUTE.LOGIN.link);
-      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
-    }
-  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,31 +37,8 @@ const Free = () => {
           <PostRegister onCancel={handleWriteButtonClick} isFree={true} />
         ) : (
           <div>
-            {/* <S.RadioDiv>
-              <p>
-                <span
-                  style={{
-                    marginRight: '1rem',
-                    fontWeight: order === 'oldest' ? 'bold' : 'normal',
-                    cursor: 'pointer'
-                  }}
-                  onClick={handleOrderByDate}
-                >
-                  오래된순
-                </span>
-                <span
-                  style={{
-                    fontWeight: order === 'popularity' ? 'bold' : 'normal',
-                    cursor: 'pointer'
-                  }}
-                  onClick={handleOrderByPopularity}
-                >
-                  인기순
-                </span>
-              </p>
-            </S.RadioDiv> */}
             <S.List>
-              {postData?.posts?.map(post => (
+              {postData?.posts?.map((post: any) => (
                 <Link to={`${ROUTE.FREEDETAIL.link}/${post.id}`} key={post.id}>
                   <S.Post>
                     <S.LeftDiv>
@@ -85,7 +51,20 @@ const Free = () => {
                     </S.LeftDiv>
                     <S.HeartDiv>
                       <S.HeartContainer>
-                        <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
+                        {post?.likes?.[0]?.is_like ? (
+                          <AiFillHeart
+                            size="25"
+                            color="#9747ff"
+                            style={{ verticalAlign: 'middle' }}
+                          />
+                        ) : (
+                          <AiOutlineHeart
+                            size="25"
+                            color="#9747ff"
+                            style={{ verticalAlign: 'middle' }}
+                          />
+                        )}
+
                         <S.PostHeart>{post?.like}</S.PostHeart>
                       </S.HeartContainer>
                     </S.HeartDiv>
