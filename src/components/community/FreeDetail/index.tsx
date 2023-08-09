@@ -20,7 +20,6 @@ import { useReportCommentMutation } from '../../../hooks/query/useReportCommentM
 import { tokenAtom } from '../../../atoms/atoms.ts';
 import { useAtomValue } from 'jotai';
 import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutation.ts';
-import { useNavigate } from 'react-router-dom';
 
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
@@ -32,7 +31,6 @@ const formatDate = (dateString: any) => {
 
 const FreeDetail = () => {
   const auth = useAtomValue(tokenAtom);
-  const navigate = useNavigate();
   const { postId } = useParams<{ postId: any }>();
   const parsedPostId = parseInt(postId, 10);
 
@@ -49,7 +47,6 @@ const FreeDetail = () => {
 
   const { data: post, refetch } = useGetPostsDetailQuery(postId);
   const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
-  console.log(post);
 
   const { mutate: deletePostMutation } = useDeletePostMutation(postId);
 
@@ -213,13 +210,6 @@ const FreeDetail = () => {
       }
     );
   };
-
-  useEffect(() => {
-    if (!auth) {
-      navigate(ROUTE.FREECOMMUNITY.link);
-      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
-    }
-  });
 
   const currentUserEmail = getCurrentUserEmail();
   const isCurrentUserAuthor = currentUserEmail === post?.author_email;
