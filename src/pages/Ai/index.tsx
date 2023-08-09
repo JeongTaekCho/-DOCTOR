@@ -31,8 +31,6 @@ const AiPage = () => {
   const { data: topVets } = useGetTopVetsQuery();
   const { data: userData } = useGetUsersQuery();
 
-  console.log(topVets);
-
   const openModal = () => {
     setModal(true);
   };
@@ -194,7 +192,7 @@ const AiPage = () => {
                       userToken={auth}
                       name={vet.name}
                       hospitalName={vet.hospital_name}
-                      profileImg={vet.img_path}
+                      profileImg={vet?.users?.img_path}
                       doctorEmail={vet.user_email}
                       grade={vet.grade}
                       role={userData?.user?.role}
