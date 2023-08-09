@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { STYLE } from '../../../../styles/commonStyle';
 import Swal from 'sweetalert2';
 import { useChangeUserStatusMutation } from '../../../../hooks/query/useChangeUserStatusMutation';
-import ReportHandleSelect from '../SelectBtn/ListManageBtn';
+import ReportHandleSelect from '../SelectBtn/ReportCommentManageBtn';
 import { calculateRemainingDays } from '../../../../util/getRemaingTime';
 import { formatDate } from '../../../../util/formatDate';
 import { ReportCommentData } from '../../../../pages/Admin/ReportCommentPage/types';
