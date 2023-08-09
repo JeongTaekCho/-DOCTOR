@@ -72,7 +72,9 @@ const AdminCertifiedPage = () => {
               </S.ListSet> */}
               <S.ListRowName>
                 <S.ReportId1List>No.</S.ReportId1List>
-                <S.ReportIdList>수의사 인증 신청 대기 계정</S.ReportIdList>
+                <S.ReportIdList>
+                  {activeTab ? '수의사 인증 완료 계정' : '수의사 인증 대기 계정'}
+                </S.ReportIdList>
                 <S.ReportWarnList>요청 일자</S.ReportWarnList>
                 <S.ReportAccrueList>{activeTab ? '인증 일자' : ''}</S.ReportAccrueList>
                 <S.ReportDetailList>인증 자료</S.ReportDetailList>
