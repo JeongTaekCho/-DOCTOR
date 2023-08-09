@@ -135,7 +135,7 @@ const ReportContent = styled.div`
   display: flex;
   align-items: center;
 `;
-const ReportContentListSet = styled.div``;
+const ReportContentListSet = styled.button``;
 
 const ReportHandle = styled.div`
   width: 20%;
