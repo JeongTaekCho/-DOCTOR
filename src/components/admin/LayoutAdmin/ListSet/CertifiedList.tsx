@@ -24,7 +24,7 @@ const CertifiedListLayout = ({ user, index, vetAuthRefetch }: UserProps) => {
       <ListOfLists>
         <ReportN>{index + 1}</ReportN>
         <ReportProfile>
-          <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${user?.img_path}`} />
+          <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${user.users?.img_path}`} />
           <ReportPrifileId>{user?.user_email}</ReportPrifileId>
         </ReportProfile>
         <ReportDetailN>
