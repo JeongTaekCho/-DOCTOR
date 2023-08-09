@@ -223,8 +223,7 @@ const ReportId = styled.p`
   color: #252733;
   font-weight: 500;
   font-size: 1.4rem;
-  overflow-x: auto;
-  white-space: nowrap;
+  word-break: break-all;
   &::-webkit-scrollbar {
     width: 0 !important;
     height: 0 !important;
