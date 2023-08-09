@@ -7,7 +7,7 @@ export interface VetAuthListData {
   hospital_name: string;
   description: string;
   region: string;
-  img_path: string;
+  img_path: string;//'수의사인증서'
   chat_count: number | null;
   grade: number | null;
   status: string;
@@ -15,7 +15,7 @@ export interface VetAuthListData {
   updated_at: ReactNode | string;
   deleted_at: null | Date | string;
   users: {
-    img_path: string | null;
+    img_path: string | null;//'프로필이미지'
   };
 }
 
