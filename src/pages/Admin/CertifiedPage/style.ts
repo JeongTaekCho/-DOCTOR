@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 export const Wrap = styled.div``;
+import { STYLE } from '../../../styles/commonStyle';
 
 export const Container = styled.div`
   width: 93.85%;
@@ -48,11 +49,9 @@ export const ListOrder = styled.button`
 
 export const ListOrder2 = styled.div`
   input {
-    display: flex;
     width: 300px;
     padding: 0.5rem;
     border-radius: 6px;
-    justify-content: flex-end;
   }
 `;
 export const ListRowName = styled.div`
@@ -92,11 +91,11 @@ export const ContentNationBar = styled.div`
 //-------------------------------
 // 신고된 목록 리스트
 //-------------------------------
-export const ListContentWrap = styled.ul`
+export const ListContentWrap = styled.div`
   width: 100%;
 `;
 
-export const ListOfLists = styled.li`
+export const ListOfLists = styled.div`
   width: 100%;
   padding-left: 2%;
   display: flex;
@@ -253,7 +252,7 @@ export const PageNationBar = styled.div<{ activeTab: boolean }>`
   width: 100%;
   display: flex;
   padding: 0.4rem 0 0.4rem 0;
-  background-color: ${({ activeTab }) => (activeTab ? '#ac9bfa' : '#4e2bf5')};
+  background-color: ${props => (props.activeTab ? '#ac9bfa' : '#4e2bf5')};
 `;
 
 export const SelectBox = styled.select`
@@ -264,4 +263,12 @@ export const SelectBox = styled.select`
   border: none;
   background: none;
   cursor: pointer;
+`;
+
+export const ErrorMent = styled.p`
+  font-size: 2rem;
+  font-weight: 500;
+  color: ${STYLE.mainFontColor};
+  text-align: center;
+  margin-top: 3rem;
 `;

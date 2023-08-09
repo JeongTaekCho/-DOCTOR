@@ -9,6 +9,7 @@ import { MENU, PROFILE_MENU } from '../../../constants/commons/menus';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery';
 import { useAtomValue } from 'jotai';
 import Swal from 'sweetalert2';
+import { imgUrl } from '../../../api';
 
 const Header = () => {
   const auth = useAtomValue(tokenAtom);
@@ -120,13 +121,25 @@ const Header = () => {
                     <S.ProfileContainer>
                       <p>{userData?.user?.nickname}</p>
                       <S.ProfileImgBox>
-                        <ProfileImg w="4rem" h="4rem" src={userData?.user?.img_path} />
+                        <ProfileImg
+                          w="4rem"
+                          h="4rem"
+                          src={`${imgUrl}${userData?.user?.img_path}`}
+                        />
                       </S.ProfileImgBox>
                     </S.ProfileContainer>
                   </S.ProfileBox>
                   {isProfileMenu && (
                     <S.ProfileDetailBox>
                       <S.ProfileBoxMenu>
+                        {userData?.user?.role === 'admin' && (
+                          <li>
+                            <Link to={ROUTE.ADMINUSERINFO.link} onClick={handleProfileBox}>
+                              관리자페이지
+                            </Link>
+                          </li>
+                        )}
+
                         {PROFILE_MENU.map(({ id, name, link }) => (
                           <li key={id}>
                             <Link to={link} onClick={handleProfileBox}>
@@ -232,7 +245,7 @@ const Header = () => {
             {auth ? (
               <>
                 <S.MobileProfileBox>
-                  <ProfileImg w="6rem" h="6rem" src={userData?.user?.img_path} />
+                  <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${userData?.user?.img_path}`} />
                   <p>{userData?.user?.nickname} 님</p>
                   <button type="button" onClick={handleLogout}>
                     로그아웃

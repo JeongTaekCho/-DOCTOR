@@ -5,7 +5,7 @@ import ProfileImg from '../../components/commons/ProfileImg';
 import ChatExitModal from '../../components/chats/ChatExitModal';
 import ReviewModal from '../../components/chats/ReviewModal';
 import { io, Socket } from 'socket.io-client';
-import { serverUrl } from '../../api';
+import { imgUrl, serverUrl } from '../../api';
 import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 import { useGetChatConentsQuery } from '../../hooks/query/useGetChatContentsQuery';
 import { useGetChatListQuery } from '../../hooks/query/useGetChatListQuery';
@@ -323,8 +323,8 @@ const ChatDetail = () => {
                   h="6rem"
                   src={
                     isUser
-                      ? chatContents?.checkStatus?.users_chat_rooms_user_vet_emailTousers?.img_path
-                      : chatContents?.checkStatus?.users_chat_rooms_user_emailTousers?.img_path
+                      ? `${imgUrl}${chatContents?.checkStatus?.users_chat_rooms_user_vet_emailTousers?.img_path}`
+                      : `${imgUrl}${chatContents?.checkStatus?.users_chat_rooms_user_emailTousers?.img_path}`
                   }
                 />
                 <S.ProfileContent>
