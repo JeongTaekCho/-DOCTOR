@@ -118,7 +118,10 @@ const AiPage = () => {
     <S.Wrap>
       <S.Title>
         <S.Header>피부질환 AI 진단</S.Header>
-        <S.P>우리 아이 피부질환 AI 자가진단 해보기</S.P>
+        <S.PsMent>
+          ※ 독터는 AI 분석 서비스일 뿐, 실제와 다를 수 있습니다. <br /> 정확한 진단은 병원을
+          방문하여 수의사에게 문의해주세요.
+        </S.PsMent>
       </S.Title>
       <S.Upload>
         <Avatar
