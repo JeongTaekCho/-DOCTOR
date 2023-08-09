@@ -20,17 +20,6 @@ const AdminReportCommentPage = () => {
     ? reportCommentData.pages.flatMap(page => page.data)
     : [];
 
-
-  // const [order, setOrder] = useState('desc');
-  
-  // const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
-  //   setOrder(e.target.value);
-  // };
-  // const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setSearch(e.target.value);
-  // };
-  // const { data = [], refetch } = useGetReportCommentListQuery(activeTab ? 'accepted' : 'pending');
-
   const handleClickBtn1 = () => {
     setActiveTab('pending');
   };

@@ -15,15 +15,13 @@ const AdminCertifiedPage = () => {
   const debounceSearch = useDebounce(search, 500);
 
   const {
-    data: VetAuthList,
+    data: vetAuthListData,
     refetch: vetAuthRefetch,
     fetchNextPage,
     hasNextPage
   } = useGetVetAuthListInfinityQuery(debounceSearch, order, status, activeTab);
 
-  const vetAuthList = VetAuthList?.pages;
-  //const vetAuthList = VetAuthList ? VetAuthList.pages.flatMap(page => page.data) : [];
-  console.log(vetAuthList);
+  const vetAuthList = vetAuthListData ? vetAuthListData.pages.flatMap(page => page.data) : [];
 
   const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
     setOrder(e.target.value);
@@ -101,12 +99,11 @@ const AdminCertifiedPage = () => {
                 <InfiniteScroll
                   hasMore={hasNextPage}
                   loadMore={() => {
-                    console.log('fetchNextPage called');
                     fetchNextPage();
                   }}
                   loader={<Loading />}
                 >
-                  {/* {vetAuthList?.length > 0 ? (
+                  {vetAuthList?.length > 0 ? (
                     vetAuthList?.map((user, index) => (
                       <CertifiedListLayout
                         key={user.id}
@@ -116,21 +113,6 @@ const AdminCertifiedPage = () => {
                         vetAuthRefetch={vetAuthRefetch}
                       />
                     ))
-                  ) : (
-                    <S.ErrorMent>해당되는 항목이 존재하지 않습니다.</S.ErrorMent>
-                  )} */}
-                  {vetAuthList?.length > 0 ? (
-                    vetAuthList?.map(page =>
-                      page.data.data.map((user, index) => (
-                        <CertifiedListLayout
-                          key={user.id}
-                          user={user}
-                          activeTab={activeTab}
-                          index={index}
-                          vetAuthRefetch={vetAuthRefetch}
-                        />
-                      ))
-                    )
                   ) : (
                     <S.ErrorMent>해당되는 항목이 존재하지 않습니다.</S.ErrorMent>
                   )}

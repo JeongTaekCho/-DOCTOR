@@ -5,6 +5,7 @@ import SelectBox from '../SelectBtn/CertifiedManageBtn';
 import Modal from '../PageLayout/Modal';
 import { VetAuthListResponse } from '../../../../hooks/query/useGetVetAuthListInfinityQuery';
 import { formatDate } from '../../../../util/formatDate';
+import { imgUrl } from '../../../../api';
 
 interface UserProps {
   user: VetAuthListResponse['data'][number];
@@ -17,14 +18,13 @@ const CertifiedListLayout = ({ user, index, activeTab }: UserProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
-  console.log(user);
 
   return (
     <Wrap>
       <ListOfLists>
         <ReportDetailN>{index + 1}</ReportDetailN>
         <ReportProfile>
-          <ProfileImg w="6rem" h="6rem" src={user?.img_path || '/images/commons/kkam.png'} />
+          <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${user?.img_path}`} />
           <ReportPrifileId>{user?.user_email}</ReportPrifileId>
         </ReportProfile>
         <ReportN>{formatDate(user?.created_at)}</ReportN>
@@ -43,7 +43,7 @@ const CertifiedListLayout = ({ user, index, activeTab }: UserProps) => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title="수의사 면허증 자료 제출"
-        content={user?.img_path || '../../../../../public/images/commons/VetLicense.png'}
+        content={`${imgUrl}${user?.img_path}` || '/images/commons/VetLicense.png'}
       />
     </Wrap>
   );

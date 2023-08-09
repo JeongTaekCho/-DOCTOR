@@ -1,45 +1,30 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import * as API from '../../api/index';
-import { Key, ReactNode } from 'react';
+import { ReactNode } from 'react';
+
+export interface VetAuthListData {
+  id: number;
+  user_email: string;
+  name: string;
+  hospital_name: string;
+  description: string;
+  region: string;
+  img_path: string;
+  chat_count: number | null;
+  grade: number | null;
+  status: string;
+  created_at: ReactNode | string;
+  updated_at: ReactNode | string;
+  deleted_at: null | Date | string;
+  users: {
+    img_path: string | null;
+  };
+}
 
 export interface VetAuthListResponse {
-  user: {
-    id: number;
-    user_email: string;
-    name: string;
-    hospital_name: string;
-    description: string;
-    region: string;
-    img_path: string;
-    chat_count: number | null;
-    grade: number | null;
-    status: string;
-    created_at: ReactNode;
-    updated_at: ReactNode;
-    deleted_at: string | Date | null;
-    users: { img_path: string };
-  };
-  id: Key | null | undefined;
   currentPage: number;
   totalPages: number;
-  data: {
-    id: number;
-    user_email: string;
-    name: string;
-    hospital_name: string;
-    description: string;
-    region: string;
-    img_path: string;
-    chat_count: number | null;
-    grade: number | null;
-    status: string;
-    created_at: ReactNode | string;
-    updated_at: ReactNode | string;
-    deleted_at: null | Date | string;
-    users: {
-      img_path: string;
-    };
-  }[];
+  data: VetAuthListData[];
 }
 
 const getVetAuthList = async (
@@ -50,10 +35,10 @@ const getVetAuthList = async (
   activeTab: boolean
 ): Promise<VetAuthListResponse> => {
   const queryStatus = activeTab ? 'accepted' : 'pending';
-  const result = await API.get<VetAuthListResponse>(
+  const result = await API.get<{ data: VetAuthListResponse }>(
     `/admins/vet-requests?search=${search}&orderBy=${order}&status=${queryStatus}&currentPage=${page}`
   );
-  return result;
+  return result.data;
 };
 
 export const useGetVetAuthListInfinityQuery = (
@@ -62,8 +47,8 @@ export const useGetVetAuthListInfinityQuery = (
   status: string,
   activeTab: boolean
 ) => {
-  return useInfiniteQuery(
-    ['vetAuthList', search, order, status, activeTab],
+  return useInfiniteQuery<VetAuthListResponse>(
+    ['infiniteVetAuthList', search, order, status, activeTab],
     ({ pageParam }) => getVetAuthList(search, order, status, pageParam, activeTab),
     {
       getNextPageParam: lastPage => {
