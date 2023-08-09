@@ -13,6 +13,7 @@ import { usePostDiseaseMutation } from '../../hooks/query/usePostDiseaseMutation
 import { useGetTopVetsQuery } from '../../hooks/query/useGetTopVetsQuery';
 import ChatList from '../../components/chats/ChatList';
 import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
+import { FaCheck } from 'react-icons/fa';
 
 const AiPage = () => {
   const auth = useAtomValue(tokenAtom);
@@ -21,8 +22,7 @@ const AiPage = () => {
   const [modal, setModal] = useState(false);
   const [result, setResult]: any = useState('');
   const [loading, setLoading] = useState(false);
-
-  console.log(result);
+  const [resultDescription, setResultDescription]: any = useState('');
 
   const imgInput = useRef<HTMLInputElement | null>(null);
 
@@ -73,9 +73,10 @@ const AiPage = () => {
         onSuccess: ({ data }: any) => {
           setLoading(false);
           const firstKey = Object.values(data)[0];
+          const secondKey = Object.values(data)[1];
           setResult(firstKey);
           setSuccess(true);
-          console.log(data);
+          setResultDescription(secondKey);
         },
         onError: (err: any) => {
           setLoading(false);
@@ -162,10 +163,18 @@ const AiPage = () => {
                   </span>
                 )}
               </S.Skin>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '5rem' }}>
+              <S.ResultDiv>
+                <p>
+                  <span style={{ color: '#A566FF', marginRight: '0.5rem' }}>
+                    <FaCheck size="15" />
+                  </span>
+                  {resultDescription}
+                </p>
+              </S.ResultDiv>
+              <S.TwoBtnDiv>
                 <S.SkinButton2 onClick={resetAiImage}>다시 검사하기</S.SkinButton2>
                 <S.SearchBtn onClick={handleMoveHospital}>동물병원 찾기</S.SearchBtn>
-              </div>
+              </S.TwoBtnDiv>
               <S.RecommendDiv>
                 <S.Recommend>
                   추천 수의사 <span style={{ color: 'blue' }}>TOP5</span>

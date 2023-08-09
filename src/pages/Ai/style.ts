@@ -467,3 +467,18 @@ export const ListBtnBox = styled.button`
     color: #fff;
   }
 `;
+
+export const TwoBtnDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+`;
+
+export const ResultDiv = styled.div`
+  font-size: 2rem;
+  width: 55%;
+  margin: auto;
+  line-height: 1.5;
+  padding: 3rem 0 4rem 0;
+  font-weight: 500;
+`;
