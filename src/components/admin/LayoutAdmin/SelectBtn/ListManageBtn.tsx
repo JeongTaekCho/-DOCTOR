@@ -7,12 +7,10 @@ import { useReportStatusMutation } from '../../../../hooks/query/useReportStatus
 import Swal from 'sweetalert2';
 
 const OPTIONS = [
-
   { value: 'accepted', name: '유지' },
   { value: 'rejected', name: '반려' },
   { value: 'pending', name: '대기' }
   //{ value: 'all', name: '대기'}
-
 ];
 interface ColorOptions {
   [key: string]: string;
