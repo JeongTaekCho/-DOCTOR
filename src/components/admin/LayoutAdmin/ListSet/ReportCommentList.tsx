@@ -218,7 +218,6 @@ const ReportIdTreat = styled.div`
 
 const ReportId = styled.p`
   // '신고된 아이디'
-  width: 50%;
   display: flex;
   align-items: center;
   color: #252733;
