@@ -52,6 +52,7 @@ const AiPage = () => {
   const DEFAULT_IMAGE = '/images/commons/aipic.png';
 
   const [AiImage, setAiImage] = useState<string>(DEFAULT_IMAGE);
+  const [success, setSuccess] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -73,22 +74,24 @@ const AiPage = () => {
           setLoading(false);
           const firstKey = Object.values(data)[0];
           setResult(firstKey);
+          setSuccess(true);
           console.log(data);
         },
         onError: (err: any) => {
           setLoading(false);
+          setAiImage(DEFAULT_IMAGE);
           Swal.fire(err.response.data.error);
         }
       });
     } else {
       // 업로드 취소할 시
-      setAiImage('/images/commons/aipic.png');
+      setAiImage(DEFAULT_IMAGE);
     }
   };
 
   const resetAiImage = () => {
-    setAiImage('/images/commons/aipic.png');
-    window.location.reload();
+    setAiImage(DEFAULT_IMAGE);
+    setSuccess(false);
   };
 
   useEffect(() => {
@@ -146,7 +149,8 @@ const AiPage = () => {
         {AiImage === '/images/commons/aipic.png' ? (
           <S.Button onClick={openModal}>올바른 예시 확인</S.Button>
         ) : (
-          !loading && (
+          !loading &&
+          success && (
             <>
               <S.Skin>
                 <S.SkinSpan>{result}</S.SkinSpan>
