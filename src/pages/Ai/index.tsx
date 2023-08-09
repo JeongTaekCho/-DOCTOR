@@ -117,7 +117,7 @@ const AiPage = () => {
   return (
     <S.Wrap>
       <S.Title>
-        <S.Header>피부질환 AI 진단</S.Header>
+        <S.Header>피부질환 AI 진단 {success && '결과'}</S.Header>
         {!success && <S.P>우리 아이 피부질환 AI 자가진단 해보기</S.P>}
       </S.Title>
       {success && (
