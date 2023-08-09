@@ -99,8 +99,8 @@ const LoginPage = () => {
   };
 
   const handleKakaoLogin = async () => {
-    // window.location.assign(`${serverUrl}/auth/kakao`);
-    Swal.fire('서비스 이용 준비중입니다.');
+    window.location.assign(`${serverUrl}/auth/kakao`);
+    // Swal.fire('서비스 이용 준비중입니다.');
   };
 
   useEffect(() => {
