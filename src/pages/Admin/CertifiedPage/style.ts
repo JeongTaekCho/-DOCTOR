@@ -59,7 +59,7 @@ export const ListRowName = styled.div`
   display: flex;
   color: #778092;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding: 1.4rem 0;
 `;
 export const ReportId1List = styled.div`
