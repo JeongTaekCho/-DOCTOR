@@ -221,6 +221,19 @@ const ReportId = styled.p`
   color: #252733;
   font-weight: 500;
   font-size: 1.4rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent;
+  }
+
+  /* Internet Explorer and Edge */
+  -ms-overflow-style: none;
+
+  /* Firefox */
+  scrollbar-width: none;
 `;
 const IdState = styled.div`
   p {
