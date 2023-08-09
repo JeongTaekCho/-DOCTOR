@@ -12,8 +12,16 @@ const AdminCertifiedPage = () => {
   const [search, setSearch] = useState('');
   const [order, setOrder] = useState('desc');
   const [status, setStatus] = useState('');
-
   const debounceSearch = useDebounce(search, 500);
+
+  const {
+    data: vetAuthListData,
+    refetch: vetAuthRefetch,
+    fetchNextPage,
+    hasNextPage
+  } = useGetVetAuthListInfinityQuery(debounceSearch, order, status, activeTab);
+
+  const vetAuthList = vetAuthListData ? vetAuthListData.pages.flatMap(page => page.data) : [];
 
   const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
     setOrder(e.target.value);
@@ -29,24 +37,13 @@ const AdminCertifiedPage = () => {
     setActiveTab(true);
   };
 
-  const {
-    data: VetAuthList,
-    refetch: vetAuthRefetch,
-    fetchNextPage,
-    hasNextPage
-  } = useGetVetAuthListInfinityQuery(debounceSearch, order, status, activeTab);
-
-  const vetAuthList = VetAuthList?.pages;
-
   const handleChangeBlocked = (e: ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value);
   };
 
-  useEffect(() => {}, [debounceSearch, order, status, fetch]);
-
   useEffect(() => {
     vetAuthRefetch();
-  }, [activeTab, fetch]);
+  }, [debounceSearch, order, status, activeTab, fetch]);
 
   return (
     <AdminLayout>
@@ -97,26 +94,30 @@ const AdminCertifiedPage = () => {
                 <S.ReportHandleList>처리 상태</S.ReportHandleList>
               </S.ListRowName>
               <S.ContentNationBar></S.ContentNationBar>
-              <InfiniteScroll
-                hasMore={hasNextPage}
-                loadMore={() => fetchNextPage()}
-                loader={<Loading />}
-              >
-                {vetAuthList?.map(page =>
-                  page.data.data.map(userItem => (
-                    <S.ListContentWrap key={userItem.user_email}>
+
+              <S.ListContentWrap>
+                <InfiniteScroll
+                  hasMore={hasNextPage}
+                  loadMore={() => {
+                    fetchNextPage();
+                  }}
+                  loader={<Loading />}
+                >
+                  {vetAuthList?.length > 0 ? (
+                    vetAuthList?.map((user, index) => (
                       <CertifiedListLayout
-                        user={userItem}
+                        key={user.id}
+                        user={user}
                         activeTab={activeTab}
-                        index={0}
-                        vetAuthRefetch={function (): void {
-                          throw new Error('Function not implemented.');
-                        }}
+                        index={index}
+                        vetAuthRefetch={vetAuthRefetch}
                       />
-                    </S.ListContentWrap>
-                  ))
-                )}
-              </InfiniteScroll>
+                    ))
+                  ) : (
+                    <S.ErrorMent>해당되는 항목이 존재하지 않습니다.</S.ErrorMent>
+                  )}
+                </InfiniteScroll>
+              </S.ListContentWrap>
             </S.ReportList>
           </S.Container>
         </S.Content>
