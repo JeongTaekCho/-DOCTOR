@@ -196,6 +196,7 @@ const AiPage = () => {
                       doctorEmail={vet.user_email}
                       grade={vet.grade}
                       role={userData?.user?.role}
+                      description={vet?.description}
                     />
                   ))}
                 </S.ChatLists>
