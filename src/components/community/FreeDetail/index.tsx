@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
 import * as S from './style';
-import { BiHeart, BiSolidUser } from 'react-icons/bi';
+import { BiSolidUser } from 'react-icons/bi';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 // import { BsArrowReturnRight } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
@@ -8,7 +9,7 @@ import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import SideLayout from '../../layout/SideBar.tsx';
 import { useGetPostsDetailQuery } from '../../../hooks/query/useGetPostsDetailQuery.ts';
 import { useDeletePostMutation } from '../../../hooks/query/useDeletePostMutation.ts';
-
+import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery.ts';
 import Swal from 'sweetalert2';
 import { useChangePostMutation } from '../../../hooks/query/useChangePostMutation.ts';
 import { useReportPostMutation } from '../../../hooks/query/useReportPostMutation.ts';
@@ -19,6 +20,7 @@ import { useReportCommentMutation } from '../../../hooks/query/useReportCommentM
 import { tokenAtom } from '../../../atoms/atoms.ts';
 import { useAtomValue } from 'jotai';
 import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutation.ts';
+import { useNavigate } from 'react-router-dom';
 
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
@@ -29,6 +31,8 @@ const formatDate = (dateString: any) => {
 };
 
 const FreeDetail = () => {
+  const auth = useAtomValue(tokenAtom);
+  const navigate = useNavigate();
   const { postId } = useParams<{ postId: any }>();
   const parsedPostId = parseInt(postId, 10);
 
@@ -45,6 +49,7 @@ const FreeDetail = () => {
 
   const { data: post, refetch } = useGetPostsDetailQuery(postId);
   const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
+  console.log(post);
 
   const { mutate: deletePostMutation } = useDeletePostMutation(postId);
 
@@ -57,6 +62,7 @@ const FreeDetail = () => {
   const { mutate: registerComment } = useRegisterCommentMutation();
 
   const { mutate: changeHeart } = useChangeHeartMutation();
+  const { data: userData } = useGetUsersQuery();
 
   const openModal = () => {
     setModal(true);
@@ -208,6 +214,13 @@ const FreeDetail = () => {
     );
   };
 
+  useEffect(() => {
+    if (!auth) {
+      navigate(ROUTE.FREECOMMUNITY.link);
+      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
+    }
+  });
+
   const currentUserEmail = getCurrentUserEmail();
   const isCurrentUserAuthor = currentUserEmail === post?.author_email;
   //const isCurrentCommentAuthor = currentUserEmail === commentData?.comments?.author_email;
@@ -242,16 +255,27 @@ const FreeDetail = () => {
     );
   };
 
+  const handleBlockComment = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    Swal.fire('정지 유저는 불가합니다');
+  };
+
   const handleChangeHeart = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+    if (!auth) {
+      Swal.fire('좋아요를 하려면 로그인이 필요합니다');
+      return;
+    }
+
     changeHeart(
       {
-        postId: postId
+        postId: parsedPostId,
+        userId: currentUserEmail
       },
       {
         onSuccess: () => {
           refetch();
-          Swal.fire('좋아요');
         },
         onError: (err: any) => {
           Swal.fire(err.response.data.error);
@@ -260,20 +284,22 @@ const FreeDetail = () => {
     );
   };
 
+  const handleBlockHeart = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    Swal.fire('정지 유저는 불가합니다');
+  };
+
   useEffect(() => {
-    // Modal이나 deleteComment, deletePost, commentReport가 변경될 때 body 스크롤 처리
     if (modal || deleteComment || deletePost || commentReport) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
 
-    // 컴포넌트 언마운트 시에도 body 스크롤 활성화
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, [modal, deleteComment, deletePost, commentReport]);
-  const auth = useAtomValue(tokenAtom);
 
   const maxTitleLength = 40;
   const maxBodyLength = 500;
@@ -281,7 +307,7 @@ const FreeDetail = () => {
     <div style={{ width: '100%' }}>
       <SideLayout> </SideLayout>
       <S.Container>
-        {isCurrentUserAuthor && auth && (
+        {isCurrentUserAuthor && auth && userData?.user?.blocked_at === null && (
           <S.DeletePost>
             <S.DeletePostButton onClick={handleDeletePost}>삭제</S.DeletePostButton>
           </S.DeletePost>
@@ -316,29 +342,35 @@ const FreeDetail = () => {
               </S.Pre>
             )}
           </S.MainTextDiv>
-          <S.HeartIcon onClick={handleChangeHeart}>
+
+          <S.HeartIcon
+            onClick={userData?.user?.blocked_at === null ? handleChangeHeart : handleBlockHeart}
+          >
             <div>
-              <BiHeart size="40" />
+              {post?.likes?.[0]?.is_like ? <AiFillHeart size="40" /> : <AiOutlineHeart size="40" />}
             </div>
             <S.HeartNumber>{post?.like}</S.HeartNumber>
           </S.HeartIcon>
+
           <S.ReportTextDiv>
-            {auth ? ( // auth가 참일 때만 아래의 내용을 나타냅니다.
-              isEditing ? (
-                <div>
-                  <S.ConfirmButton onClick={handleChangePost}>확인</S.ConfirmButton>
-                  <S.ReportText onClick={handleEditDelete}>취소</S.ReportText>
-                </div>
-              ) : (
-                <div>
-                  {isCurrentUserAuthor ? (
-                    <S.Correction onClick={handleEditClick}>수정</S.Correction>
-                  ) : (
-                    <S.ReportText onClick={openModal}>신고</S.ReportText>
-                  )}
-                </div>
-              )
-            ) : null}{' '}
+            {auth ? (
+              userData?.user?.blocked_at === null ? (
+                isEditing ? (
+                  <div>
+                    <S.ConfirmButton onClick={handleChangePost}>확인</S.ConfirmButton>
+                    <S.ReportText onClick={handleEditDelete}>취소</S.ReportText>
+                  </div>
+                ) : (
+                  <div>
+                    {isCurrentUserAuthor ? (
+                      <S.Correction onClick={handleEditClick}>수정</S.Correction>
+                    ) : (
+                      <S.ReportText onClick={openModal}>신고</S.ReportText>
+                    )}
+                  </div>
+                )
+              ) : null
+            ) : null}
           </S.ReportTextDiv>
         </S.MainDiv>
         <S.CommentDiv>댓글</S.CommentDiv>
@@ -349,30 +381,43 @@ const FreeDetail = () => {
                 {comment.users.nickname}
                 <S.CommentDate>{formatDate(comment.created_at)}</S.CommentDate>
               </S.User>
-              {currentUserEmail === comment.author_email && auth && (
-                <S.DeleteDiv onClick={handleDeleteComment(comment.id)}>
-                  <GrClose />
-                </S.DeleteDiv>
-              )}
+              {currentUserEmail === comment.author_email &&
+                auth &&
+                userData?.user?.blocked_at === null && (
+                  <S.DeleteDiv onClick={handleDeleteComment(comment.id)}>
+                    <GrClose />
+                  </S.DeleteDiv>
+                )}
             </S.UserDiv>
             <S.BottomDiv>
               <S.LeftDiv>{comment.body}</S.LeftDiv>
-              {currentUserEmail !== comment.author_email && auth && (
-                <S.RightDiv onClick={openReport(comment.id)} style={{ cursor: 'pointer' }}>
-                  신고
-                </S.RightDiv>
-              )}
+              {currentUserEmail !== comment.author_email &&
+                auth &&
+                userData?.user?.blocked_at === null && (
+                  <S.RightDiv onClick={openReport(comment.id)} style={{ cursor: 'pointer' }}>
+                    신고
+                  </S.RightDiv>
+                )}
             </S.BottomDiv>
           </S.Comment>
         ))}
-
-        <S.Register>
-          <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
-          <S.InputDiv>
-            <S.Input value={commentBody} onChange={onChangeCommentBody}></S.Input>
-            <S.RegisterButton onClick={handleRegisterComment}>등록</S.RegisterButton>
-          </S.InputDiv>
-        </S.Register>
+        {userData?.user?.blocked_at === null ? (
+          <S.Register>
+            <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
+            <S.InputDiv>
+              <S.Input value={commentBody} onChange={onChangeCommentBody}></S.Input>
+              <S.RegisterButton onClick={handleRegisterComment}>등록</S.RegisterButton>
+            </S.InputDiv>
+          </S.Register>
+        ) : (
+          <S.Register>
+            <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
+            <S.InputDiv>
+              <S.Input value={commentBody} onChange={onChangeCommentBody}></S.Input>
+              <S.RegisterButton onClick={handleBlockComment}>등록</S.RegisterButton>
+            </S.InputDiv>
+          </S.Register>
+        )}
         <S.ListDiv>
           <S.ListButton to={ROUTE.FREECOMMUNITY.link}>목록</S.ListButton>
         </S.ListDiv>

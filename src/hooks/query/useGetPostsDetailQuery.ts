@@ -1,6 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import * as API from '../../api/index';
 import { User } from '../../types/userType';
+
+interface IsLike {
+  is_like: boolean;
+}
+
 interface UserPostResponse {
   id: number;
   author_email: string;
@@ -12,6 +17,7 @@ interface UserPostResponse {
   update_at: Date | null;
   deleted_at: Date | null;
   users: User;
+  likes: IsLike[];
 }
 
 const getPostsDetail = async (postId: number): Promise<UserPostResponse> => {

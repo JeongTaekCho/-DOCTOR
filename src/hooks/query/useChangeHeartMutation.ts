@@ -2,7 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import * as API from '../../api/index';
 
 interface ChangeHeartData {
-  postId: string;
+  postId: number;
+  userId: string;
 }
 
 interface ChangeHeartReturn {

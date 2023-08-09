@@ -67,6 +67,7 @@ export const ListDetail = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  text-align: left;
   width: 50rem;
   font-size: 1.3rem;
   font-weight: 400;
