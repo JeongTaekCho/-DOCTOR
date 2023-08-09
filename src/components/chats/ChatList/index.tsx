@@ -4,6 +4,7 @@ import ProfileImg from '../../commons/ProfileImg';
 import { Rating } from '@mui/material';
 import Swal from 'sweetalert2';
 import { useConsultRequestMutation } from '../../../hooks/query/useConsultRequestMutation';
+import { imgUrl } from '../../../api';
 
 interface ChatListProps {
   userToken?: string | null;
@@ -67,7 +68,7 @@ const ChatList = ({
       <S.ChatList>
         <S.ListBox>
           <S.ListContainer>
-            <ProfileImg w="8rem" h="8rem" src={profileImg || '/images/commons/kkam.png'} />
+            <ProfileImg w="8rem" h="8rem" src={`${imgUrl}${profileImg}`} />
             <S.ListContentBox>
               <S.NameRateBox>
                 <p>

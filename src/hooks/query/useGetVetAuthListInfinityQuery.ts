@@ -1,55 +1,22 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import * as API from '../../api/index';
-import { ReactNode } from 'react';
-
-export interface VetAuthListData {
-  id: number;
-  user_email: string;
-  name: string;
-  hospital_name: string;
-  description: string;
-  region: string;
-  img_path: string;
-  chat_count: number | null;
-  grade: number | null;
-  status: string;
-  created_at: ReactNode | string;
-  updated_at: ReactNode | string;
-  deleted_at: null | Date | string;
-  users: {
-    img_path: string | null;
-  };
-}
-
-export interface VetAuthListResponse {
-  currentPage: number;
-  totalPages: number;
-  data: VetAuthListData[];
-}
+import { VetAuthListResponse } from '../../pages/Admin/CertifiedPage/types';
 
 const getVetAuthList = async (
-  search: string,
-  order: string,
-  status: string,
   page: number = 1,
   activeTab: boolean
 ): Promise<VetAuthListResponse> => {
   const queryStatus = activeTab ? 'accepted' : 'pending';
   const result = await API.get<{ data: VetAuthListResponse }>(
-    `/admins/vet-requests?search=${search}&orderBy=${order}&status=${queryStatus}&currentPage=${page}`
+    `/admins/vet-requests?status=${queryStatus}&currentPage=${page}`
   );
   return result.data;
 };
 
-export const useGetVetAuthListInfinityQuery = (
-  search: string,
-  order: string,
-  status: string,
-  activeTab: boolean
-) => {
+export const useGetVetAuthListInfinityQuery = (activeTab: boolean) => {
   return useInfiniteQuery<VetAuthListResponse>(
-    ['infiniteVetAuthList', search, order, status, activeTab],
-    ({ pageParam }) => getVetAuthList(search, order, status, pageParam, activeTab),
+    ['infiniteVetAuthList', activeTab],
+    ({ pageParam }) => getVetAuthList(pageParam, activeTab),
     {
       getNextPageParam: lastPage => {
         return lastPage.currentPage < lastPage.totalPages ? lastPage.currentPage + 1 : undefined;

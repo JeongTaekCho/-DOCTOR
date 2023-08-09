@@ -1,34 +1,22 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import AdminLayout from '../../../components/admin/LayoutAdmin/PageLayout/NavbarAdmin';
 import { useGetVetAuthListInfinityQuery } from '../../../hooks/query/useGetVetAuthListInfinityQuery';
 import CertifiedListLayout from '../../../components/admin/LayoutAdmin/ListSet/CertifiedList';
 import InfiniteScroll from 'react-infinite-scroller';
-import useDebounce from '../../../hooks/util/useDebounce';
 import Loading from '../../../components/commons/Loading';
 
 const AdminCertifiedPage = () => {
   const [activeTab, setActiveTab] = useState(false);
-  const [search, setSearch] = useState('');
-  const [order, setOrder] = useState('desc');
-  const [status, setStatus] = useState('');
-  const debounceSearch = useDebounce(search, 500);
 
   const {
     data: vetAuthListData,
     refetch: vetAuthRefetch,
     fetchNextPage,
     hasNextPage
-  } = useGetVetAuthListInfinityQuery(debounceSearch, order, status, activeTab);
+  } = useGetVetAuthListInfinityQuery(activeTab);
 
   const vetAuthList = vetAuthListData ? vetAuthListData.pages.flatMap(page => page.data) : [];
-
-  const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
-    setOrder(e.target.value);
-  };
-  const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
 
   const handleClickBtn1 = () => {
     setActiveTab(false);
@@ -37,13 +25,9 @@ const AdminCertifiedPage = () => {
     setActiveTab(true);
   };
 
-  const handleChangeBlocked = (e: ChangeEvent<HTMLSelectElement>) => {
-    setStatus(e.target.value);
-  };
-
   useEffect(() => {
     vetAuthRefetch();
-  }, [debounceSearch, order, status, activeTab, fetch]);
+  }, [activeTab]);
 
   return (
     <AdminLayout>
@@ -66,7 +50,7 @@ const AdminCertifiedPage = () => {
             </S.PageNation>
 
             <S.ReportList>
-              <S.ListSet>
+              {/* <S.ListSet>
                 <S.SelectBox onChange={handleChangeOrder}>
                   <option value="desc">최신 순 ▼</option>
                   <option value="asc">오래된 순 ▼</option>
@@ -84,12 +68,12 @@ const AdminCertifiedPage = () => {
                     placeholder="유저명 또는 이메일을 입력해주세요."
                   />
                 </S.ListOrder2>
-              </S.ListSet>
+              </S.ListSet> */}
               <S.ListRowName>
                 <S.ReportId1List>No.</S.ReportId1List>
                 <S.ReportIdList>수의사 인증 신청 대기 계정</S.ReportIdList>
                 <S.ReportWarnList>요청 일자</S.ReportWarnList>
-                <S.ReportAccrueList></S.ReportAccrueList>
+                <S.ReportAccrueList>{activeTab ? '인증 일자' : ''}</S.ReportAccrueList>
                 <S.ReportDetailList>인증 자료</S.ReportDetailList>
                 <S.ReportHandleList>처리 상태</S.ReportHandleList>
               </S.ListRowName>

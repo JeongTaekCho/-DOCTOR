@@ -3,9 +3,9 @@ import { styled } from 'styled-components';
 import ProfileImg from '../../../commons/ProfileImg';
 import SelectBox from '../SelectBtn/CertifiedManageBtn';
 import Modal from '../PageLayout/Modal';
-import { VetAuthListResponse } from '../../../../hooks/query/useGetVetAuthListInfinityQuery';
 import { formatDate } from '../../../../util/formatDate';
 import { imgUrl } from '../../../../api';
+import { VetAuthListResponse } from '../../../../pages/Admin/CertifiedPage/types';
 
 interface UserProps {
   user: VetAuthListResponse['data'][number];
@@ -14,7 +14,7 @@ interface UserProps {
   vetAuthRefetch: () => void;
 }
 
-const CertifiedListLayout = ({ user, index, activeTab }: UserProps) => {
+const CertifiedListLayout = ({ user, index, vetAuthRefetch }: UserProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
@@ -22,20 +22,29 @@ const CertifiedListLayout = ({ user, index, activeTab }: UserProps) => {
   return (
     <Wrap>
       <ListOfLists>
-        <ReportDetailN>{index + 1}</ReportDetailN>
+        <ReportN>{index + 1}</ReportN>
         <ReportProfile>
           <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${user?.img_path}`} />
           <ReportPrifileId>{user?.user_email}</ReportPrifileId>
         </ReportProfile>
-        <ReportN>{formatDate(user?.created_at)}</ReportN>
         <ReportDetailN>
-          <ReportPostN>{activeTab ? formatDate(user?.updated_at) : ''}</ReportPostN>
+          <ReportPostN>{formatDate(user?.created_at)}</ReportPostN>
+        </ReportDetailN>
+        <ReportDetailN>
+          <ReportPostN>
+            {user?.status === 'accepted' ? formatDate(user?.updated_at) : ''}
+          </ReportPostN>
         </ReportDetailN>
         <ReportContent>
           <ReportContentListSet onClick={handleOpenModal}>제출자료보기</ReportContentListSet>
         </ReportContent>
         <ReportHandle>
-          <SelectBox email={user?.user_email} vetId={user?.id} />
+          <SelectBox
+            email={user?.user_email}
+            vetId={user?.id}
+            status={user?.status}
+            vetAuthRefetch={vetAuthRefetch}
+          />
         </ReportHandle>
       </ListOfLists>
 
@@ -85,14 +94,21 @@ const ReportPrifileId = styled.div`
 
 const ReportN = styled.div`
   display: flex;
-  width: 20%;
+  width: 8%;
   align-items: center;
   font-size: 1.4rem;
   font-weight: 500;
   color: #667085;
 `;
 
-const ReportDetailN = styled(ReportN)``;
+const ReportDetailN = styled.div`
+  display: flex;
+  width: 20%;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #667085;
+`;
 const ReportPostN = styled.div``;
 
 const ReportContent = styled.div`
