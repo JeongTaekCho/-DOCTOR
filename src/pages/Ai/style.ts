@@ -482,3 +482,12 @@ export const ResultDiv = styled.div`
   padding: 3rem 0 4rem 0;
   font-weight: 500;
 `;
+
+export const PsMent = styled.p`
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: #111;
+  text-align: center;
+  line-height: 1.4;
+  margin-top: 2rem;
+`;
