@@ -8,6 +8,7 @@ export const Wrap = styled.div`
 
 export const Container = styled.div`
   width: 1200px;
+  min-height: calc(100vh - 135px);
   margin: 0 auto;
 
   @media ${RESPONSIVE.tablet} {

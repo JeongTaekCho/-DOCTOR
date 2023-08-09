@@ -8,6 +8,7 @@ export const Wrap = styled.div``;
 export const Container = styled.div`
   width: 93.85%;
   margin: 0 auto;
+  min-height: calc(100vh - 135px);
 `;
 
 //-----------------------------------
