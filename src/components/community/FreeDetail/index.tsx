@@ -212,7 +212,7 @@ const FreeDetail = () => {
   };
 
   const currentUserEmail = getCurrentUserEmail();
-  const isCurrentUserAuthor = currentUserEmail === post?.author_email;
+  const isCurrentUserAuthor = userData?.user?.email === post?.author_email;
   //const isCurrentCommentAuthor = currentUserEmail === commentData?.comments?.author_email;
 
   const handleRegisterComment = (e: MouseEvent<HTMLButtonElement>) => {
