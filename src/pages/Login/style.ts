@@ -75,6 +75,14 @@ export const RememberBox = styled.div`
   align-items: center;
   margin-top: 2rem;
 
+  .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+    font-size: 1.7rem !important;
+  }
+
+  .MuiSvgIcon-root {
+    font-size: 2rem;
+  }
+
   a {
     font-size: 1.4rem;
     font-weight: 500;

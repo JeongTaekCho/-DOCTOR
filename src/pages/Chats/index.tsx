@@ -25,6 +25,8 @@ const ChatsPage = () => {
     hasNextPage
   } = useChatListInfinityQuery(areaName, debounceSearchValue);
 
+  console.log(doctorList);
+
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     const { name } = target.dataset;
@@ -102,6 +104,7 @@ const ChatsPage = () => {
                       key={doctor?.name + index}
                       userToken={auth}
                       name={doctor?.name}
+                      description={doctor?.description}
                       hospitalName={doctor?.hospital_name}
                       profileImg={doctor?.img_path}
                       doctorEmail={doctor?.user_email}
