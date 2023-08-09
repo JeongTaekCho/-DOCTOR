@@ -3,6 +3,22 @@ import * as API from '../../api/index';
 import { Key, ReactNode } from 'react';
 
 export interface VetAuthListResponse {
+  user: {
+    id: number;
+    user_email: string;
+    name: string;
+    hospital_name: string;
+    description: string;
+    region: string;
+    img_path: string;
+    chat_count: number | null;
+    grade: number | null;
+    status: string;
+    created_at: ReactNode;
+    updated_at: ReactNode;
+    deleted_at: string | Date | null;
+    users: { img_path: string };
+  };
   id: Key | null | undefined;
   currentPage: number;
   totalPages: number;

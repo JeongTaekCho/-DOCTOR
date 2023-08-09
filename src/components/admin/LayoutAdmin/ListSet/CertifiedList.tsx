@@ -22,7 +22,7 @@ const CertifiedListLayout = ({ user, index, activeTab }: UserProps) => {
   return (
     <Wrap>
       <ListOfLists>
-        <ReportDetailN>{index}</ReportDetailN>
+        <ReportDetailN>{index + 1}</ReportDetailN>
         <ReportProfile>
           <ProfileImg w="6rem" h="6rem" src={user?.img_path || '/images/commons/kkam.png'} />
           <ReportPrifileId>{user?.user_email}</ReportPrifileId>

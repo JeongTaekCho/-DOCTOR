@@ -20,18 +20,17 @@ const AdminReportCommentPage = () => {
     ? reportCommentData.pages.flatMap(page => page.data)
     : [];
 
-<<<<<<< HEAD
-=======
-  const [order, setOrder] = useState('desc');
+
+  // const [order, setOrder] = useState('desc');
   
-  const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
-    setOrder(e.target.value);
-  };
-  const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-  const { data = [], refetch } = useGetReportCommentListQuery(activeTab ? 'accepted' : 'pending');
->>>>>>> Feat-develop
+  // const handleChangeOrder = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   setOrder(e.target.value);
+  // };
+  // const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setSearch(e.target.value);
+  // };
+  // const { data = [], refetch } = useGetReportCommentListQuery(activeTab ? 'accepted' : 'pending');
+
   const handleClickBtn1 = () => {
     setActiveTab('pending');
   };
