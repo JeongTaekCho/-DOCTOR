@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const serverUrl = 'https://' + window.location.hostname + ':' + process.env.SERVER_PORT;
+const serverUrl = 'http://' + window.location.hostname + ':' + process.env.SERVER_PORT;
 
-const imgUrl = `https://${window.location.hostname}:${process.env.SERVER_PORT}/imgs?filename=`;
+const imgUrl = `http://${window.location.hostname}:${process.env.SERVER_PORT}/imgs?filename=`;
 
 async function get<T>(endpoint: string, params = ''): Promise<T> {
   return axios.get(serverUrl + endpoint + '/' + params, {
