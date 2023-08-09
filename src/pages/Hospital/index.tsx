@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 const HospitalMap = () => {
   const [places, setPlaces] = useState([]);
-  const [searchPlace, setSearchPlace] = useState(null);
+  const [searchPlace, setSearchPlace] = useState('성동구 동물병원');
   const debounceSearchPlace = useDebounce(searchPlace, 500);
 
   const infowindowRef = useRef(null);
@@ -46,36 +46,36 @@ const HospitalMap = () => {
     mapRef.current.panTo(position); // 해당 위치로 지도의 중심 이동
   };
 
-  useEffect(() => {
-    // Geolocation API를 사용하여 현재 위치 가져오기
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async position => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.GOOGLE_MAP_API_KEY}`;
+  // useEffect(() => {
+  //   // Geolocation API를 사용하여 현재 위치 가져오기
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       async position => {
+  //         const latitude = position.coords.latitude;
+  //         const longitude = position.coords.longitude;
+  //         const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.GOOGLE_MAP_API_KEY}`;
 
-          try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-            const address = data.results[0].address_components[1].long_name;
-            if (address) {
-              setSearchPlace(`${address} 동물병원`);
-            }
-          } catch (error) {
-            console.error('Error fetching address:', error);
-          }
-        },
-        error => {
-          console.error('Error getting current position:', error);
-          setSearchPlace('동물병원');
-          Swal.fire('내 위치 정보 활성화 또는 주소를 입력해주세요.');
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by this browser.');
-    }
-  }, []);
+  //         try {
+  //           const response = await fetch(apiUrl);
+  //           const data = await response.json();
+  //           const address = data.results[0].address_components[1].long_name;
+  //           if (address) {
+  //             setSearchPlace(`${address} 동물병원`);
+  //           }
+  //         } catch (error) {
+  //           console.error('Error fetching address:', error);
+  //         }
+  //       },
+  //       error => {
+  //         console.error('Error getting current position:', error);
+  //         setSearchPlace('동물병원');
+  //         Swal.fire('내 위치 정보 활성화 또는 주소를 입력해주세요.');
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Geolocation is not supported by this browser.');
+  //   }
+  // }, []);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -232,7 +232,7 @@ const HospitalMap = () => {
           <S.Map id="myMap" />
         </S.MapContent>
       </S.Container>
-      {searchPlace === null && <LoadingBackground />}
+      {/* {searchPlace === null && <LoadingBackground />} */}
     </S.Wrap>
   );
 };
