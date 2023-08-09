@@ -208,6 +208,19 @@ const ReportPrifileId = styled.div`
   font-size: 1.4rem;
   font-weight: 600;
   color: #252733;
+  overflow-x: auto;
+  white-space: nowrap;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent;
+  }
+
+  /* Internet Explorer and Edge */
+  -ms-overflow-style: none;
+
+  /* Firefox */
+  scrollbar-width: none;
 `;
 //-------------------------------------
 const ReportComment = styled.p`
