@@ -49,8 +49,11 @@ export const ListOrder = styled.div`
 export const ListOrder2 = styled.div`
   input {
     width: 300px;
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 6px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
   }
 `;
 
@@ -59,7 +62,7 @@ export const ListRowName = styled.div`
   display: flex;
   color: #778092;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding: 1.4rem 0;
 `;
 
@@ -231,6 +234,9 @@ export const SelectContainer = styled.div`
 `;
 
 export const SelectBox = styled.select`
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #111;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

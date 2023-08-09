@@ -183,11 +183,14 @@ const Wrap = styled.div`
 const ListOfLists = styled.div`
   width: 100%;
   padding-left: 2%;
+  font-size: 1.5rem;
   display: flex;
-  font-size: 1.2rem;
   border-bottom: 1px solid #e7e7e7;
   padding: 2.3rem 0;
   align-items: center;
+  p {
+    font-size: 1.5rem;
+  }
 
   &:hover {
     background-color: #d6d5d5;
