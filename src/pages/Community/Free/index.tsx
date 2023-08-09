@@ -7,10 +7,15 @@ import Pagination from '../../../components/commons/Pagination/index.tsx';
 import SideLayout from '../../../components/layout/SideBar.tsx';
 import PostRegister from '../../../components/community/PostRegister/index.tsx';
 import { useGetPostsQuery } from '../../../hooks/query/useGetPostsQuery.ts';
+import { tokenAtom } from '../../../atoms/atoms.ts';
+import { useNavigate } from 'react-router-dom';
+import { useAtomValue } from 'jotai';
+import Swal from 'sweetalert2';
 const Free = () => {
+  const auth = useAtomValue(tokenAtom);
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
-  // const [order, setOrder] = useState<'oldest' | 'popularity'>('oldest');
 
   const { data: postData, refetch: postRefetch } = useGetPostsQuery(currentPage, 'free');
 
@@ -21,13 +26,12 @@ const Free = () => {
     setShowRegister(prev => !prev);
   };
 
-  // const handleOrderByDate = () => {
-  //   setOrder('oldest');
-  // };
-
-  // const handleOrderByPopularity = () => {
-  //   setOrder('popularity');
-  // };
+  useEffect(() => {
+    if (!auth) {
+      navigate(ROUTE.LOGIN.link);
+      Swal.fire('로그인 후 서비스 이용이 가능합니다.');
+    }
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
