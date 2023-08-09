@@ -76,7 +76,8 @@ export const HeartIcon = styled.div`
   cursor: pointer;
   font-size: 2rem;
   color: #9747ff;
-  width: 100%;
+  width: 10%;
+  margin: auto;
   padding-top: 4rem;
   display: flex;
   justify-content: center;
@@ -252,8 +253,8 @@ export const ListDiv = styled.div`
 export const ListButton = styled(Link)`
   background-color: #747474;
   color: white;
-  font-size: 1.3rem;
-  padding: 0.3rem;
+  font-size: 1.6rem;
+  padding: 0.5rem;
   border-radius: 3px;
 `;
 

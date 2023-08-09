@@ -128,24 +128,6 @@ const FreeDetail = () => {
     setCommentBody(e.target.value);
   };
 
-  const getCurrentUserEmail = () => {
-    // localStorage에서 'email' 키로 저장된 값을 가져옵니다.
-    const userEmail = localStorage.getItem('email');
-
-    if (userEmail) {
-      try {
-        // userEmail이 JSON 형식인 경우에만 파싱하여 반환합니다.
-        const user = JSON.parse(userEmail);
-        return user;
-      } catch (error) {
-        // userEmail이 JSON 형식이 아니라면 그대로 반환합니다.
-        return userEmail;
-      }
-    }
-
-    return null;
-  };
-
   const handleDeleteMyPost = () => {
     deletePostMutation();
     window.history.back();
@@ -211,7 +193,7 @@ const FreeDetail = () => {
     );
   };
 
-  const currentUserEmail = getCurrentUserEmail();
+  const currentUserEmail: any = userData?.user?.email;
   const isCurrentUserAuthor = userData?.user?.email === post?.author_email;
   //const isCurrentCommentAuthor = currentUserEmail === commentData?.comments?.author_email;
 
