@@ -5,7 +5,7 @@ import { STYLE } from '../../../styles/commonStyle';
 export const Container = styled.div`
   width: 93.85%;
   margin: 0 auto;
-  min-height: calc(100vh -135px);
+  min-height: calc(100vh - 135px);
 `;
 
 // ---
