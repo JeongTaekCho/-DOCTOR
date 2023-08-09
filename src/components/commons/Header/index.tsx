@@ -132,6 +132,14 @@ const Header = () => {
                   {isProfileMenu && (
                     <S.ProfileDetailBox>
                       <S.ProfileBoxMenu>
+                        {userData?.user?.role === 'admin' && (
+                          <li>
+                            <Link to={ROUTE.ADMINUSERINFO.link} onClick={handleProfileBox}>
+                              관리자페이지
+                            </Link>
+                          </li>
+                        )}
+
                         {PROFILE_MENU.map(({ id, name, link }) => (
                           <li key={id}>
                             <Link to={link} onClick={handleProfileBox}>
