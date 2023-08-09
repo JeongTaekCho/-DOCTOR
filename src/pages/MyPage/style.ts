@@ -403,6 +403,7 @@ export const DeleteUser = styled.div`
 
 export const DeleteUserP = styled.p`
   transition: 0.5s;
+  font-size: 1.5rem;
   cursor: pointer;
   &:hover {
     text-decoration: underline;

@@ -219,6 +219,7 @@ export const Skin = styled.h4`
   font-size: 4rem;
   font-weight: bolder;
   margin-top: 2rem;
+  line-height: 1.5;
 
   @media (max-width: 400px) {
     margin-top: 7rem;
@@ -270,19 +271,22 @@ export const SkinButton2 = styled.button`
   cursor: pointer;
   outline: none;
   display: block;
-  margin: auto;
   margin-top: 2rem;
 
   &:hover {
-    background-color: ${STYLE.subColor};
     box-shadow: #ae9aff;
     color: #fff;
     transform: translateY(-7px);
+    opacity: 0.7;
   }
 
   &:active {
     transform: translateY(-1px);
   }
+`;
+
+export const SearchBtn = styled(SkinButton2)`
+  background-color: ${STYLE.mainColor};
 `;
 
 export const Loader = styled.div`
@@ -406,7 +410,7 @@ export const NameRateBox = styled.div`
 export const ListDetail = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  /* -webkit-box-orient: vertical; */
   width: 50rem;
   font-size: 1.3rem;
   font-weight: 400;
@@ -419,5 +423,47 @@ export const ListDetail = styled.p`
     width: auto;
     max-width: 320px;
     -webkit-line-clamp: 1;
+  }
+`;
+
+export const RecommendDiv = styled.div`
+  margin-top: 10rem;
+  padding-bottom: 1rem;
+`;
+
+export const Recommend = styled.p`
+  font-size: 3rem;
+  font-weight: 700;
+`;
+
+export const MoreVetsDiv = styled.div`
+  text-align: right;
+  width: 800px;
+  margin: auto;
+
+  @media ${RESPONSIVE.tablet} {
+    width: 100%;
+  }
+`;
+
+export const MoreVets = styled.div`
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 100%;
+`;
+
+export const ListBtnBox = styled.button`
+  width: 10rem;
+  padding: 0.8rem;
+  border: 1px solid ${STYLE.mainColor};
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: ${STYLE.mainColor};
+  background-color: #fff;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: ${STYLE.mainColor};
+    color: #fff;
   }
 `;

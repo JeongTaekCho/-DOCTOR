@@ -15,9 +15,7 @@ export const List = styled.div`
 export const Post = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
+  padding: 1rem;
   display: flex;
   transition: 0.5s;
   &:hover {
@@ -26,7 +24,7 @@ export const Post = styled.div`
 `;
 export const PostHeader = styled.h4`
   font-size: 2rem;
-  font-weight: bolder;
+  font-weight: 500;
   width: 90%;
   text-overflow: ellipsis;
   overflow: hidden;

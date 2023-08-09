@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, MouseEvent } from 'react';
 import * as S from './style';
 import { GrClose } from 'react-icons/gr';
 import { FcCheckmark, FcCancel } from 'react-icons/fc';
+import { BsArrowRightShort } from 'react-icons/bs';
 import Avatar from '@mui/material/Avatar';
 import { tokenAtom } from '../../atoms/atoms';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +11,9 @@ import Swal from 'sweetalert2';
 import { useAtomValue } from 'jotai';
 import { usePostDiseaseMutation } from '../../hooks/query/usePostDiseaseMutation';
 import { useGetTopVetsQuery } from '../../hooks/query/useGetTopVetsQuery';
-import ProfileImg from '../../components/commons/ProfileImg';
-import { imgUrl } from '../../api';
-import { Rating } from '@mui/material';
+import ChatList from '../../components/chats/ChatList';
+import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
+
 const AiPage = () => {
   const auth = useAtomValue(tokenAtom);
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ const AiPage = () => {
 
   const mutation = usePostDiseaseMutation();
   const postDisease = mutation.mutate;
-  const { data: topVets }: any = useGetTopVetsQuery();
-  console.log(topVets);
+  const { data: topVets } = useGetTopVetsQuery();
+  const { data: userData } = useGetUsersQuery();
 
   const openModal = () => {
     setModal(true);
@@ -36,6 +37,16 @@ const AiPage = () => {
 
   const closeModal = () => {
     setModal(false);
+  };
+
+  const handleMoveChat = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    navigate(ROUTE.CHATLIST.link);
+  };
+
+  const handleMoveHospital = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(ROUTE.HOSPITAL.link);
   };
 
   const DEFAULT_IMAGE = '/images/commons/aipic.png';
@@ -136,37 +147,52 @@ const AiPage = () => {
           <S.Button onClick={openModal}>올바른 예시 확인</S.Button>
         ) : (
           !loading && (
-            <S.Skin>
-              <S.SkinSpan>{result}</S.SkinSpan>
-              {result !== '증상 없음' && <span>이(가) 의심됩니다. 병원에 방문해 주세요.</span>}
-              <S.SkinButton2 onClick={resetAiImage}>다시 검사하기</S.SkinButton2>
-            </S.Skin>
+            <>
+              <S.Skin>
+                <S.SkinSpan>{result}</S.SkinSpan>
+                {result !== '증상 없음' && (
+                  <span>
+                    이(가) 의심됩니다.
+                    <br />
+                    수의사와 상담 혹은 병원에 내원해주세요.{' '}
+                  </span>
+                )}
+              </S.Skin>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '5rem' }}>
+                <S.SkinButton2 onClick={resetAiImage}>다시 검사하기</S.SkinButton2>
+                <S.SearchBtn onClick={handleMoveHospital}>동물병원 찾기</S.SearchBtn>
+              </div>
+              <S.RecommendDiv>
+                <S.Recommend>
+                  추천 수의사 <span style={{ color: 'blue' }}>TOP5</span>
+                </S.Recommend>
+              </S.RecommendDiv>
+              <S.ChatListContainer>
+                <S.ChatLists>
+                  {topVets?.map((vet, index) => (
+                    <ChatList
+                      key={vet.name + index}
+                      userToken={auth}
+                      name={vet.name}
+                      hospitalName={vet.hospital_name}
+                      profileImg={vet.img_path}
+                      doctorEmail={vet.user_email}
+                      grade={vet.grade}
+                      role={userData?.user?.role}
+                    />
+                  ))}
+                </S.ChatLists>
+              </S.ChatListContainer>
+              <S.MoreVetsDiv>
+                <S.MoreVets onClick={handleMoveChat}>
+                  수의사 더보기
+                  <BsArrowRightShort size="12" />
+                </S.MoreVets>
+              </S.MoreVetsDiv>
+            </>
           )
         )}
       </S.Example>
-
-      {topVets?.map((vet: any) => (
-        <S.ChatListContainer key={vet.id}>
-          <S.ChatLists>
-            <S.ChatList>
-              <S.ListBox>
-                <S.ListContainer>
-                  <ProfileImg w="8rem" h="8rem" src={`${imgUrl}${vet.img_path}`} />
-                  <S.ListContentBox>
-                    <S.NameRateBox>
-                      <p>
-                        {vet.name} [{vet.hospital_name}]
-                      </p>
-                      <Rating name="read-only" value={vet.grade} readOnly size="large" />
-                    </S.NameRateBox>
-                    <S.ListDetail>{vet.description}</S.ListDetail>
-                  </S.ListContentBox>
-                </S.ListContainer>
-              </S.ListBox>
-            </S.ChatList>
-          </S.ChatLists>
-        </S.ChatListContainer>
-      ))}
 
       {modal && (
         <S.Modal>

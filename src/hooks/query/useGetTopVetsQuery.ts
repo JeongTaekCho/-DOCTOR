@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import * as API from '../../api/index';
 
-interface VetData {
+interface VetResponse {
   id: number;
-  user_email?: string;
+  user_email: string;
   name: string;
   hospital_name: string;
   description: string;
@@ -17,12 +17,8 @@ interface VetData {
   deleted_at: Date | null;
 }
 
-interface VetResponse {
-  data: VetData[];
-}
-
-const getTopVets = async (): Promise<VetResponse> => {
-  const result = await API.get<{ data: VetResponse }>('/diseases/vets');
+const getTopVets = async (): Promise<VetResponse[]> => {
+  const result = await API.get<{ data: VetResponse[] }>('/diseases/vets');
   return result.data;
 };
 

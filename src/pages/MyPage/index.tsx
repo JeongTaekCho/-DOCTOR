@@ -15,9 +15,12 @@ import { useNavigate } from 'react-router-dom';
 import { imgUrl } from '../../api';
 import { calculateRemainingDays } from '../../util/getRemaingTime';
 import { formatDate } from '../../util/formatDate';
+import { useAtomValue } from 'jotai';
+import { tokenAtom } from '../../atoms/atoms';
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const auth = useAtomValue(tokenAtom);
   const [, setImage] = useState<string | undefined>();
   const [activeTab, setActiveTab] = useState<'manage' | 'list'>('manage');
   const [modal, setModal] = useState(false);
@@ -59,6 +62,12 @@ const MyPage = () => {
       console.error('회원 탈퇴 중 오류가 발생했습니다.', error);
     }
   };
+
+  useEffect(() => {
+    if (!auth) {
+      navigate(ROUTE.HOME.link);
+    }
+  });
 
   const openDeleteModal = () => {
     setDeleteModal(true);
