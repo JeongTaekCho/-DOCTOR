@@ -90,6 +90,7 @@ export const LabelText = styled.p`
 export const Example = styled.div`
   width: 100%;
   text-align: center;
+  margin-top: 4rem;
 `;
 
 export const Button = styled.button`
