@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import * as S from './style';
 import { Input } from '../../components/inputs/FormInput/style';
 import FormButton from '../../components/buttons/FormButton';
@@ -36,24 +36,23 @@ const RegisterPage = () => {
   });
   const [authCode, handleChangeAuthCode] = useInput('');
 
-  // const validateComplete =
-  //   !!email &&
-  //   !!password &&
-  //   !!passwordConfirm &&
-  //   !!nickname &&
-  //   !!authCode &&
-  //   validate.email === false &&
-  //   validate.password === false &&
-  //   validate.passwordConfirm === false &&
-  //   validate.nickname === false &&
-  //   validate.authCode === false;
+  const validateComplete =
+    !!email &&
+    !!password &&
+    !!passwordConfirm &&
+    !!nickname &&
+    !!authCode &&
+    validate.email === false &&
+    validate.password === false &&
+    validate.passwordConfirm === false &&
+    validate.nickname === false &&
+    validate.authCode === false;
 
-  const handleChangeInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === 'email') {
       setEmail(value);
-
       if (EMAILREGEX.test(value)) {
         setValidate({ ...validate, email: false });
       } else {
@@ -76,10 +75,9 @@ const RegisterPage = () => {
         setValidate(prevError => ({ ...prevError, passwordConfirm: false }));
       }
     }
-
     if (name === 'passwordConfirm') {
       setPasswordConfirm(value);
-
+      console.log(value);
       if (password !== value) {
         setValidate(prevError => ({ ...prevError, passwordConfirm: true }));
       } else {
@@ -96,11 +94,7 @@ const RegisterPage = () => {
         setValidate({ ...validate, nickname: false });
       }
     }
-  }, []);
-
-  console.log(password);
-  console.log(passwordConfirm);
-  console.log(validate.passwordConfirm);
+  };
 
   const handleRegister = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -249,7 +243,7 @@ const RegisterPage = () => {
             <FormButton
               type="submit"
               text="회원가입"
-              // disabled={validateComplete === false ? true : false}
+              disabled={validateComplete === false ? true : false}
               onClick={handleRegister}
             />
           </S.ButtonBox>

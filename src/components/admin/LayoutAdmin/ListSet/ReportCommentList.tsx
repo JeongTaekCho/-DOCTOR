@@ -142,7 +142,7 @@ const ReportPostListLayout = ({ data, reportCommentRefetch }: ReportCommentProps
         <ReportHandle>
           <StatusChangeBtn onClick={toggleModal}>계정 상태 변경</StatusChangeBtn>
         </ReportHandle>
-        <ReportDate>시간</ReportDate>
+        <ReportDate>{formatDate(report?.created_at)}</ReportDate>
         <IdHandleBtn>
           <ReportHandleSelect
             defaultValue="pending"

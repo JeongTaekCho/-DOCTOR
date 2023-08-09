@@ -12,6 +12,9 @@ interface Doctor {
   region: string;
   status: string;
   updated_at: Date | null;
+  users: {
+    img_path: string;
+  };
 }
 
 export interface DoctorListResponse {

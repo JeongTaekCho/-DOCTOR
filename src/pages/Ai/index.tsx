@@ -31,6 +31,8 @@ const AiPage = () => {
   const { data: topVets } = useGetTopVetsQuery();
   const { data: userData } = useGetUsersQuery();
 
+  console.log(topVets);
+
   const openModal = () => {
     setModal(true);
   };
