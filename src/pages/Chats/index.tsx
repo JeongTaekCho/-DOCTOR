@@ -106,7 +106,7 @@ const ChatsPage = () => {
                       name={doctor?.name}
                       description={doctor?.description}
                       hospitalName={doctor?.hospital_name}
-                      profileImg={doctor?.img_path}
+                      profileImg={doctor?.users?.img_path}
                       doctorEmail={doctor?.user_email}
                       grade={doctor?.grade}
                       role={userData?.user?.role}

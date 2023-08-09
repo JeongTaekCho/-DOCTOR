@@ -142,7 +142,7 @@ const ReportPostListLayout = ({ data, reportPostRefetch }: ReportPostProps) => {
         <ReportHandle>
           <StatusChangeBtn onClick={toggleModal}>계정 상태 변경</StatusChangeBtn>
         </ReportHandle>
-        <ReportDate>시간</ReportDate>
+        <ReportDate>{formatDate(report?.created_at)}</ReportDate>
         <IdHandleBtn>
           <ReportHandleSelect
             defaultValue="pending"
@@ -218,14 +218,12 @@ const ReportIdTreat = styled.div`
 
 const ReportId = styled.p`
   // '신고된 아이디'
-  width: 50%;
   display: flex;
   align-items: center;
   color: #252733;
   font-weight: 500;
   font-size: 1.4rem;
-  overflow-x: auto;
-  white-space: nowrap;
+  word-break: break-all;
   &::-webkit-scrollbar {
     width: 0 !important;
     height: 0 !important;

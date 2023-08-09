@@ -19,12 +19,14 @@ const CertifiedListLayout = ({ user, index, vetAuthRefetch }: UserProps) => {
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
 
+  console.log(user.users.img_path);
+
   return (
     <Wrap>
       <ListOfLists>
         <ReportN>{index + 1}</ReportN>
         <ReportProfile>
-          <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${user.users?.img_path}`} />
+          <ProfileImg w="6rem" h="6rem" src={`${imgUrl}${user.users.img_path}`} />
           <ReportPrifileId>{user?.user_email}</ReportPrifileId>
         </ReportProfile>
         <ReportDetailN>
