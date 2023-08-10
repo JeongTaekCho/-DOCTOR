@@ -1,19 +1,36 @@
-import React from 'react';
-import { LayoutRouteProps, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { LayoutRouteProps, Link, useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Icon from '../IconImg';
+
 const AdminLayout = ({ children }: LayoutRouteProps) => {
+  const location = useLocation();
+  const [selectedMenu, setSelectedMenu] = useState(location.pathname);
+
+  const handleMenuClick = (menu: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    console.log('Clicked:', menu);
+    setSelectedMenu(menu);
+  };
   return (
     <Wrap>
       <NavBar>
         <Title>
           <TitleName>관리자 페이지</TitleName>
         </Title>
-        <Menu to="/admin-userinfo">
+        <Menu
+          to="/admin-userinfo"
+          onClick={handleMenuClick('admin-userinfo')}
+          isSelected={selectedMenu === 'admin-userinfo'}
+        >
           <Icon w="2rem" h="2rem" src="/images/commons/usermanage1.png" />
           <MenuName>유저 관리</MenuName>
         </Menu>
-        <Menu to="/admin-certified">
+        <Menu
+          to="/admin-certified"
+          onClick={handleMenuClick('admin-certified')}
+          isSelected={selectedMenu === 'admin-certified'}
+        >
           <Icon w="2rem" h="2.5rem" src="/images/commons/certified1.png" />
           <MenuName>수의사 인증 접수</MenuName>
         </Menu>
@@ -21,10 +38,18 @@ const AdminLayout = ({ children }: LayoutRouteProps) => {
           <Icon w="2rem" h="2rem" src="/images/commons/report1.png" />
           <MenuName>신고 접수</MenuName>
         </Menu>
-        <List to="/admin-report-post">
+        <List
+          to="/admin-report-post"
+          onClick={handleMenuClick('admin-report-post')}
+          isSelected={selectedMenu === 'admin-report-post'}
+        >
           <ListName>게시글 신고</ListName>
         </List>
-        <List to="/admin-report-comment">
+        <List
+          to="/admin-report-comment"
+          onClick={handleMenuClick('admin-report-comment')}
+          isSelected={selectedMenu === 'admin-report-comment'}
+        >
           <ListName>댓글 신고</ListName>
         </List>
       </NavBar>
@@ -71,7 +96,7 @@ const TitleName = styled.div`
 `;
 
 //--------------------------------
-const Menu = styled(Link)`
+const Menu = styled(Link)<{ isSelected?: boolean }>`
   // 신고접수[]
   // 수의사 인증 접수[]
   // 유저관리[]
@@ -79,6 +104,7 @@ const Menu = styled(Link)`
   width: 100%;
   align-items: center;
   padding: 3rem 0 2rem 2rem;
+  background-color: ${props => (props.isSelected ? '#2c2d33' : 'transparent')};
   &:hover {
     background-color: #2c2d33;
   }
@@ -95,13 +121,14 @@ const MenuName = styled.div`
 `;
 
 //--------------------------------
-const List = styled(Link)`
+const List = styled(Link)<{ isSelected?: boolean }>`
   // 게시글신고[]
   // 댓글신고[]
   display: flex;
   width: 100%;
   font-size: 1.5rem;
   align-items: center;
+  background-color: ${props => (props.isSelected ? '#2c2d33' : 'transparent')};
   &:hover {
     background-color: #37383f;
     color: #ebebeb;

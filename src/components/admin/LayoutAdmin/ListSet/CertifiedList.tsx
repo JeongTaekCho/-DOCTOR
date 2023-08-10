@@ -84,7 +84,7 @@ const ListOfLists = styled.li`
 `;
 
 const ReportProfile = styled.div`
-  width: 30%;
+  width: 35%;
   display: flex;
 `;
 
