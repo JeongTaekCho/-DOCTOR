@@ -28,7 +28,9 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
 `;
 
 const ModalTitle = styled.div`
