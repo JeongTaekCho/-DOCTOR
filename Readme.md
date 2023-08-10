@@ -63,6 +63,7 @@
   <li><b>TypeScript</b> </li>
   <li><b>React</b> </li>
   <li><b>React-Query</b> </li>
+  <li><b>KakaoMap-API</b> </li>
   <li><b>Socket.io</b> </li>
   <li><b>Styled-Component</b> </li>
   <li><b>MUI</b></li> 
@@ -74,8 +75,11 @@
   <li><b>TypeScript</b> </li>
   <li><b>NodeJs</b></li>
   <li><b>Express</b></li>
+  <li><b>Socket.io</b></li>
   <li><b>MySql</b></li>
   <li><b>prisma</b></li>
+  <li><b>passport</b></li>
+  <li><b>jwt</b></li>
 </ul>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -242,8 +246,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/909020eb-af65-45d8-8a72-
 
 <p>내 정보조회 및 수의사인증이 가능한 페이지입니다.</p>
 
-<p align="center"> 
-
+<p align="center">
 
 https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/bcbcfb8c-ab22-4b06-ab03-4bcf866d3106
 
@@ -285,8 +288,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/ca1742df-6bb3-420a-bfc5-
 
 <p>커뮤니티 신고내용을 확인하고 내용에 부합한 처리를 해주는 페이지 입니다.</p>
 
-<p align="center"> 
-
+<p align="center">
 
 https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/a3108cb7-6199-4682-a562-94aee18e3b3b
 
