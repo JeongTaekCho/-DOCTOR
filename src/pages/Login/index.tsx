@@ -13,11 +13,13 @@ import { useAtom } from 'jotai';
 import { tokenAtom } from '../../atoms/atoms';
 import { EMAILREGEX, PASSOWRDREGEX } from '../../constants/commons/validaties';
 import { serverUrl } from '../../api';
+import { useGetUsersQuery } from '../../hooks/query/useGetUsersQuery';
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const { mutate: loginMutate }: any = useLoginMutation();
+  const user = useGetUsersQuery();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -84,6 +86,7 @@ const LoginPage = () => {
 
           sessionStorage.setItem('token', loginData.data);
           setUserToken(loginData.data);
+          user.refetch();
           Swal.fire('로그인 성공');
           navigate(ROUTE.HOME.link);
         },
