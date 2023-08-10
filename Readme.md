@@ -82,6 +82,12 @@
   <li><b>jwt</b></li>
 </ul>
 
+<h3>AI</h3>
+<ul>
+  <li><b>Flask</b></li>
+  <li><b>TensorFlow</b> </li>
+</ul>
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- GETTING STARTED -->
