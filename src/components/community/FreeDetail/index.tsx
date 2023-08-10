@@ -21,18 +21,12 @@ import { tokenAtom } from '../../../atoms/atoms.ts';
 import { useAtomValue } from 'jotai';
 import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutation.ts';
 import { formatDate } from '../../../util/formatDate.ts';
-
-// const formatDate = (dateString: any) => {
-//   const date = new Date(dateString);
-//   const year = date.getFullYear();
-//   const month = String(date.getMonth() + 1).padStart(2, '0');
-//   const day = String(date.getDate()).padStart(2, '0');
-//   return `${year}-${month}-${day}`;
-// };
+import TitleBar from '../TitleBar/index.tsx';
 
 const FreeDetail = () => {
   const { postId } = useParams<{ postId: any }>();
   const { data: post, refetch }: any = useGetPostsDetailQuery(postId);
+
   const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
   const auth = useAtomValue(tokenAtom);
 
@@ -282,11 +276,6 @@ const FreeDetail = () => {
     );
   };
 
-  // const handleBlockHeart = (e: MouseEvent<HTMLDivElement>) => {
-  //   e.preventDefault();
-  //   Swal.fire('정지 유저는 불가합니다');
-  // };
-
   useEffect(() => {
     if (modal || deleteComment || deletePost || commentReport) {
       document.body.style.overflow = 'hidden';
@@ -303,8 +292,9 @@ const FreeDetail = () => {
   const maxBodyLength = 500;
   return (
     <div style={{ width: '100%' }}>
-      <SideLayout> </SideLayout>
+      <SideLayout category={post?.category} />
       <S.Container>
+        <TitleBar title={post?.category === 'free' ? '자유게시판' : '정보게시판'} />
         {isCurrentUserAuthor && auth && userData?.user?.blocked_at === null && (
           <S.DeletePost>
             <S.DeletePostButton onClick={handleDeletePost}>삭제</S.DeletePostButton>
@@ -343,7 +333,11 @@ const FreeDetail = () => {
 
           <S.HeartIcon onClick={handleChangeHeart}>
             <div>
-              {post?.likes?.[0]?.is_like ? <AiFillHeart size="40" /> : <AiOutlineHeart size="40" />}
+              {post?.likes?.[0]?.is_like ? (
+                <AiFillHeart size="4rem" />
+              ) : (
+                <AiOutlineHeart size="4rem" />
+              )}
             </div>
             <S.HeartNumber>{post?.like}</S.HeartNumber>
           </S.HeartIcon>

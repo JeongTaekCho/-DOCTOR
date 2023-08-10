@@ -25,8 +25,6 @@ const ChatsPage = () => {
     hasNextPage
   } = useChatListInfinityQuery(areaName, debounceSearchValue);
 
-  console.log(doctorList);
-
   const handleClickArea = (e: MouseEvent<HTMLLIElement>) => {
     const target = e.target as HTMLLIElement;
     const { name } = target.dataset;
@@ -41,6 +39,9 @@ const ChatsPage = () => {
   return (
     <S.Wrap>
       <S.Container>
+        <S.BannerBox>
+          <img src="/images/chats/chat_banner.png" alt="" />
+        </S.BannerBox>
         <S.AreaBox>
           <S.AreaList>
             {AREA.map((area, index) => (

@@ -12,6 +12,7 @@ import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery.ts';
 import Swal from 'sweetalert2';
 import { tokenAtom } from '../../../atoms/atoms.ts';
 import { useAtomValue } from 'jotai';
+import TitleBar from '../../../components/community/TitleBar/index.tsx';
 const Free = () => {
   const auth = useAtomValue(tokenAtom);
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,9 +45,10 @@ const Free = () => {
   return (
     <S.Wrap>
       <S.SideDiv>
-        <SideLayout> </SideLayout>
+        <SideLayout />
       </S.SideDiv>
       <S.Container>
+        <TitleBar title="자유게시판" />
         {showRegister ? (
           <PostRegister onCancel={handleWriteButtonClick} isFree={true} />
         ) : (

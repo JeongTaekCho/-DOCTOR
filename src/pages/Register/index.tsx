@@ -77,7 +77,6 @@ const RegisterPage = () => {
     }
     if (name === 'passwordConfirm') {
       setPasswordConfirm(value);
-      console.log(value);
       if (password !== value) {
         setValidate(prevError => ({ ...prevError, passwordConfirm: true }));
       } else {

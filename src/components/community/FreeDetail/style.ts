@@ -23,11 +23,11 @@ export const ListContainer = styled.div`
 
 export const Header = styled.div`
   width: 100%;
-  border-top: 2px solid black;
   border-bottom: 2px solid black;
   display: flex;
   justify-content: space-between;
   padding-right: 1rem;
+  margin-top: 10rem;
 `;
 
 export const Title = styled.div`
@@ -55,8 +55,8 @@ export const MainText = styled.div`
   width: 100%;
   height: 40rem;
   padding: 1.5rem 0 0 0.5rem;
-  font-size: 1.6rem;
-  line-height: 2rem;
+  font-size: 1.8rem;
+  line-height: 1.4;
   overflow-y: auto;
 `;
 
@@ -64,8 +64,8 @@ export const MainTextArea = styled.textarea`
   width: 100%;
   height: 40rem;
   padding: 1.6rem 0 0 0.5rem;
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 1.8rem;
+  line-height: 1.4rem;
   resize: none;
   height: 100%;
   border: none;
@@ -81,6 +81,7 @@ export const HeartIcon = styled.div`
   padding-top: 4rem;
   display: flex;
   justify-content: center;
+  gap: 0.8rem;
 `;
 
 export const HeartNumber = styled.div`
