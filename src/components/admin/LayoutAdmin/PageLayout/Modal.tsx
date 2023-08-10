@@ -69,50 +69,22 @@ const ModalCloseButton = styled.button`
   }
 `;
 
-const VetNameWrap = styled.div`
-  border: 0.3rem solid rgba(172, 155, 259, 0.3);
-  border-radius: 2px;
-  width: 100%;
-  margin: 0.5rem 0 1rem 0;
-  padding: 0.5rem 0 1rem 1rem;
+const ImageWrap = styled.div`
+  display: flex;
+  justify-content: center;
 `;
-const VetName = styled.div`
-  font-weight: 500;
-  color: #344054;
-`;
-const CertifiedImgWrap = styled.div`
-  border: 0.3rem solid rgba(172, 155, 259, 0.3);
-  border-radius: 2px;
-  width: 100%;
-  font-weight: 500;
-  color: #344054;
-  margin: 0.5rem 0 1rem 0;
-  padding: 0.5rem 0 1rem 1rem;
+const ModalImage = styled.img`
+  max-width: 100%;
 `;
 
-const ModalImage = styled.img`
-  max-width: 10rem;
-  display: flex;
-`;
-const HospitalNameWrap = styled.div`
-  width: 100%;
-  border: 0.3rem solid rgba(172, 155, 259, 0.3);
-  border-radius: 2px;
-  margin: 0.5rem 0 1rem 0;
-  padding: 0.5rem 0 1rem 1rem;
-`;
-const HospitalName = styled.div`
-  font-weight: 500;
-  color: #344054;
-`;
-const HospitalIntroWrap = styled.div`
+const ListWrap = styled.div`
   border: 0.3rem solid rgba(172, 155, 259, 0.3);
   border-radius: 2px;
   width: 100%;
   margin: 0.5rem 0 1rem 0;
   padding: 0.5rem 0 1rem 1rem;
 `;
-const HospitalIntro = styled.div`
+const ListName = styled.div`
   font-weight: 500;
   color: #344054;
 `;
@@ -135,22 +107,24 @@ const Modal: React.FC<ModalProps> = ({
       <ModalContent>
         <ModalTitle>{title}</ModalTitle>
         <ModalBody>
-          <VetNameWrap>
-            <VetName>수의사 이름</VetName>
+          <ListWrap>
+            <ListName>수의사 이름</ListName>
             {name}
-          </VetNameWrap>
-          <CertifiedImgWrap>
-            수의사 확인증 이미지
-            <ModalImage src={content} alt="Vet License" />
-          </CertifiedImgWrap>
-          <HospitalNameWrap>
-            <HospitalName>병원 이름</HospitalName>
+          </ListWrap>
+          <ListWrap>
+            <ListName>수의사 확인증 이미지</ListName>
+            <ImageWrap>
+              <ModalImage src={content} alt="Vet License" />
+            </ImageWrap>
+          </ListWrap>
+          <ListWrap>
+            <ListName>병원 이름</ListName>
             {hospitalName}
-          </HospitalNameWrap>
-          <HospitalIntroWrap>
-            <HospitalIntro>병원 소개</HospitalIntro>
+          </ListWrap>
+          <ListWrap>
+            <ListName>병원 소개</ListName>
             {hospitalDescription}
-          </HospitalIntroWrap>
+          </ListWrap>
         </ModalBody>
         <ModalFooter>
           <ModalCloseButton onClick={onClose}>Close</ModalCloseButton>
