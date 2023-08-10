@@ -41,6 +41,9 @@ const ChatsPage = () => {
   return (
     <S.Wrap>
       <S.Container>
+        <S.BannerBox>
+          <img src="/images/chats/chat_banner.png" alt="" />
+        </S.BannerBox>
         <S.AreaBox>
           <S.AreaList>
             {AREA.map((area, index) => (

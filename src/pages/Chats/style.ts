@@ -83,11 +83,11 @@ export const SearchForm = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  width: 25rem;
+  width: 30rem;
   padding: 1rem;
   border: 1px solid #000;
   border-radius: 0.6rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: #999;
 
@@ -121,4 +121,17 @@ export const ErrorMent = styled.p`
   color: #5429ff;
   text-align: center;
   padding: 5rem 0;
+`;
+
+export const BannerBox = styled.div`
+  width: 100%;
+  margin: -8.5rem 0 5rem;
+
+  /* @media ${RESPONSIVE.mobile} {
+    display: none;
+  } */
+
+  img {
+    width: 100%;
+  }
 `;
