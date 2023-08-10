@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 const HospitalMap = () => {
   const [places, setPlaces] = useState([]);
-  const [searchPlace, setSearchPlace] = useState('성동구 동물병원');
+  const [searchPlace, setSearchPlace] = useState('성수동 동물병원');
   const debounceSearchPlace = useDebounce(searchPlace, 500);
 
   const infowindowRef = useRef(null);

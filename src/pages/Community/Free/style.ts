@@ -47,7 +47,7 @@ export const PageNumber = styled.div`
 export const Post = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
-  padding: 1rem;
+  padding: 3rem;
   display: flex;
   transition: 0.5s;
   &:hover {

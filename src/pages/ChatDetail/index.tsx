@@ -214,7 +214,7 @@ const ChatDetail = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, chatId, isChatActive]);
 
   useEffect(() => {
     setMessages(chatContents?.ChatContents);

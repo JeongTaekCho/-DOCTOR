@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style.ts';
-import { BiUser, BiHeart } from 'react-icons/bi';
+import { BiUser } from 'react-icons/bi';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../constants/routes/routeData.tsx';
 import Pagination from '../../../components/commons/Pagination/index.tsx';
@@ -81,7 +82,19 @@ const Info = () => {
                     </S.LeftDiv>
                     <S.HeartDiv>
                       <S.HeartContainer>
-                        <BiHeart size="25" color="#9747ff" style={{ verticalAlign: 'middle' }} />
+                        {post?.likes?.[0]?.is_like ? (
+                          <AiFillHeart
+                            size="25"
+                            color="#9747ff"
+                            style={{ verticalAlign: 'middle' }}
+                          />
+                        ) : (
+                          <AiOutlineHeart
+                            size="25"
+                            color="#9747ff"
+                            style={{ verticalAlign: 'middle' }}
+                          />
+                        )}
                         <S.PostHeart>{post?.like}</S.PostHeart>
                       </S.HeartContainer>
                     </S.HeartDiv>

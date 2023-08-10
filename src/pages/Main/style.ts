@@ -87,24 +87,35 @@ export const AiPic = styled.div`
   text-align: center;
   padding-top: 4%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 4rem;
 
   @media ${RESPONSIVE.mobile} {
-    flex-direction: column;
     gap: 20rem;
   }
   @media ${RESPONSIVE.tablet} {
-    flex-direction: column;
     gap: 10rem;
   }
 `;
 
 export const Pic = styled.img`
-  height: 40rem;
-  width: 40rem;
+  width: 70%;
   border-radius: 5px;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 90%;
+  }
+`;
+
+export const ExamplePic = styled.img`
+  width: 30%;
+  border-radius: 5px;
+
+  @media ${RESPONSIVE.mobile} {
+    width: 90%;
+  }
 `;
 
 export const SubDiv = styled.div`

@@ -50,8 +50,8 @@ const MainPage = () => {
           </S.IntroHeader>
         </S.AiIntro>
         <S.AiPic>
-          <S.Pic src="/images/commons/maintest1.png"></S.Pic>
-          <S.Pic src="/images/commons/maintest2.png"></S.Pic>
+          <S.ExamplePic src="/images/commons/example.png"></S.ExamplePic>
+          <S.Pic src="/images/gif/main01.gif"></S.Pic>
         </S.AiPic>
         <S.AiLinkBtn to={ROUTE.AI.link}>AI 자가진단 하러가기</S.AiLinkBtn>
       </S.AiDiv>

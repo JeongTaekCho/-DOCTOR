@@ -37,7 +37,7 @@ export const Title = styled.div`
   padding: 1.5rem 0 1.5rem 0.5rem;
 `;
 
-export const Date = styled.div`
+export const DateContainer = styled.div`
   font-size: 1.3rem;
   padding: 1.5rem 0 1.5rem 0;
   display: flex;
