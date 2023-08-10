@@ -6,6 +6,8 @@
 <h3 align="center"> AI 반려동물 피부질환 예측 사이트</h3>
 <h5 align="center"> Elice AI track-7 AI Project -  (2023 08 11) </h5>
 
+<h3><a href="http://kdt-ai7-team04.elicecoding.com/" target="blank" >DOCTOR 바로가기</a></h3>
+
 <!-- TABLE OF CONTENTS -->
 <h2 id="table-of-contents"> :book: Table of Contents</h2>
 
