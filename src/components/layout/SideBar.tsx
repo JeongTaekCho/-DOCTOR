@@ -1,16 +1,15 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import SideBar from '../community/SideBar';
 import styled from 'styled-components';
 
 interface LayoutProps {
-  children: ReactNode;
+  category?: string;
 }
 
-const SideLayout = ({ children }: LayoutProps) => {
+const SideLayout = ({ category }: LayoutProps) => {
   return (
     <Wrap>
-      <SideBar />
-      {children}
+      <SideBar category={category} />
     </Wrap>
   );
 };
