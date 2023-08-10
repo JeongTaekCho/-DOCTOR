@@ -20,6 +20,7 @@ import { useReportCommentMutation } from '../../../hooks/query/useReportCommentM
 import { tokenAtom } from '../../../atoms/atoms.ts';
 import { useAtomValue } from 'jotai';
 import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutation.ts';
+import { formatDate } from '../../../util/formatDate.ts';
 
 // const formatDate = (dateString: any) => {
 //   const date = new Date(dateString);
@@ -308,7 +309,7 @@ const FreeDetail = () => {
           ) : (
             <S.Title>{post?.title}</S.Title>
           )}
-          <S.DateContainer>{post?.created_at.slice(0, 10)}</S.DateContainer>
+          <S.DateContainer>{formatDate(post?.created_at)}</S.DateContainer>
         </S.Header>
         <S.MainDiv>
           <S.MainTextDiv>
