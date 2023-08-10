@@ -77,7 +77,7 @@ export const Input = styled.input`
 export const Name = styled.h4`
   font-size: 3rem;
   text-align: center;
-  font-weight: bolder;
+  font-weight: 500;
   margin-top: 1.5rem;
 `;
 
@@ -103,7 +103,7 @@ export const DetailTop = styled.div`
   padding-left: 3rem;
   gap: 3rem;
   font-size: 2rem;
-  font-weight: bolder;
+  font-weight: 500;
 
   @media ${RESPONSIVE.tablet} {
     justify-content: center;
@@ -119,7 +119,7 @@ export const TabItem = styled.p<TabItemProps>`
   position: relative;
   color: white;
   cursor: pointer;
-  font-weight: bolder;
+  font-weight: 500;
   transition: 0.1s;
 
   &::before {
@@ -194,7 +194,7 @@ export const Certification = styled.button`
   font-size: 2rem;
   background-color: #5429ff;
   color: white;
-  font-weight: bolder;
+  font-weight: 500;
   border-radius: 2rem;
 `;
 
@@ -248,7 +248,7 @@ export const Title2 = styled.div`
 
 export const BasicHeader = styled.h4`
   font-size: 2.5rem;
-  font-weight: bolder;
+  font-weight: 500;
 `;
 
 export const MainBox = styled.div`
@@ -273,7 +273,7 @@ export const CenteredText = styled.div`
   width: 100%;
   text-align: center;
   font-size: 1.8rem;
-  font-weight: bolder;
+  font-weight: 500;
   opacity: 0.6;
 `;
 
@@ -339,7 +339,7 @@ export const BlueButton = styled.button`
   border-radius: 5px;
   background-color: #5429ff;
   font-size: 1.5rem;
-  font-weight: bolder;
+  font-weight: 500;
   color: white;
   text-align: center;
 `;
@@ -350,7 +350,7 @@ export const RedButton = styled.button`
   border-radius: 5px;
   background-color: #d5d5d5;
   font-size: 1.5rem;
-  font-weight: bolder;
+  font-weight: 500;
   color: black;
   text-align: center;
 `;
@@ -372,7 +372,7 @@ export const CardWrap = styled.div`
 export const Reject = styled.div`
   text-align: center;
   font-size: 3rem;
-  font-weight: bolder;
+  font-weight: 500;
   line-height: 4rem;
 `;
 
@@ -389,7 +389,7 @@ export const RejectButton = styled.button`
   border: none;
   background-color: #5429ff;
   color: white;
-  font-weight: bolder;
+  font-weight: 500;
   font-size: 1.5rem;
   padding: 0.5rem;
 `;
@@ -461,7 +461,7 @@ export const BlueButton2 = styled.button`
   border-radius: 5px;
   background-color: #5429ff;
   font-size: 1.5rem;
-  font-weight: bolder;
+  font-weight: 500;
   color: white;
   text-align: center;
 `;
@@ -472,7 +472,7 @@ export const RedButton2 = styled.button`
   border-radius: 5px;
   background-color: #d5d5d5;
   font-size: 1.5rem;
-  font-weight: bolder;
+  font-weight: 500;
   color: black;
   text-align: center;
 `;
