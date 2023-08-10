@@ -16,7 +16,9 @@ interface UserProps {
 
 const CertifiedListLayout = ({ user, index, vetAuthRefetch }: UserProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const handleOpenModal = () => setModalOpen(true);
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
   const handleCloseModal = () => setModalOpen(false);
 
   console.log(user.users.img_path);
@@ -53,8 +55,11 @@ const CertifiedListLayout = ({ user, index, vetAuthRefetch }: UserProps) => {
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        title="수의사 면허증 자료 제출"
+        title="수의사 인증 자료 제출"
         content={`${imgUrl}${user?.img_path}` || '/images/commons/VetLicense.png'}
+        name={user?.name}
+        hospitalName={user?.hospital_name}
+        hospitalDescription={user?.description}
       />
     </Wrap>
   );
