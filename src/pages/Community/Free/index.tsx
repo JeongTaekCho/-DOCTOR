@@ -10,7 +10,10 @@ import PostRegister from '../../../components/community/PostRegister/index.tsx';
 import { useGetPostsQuery } from '../../../hooks/query/useGetPostsQuery.ts';
 import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery.ts';
 import Swal from 'sweetalert2';
+import { tokenAtom } from '../../../atoms/atoms.ts';
+import { useAtomValue } from 'jotai';
 const Free = () => {
+  const auth = useAtomValue(tokenAtom);
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
 
@@ -21,6 +24,11 @@ const Free = () => {
   const handleWriteButtonClick = () => {
     window.scrollTo(0, 0);
     setShowRegister(prev => !prev);
+
+    if (!auth) {
+      Swal.fire('게시글을 작성하려면 로그인이 필요합니다');
+      return;
+    }
 
     if (userData?.user?.blocked_at !== null) {
       Swal.fire('정지유저는 불가합니다');
