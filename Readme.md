@@ -54,6 +54,13 @@
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
+<!-- ABOUT THE PROJECT -->
+<h2 id="about-project"> :pencil: 워크플로우</h2>
+
+<img src="/uploads/5fbaf19c0e3fe6fa3d6d4b44a2ac61b5/work-flow.png" width="750px">
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 <!-- PROJECT FILES DESCRIPTION -->
 <h2 id="available"> :floppy_disk: 사용 기술</h2>
 
