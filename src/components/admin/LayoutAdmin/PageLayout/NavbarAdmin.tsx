@@ -7,8 +7,8 @@ const AdminLayout = ({ children }: LayoutRouteProps) => {
   const location = useLocation();
   const [selectedMenu, setSelectedMenu] = useState(location.pathname);
 
-  const handleMenuClick = (menu: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+  const handleMenuClick = (menu: string) => () => {
+    //event.preventDefault();
     console.log('Clicked:', menu);
     setSelectedMenu(menu);
   };
