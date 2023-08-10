@@ -21,13 +21,13 @@ import { tokenAtom } from '../../../atoms/atoms.ts';
 import { useAtomValue } from 'jotai';
 import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutation.ts';
 
-const formatDate = (dateString: any) => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
+// const formatDate = (dateString: any) => {
+//   const date = new Date(dateString);
+//   const year = date.getFullYear();
+//   const month = String(date.getMonth() + 1).padStart(2, '0');
+//   const day = String(date.getDate()).padStart(2, '0');
+//   return `${year}-${month}-${day}`;
+// };
 
 const FreeDetail = () => {
   const auth = useAtomValue(tokenAtom);
@@ -45,7 +45,7 @@ const FreeDetail = () => {
   const [commentBody, setCommentBody] = useState('');
   const [commentId, setCommentId]: any = useState();
 
-  const { data: post, refetch } = useGetPostsDetailQuery(postId);
+  const { data: post, refetch }: any = useGetPostsDetailQuery(postId);
   const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
 
   const { mutate: deletePostMutation } = useDeletePostMutation(postId);
@@ -210,6 +210,11 @@ const FreeDetail = () => {
       return;
     }
 
+    if (commentBody === '') {
+      Swal.fire('내용을 입력해주세요');
+      return;
+    }
+
     registerComment(
       {
         post_id: parsedPostId,
@@ -265,6 +270,7 @@ const FreeDetail = () => {
       }
     );
   };
+  console.log(post?.created_at);
 
   // const handleBlockHeart = (e: MouseEvent<HTMLDivElement>) => {
   //   e.preventDefault();
@@ -302,7 +308,7 @@ const FreeDetail = () => {
           ) : (
             <S.Title>{post?.title}</S.Title>
           )}
-          <S.Date>{formatDate(post?.created_at)}</S.Date>
+          <S.DateContainer>{post?.created_at.slice(0, 10)}</S.DateContainer>
         </S.Header>
         <S.MainDiv>
           <S.MainTextDiv>
@@ -359,7 +365,7 @@ const FreeDetail = () => {
             <S.UserDiv>
               <S.User>
                 {comment.users.nickname}
-                <S.CommentDate>{formatDate(comment.created_at)}</S.CommentDate>
+                <S.CommentDate>{comment.created_at.slice(0, 10)}</S.CommentDate>
               </S.User>
               {currentUserEmail === comment.author_email &&
                 auth &&
