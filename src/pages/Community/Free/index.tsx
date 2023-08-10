@@ -8,18 +8,24 @@ import Pagination from '../../../components/commons/Pagination/index.tsx';
 import SideLayout from '../../../components/layout/SideBar.tsx';
 import PostRegister from '../../../components/community/PostRegister/index.tsx';
 import { useGetPostsQuery } from '../../../hooks/query/useGetPostsQuery.ts';
-
+import { useGetUsersQuery } from '../../../hooks/query/useGetUsersQuery.ts';
+import Swal from 'sweetalert2';
 const Free = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
 
   const { data: postData, refetch: postRefetch }: any = useGetPostsQuery(currentPage, 'free');
-
+  const { data: userData } = useGetUsersQuery();
   const totalPages = postData?.total ? Math.ceil(postData?.total / 10) : undefined;
 
   const handleWriteButtonClick = () => {
     window.scrollTo(0, 0);
     setShowRegister(prev => !prev);
+
+    if (userData?.user?.blocked_at !== null) {
+      Swal.fire('정지유저는 불가합니다');
+      setShowRegister(false);
+    }
   };
 
   useEffect(() => {

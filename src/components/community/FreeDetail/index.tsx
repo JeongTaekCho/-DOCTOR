@@ -20,6 +20,7 @@ import { useReportCommentMutation } from '../../../hooks/query/useReportCommentM
 import { tokenAtom } from '../../../atoms/atoms.ts';
 import { useAtomValue } from 'jotai';
 import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutation.ts';
+import { formatDate } from '../../../util/formatDate.ts';
 
 // const formatDate = (dateString: any) => {
 //   const date = new Date(dateString);
@@ -30,8 +31,11 @@ import { useChangeHeartMutation } from '../../../hooks/query/useChangeHeartMutat
 // };
 
 const FreeDetail = () => {
-  const auth = useAtomValue(tokenAtom);
   const { postId } = useParams<{ postId: any }>();
+  const { data: post, refetch }: any = useGetPostsDetailQuery(postId);
+  const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
+  const auth = useAtomValue(tokenAtom);
+
   const parsedPostId = parseInt(postId, 10);
 
   const [modal, setModal] = useState(false);
@@ -39,14 +43,10 @@ const FreeDetail = () => {
   const [deleteComment, setDeleteComment] = useState(false);
   const [deletePost, setDeletePost] = useState(false);
   const [reason, setReason] = useState('');
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+
   const [commentReport, setCommentReport] = useState(false);
   const [commentBody, setCommentBody] = useState('');
   const [commentId, setCommentId]: any = useState();
-
-  const { data: post, refetch }: any = useGetPostsDetailQuery(postId);
-  const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
 
   const { mutate: deletePostMutation } = useDeletePostMutation(postId);
 
@@ -60,6 +60,17 @@ const FreeDetail = () => {
 
   const { mutate: changeHeart } = useChangeHeartMutation();
   const { data: userData } = useGetUsersQuery();
+
+  const [title, setTitle] = useState('');
+
+  const [body, setBody] = useState('');
+
+  useEffect(() => {
+    if (post) {
+      setTitle(post?.title);
+      setBody(post?.body);
+    }
+  }, [post]);
 
   const openModal = () => {
     setModal(true);
@@ -167,7 +178,7 @@ const FreeDetail = () => {
           Swal.fire('신고 완료되었습니다');
         },
         onError: (err: any) => {
-          Swal.fire(err.response.data.error);
+          Swal.fire(err.response.data);
         }
       }
     );
@@ -187,7 +198,7 @@ const FreeDetail = () => {
           Swal.fire('신고 완료되었습니다');
         },
         onError: (err: any) => {
-          Swal.fire(err.response.data.error);
+          Swal.fire(err.response.data);
         }
       }
     );
@@ -270,7 +281,6 @@ const FreeDetail = () => {
       }
     );
   };
-  console.log(post?.created_at);
 
   // const handleBlockHeart = (e: MouseEvent<HTMLDivElement>) => {
   //   e.preventDefault();
@@ -302,13 +312,13 @@ const FreeDetail = () => {
         )}
         <S.Header>
           {isEditing ? (
-            <S.TitleTextarea maxLength={maxTitleLength} onChange={onChangeTitle}>
+            <S.TitleTextarea value={title} maxLength={maxTitleLength} onChange={onChangeTitle}>
               {post?.title}
             </S.TitleTextarea>
           ) : (
             <S.Title>{post?.title}</S.Title>
           )}
-          <S.DateContainer>{post?.created_at.slice(0, 10)}</S.DateContainer>
+          <S.DateContainer>{formatDate(post?.created_at)}</S.DateContainer>
         </S.Header>
         <S.MainDiv>
           <S.MainTextDiv>
@@ -321,7 +331,7 @@ const FreeDetail = () => {
               </S.SolidUserDiv>
             </S.UserWrap>
             {isEditing ? (
-              <S.MainTextArea maxLength={maxBodyLength} onChange={onChangeBody}>
+              <S.MainTextArea value={body} maxLength={maxBodyLength} onChange={onChangeBody}>
                 {post?.body}
               </S.MainTextArea>
             ) : (
