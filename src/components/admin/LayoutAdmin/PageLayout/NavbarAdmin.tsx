@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LayoutRouteProps, Link, useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Icon from '../IconImg';
 
 const AdminLayout = ({ children }: LayoutRouteProps) => {
   const location = useLocation();
-  const [selectedMenu, setSelectedMenu] = useState(location.pathname);
+  //const location = useLocation();
+  //const [selectedMenu, setSelectedMenu] = useState(location.pathname);
 
-  const handleMenuClick = (menu: string) => () => {
-    //event.preventDefault();
-    console.log('Clicked:', menu);
-    setSelectedMenu(menu);
-  };
+  // const handleMenuClick = (menu: string) => () => {
+  //   //event.preventDefault();
+  //   console.log('Clicked:', menu);
+  //   setSelectedMenu(menu);
+  // };
   return (
     <Wrap>
       <NavBar>
@@ -20,16 +21,16 @@ const AdminLayout = ({ children }: LayoutRouteProps) => {
         </Title>
         <Menu
           to="/admin-userinfo"
-          onClick={handleMenuClick('admin-userinfo')}
-          isSelected={selectedMenu === 'admin-userinfo'}
+          //onClick={handleMenuClick('admin-userinfo')}
+          isSelected={location.pathname === '/admin-userinfo'}
         >
           <Icon w="2rem" h="2rem" src="/images/commons/usermanage1.png" />
           <MenuName>유저 관리</MenuName>
         </Menu>
         <Menu
           to="/admin-certified"
-          onClick={handleMenuClick('admin-certified')}
-          isSelected={selectedMenu === 'admin-certified'}
+          //onClick={handleMenuClick('admin-certified')}
+          isSelected={location.pathname === '/admin-certified'}
         >
           <Icon w="2rem" h="2.5rem" src="/images/commons/certified1.png" />
           <MenuName>수의사 인증 접수</MenuName>
@@ -40,15 +41,15 @@ const AdminLayout = ({ children }: LayoutRouteProps) => {
         </Menu>
         <List
           to="/admin-report-post"
-          onClick={handleMenuClick('admin-report-post')}
-          isSelected={selectedMenu === 'admin-report-post'}
+          //onClick={handleMenuClick('admin-report-post')}
+          isSelected={location.pathname === '/admin-report-post'}
         >
           <ListName>게시글 신고</ListName>
         </List>
         <List
           to="/admin-report-comment"
-          onClick={handleMenuClick('admin-report-comment')}
-          isSelected={selectedMenu === 'admin-report-comment'}
+          //onClick={handleMenuClick('admin-report-comment')}
+          isSelected={location.pathname === '/admin-report-comment'}
         >
           <ListName>댓글 신고</ListName>
         </List>
