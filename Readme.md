@@ -1,6 +1,7 @@
 <p align="center"> 
-  <img src="/images/commons/doctor.png" width="80px" height="80px">
+  <img src="https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/8a5e6bb5-b5b8-4962-ab5a-94ea4e615cc8)" width="80px" height="80px">
 </p>
+
 <h1 align="center"> DOCTOR </h1>
 <h3 align="center"> AI 반려동물 피부질환 예측 사이트</h3>
 <h5 align="center"> Elice AI track-7 AI Project -  (2023 08 11) </h5>
@@ -11,19 +12,19 @@
 <details open="open">
   <summary>목차</summary>
   <ol>
-    <li><a href="#aboutProject"> ➤ DOCTOR 소개</a></li>
+    <li><a href="#about-project"> ➤ DOCTOR 소개</a></li>
     <li><a href="#available"> ➤ 사용 기술</a></li>
-    <li><a href="#gettingStarted"> ➤ 설치 방법</a></li>
+    <li><a href="#getting-started"> ➤ 설치 방법</a></li>
     <li><a href="#login"> ➤ 로그인 </a></li>
     <li><a href="#register"> ➤ 회원가입 </a></li>
-    <li><a href="#mainPage"> ➤ 메인 페이지 </a></li>
-    <li><a href="#serviceRegister"> ➤ AI 반려동물 피부질환 예측 </a></li>
-    <li><a href="#updateUser"> ➤ 동물병원 찾기 </a></li>
-    <li><a href="#feedback"> ➤ 실시간 상담 수의사 리스트 </a></li>
-    <li><a href="#gpt"> ➤ 실시간 상담(채팅) </a></li>
-    <li><a href="#network"> ➤ 커뮤니티 </a></li>
-    <li><a href="#userPage"> ➤ 마이페이지</a></li>
-    <li><a href="#userPage"> ➤ 관리자페이지</a></li>
+    <li><a href="#main"> ➤ 메인 페이지 </a></li>
+    <li><a href="#ai"> ➤ AI 반려동물 피부질환 예측 </a></li>
+    <li><a href="#hospital"> ➤ 동물병원 찾기 </a></li>
+    <li><a href="#vet-list"> ➤ 실시간 상담 수의사 리스트 </a></li>
+    <li><a href="#chat"> ➤ 실시간 상담(채팅) </a></li>
+    <li><a href="#comunnity"> ➤ 커뮤니티 </a></li>
+    <li><a href="#mypage"> ➤ 마이페이지</a></li>
+    <li><a href="#admin"> ➤ 관리자페이지</a></li>
     <li><a href="#structure"> ➤ 폴더 구조</a></li>
     <li><a href="#credits"> ➤ 개발자</a></li>
     <li><a href="#license"> ➤ 라이센스</a></li>
@@ -33,7 +34,7 @@
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- ABOUT THE PROJECT -->
-<h2 id="aboutProject"> :pencil: DOCTOR 소개</h2>
+<h2 id="about-project"> :pencil: DOCTOR 소개</h2>
 
 1. **기획 의도**
 
@@ -74,12 +75,13 @@
   <li><b>NodeJs</b></li>
   <li><b>Express</b></li>
   <li><b>MySql</b></li>
+  <li><b>prisma</b></li>
 </ul>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- GETTING STARTED -->
-<h2 id="gettingStarted"> :book: 설치 방법</h2>
+<h2 id="getting-started"> :book: 설치 방법</h2>
 
 <p>FrontEnd 서버 실행</p>
   <pre><code>
@@ -99,101 +101,195 @@
 <h2 id="login"> :small_orange_diamond: 로그인</h2>
 
 <p>이메일과 비밀번호를 입력하여 로그인합니다.</p>
+<p>Google 아이디를 통한 소셜로그인이 가능합니다.</p>
 
-<p align="center"> 
-<img src="#" height="282px" width="637px">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/046f037f-5959-4174-9b64-06f2ee73b13d
+
 <!--gif/DFS.gif-->
 <!--height="382px" width="737px"-->
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="register"> :small_orange_diamond: 회원등록</h2>
+<h2 id="register"> :small_orange_diamond: 회원가입</h2>
 
-<p>이름, 이메일, 비밀번호를 입력하여 회원을 등록합니다.</p>
+<p>이메일, 비밀번호, 닉네임을 입력하여 회원을 등록합니다.</p>
 
-<p align="center"> 
-<img src="#" height="282px" width="637">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/7ac2efd8-bde5-4a5a-bf1b-338c5b88c765
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="mainPage"> :small_orange_diamond: 메인 페이지</h2>
+<h2 id="main"> :small_orange_diamond: 메인 페이지</h2>
 
-<p>메인 페이지입니다.</p>
+<p>DOCTOR 서비스를 소개해주는 메인페이지 입니다.</p>
 
-<p align="center"> 
-<img src="#" height="282px" width="637">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/c28c7167-bed3-4e01-ab2f-29b3005b67be
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="serviceRegister"> :small_orange_diamond: AI 반려동물 피부질환 예측</h2>
+<h2 id="ai"> :small_orange_diamond: AI 반려동물 피부질환 예측</h2>
 
-<p>AI 피부질환 예측 페이지</p>
+<p>인공지능을 통해 반려동물 피부질환을 예측해주는 서비스입니다.</p>
 
-<p align="center"> 
-<img src="#" height="420px" width="420px">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/edca2cf5-77b5-4d65-8e8f-1d1be7ed5e6d
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="updateUser"> :small_orange_diamond: 동물병원 찾기</h2>
+<h2 id="hospital"> :small_orange_diamond: 동물병원 찾기</h2>
 
-<p>동물병원 찾기 페이지</p>
+<p>카카오맵과 GeoLocation을 통해 내 주변 동물병원을 찾을 수 있고 검색을 통해 동물병원 정보를 얻을 수 있습니다.</p>
 
-<p align="center"> 
-<img src="#" height="40%" width="40%">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/ff12a705-d39d-46f5-8a3b-03b1afba1f79
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="feedback"> :small_orange_diamond: 실시간 상담 수의사 리스트</h2>
+<h2 id="vet-list"> :small_orange_diamond: 실시간 상담 수의사 리스트</h2>
 
-<p>실시간 상담 수의사 리스트</p>
+<p>DOCTOR에 등록한 수의사들을 지역별로 살펴볼 수 있습니다.</p>
 
-<p align="center"> 
-<img src="#" height="282px" width="637">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/81c363e6-ffed-4a0b-9ae2-0dda89e77b70
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="gpt"> :small_orange_diamond: 실시간 상담(채팅)</h2>
+<h2 id="chat"> :small_orange_diamond: 실시간 상담(채팅)</h2>
 
-<p>수의사와 실시간 상담</p>
+<p>전문적인 지식들을 가지고 있는 수의사와 실시간 채팅을 할 수 있습니다.</p>
 
-<p align="center"> 
-<img src="#" height="282px" width="637">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/a6868d30-7997-437a-9ad5-6c550b91389d
+
+</p>
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/757e1d43-d0da-4ea0-aee6-f19feeb07171
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="network"> :small_orange_diamond: 커뮤니티</h2>
+<h2 id="comunnity"> :small_orange_diamond: 커뮤니티 - 조회</h2>
 
-<p>커뮤니티 페이지</p>
+<p>카테고리별 커뮤니티 조회가 가능합니다.</p>
 
-<p align="center"> 
-<img src="#" height="282px" width="637">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/4b2c3616-9cdc-41c7-bc99-60a9817f43fa
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="userPage"> :small_orange_diamond: 마이페이지</h2>
+<h2 id=""> :small_orange_diamond: 커뮤니티 - 작성</h2>
 
-<p>마이페이지</p>
+<p>커뮤니티를 작성하는 페이지 입니다.</p>
 
-<p align="center"> 
-<img src="#" height="282px" width="637">
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/bd73cac7-c166-4ec9-9cb9-c2d5eb2bfd17
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2 id="userPage"> :small_orange_diamond: 관리자페이지</h2>
+<h2 id=""> :small_orange_diamond: 커뮤니티 - 댓글</h2>
 
-<p>관리자 페이지</p>
+<p>커뮤니티 댓글을 달아 여러 사람들과 소통이 가능합니다.</p>
+
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/fe813502-18f2-40a9-a38c-bddb8a0e4952
+
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id=""> :small_orange_diamond: 커뮤니티 - 신고</h2>
+
+<p>부적절한 내용이 담긴 커뮤니티 내용을 신고하는 기능입니다.</p>
+
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/909020eb-af65-45d8-8a72-3b0b4aa188f3
+
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id="mypage"> :small_orange_diamond: 마이페이지</h2>
+
+<p>내 정보조회 및 수의사인증이 가능한 페이지입니다.</p>
 
 <p align="center"> 
-<img src="#" height="282px" width="637">
+
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/bcbcfb8c-ab22-4b06-ab03-4bcf866d3106
+
+</p>
+
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/0c1230ba-2a29-4514-8300-7a2318f62180
+
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id="admin"> :small_orange_diamond: 관리자페이지 - 유저관리</h2>
+
+<p>회원가입한 유저들의 정보와 유저상태를 변경할 수 있는 페이지 입니다.</p>
+
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/b8cfb806-4b69-428f-a2a9-361881e2ce19
+
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id=""> :small_orange_diamond: 관리자페이지 - 수의사인증</h2>
+
+<p>수의사 인증신청 내용을 확인하고 인증해주는 페이지 입니다.</p>
+
+<p align="center">
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/ca1742df-6bb3-420a-bfc5-510fd12c6918
+
+</p>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id=""> :small_orange_diamond: 관리자페이지 - 신고관리</h2>
+
+<p>커뮤니티 신고내용을 확인하고 내용에 부합한 처리를 해주는 페이지 입니다.</p>
+
+<p align="center"> 
+
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/a3108cb7-6199-4682-a562-94aee18e3b3b
+
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
