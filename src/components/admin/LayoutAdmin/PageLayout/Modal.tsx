@@ -21,20 +21,21 @@ const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `;
 
 const ModalContent = styled.div`
+  width: 650px;
+  height: 700px;
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  max-height: 80vh;
   overflow-y: auto;
 `;
 
 const ModalTitle = styled.div`
-  font-size: 1.5rem;
+  font-size: 2.2rem;
   font-weight: bold;
   margin-bottom: 10px;
   padding-left: 1rem;
@@ -42,7 +43,7 @@ const ModalTitle = styled.div`
 `;
 
 const ModalBody = styled.div`
-  font-size: 1rem;
+  font-size: 1.7rem;
   line-height: 1.5;
   color: #333;
   display: flex;
@@ -57,12 +58,14 @@ const ModalFooter = styled.div`
 `;
 
 const ModalCloseButton = styled.button`
+  display: block;
+  margin: 3rem auto;
   background-color: #5429ff;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 2.5rem;
   color: #ac9bfa;
-  padding: 2px 10px;
+  padding: 4px 15px;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 
@@ -114,7 +117,7 @@ const Modal: React.FC<ModalProps> = ({
             {name}
           </ListWrap>
           <ListWrap>
-            <ListName>수의사 확인증 이미지</ListName>
+            <ListName>수의사 면허증</ListName>
             <ImageWrap>
               <ModalImage src={content} alt="Vet License" />
             </ImageWrap>

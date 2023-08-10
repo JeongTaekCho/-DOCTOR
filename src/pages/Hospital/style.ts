@@ -63,7 +63,7 @@ export const Map = styled.div`
 
 export const SearchBox = styled.div`
   width: 30rem;
-  height: 95%;
+  height: 96%;
   position: absolute;
   top: 50%;
   left: 1rem;

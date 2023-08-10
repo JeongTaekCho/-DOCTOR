@@ -7,16 +7,16 @@ import { useReportStatusMutation } from '../../../../hooks/query/useReportStatus
 import Swal from 'sweetalert2';
 
 const OPTIONS = [
-  { value: 'accepted', name: '게시글유지' },
-  { value: 'rejected', name: '게시글삭제' },
+  { value: 'accepted', name: '게시글삭제' },
+  { value: 'rejected', name: '게시글유지' },
   { value: 'pending', name: '처리대기' }
 ];
 interface ColorOptions {
   [key: string]: string;
 }
 const COLORS: ColorOptions = {
-  rejected: '#e04938',
-  accepted: '#bec1c7',
+  rejected: '#bec1c7',
+  accepted: '#e04938',
   pending: '#344054'
 };
 

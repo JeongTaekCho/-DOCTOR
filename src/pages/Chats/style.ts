@@ -72,7 +72,7 @@ export const SearchBox = styled.div`
   margin: 2.4rem 0 4rem;
 `;
 
-export const SearchForm = styled.form`
+export const SearchForm = styled.div`
   display: flex;
   gap: 0.7rem;
   align-items: center;
