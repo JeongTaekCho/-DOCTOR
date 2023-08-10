@@ -21,8 +21,6 @@ const CertifiedListLayout = ({ user, index, vetAuthRefetch }: UserProps) => {
   };
   const handleCloseModal = () => setModalOpen(false);
 
-  console.log(user.users.img_path);
-
   return (
     <Wrap>
       <ListOfLists>

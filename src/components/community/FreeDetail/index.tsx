@@ -27,7 +27,6 @@ const FreeDetail = () => {
   const { postId } = useParams<{ postId: any }>();
   const { data: post, refetch }: any = useGetPostsDetailQuery(postId);
 
-  console.log(post);
   const { data: commentData, refetch: commentRefetch }: any = useGetCommentQuery(postId);
   const auth = useAtomValue(tokenAtom);
 

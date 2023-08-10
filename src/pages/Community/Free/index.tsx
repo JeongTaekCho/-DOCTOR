@@ -45,7 +45,7 @@ const Free = () => {
   return (
     <S.Wrap>
       <S.SideDiv>
-        <SideLayout> </SideLayout>
+        <SideLayout />
       </S.SideDiv>
       <S.Container>
         <TitleBar title="자유게시판" />

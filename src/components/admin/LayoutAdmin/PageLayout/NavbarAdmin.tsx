@@ -5,14 +5,7 @@ import Icon from '../IconImg';
 
 const AdminLayout = ({ children }: LayoutRouteProps) => {
   const location = useLocation();
-  //const location = useLocation();
-  //const [selectedMenu, setSelectedMenu] = useState(location.pathname);
 
-  // const handleMenuClick = (menu: string) => () => {
-  //   //event.preventDefault();
-  //   console.log('Clicked:', menu);
-  //   setSelectedMenu(menu);
-  // };
   return (
     <Wrap>
       <NavBar>

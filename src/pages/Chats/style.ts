@@ -101,7 +101,7 @@ export const SearchInput = styled.input`
 `;
 
 export const ChatListContainer = styled.div`
-  width: 800px;
+  width: 1000px;
   margin: 0 auto 2.5rem;
 
   @media ${RESPONSIVE.tablet} {
