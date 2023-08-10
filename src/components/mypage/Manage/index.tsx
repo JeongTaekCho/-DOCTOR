@@ -118,6 +118,22 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
     });
   };
 
+  const handleRegisterNickname = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const formData: any = new FormData();
+    formData.append('nickname', nickname);
+    registerMutate(formData, {
+      onSuccess: () => {
+        setIsBasic(false);
+        refetch();
+        Swal.fire('개인정보 수정이 완료되었습니다');
+      },
+      onError: (err: any) => {
+        Swal.fire(err.response.data.error);
+      }
+    });
+  };
+
   const handleRegisterVet = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     registerVetMutate(
@@ -207,12 +223,16 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
         </S.LeftText>
         <S.InputDiv>
           {isBasic ? (
-            <S.RightInput
-              type="password"
-              name="password"
-              value={password}
-              onChange={onChangeInput}
-            />
+            userData?.user?.user_type !== 'google' ? (
+              <S.RightInput
+                type="password"
+                name="password"
+                value={password}
+                onChange={onChangeInput}
+              />
+            ) : (
+              <S.RightText>{maskedPassword}</S.RightText>
+            )
           ) : (
             <S.RightText>{maskedPassword}</S.RightText>
           )}
@@ -226,7 +246,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
           </S.ConfirmDiv>
         )}
       </S.MainBox2>
-      {isBasic && (
+      {isBasic && userData?.user?.user_type !== 'google' && (
         <S.MainBox2>
           <S.LeftText>
             <S.CenteredText>비밀번호 확인</S.CenteredText>
@@ -246,12 +266,19 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
           )}
         </S.MainBox2>
       )}
-      {isBasic && (
-        <S.ButtonDiv>
-          <S.BlueButton onClick={handleRegister}>확인</S.BlueButton>
-          <S.RedButton onClick={handleEditBasic}>취소</S.RedButton>
-        </S.ButtonDiv>
-      )}
+      {isBasic &&
+        (userData?.user?.user_type === 'google' ? (
+          <S.ButtonDiv>
+            <S.BlueButton onClick={handleRegisterNickname}>확인</S.BlueButton>
+            <S.RedButton onClick={handleEditBasic}>취소</S.RedButton>
+          </S.ButtonDiv>
+        ) : (
+          <S.ButtonDiv>
+            <S.BlueButton onClick={handleRegister}>확인</S.BlueButton>
+            <S.RedButton onClick={handleEditBasic}>취소</S.RedButton>
+          </S.ButtonDiv>
+        ))}
+
       {vetStatus === 'accepted' && (
         <>
           <S.Title2>
