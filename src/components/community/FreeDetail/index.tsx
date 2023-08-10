@@ -205,6 +205,11 @@ const FreeDetail = () => {
       return;
     }
 
+    if (userData?.user?.blocked_at !== null) {
+      Swal.fire('정지유저는 불가합니다');
+      return;
+    }
+
     registerComment(
       {
         post_id: parsedPostId,
@@ -227,16 +232,21 @@ const FreeDetail = () => {
     );
   };
 
-  const handleBlockComment = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    Swal.fire('정지 유저는 불가합니다');
-  };
+  // const handleBlockComment = (e: MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   Swal.fire('정지 유저는 불가합니다');
+  // };
 
   const handleChangeHeart = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     if (!auth) {
       Swal.fire('좋아요를 하려면 로그인이 필요합니다');
+      return;
+    }
+
+    if (userData?.user?.blocked_at !== null) {
+      Swal.fire('정지유저는 불가합니다');
       return;
     }
 
@@ -256,10 +266,10 @@ const FreeDetail = () => {
     );
   };
 
-  const handleBlockHeart = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    Swal.fire('정지 유저는 불가합니다');
-  };
+  // const handleBlockHeart = (e: MouseEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   Swal.fire('정지 유저는 불가합니다');
+  // };
 
   useEffect(() => {
     if (modal || deleteComment || deletePost || commentReport) {
@@ -315,9 +325,7 @@ const FreeDetail = () => {
             )}
           </S.MainTextDiv>
 
-          <S.HeartIcon
-            onClick={userData?.user?.blocked_at === null ? handleChangeHeart : handleBlockHeart}
-          >
+          <S.HeartIcon onClick={handleChangeHeart}>
             <div>
               {post?.likes?.[0]?.is_like ? <AiFillHeart size="40" /> : <AiOutlineHeart size="40" />}
             </div>
@@ -373,23 +381,15 @@ const FreeDetail = () => {
             </S.BottomDiv>
           </S.Comment>
         ))}
-        {userData?.user?.blocked_at === null ? (
-          <S.Register>
-            <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
-            <S.InputDiv>
-              <S.Input value={commentBody} onChange={onChangeCommentBody}></S.Input>
-              <S.RegisterButton onClick={handleRegisterComment}>등록</S.RegisterButton>
-            </S.InputDiv>
-          </S.Register>
-        ) : (
-          <S.Register>
-            <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
-            <S.InputDiv>
-              <S.Input value={commentBody} onChange={onChangeCommentBody}></S.Input>
-              <S.RegisterButton onClick={handleBlockComment}>등록</S.RegisterButton>
-            </S.InputDiv>
-          </S.Register>
-        )}
+
+        <S.Register>
+          <S.RegisterTitle>댓글 쓰기</S.RegisterTitle>
+          <S.InputDiv>
+            <S.Input value={commentBody} onChange={onChangeCommentBody}></S.Input>
+            <S.RegisterButton onClick={handleRegisterComment}>등록</S.RegisterButton>
+          </S.InputDiv>
+        </S.Register>
+
         <S.ListDiv>
           <S.ListButton to={ROUTE.FREECOMMUNITY.link}>목록</S.ListButton>
         </S.ListDiv>
