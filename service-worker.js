@@ -1,3 +1,12 @@
+// service-worker.js
+
+/**
+ * @file Service Worker for caching and offline functionality.
+ * @description This is a Service Worker script that handles caching of assets
+ * and provides offline support for your web application.
+ * @version 1.0.0
+ */
+
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('v1').then(cache => {
