@@ -7,6 +7,7 @@ import reactRefresh from '@vitejs/plugin-react-refresh';
 import PrettierPlugin from 'vite-plugin-prettier';
 import replace from '@rollup/plugin-replace';
 import dotenv from 'dotenv';
+import { VitePWA } from 'vite-plugin-pwa';
 
 dotenv.config();
 
@@ -19,6 +20,33 @@ const eslintOptions = {
 export default defineConfig({
   plugins: [
     react(),
+    VitePWA({
+      manifest: {
+        name: 'DOCTOR', // 앱 이름
+        short_name: 'App', // 짧은 앱 이름
+        start_url: '/', // 앱 시작 URL
+        display: 'standalone', // 앱 디스플레이 모드 (standalone, fullscreen 등)
+        theme_color: '#ffffff', // 앱 테마 컬러
+        background_color: '#ffffff', // 앱 배경색
+        icons: [
+          {
+            src: '/images/commons/doctor.png', // 아이콘 경로
+            sizes: '72x72',
+            type: 'image/png'
+          }
+        ]
+      },
+      workbox: {
+        // Workbox 설정
+        runtimeCaching: [
+          {
+            // 예: API 요청 캐싱
+            urlPattern: new RegExp('^https://kdt-ai7-team04.elicecoding.com:5000/'),
+            handler: 'StaleWhileRevalidate'
+          }
+        ]
+      }
+    }),
     eslintPlugin(eslintOptions),
     reactRefresh(),
     PrettierPlugin(
