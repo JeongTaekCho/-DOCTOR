@@ -11,7 +11,7 @@ const ChatBox = ({
   status
 }: {
   chatInfo: ChatListResponse;
-  userData: UserResponse | undefined;
+  userData: UserResponse | null | undefined;
   status?: string;
 }) => {
   const isUser = userData?.user?.role === 'user';
