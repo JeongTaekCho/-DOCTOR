@@ -27,7 +27,6 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   padding-right: 1rem;
-  margin-top: 10rem;
 `;
 
 export const Title = styled.div`
@@ -122,7 +121,10 @@ export const Correction = styled.button`
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  margin-right: 1rem;
+`;
+
+export const DeleteBtn = styled(Correction)`
+  background-color: #f00;
 `;
 
 export const ConfirmButton = styled.button`
@@ -417,4 +419,15 @@ export const Pre = styled.pre`
   white-space: pre-wrap;
   word-break: break-all;
   overflow: auto;
+`;
+
+export const HeaderBox = styled.div`
+  margin-top: 10rem;
+`;
+
+export const MyBtnBox = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
 `;

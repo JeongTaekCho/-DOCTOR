@@ -295,21 +295,19 @@ const FreeDetail = () => {
       <SideLayout category={post?.category} />
       <S.Container>
         <TitleBar title={post?.category === 'free' ? '자유게시판' : '정보게시판'} />
-        {isCurrentUserAuthor && auth && userData?.user?.blocked_at === null && (
-          <S.DeletePost>
-            <S.DeletePostButton onClick={handleDeletePost}>삭제</S.DeletePostButton>
-          </S.DeletePost>
-        )}
-        <S.Header>
-          {isEditing ? (
-            <S.TitleTextarea value={title} maxLength={maxTitleLength} onChange={onChangeTitle}>
-              {post?.title}
-            </S.TitleTextarea>
-          ) : (
-            <S.Title>{post?.title}</S.Title>
-          )}
-          <S.DateContainer>{formatDate(post?.created_at)}</S.DateContainer>
-        </S.Header>
+        <S.HeaderBox>
+          <S.Header>
+            {isEditing ? (
+              <S.TitleTextarea value={title} maxLength={maxTitleLength} onChange={onChangeTitle}>
+                {post?.title}
+              </S.TitleTextarea>
+            ) : (
+              <S.Title>{post?.title}</S.Title>
+            )}
+            <S.DateContainer>{formatDate(post?.created_at)}</S.DateContainer>
+          </S.Header>
+        </S.HeaderBox>
+
         <S.MainDiv>
           <S.MainTextDiv>
             <S.UserWrap>
@@ -353,7 +351,12 @@ const FreeDetail = () => {
                 ) : (
                   <div>
                     {isCurrentUserAuthor ? (
-                      <S.Correction onClick={handleEditClick}>수정</S.Correction>
+                      <S.MyBtnBox>
+                        <S.Correction onClick={handleEditClick}>수정</S.Correction>
+                        {auth && userData?.user?.blocked_at === null && (
+                          <S.DeleteBtn onClick={handleDeletePost}>삭제</S.DeleteBtn>
+                        )}
+                      </S.MyBtnBox>
                     ) : (
                       <S.ReportText onClick={openModal}>신고</S.ReportText>
                     )}
