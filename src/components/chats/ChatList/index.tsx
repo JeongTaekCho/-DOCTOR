@@ -47,22 +47,26 @@ const ChatList = ({
   const handleConsultRequest = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    consultRequestMutate(
-      {
-        vetEmail: doctorEmail,
-        message: consult
-      },
-      {
-        onSuccess: () => {
-          setIsConsultModal(false);
-          setConsult('');
-          Swal.fire('상담신청이 완료 되었습니다.');
+    if (consult) {
+      consultRequestMutate(
+        {
+          vetEmail: doctorEmail,
+          message: consult
         },
-        onError: (err: any) => {
-          Swal.fire(err.response.data.error);
+        {
+          onSuccess: () => {
+            setIsConsultModal(false);
+            setConsult('');
+            Swal.fire('상담신청이 완료 되었습니다.');
+          },
+          onError: (err: any) => {
+            Swal.fire(err.response.data.error);
+          }
         }
-      }
-    );
+      );
+    } else {
+      Swal.fire('상담 내용을 입력해주세요.');
+    }
   };
 
   return (
