@@ -2,9 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import * as API from '../../api/index';
 
 interface ChangeVetData {
-  hospital_name: string;
-  description: string;
-  region: string;
+  hospital_name?: string;
+  description?: string;
+  region?: string;
 }
 
 interface ChangeVetReturn {

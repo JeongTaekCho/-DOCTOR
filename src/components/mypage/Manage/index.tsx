@@ -13,14 +13,16 @@ interface MyManageProps {
 }
 
 const MyManage = ({ vetStatus }: MyManageProps) => {
+  const { data: userData, refetch } = useGetUsersQuery();
+
   const [isBasic, setIsBasic] = useState(false);
   const [isVet, setIsVet] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [nickname, setNickname] = useState('');
-  const [hospital, setHospital] = useState('');
-  const [description, setDescription] = useState('');
-  const [region, setRegion] = useState('');
+  const [hospital, setHospital] = useState(userData?.vet?.hospital_name);
+  const [description, setDescription] = useState(userData?.vet?.description);
+  const [region, setRegion] = useState(userData?.vet?.region);
 
   const [validate, setValidate] = useState({
     password: false,
@@ -61,7 +63,7 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
     setPassword('');
     setPasswordConfirm('');
   };
-  const { data: userData, refetch } = useGetUsersQuery();
+
   const generateAsterisks = (num: number): string => '*'.repeat(Math.min(num, 10));
   const passwordCheck = userData?.user?.password;
   const passwordLength = passwordCheck ? userData?.user?.password?.length : 0;
@@ -345,11 +347,9 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
             </S.LeftText>
             <S.InputDiv2>
               {isVet ? (
-                <S.RightInput2
-                  placeholder={userData?.vet?.description}
-                  name="description"
-                  onChange={handleChangeTextarea}
-                />
+                <S.RightInput2 name="description" onChange={handleChangeTextarea}>
+                  {userData?.vet?.description}
+                </S.RightInput2>
               ) : (
                 <S.RightText>{userData?.vet?.description}</S.RightText>
               )}
