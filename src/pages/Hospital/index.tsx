@@ -191,7 +191,7 @@ const HospitalMap = () => {
       <S.Container>
         <S.HospitalIntro>
           <S.MainTitle>DOGTOR 동물 병원 찾기</S.MainTitle>
-          <S.SubTitle>가까운 동물 병원을 확인하세요 [위치정보를 활성화 해주세요]</S.SubTitle>
+          <S.SubTitle>동물병원을 검색하고 위치를 확인해보세요.</S.SubTitle>
         </S.HospitalIntro>
         <S.MapContent>
           <S.SearchBox>
