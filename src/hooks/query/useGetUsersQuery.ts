@@ -7,7 +7,11 @@ export interface UserResponse {
   vet: Vet | null;
 }
 
-const getUsers = async (): Promise<UserResponse> => {
+const getUsers = async (): Promise<UserResponse | null> => {
+  if (!sessionStorage.getItem('token')) {
+    return null;
+  }
+
   const result = await API.get<{ data: UserResponse }>('/users');
   return result.data;
 };

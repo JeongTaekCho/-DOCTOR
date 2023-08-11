@@ -19,10 +19,14 @@ const Header = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   // const [isAlramMenu, setIsAlramMenu] = useState(false);
 
-  const { data: userData } = useGetUsersQuery();
+  const { data: userData, refetch: userRefetch } = useGetUsersQuery();
 
   // const handleModalClose = () => {
   //   setIsAlramMenu(false);
+  // };
+
+  // const handleToggleAlramBtn = () => {
+  //   setIsAlramMenu(prev => !prev);
   // };
 
   const handleProfileBox = () => {
@@ -39,10 +43,6 @@ const Header = () => {
     window.location.reload();
   };
 
-  // const handleToggleAlramBtn = () => {
-  //   setIsAlramMenu(prev => !prev);
-  // };
-
   useEffect(() => {
     if (userData?.user?.deleted_at) {
       Swal.fire('서비스 이용이 불가능한 계정입니다.');
@@ -51,6 +51,7 @@ const Header = () => {
         handleLogout();
       }, 3000);
     }
+    userRefetch();
   }, [userData]);
 
   return (

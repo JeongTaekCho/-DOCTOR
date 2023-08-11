@@ -227,14 +227,10 @@ const ChatDetail = () => {
     });
     setSocket(socket);
 
-    socket.on('connect', () => {
-      console.log('on');
-    });
+    socket.on('connect', () => {});
 
     // 연결 종료 시 이벤트 처리
-    socket.on('disconnect', () => {
-      console.log('off');
-    });
+    socket.on('disconnect', () => {});
 
     socket?.emit('join', chatId);
 
