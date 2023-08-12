@@ -59,7 +59,7 @@ const MyPage = () => {
       navigate(ROUTE.HOME.link);
       window.location.reload();
     } catch (error) {
-      console.error('회원 탈퇴 중 오류가 발생했습니다.', error);
+      Swal.fire('회원 탈퇴 중 오류가 발생했습니다.');
     }
   };
 

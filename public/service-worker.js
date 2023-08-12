@@ -10,7 +10,7 @@
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('my-cache').then(cache => {
-      return cache.addAll(['/index.html', '/other-files-to-cache']); // 해당하는 파일들을 캐싱
+      return cache.addAll(['/index.html', '/other-files-to-cache']);
     })
   );
 });
