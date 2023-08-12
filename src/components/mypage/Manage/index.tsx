@@ -108,16 +108,20 @@ const MyManage = ({ vetStatus }: MyManageProps) => {
     const formData: any = new FormData();
     formData.append('password', password);
     formData.append('nickname', nickname);
-    registerMutate(formData, {
-      onSuccess: () => {
-        setIsBasic(false);
-        refetch();
-        Swal.fire('개인정보 수정이 완료되었습니다');
-      },
-      onError: (err: any) => {
-        Swal.fire(err.response.data.error);
-      }
-    });
+    if (nickname && password && passwordConfirm) {
+      registerMutate(formData, {
+        onSuccess: () => {
+          setIsBasic(false);
+          refetch();
+          Swal.fire('개인정보 수정이 완료되었습니다');
+        },
+        onError: (err: any) => {
+          Swal.fire(err.response.data.error);
+        }
+      });
+    } else {
+      Swal.fire('빈칸을 모두 입력해주세요.');
+    }
   };
 
   const handleRegisterNickname = (e: MouseEvent<HTMLButtonElement>) => {
