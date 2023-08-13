@@ -27,6 +27,7 @@
     <li><a href="#comunnity"> ➤ 커뮤니티 </a></li>
     <li><a href="#mypage"> ➤ 마이페이지</a></li>
     <li><a href="#admin"> ➤ 관리자페이지</a></li>
+    <li><a href="#pwa"> ➤ PWA</a></li>
     <li><a href="#structure"> ➤ 폴더 구조</a></li>
     <li><a href="#credits"> ➤ 개발자</a></li>
     <li><a href="#license"> ➤ 라이센스</a></li>
@@ -306,6 +307,16 @@
 <p align="center">
 
 ![관리자페이지-커뮤니티신고](/uploads/cd149aede0481cfa6aad2152847f26c5/관리자페이지-커뮤니티신고.mp4)
+
+</p>
+
+<h2 id="pwa"> :small_orange_diamond: PWA (Progressive Web App)</h2>
+
+<p>PWA는 웹과 네이티브 앱의 기능 모두의 이점을 갖도록 수 많은 특정 기술과 표준 패턴을 사용해 개발된 웹 앱입니다.</p>
+
+<p align="center">
+
+![PWA](/uploads/d241a6c477de66105c902df0664e46a0/PWA.mp4)
 
 </p>
 
