@@ -1,23 +1,26 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "plugins": ["react", "prettier"],
   "env": {
     "browser": true,
-    "es6": true,
-    "node": true
+    "es2021": true
   },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react"],
   "rules": {
     "semi": ["error", "always"],
-    // "quotes": ["error", "single"],
+    "quotes": ["error", "single"],
     "no-console": "off",
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }
