@@ -1,5 +1,5 @@
 <p align="center"> 
-  <img src="/uploads/1fe878c1b2a77124892862546dd17180/pwa_icon.png" width="80px" height="80px">
+  <img src="https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/53d41c25-10ae-4148-9dc5-52fd3d32912c" width="80px" height="80px">
 </p>
 
 <h1 align="center"> DOCTOR </h1>
@@ -125,7 +125,8 @@
 
 <p align="center">
 
-![로그인](/uploads/97baac47da6035573ff433ed290682dd/로그인.mp4)
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/caa1b1bd-efbd-453b-b20e-0254105fcc34
 
 <!--gif/DFS.gif-->
 <!--height="382px" width="737px"-->
@@ -139,7 +140,7 @@
 
 <p align="center">
 
-![회원가입](/uploads/e7d36b8fa3f970b7ac36ab23890d64a7/회원가입.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/14568a22-03fd-482b-9050-d7f87755b51c
 
 </p>
 
@@ -151,7 +152,10 @@
 
 <p align="center">
 
-![메인페이지](/uploads/b03a2f0d9f46cd013eca626aca2a5127/메인페이지.mp4)
+
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-784fc37ce24b
+
 
 </p>
 
