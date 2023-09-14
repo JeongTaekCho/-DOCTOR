@@ -60,7 +60,7 @@
 <!-- ABOUT THE PROJECT -->
 <h2 id="about-project"> :pencil: 워크플로우</h2>
 
-<img src="/uploads/5fbaf19c0e3fe6fa3d6d4b44a2ac61b5/work-flow.png" width="750px">
+<img src="https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/6ac83044-6e9a-4048-8a4d-d0d542bb6e93" width="750px">
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -167,7 +167,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![AI](/uploads/beef71b5553c1d4411507a095a22e53a/AI.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/08922958-c920-48fc-b35b-e7b7e74f41e6
 
 </p>
 
@@ -179,7 +179,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![동물병원찾기](/uploads/6b7e24d71821f4ead9225c457cf6ee2f/동물병원찾기.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/dad1645f-6e19-4a1c-8b3b-1b204ff0d5ec
 
 </p>
 
@@ -191,8 +191,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![실시간상담신청](/uploads/e3f795ef14c56d816e8be4bb1e285402/실시간상담신청.mp4)
-
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/eb1ab5d3-62b1-4338-8614-c4b2858b7171
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -203,12 +202,12 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![실시간채팅](/uploads/67a90b01f1dfd781ee59f9d3e7d5057c/실시간채팅.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/0e2ff388-d777-4236-9636-511e040d1c34
 
 </p>
 <p align="center">
 
-![상담만족도조사](/uploads/4e485779e85654963fe249d06d1ff479/상담만족도조사.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/80071945-c354-421f-9fe1-81c6a3bb5a48
 
 </p>
 
@@ -220,7 +219,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![커뮤니티조회](/uploads/2f38ce28c3cebdb2f0ed8da08c8a2f55/커뮤니티조회.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/f6630e57-3f34-4fd6-9acf-b0b2a4395069
 
 </p>
 
@@ -232,7 +231,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![커뮤니티등록](/uploads/a0f6504d247e3718e61a4b329ee02577/커뮤니티등록.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/9de69941-6a4c-475f-a033-bcf86d04e283
 
 </p>
 
@@ -244,7 +243,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![커뮤니티댓글](/uploads/64bcf6fb4f372bbc9982c3cd31a6f2c2/커뮤니티댓글.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/fc19e89d-6e6d-4f31-bfef-35d5b88a5c58
 
 </p>
 
@@ -256,7 +255,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![커뮤니티신고](/uploads/d5c7456d2de8534d1fe09544a30dcd5f/커뮤니티신고.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/b1f9a65f-c7d2-4e5a-975f-c8776befe8ca
 
 </p>
 
@@ -268,13 +267,16 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![마이페이지](/uploads/19788679e5b95aec355bafed5b07cf29/마이페이지.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/1cf0b349-bb53-45e9-baaa-7c6eeff964be
 
 </p>
 
 <p align="center">
 
-![수의사인증](/uploads/7ca61ceb2211aab3cd14f9c2a9fe8241/수의사인증.mp4)
+
+
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/1af8e65b-64a8-49ad-8a1a-c10c39c0ea90
+
 
 </p>
 
@@ -286,7 +288,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![관리자페이지-유저관리](/uploads/abc5973afa1f4b430aba407c512958e4/관리자페이지-유저관리.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/381293a5-6c9e-4d39-b8f5-52b2ac601673
 
 </p>
 
@@ -298,7 +300,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![관리자페이지-수의사인증](/uploads/402fbdf60279bd161bf66628baa7c0e9/관리자페이지-수의사인증.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/06d0a245-1948-49f6-a222-d87610139a43
 
 </p>
 
@@ -310,7 +312,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![관리자페이지-커뮤니티신고](/uploads/cd149aede0481cfa6aad2152847f26c5/관리자페이지-커뮤니티신고.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/1aaa4701-729e-468a-b0d4-e2de6141dc5f
 
 </p>
 
@@ -320,7 +322,7 @@ https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/2c279341-5bff-4d5a-8756-
 
 <p align="center">
 
-![PWA](/uploads/d241a6c477de66105c902df0664e46a0/PWA.mp4)
+https://github.com/JeongTaekCho/-DOCTOR/assets/92679073/e626db22-86be-4c9a-b1f6-87998885e5ff
 
 </p>
 
